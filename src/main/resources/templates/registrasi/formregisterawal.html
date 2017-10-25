@@ -112,7 +112,7 @@
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label>Program Studi Pilihan</label>
-                                            <select v-on:change="onChange" id="select1" name="program_studi" class="form-control">
+                                            <select v-on:change="onChange" id="select1" required name="program_studi" class="form-control">
                                                 <option value="">-Pilih Data-</option>
                                                 <option v-for="option in options" v-bind:value="option.value">
                                                     {{ option.text }}
@@ -157,11 +157,13 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script>
     var TypesArr = {
-        akuntansi: [{ text: 'akun1', value: 'akun1' },{ text: 'akun2', value: 'akun2' }],
-        managemen:  [{ text: 'mana1', value: 'mana1' }, { text: 'mana2', value: 'mana2' }],
-        ekonomi:  [{ text: 'ekonomi1', value: 'ekonomi1' }, { text: 'ekonomi2', value: 'ekonomi2' }],
-        muamalah:  [{ text: 'muamalah1', value: 'muamalah1' }, { text: 'muamalah2', value: 'muamalah2' }],
-        tadris:  [{ text: 'tadris1', value: 'tadris1' }, { text: 'tadris2', value: 'tadris2' }]
+        akuntansi: [{ text: 'Program Kerjasama Dengan CCIT UI', value: 'program_kerjasama' },
+                    { text: 'Sistem Informasi', value: 'sistem_informasi' },
+                    { text: 'Pengauditan', value: 'pengauditan' }],
+        managemen: [{ text: 'Keuangan Dan Perbankan Islam', value: 'keuangan_perbankan' },
+                    { text: 'Pemasaran & Kewriausahaan Islam', value: 'pemasaran_islam' }],
+        ekonomi:  [{ text: 'Ekonomi Pembangunan', value: 'ekonomi_pembangunan'},
+                   { text: 'Keuangan Dan Moneter Islma', value: 'keuangan_islam' }]
     }
 
 
@@ -169,7 +171,7 @@
         el: '#select2',
         data: {
             selected: TypesArr['akuntansi'][0],
-            options: TypesArr['akuntansi']
+            options: TypesArr['']
         },
         methods: {
             update: function (value)
@@ -183,7 +185,7 @@
     new Vue({
         el: '#select1',
         data: {
-            selected: '',
+            selected: 'akuntansi',
             options: [ { text: 'Akuntansi Syariah', value: 'akuntansi' },
                          { text: 'Managemen Bisnis Syariah', value: 'managemen' },
                          { text: 'Ekonomi Syariah', value: 'ekonomi' },
