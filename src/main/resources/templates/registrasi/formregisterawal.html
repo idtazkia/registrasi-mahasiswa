@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Form Pendaftaran Mahasiswa Baru</title>
+    <!-- Favicon-->
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="../../css/bootstrap.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+</head>
+
+<body>
+<br>
+<section class="clearfix">
+    <form method="post">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <!-- Identitas awal-->
+                    <div class="card">
+                        <div class="header">
+                            <h1>
+                                Identitas Register
+                            </h1>
+                        </div>
+
+                        <div class="body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label>Nama</label>
+                                            <input type="text" name="nama" class="form-control" placeholder="Nama" required autofocus/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label>No Hp</label>
+                                            <input type="number" name="no_hp" class="form-control" placeholder="No Telepon" required autofocus/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label>Email</label>
+                                            <input type="email" name="email" class="form-control" placeholder="Email" required autofocus/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label>Negara</label>
+                                            <input type="text" name="negara" class="form-control" placeholder="Negara" required autofocus/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label>Kota Asal Sekolah</label>
+                                            <input type="text" name="kota_asal_sekolah" class="form-control" placeholder="Kota Asal Sekolah" required autofocus/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label>Nama Asal Sekolah</label>
+                                            <input type="text" name="nama_asal_sekolah" class="form-control" placeholder="Nama Asal Sekolah" required autofocus/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label>Pemberi Rekomendasi</label>
+                                            <select name="pemberi_rekomendasi" class="form-control" id="" required autofocus>
+                                                <option value=""></option>
+                                                <option value="agen">Agen</option>
+                                                <option value="dosen">Dosen</option>
+                                                <option value="mahasiswa">Mahasiswa</option>
+                                                <option value="medsos">Media Sosial</option>
+                                                <option value="surat_kabar">Surat Kabar</option>
+                                                <option value="staff">Staff</option>
+                                                <option value="website">Website</option>
+                                                <option value="lainnya">lainnya</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label>Nama Perekomendasi</label>
+                                            <input type="text" name="nama_perekomendasi" class="form-control" placeholder="Nama Perekomendasi"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label>Program Studi Pilihan</label>
+                                            <select v-on:change="onChange" id="select1" required name="program_studi" class="form-control">
+                                                <option value="">-Pilih Data-</option>
+                                                <option v-for="option in options" v-bind:value="option.value">
+                                                    {{ option.text }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label>Konsentrasi</label>
+                                            <select id="select2" name="konsentrasi" class="form-control">
+                                                <option value="">-Pilih Data-</option>
+                                                <option v-for="option in options" v-bind:value="option.value">
+                                                    {{ option.text }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Simpan Data -->
+                                <div class="col-sm-12" align="right" >
+                                    <div class="form-group">
+                                        <div class="col-xs-12" >
+                                            <button class="btn btn-lg bg-blue-grey waves-effect" type="submit">DAFTAR</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+</body>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script>
+    var TypesArr = {
+        akuntansi: [{ text: 'Program Kerjasama Dengan CCIT UI', value: 'program_kerjasama' },
+                    { text: 'Sistem Informasi', value: 'sistem_informasi' },
+                    { text: 'Pengauditan', value: 'pengauditan' }],
+        managemen: [{ text: 'Keuangan Dan Perbankan Islam', value: 'keuangan_perbankan' },
+                    { text: 'Pemasaran & Kewriausahaan Islam', value: 'pemasaran_islam' }],
+        ekonomi:  [{ text: 'Ekonomi Pembangunan', value: 'ekonomi_pembangunan'},
+                   { text: 'Keuangan Dan Moneter Islma', value: 'keuangan_islam' }]
+    }
+
+
+    var selectTwo = new Vue({
+        el: '#select2',
+        data: {
+            selected: TypesArr['akuntansi'][0],
+            options: TypesArr['']
+        },
+        methods: {
+            update: function (value)
+            {
+                this.options = TypesArr[value]
+            }
+        }
+    })
+
+
+    new Vue({
+        el: '#select1',
+        data: {
+            selected: 'akuntansi',
+            options: [ { text: 'Akuntansi Syariah', value: 'akuntansi' },
+                         { text: 'Managemen Bisnis Syariah', value: 'managemen' },
+                         { text: 'Ekonomi Syariah', value: 'ekonomi' },
+                         { text: 'Hukum Bisnis Syariah (Maumalah) ', value: 'muamalah' },
+                         { text: 'Pendidikan Ekonomi Islam (Tadris IPS)', value: 'tadris' }
+            ]
+        },
+        methods: {
+            onChange: function (event)
+            {
+                selectTwo.update(event.srcElement.value)
+            }
+        }
+    })
+</script>
+</html>
