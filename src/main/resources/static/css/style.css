@@ -7513,12 +7513,12 @@ fieldset[disabled] .form-control {
       margin-top: 5px;
       font-size: 13px; }
   .sidebar .user-info {
-    padding: 13px 15px 12px 15px;
+    padding: 19px 20px 19px 26px;
     white-space: nowrap;
     position: relative;
     border-bottom: 1px solid #e9e9e9;
-    background: url("../images/user-img-background.jpg") no-repeat no-repeat;
-    height: 135px; }
+    background: url("../images/logo.png") no-repeat no-repeat;
+    height: 250px; }
     .sidebar .user-info .image {
       margin-right: 12px;
       display: inline-block; }
