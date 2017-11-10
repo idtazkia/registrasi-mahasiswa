@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var urlProvinsi = "/api/provinsi";
     var urlSekolah ="/api/sekolah";
+    var urlKokabawal = "/api/kokabawal";
 
     var templateUrlKabupaten = "/api/provinsi/{provinsi}/kabupaten";
 
@@ -17,7 +18,7 @@ $(document).ready(function(){
     var inputSekolah = $("#sekolah");
     var inputProvinsi = $("#provinsi");
     var inputKabupatenKota = $("#kabupatenKota");
-    var inputKokab = $("#kokab");
+    var inputKokabawal = $("#kokabawal");
 
     var resetInput = function(inputField){
         inputField.val('');
@@ -65,11 +66,11 @@ $(document).ready(function(){
 
     });
 
-    inputKokab.typeahead({
+    inputKokabawal.typeahead({
         displayText: function(item){ return item.nama;},
         source: _.debounce(function(cari, process){
-            kokab = null;
-            $.get(urlKabupaten, {nama: cari}, function(hasil){
+            kokabawal = null;
+            $.get(urlKokabawal, {nama: cari}, function(hasil){
                 process(hasil);
             }, "json");
         }, 500),
