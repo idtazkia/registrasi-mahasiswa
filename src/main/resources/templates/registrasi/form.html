@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-    <title>Basic Form Elements | Bootstrap Based Admin Template - Material Design</title>
+    <title>Form Pendaftaran</title>
     <!-- Favicon-->
     <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
@@ -28,7 +28,7 @@
         <div class="navbar-header">
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="">STEI Tazkia</a>
+            <a class="navbar-brand" href="http://spmb.tazkia.ac.id/">STEI Tazkia</a>
         </div>
     </div>
 </nav>
@@ -133,7 +133,8 @@
                                                 <label>TTL</label>
                                                 <input type="text" name="ttl" th:field="*{ttl}"
                                                        class="form-control"
-                                                       placeholder="Tempat, Tanggal - Bulan -Tahun" required autofocus/>
+                                                       placeholder="Tempat, Tanggal - Bulan -Tahun"
+                                                       required autofocus/>
                                             </div>
                                         </div>
                                     </div>
@@ -153,9 +154,13 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Golongan Darah</label>
-                                                <input type="text" name="goldar" th:field="*{golongan_darah}"
-                                                       class="form-control"
-                                                       placeholder="Golongan Darah" required autofocus/>
+                                                <select type="text" name="goldar" th:field="*{golongan_darah}"class="form-control" required autofocus>
+                                                    <option value="">-Pilih Golongan Darah-</option>
+                                                    <option value="A">A</option>
+                                                    <option value="B">B</option>
+                                                    <option value="AB">AB</option>
+                                                    <option value="O">O</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -179,38 +184,33 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Provinsi</label>
-                                                <select name="provinsi" th:field="*{provinsi}" class="form-control" id="provinsi" required autofocus/>
-                                                    <option value=""></option>
-                                                    <option value="1">Jawa Barat</option>
-                                                    <option value="2">Jawa Tengah</option>
-                                                    <option value="3">Jawa Timur</option>
-                                                    <option value="4">Sulawesi Selatan</option>
-                                                    <option value="5">Kalimantan Barat</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!--kota provinsi-->
+                               <div id="app">
+                                   <div class="col-sm-4">
+                                       <div class="form-group">
+                                           <div class="form-line">
+                                                   <label for="provinsi">Provinsi</label>
+                                                   <input type="text" class="form-control" th:field="*{provinsi}"
+                                                          id="provinsi" placeholder="Cari Provinsi ..."
+                                                          data-provide="typeahead" autocomplete="off" required autofocus>
+                                           </div>
+                                       </div>
+                                   </div>
 
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Kab./Kota</label>
-                                                <select name="kokab" th:field="*{kokab}" class="form-control" id="kokab" required autofocus/>
-                                                    <option value=""></option>
-                                                    <option value="1">Kab. Bogor</option>
-                                                    <option value="2">Kab. Cianjur</option>
-                                                    <option value="3">kota Bogor</option>
-                                                    <option value="4">Semarang</option>
-                                                    <option value="5">Jogyakarta</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
+                                   <div class="col-sm-4">
+                                       <div class="form-group">
+                                           <div class="form-line">
+                                                   <label for="kabupatenKota">Kabupaten/Kota</label>
+                                                   <input type="text" class="form-control" th:field="*{kokab}"
+                                                          id="kabupatenKota" placeholder="Cari Kabupaten/Kota ..."
+                                                          data-provide="typeahead"
+                                                          autocomplete="off" required autofocus>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                                    <!--/////-->
+                                    <div class="col-sm-2">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Kode Pos</label>
@@ -226,30 +226,17 @@
                                                 <label>No Hp</label>
                                                 <input type="number" name="nohp" th:field="*{no_hp}"
                                                        class="form-control"
-                                                       placeholder="No Handphone" required autofocus/>                                       </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Email</label>
-                                                <input type="email" name="email" th:field="*{email}"
-                                                       class="form-control"
-                                                       placeholder="Email" required autofocus/>                                       </div>
+                                                       placeholder="No Handphone" required autofocus/>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label>Kota/Kab. Sekolah</label>
-                                                <select name="kokab_sekolah" th:field="*{kokab_sekolah}" class="form-control" id="kokab_sekolah" required autofocus/>
-                                                    <option value=""></option>
-                                                    <option value="1">Kab. Bogor</option>
-                                                    <option value="2">Kab. Cianjur</option>
-                                                    <option value="3">kota Bogor</option>
-                                                    <option value="4">Semarang</option>
-                                                    <option value="5">Jogyakarta</option>
-                                                </select>
+                                                <label>Email</label>
+                                                <input type="email" name="email" th:field="*{email}"
+                                                       class="form-control"
+                                                       placeholder="Email" required autofocus/>
                                             </div>
                                         </div>
                                     </div>
@@ -257,14 +244,9 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Asal Sekolah</label>
-                                                <select name="asal_sekolah" th:field="*{asal_sekolah}" class="form-control" id="asal_sekolah" required autofocus>
-                                                    <option value=""></option>
-                                                    <option value="1">SMAN 01 Ciawi</option>
-                                                    <option value="2">SMAN 7 Bogor</option>
-                                                    <option value="3">SMK Wiladatika</option>
-                                                    <option value="4">SMK Islam</option>
-                                                    <option value="5">SMK Cibinong</option>
-                                                </select>
+                                                <input type="text" class="form-control" th:field="*{asal_sekolah}"
+                                                       id="sekolah" placeholder="Cari Sekolah ..."
+                                                       data-provide="typeahead" autocomplete="off" required autofocus>
                                             </div>
                                         </div>
                                     </div>
@@ -288,18 +270,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Tahun Lulus Sekolah</label>
                                                 <input type="number" name="tahun_lulus" th:field="*{tahun_lulus_sekolah}"
                                                        class="form-control"
-                                                       placeholder="Tahun Lulus Sekolah"/>
+                                                       placeholder="Tahun Lulus Sekolah" required autofocus />
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Pekerjaan Pribadi</label>
@@ -323,7 +305,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Status Sipil</label><br>
-                                                <select name="jeniskelamin" th:field="*{status_sipil}" class="form-control" id="jk">
+                                                <select name="statusSipil" th:field="*{status_sipil}" class="form-control" required autofocus>
                                                     <option value="">-Pilih Status Sipil-</option>
                                                     <option value="wni">WNI (Warga Negara Indonesia)</option>
                                                     <option value="wna">WNA (Warga Negara Asing)</option>
@@ -384,7 +366,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Pendidikan Ayah</label>
-                                                <select name="pendidikan_ayah" th:field="*{pendidikan_ayah}" class="form-control" >
+                                                <select name="pendidikan_ayah" th:field="*{pendidikan_ayah}" class="form-control" required autofocus>
                                                     <option value=""></option>
                                                     <option value="sd">SD</option>
                                                     <option value="smp">SMP</option>
@@ -431,7 +413,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Pendidikan Ibu</label>
-                                                <select name="pendidikan_ibu" th:field="*{pendidikan_ibu}" class="form-control" >
+                                                <select name="pendidikan_ibu" th:field="*{pendidikan_ibu}" class="form-control" required autofocus >
                                                     <option value=""></option>
                                                     <option value="sd">SD</option>
                                                     <option value="smp">SMP</option>
@@ -468,9 +450,10 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Kab./Kota Orangtua</label>
-                                                <input type="text" name="kokab_orangtua" th:field="*{kokab_orangtua}"
-                                                       class="form-control"
-                                                       placeholder="Kota/Kab. Orangtua" required autofocus/>
+                                                <input type="text" class="form-control" th:field="*{kokab_orangtua}"
+                                                       id="kokab" placeholder="Cari Kabupaten/Kota ..."
+                                                       data-provide="typeahead"
+                                                       autocomplete="off" required autofocus>
                                             </div>
                                         </div>
                                     </div>
@@ -526,9 +509,11 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <a href="#previous"><input type="button" name="previous"
-                                                                       class="btn btn-lg bg-light-blue waves-effect"
-                                                                       value="Previous"></a>
+                                            <a href="#previous">
+                                                <input type="button" name="previous"
+                                                       class="btn btn-lg bg-light-blue waves-effect"
+                                                       value="Previous">
+                                            </a>
                                         </div>
                                     </div>
                                     <!-- Simpan Data -->
@@ -573,32 +558,18 @@
         src="http://cdn.jsdelivr.net/select2/3.4.1/select2.min.js"></script>
 <link rel="stylesheet" type="text/css"
       href="http://cdn.jsdelivr.net/select2/3.4.1/select2.css">
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
 </body>
 
-<!--auto asal sekolah-->
-<script type='text/javascript'>
-    $(window).load(function(){<!-- w  ww.j a  v a 2 s.  c  o  m-->
-        $('#asal_sekolah').select2();
-    });
-</script>
-<!--auto kokab sekolah-->
-<script type='text/javascript'>
-    $(window).load(function(){<!-- w  ww.j a  v a 2 s.  c  o  m-->
-        $('#kokab_sekolah').select2();
-    });
-</script>
-<!--auto kokab-->
-<script type='text/javascript'>
-    $(window).load(function(){<!-- w  ww.j a  v a 2 s.  c  o  m-->
-        $('#kokab').select2();
-    });
-</script>
-<!--auto kokab sekolah-->
-<script type='text/javascript'>
-    $(window).load(function(){<!-- w  ww.j a  v a 2 s.  c  o  m-->
-        $('#provinsi').select2();
-    });
-</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>-->
+<script src="https://cdn.rawgit.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.js"></script>
+<script th:src="@{/js/aplikasi.js}"></script>
 
 
 

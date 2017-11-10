@@ -80,11 +80,6 @@ public class RegistrasiAkhir {
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String kokab_sekolah;
-
-    @Column(nullable = false)
-    @NotNull
-    @NotEmpty
     private String asal_sekolah;
 
     @Column(nullable = false)
@@ -101,13 +96,9 @@ public class RegistrasiAkhir {
     private String tahun_lulus_sekolah;
 
     @Column(nullable = false)
-    @NotNull
-    @NotEmpty
     private String pekerjaan_pribadi;
 
     @Column(nullable = false)
-    @NotNull
-    @NotEmpty
     private String penghasilan_pribadi;
 
     @Column(nullable = false)
@@ -285,13 +276,6 @@ public class RegistrasiAkhir {
         this.email = email;
     }
 
-    public String getKokab_sekolah() {
-        return kokab_sekolah;
-    }
-
-    public void setKokab_sekolah(String kokab_sekolah) {
-        this.kokab_sekolah = kokab_sekolah;
-    }
 
     public String getAsal_sekolah() {
         return asal_sekolah;
