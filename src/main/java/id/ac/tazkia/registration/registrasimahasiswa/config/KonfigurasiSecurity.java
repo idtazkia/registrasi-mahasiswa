@@ -50,9 +50,13 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers("/registrasi/pendaftar")
+                .antMatchers("/api/kokabawal*")
+                .antMatchers("/api/sekolah*")
                 .antMatchers("/info")
                 .antMatchers("/js/*")
                 .antMatchers("/img/*")
+                .antMatchers("/images/*")
+                .antMatchers("/")
                 .antMatchers("/css/*");
     }
 
