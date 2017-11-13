@@ -3,6 +3,7 @@ package id.ac.tazkia.registration.registrasimahasiswa.controller;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.RegistrasiAwalDao;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.RegistrasiAwal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,12 +18,13 @@ public class RegistrasiAwalController {
     @Autowired
     private RegistrasiAwalDao ra;
 
-
+//    @PreAuthorize("hasAuthority('VIEW_PENDAFTARAN')")
     @RequestMapping(value = "/registrasi/pendaftar", method = RequestMethod.GET)
     public void tampilkanForm(Model model){
         model.addAttribute("registrasi", new RegistrasiAwal());
     }
 
+//    @PreAuthorize("hasAuthority('EDIT_PENDAFTARAN')")
     @RequestMapping(value = "/registrasi/pendaftar", method = RequestMethod.POST)
     public String prosesForm(@Valid RegistrasiAwal p, BindingResult errors){
         if(errors.hasErrors()){
