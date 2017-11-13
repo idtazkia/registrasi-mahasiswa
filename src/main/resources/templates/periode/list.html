@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Periode</title>
+</head>
+<body>
+<section layout:fragment="content" class="clearfix">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="header">
+                                <h3>
+                                    Data Periode
+                                </h3>
+                            </div>
+                            <!--Table-->
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                        <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Periode</th>
+                                            <th>Tanggal Mulai</th>
+                                            <th>Tanggal Selesai</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="p : ${daftarPeriode}">
+                                            <td>#</td>
+                                            <td th:text="${p. nama}">muamalah</td>
+                                            <td th:text="${p. tanggal_mulai}">10-08-2017</td>
+                                            <td th:text="${p. tanggal_selesai}">10-10-2017</td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--//table//-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Input Sekolah</title>
+</head>
+<body>
+<section layout:fragment="content" class="clearfix">
+    <section class="clearfix">
+        <form th:action="@{/sekolah/form}" th:object="${sekolah}" method="post">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <!-- Identitas awal-->
+                        <div class="card">
+                            <div class="header">
+                                <h1>
+                                    Input Daftar Sekolah Baru
+                                </h1>
+                            </div>
+
+                            <div class="body">
+                                <div class="row">
+                                   <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Nama</label>
+                                                <input type="text" name="nama" th:field="*{nama}"
+                                                       class="form-control"
+                                                       placeholder="Nama" required autofocus/>
+                                            </div>
+                                        </div>
+                                   </div>
+                                   <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>NSPN Sekolah</label>
+                                                <input type="text" name="nspn" th:field="*{nspn}"
+                                                       class="form-control"
+                                                       placeholder="Nspn" required autofocus/>
+                                            </div>
+                                        </div>
+                                   </div>
+                                   <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Alamat</label>
+                                                <input type="text" name="alamat" th:field="*{alamat}"
+                                                       class="form-control"
+                                                       placeholder="Alamat" required autofocus/>
+                                            </div>
+                                        </div>
+                                   </div>
+                                   <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>No Telephone</label>
+                                                <input type="" name="kontak" th:field="*{kontak}"
+                                                       class="form-control"
+                                                       placeholder="No Telephone" required autofocus/>
+                                            </div>
+                                        </div>
+                                   </div>
+
+
+                                    <!-- Simpan Data -->
+                                    <div class="col-sm-12" align="right" >
+                                        <div class="form-group">
+                                            <div class="col-xs-12" >
+                                                <button class="btn btn-lg bg-blue-grey waves-effect" type="submit">SELESAI</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+</section>
+
+</body>
+</html>

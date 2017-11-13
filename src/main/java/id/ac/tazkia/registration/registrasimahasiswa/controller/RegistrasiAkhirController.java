@@ -15,39 +15,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/registrasi")
+@RequestMapping("/")
 public class RegistrasiAkhirController {
 
     @Autowired
     private RegistrasiAkhirDao ra;
 
-    @RequestMapping(value = "/form", method = RequestMethod.GET)
-    public String tampilkanForm(@RequestParam(value = "id", required = false) String id,
-                                Model m){
-        //defaultnya, isi dengan object baru
-        m.addAttribute("registrasi", new RegistrasiAkhir());
-
-        if (id != null && !id.isEmpty()){
-            RegistrasiAkhir p= ra.findOne(id);
-            if (p != null){
-                m.addAttribute("registrasi", p);
-            }
-        }
-        return "/registrasi/form";
+    @RequestMapping(value = "/registrasi/form", method = RequestMethod.GET)
+    public void tampilkanForm(Model model){
+        model.addAttribute("registrasi", new RegistrasiAkhir());
     }
 
-    @RequestMapping(value = "/form", method = RequestMethod.POST)
+    @RequestMapping(value = "/registrasi/form", method = RequestMethod.POST)
     public String prosesForm(@Valid RegistrasiAkhir p, BindingResult errors){
         if(errors.hasErrors()){
             return "/registrasi/form";
         }
         ra.save(p);
-        return "redirect:form";
+        return "redirect:/selesai";
 
     }
 
-
-    @GetMapping("/home")
-    public void home(){}
 
 }

@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-    <title>Basic Form Elements | Bootstrap Based Admin Template - Material Design</title>
+    <title>Form Pendaftaran</title>
     <!-- Favicon-->
-    <link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?f amily=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet" />
 
     <!-- Custom Css -->
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="css/themes/all-themes.css" rel="stylesheet" />
+    <link href="../css/themes/all-themes.css" rel="stylesheet" />
 </head>
 
 <body class="theme-blue">
@@ -28,7 +28,7 @@
         <div class="navbar-header">
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="">STEI Tazkia</a>
+            <a class="navbar-brand" href="http://spmb.tazkia.ac.id/">PMB - STEI Tazkia</a>
         </div>
     </div>
 </nav>
@@ -38,6 +38,9 @@
     <aside id="leftsidebar" class="sidebar">
         <!-- User Info -->
         <div class="user-info" >
+            <div class="image">
+                <img src="../images/logo.png" width="100%" height="100%" style="margin-top:-15px;" align="center" alt="User" />
+            </div>
         </div>
         <!-- #User Info -->
         <!-- Menu -->
@@ -61,25 +64,25 @@
                 <li>
                     <a href="javascript:void(0);">
                         <i class="material-icons">phone</i>
-                        <span>TEL: +62 (631) 551-3678</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">phone</i>
-                        <span>FAX: +62 (631) 551-3688</span>
+                        <span>TEL: 021-87962293</span>
                     </a>
                 </li>
                 <li>
                     <a href="javascript:void(0);">
                         <i class="material-icons">chat</i>
-                        <span>ANWAR: +62895-3201-02086</span>
+                        <span>ANWAR: 0895320102086</span>
                     </a>
                 </li>
                 <li>
                     <a href="javascript:void(0);">
                         <i class="material-icons">chat</i>
-                        <span>SADAM: +6285-6858-8259</span>
+                        <span>SADAM: 085211464969</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="material-icons">chat</i>
+                        <span>IRMA: 08159551299</span>
                     </a>
                 </li>
                 </li>
@@ -98,26 +101,59 @@
     <!-- #END# Left Sidebar -->
 </section>
 
+<section class="content">
+    <section class="clearfix">
+        <form>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <!-- Identitas awal-->
+                        <div class="card">
+                            <div class="header" >
+                                <center>
+                                <h1>
+                                    Registrasi Berhasil
+                                </h1>
+                                    <h4>Terima Kasih</h4>
+                                    <h3>Silahkan Cek Email Anda</h3>
+                                </center>
+                                <br><br>
+                                <h5>
+                                    <label style="font-size: 12px; color: #ff0000;">
+                                        *Jika tidak menerima email silahkan hubungi kontak kami!!!
+                                    </label>
+                                </h5>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
 
 </section>
-
+<script src="../js/Aplikasi.js"></script>
 <!-- Jquery Core Js -->
-<script src="js/jquery.min.js"></script>
+<script src="../js/jquery.min.js"></script>
 
 <!-- Bootstrap Core Js -->
-<script src="js/bootstrap.js"></script>
+<script src="../js/bootstrap.js"></script>
 
 <!-- Slimscroll Plugin Js -->
-<script src="js/jquery.slimscroll.js"></script>
+<script src="../js/jquery.slimscroll.js"></script>
 
 <!-- Waves Effect Plugin Js -->
-<script src="js/waves.js"></script>
+<script src="../js/waves.js"></script>
 
 <!-- Custom Js -->
-<script src="js/admin.js"></script>
+<script src="../js/admin.js"></script>
 
 <!-- Demo Js -->
-<script src="js/demo.js"></script>
+<script src="../js/demo.js"></script>
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+
 </body>
 </html>

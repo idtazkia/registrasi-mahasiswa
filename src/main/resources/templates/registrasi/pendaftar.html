@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-    <title>Form Registrasi</title>
+    <title>Form Pendaftaran</title>
     <!-- Favicon-->
-    <link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?f amily=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../css/bootstrap.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet" />
 
     <!-- Custom Css -->
@@ -28,7 +28,7 @@
         <div class="navbar-header">
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="">STEI Tazkia</a>
+            <a class="navbar-brand" href="http://spmb.tazkia.ac.id/">PMB - STEI Tazkia</a>
         </div>
     </div>
 </nav>
@@ -103,7 +103,7 @@
 
 <section class="content">
     <section class="clearfix">
-        <form th:action="@{/registrasi/formregistrasiawal}" th:object="${registrasi}" method="post">
+        <form th:action="@{/registrasi/pendaftar}" th:object="${registrasi}" method="post">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -124,21 +124,20 @@
                                                 <input type="text" name="nama" th:field="*{nama}"
                                                        class="form-control"
                                                        placeholder="Nama" required autofocus/>
-                                                <td th:if="${#fields.hasErrors('nama')}" th:errors="*{nama}"></td>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>No Hp</label>
                                                 <input type="number" name="no_hp" th:field="*{no_hp}"
                                                        class="form-control"
-                                                       placeholder="No Telepon" autofocus/>
+                                                       placeholder="No Telepon" required autofocus/>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Email</label>
@@ -153,13 +152,19 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Negara</label>
-                                                 <select name="negara" class="form-control" th:field="*{negara}">
-                                                     <option value="">-Pilih Negara-</option>
-                                                     <option value="indonesia">Indonesia</option>
-                                                     <option value="malaysia">Malaysia</option>
-                                                     <option value="thailand">Thailand</option>
-                                                     <option value="Mesir">Mesir</option>
-                                                 </select>
+                                                 <input type="text" name="negara" required autofocus
+                                                        class="form-control" th:field="*{negara}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Provinsi Sekolah</label>
+                                                <input type="text" class="form-control"
+                                                       id="provinsi" placeholder="Cari Provinsi ..."
+                                                       data-provide="typeahead" autocomplete="off" required autofocus>
+
                                             </div>
                                         </div>
                                     </div>
@@ -167,14 +172,10 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Kota Asal Sekolah</label>
-                                                <select name="kokab_sekolah" th:field="*{kota_asal_sekolah}" class="form-control" id="kokab_sekolah" required autofocus>
-                                                    <option value=""></option>
-                                                    <option value="1">Kab. Bogor</option>
-                                                    <option value="2">Kab. Cianjur</option>
-                                                    <option value="3">kota Bogor</option>
-                                                    <option value="4">Semarang</option>
-                                                    <option value="5">Jogyakarta</option>
-                                                </select>
+                                                <input type="text" class="form-control" th:field="*{kota_asal_sekolah}"
+                                                       id="kabupatenKota" placeholder="Cari Kabupaten/Kota ..."
+                                                       data-provide="typeahead"
+                                                       autocomplete="off" required autofocus>
                                             </div>
                                         </div>
                                     </div>
@@ -182,14 +183,9 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Nama Asal Sekolah</label>
-                                                <select name="asal_sekolah" th:field="*{nama_asal_sekolah}" class="form-control" id="asal_sekolah" required autofocus>
-                                                <option value=""></option>
-                                                <option value="1">SMAN 01 Ciawi</option>
-                                                <option value="2">SMAN 7 Bogor</option>
-                                                <option value="3">SMK Wiladatika</option>
-                                                <option value="4">SMK Islam</option>
-                                                <option value="5">SMK Cibinong</option>
-                                            </select>
+                                                <input type="text" class="form-control" th:field="*{nama_asal_sekolah}"
+                                                       id="sekolah" placeholder="Cari Sekolah ..."
+                                                       data-provide="typeahead" autocomplete="off" required autofocus>
                                             </div>
                                         </div>
                                     </div>
@@ -268,7 +264,7 @@
     </section>
 
 </section>
-
+<script src="../js/Aplikasi.js"></script>
 <!-- Jquery Core Js -->
 <script src="../js/jquery.min.js"></script>
 
@@ -289,10 +285,6 @@
 
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
-<script type='text/javascript'
-        src="http://cdn.jsdelivr.net/select2/3.4.1/select2.min.js"></script>
-<link rel="stylesheet" type="text/css"
-      href="http://cdn.jsdelivr.net/select2/3.4.1/select2.css">
 
 </body>
 
@@ -343,22 +335,9 @@
         }
     })
 </script>
-<!--auto pemeberi rekomendasi-->
-<script type='text/javascript'>
-    $(window).load(function(){<!-- w  ww.j a  v a 2 s.  c  o  m-->
-        $('#pemberi_rekomendasi').select2();
-    });
-</script>
-<!--auto kokab sekolah-->
-<script type='text/javascript'>
-    $(window).load(function(){<!-- w  ww.j a  v a 2 s.  c  o  m-->
-        $('#kokab_sekolah').select2();
-    });
-</script>
-<!--auto asal sekolah-->
-<script type='text/javascript'>
-    $(window).load(function(){<!-- w  ww.j a  v a 2 s.  c  o  m-->
-        $('#asal_sekolah').select2();
-    });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>-->
+<script src="https://cdn.rawgit.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.js"></script>
+<script th:src="@{/js/aplikasi.js}"></script>
 </html>
