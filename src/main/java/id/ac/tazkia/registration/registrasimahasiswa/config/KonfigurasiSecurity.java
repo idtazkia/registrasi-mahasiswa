@@ -49,7 +49,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/api/callback/bni/payment")
+                .antMatchers("/registrasi/pendaftar")
                 .antMatchers("/info")
                 .antMatchers("/js/*")
                 .antMatchers("/img/*")

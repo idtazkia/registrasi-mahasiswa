@@ -7,21 +7,6 @@ CREATE TABLE sekolah (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE registrasi_awal (
-  id                      VARCHAR (36),
-  nama                    VARCHAR (255) NOT NULL,
-  no_hp                   VARCHAR (13)  NOT NULL,
-  email                   VARCHAR (255) NOT NULL,
-  negara                  VARCHAR (255) NOT NULL,
-  kota_asal_sekolah       VARCHAR (255) NOT NULL,
-  nama_asal_sekolah       VARCHAR (255) NOT NULL,
-  pemberi_rekomendasi     VARCHAR (255) NOT NULL,
-  nama_perekomendasi      VARCHAR (255),
-  program_studi_pilihan   VARCHAR (255) NOT NULL,
-  konsentrasi             VARCHAR (255),
-  PRIMARY KEY (id)
-
-);
 
 CREATE TABLE provinsi(
   id  VARCHAR (36),
@@ -75,12 +60,39 @@ CREATE TABLE nilai_biaya(
   nilai VARCHAR (255),
   PRIMARY KEY (id)
 );
+
+-- new
+CREATE TABLE running_number (
+id  VARCHAR (36),
+nama  VARCHAR(255) NOT NULL ,
+nomer_terakhir BIGINT NOT NULL,
+UNIQUE (nama)
+ );
+
+CREATE TABLE pendaftar (
+  id                      VARCHAR (36),
+  nomor_registrasi        VARCHAR (255) NOT NULL,
+  nama                    VARCHAR (255) NOT NULL,
+  no_hp                   VARCHAR (13)  NOT NULL,
+  email                   VARCHAR (255) NOT NULL,
+  negara                  VARCHAR (255) NOT NULL,
+  id_kabupaten_kota       VARCHAR (36)  NOT NULL,
+  nama_asal_sekolah       VARCHAR (255) NOT NULL,
+  pemberi_rekomendasi     VARCHAR (255) NOT NULL,
+  nama_perekomendasi      VARCHAR (255),
+  program_studi_pilihan   VARCHAR (255) NOT NULL,
+  konsentrasi             VARCHAR (255),
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_kabupaten_kota) REFERENCES kabupaten_kota(id)
+
+);
+
 -- zzzzzzzz
 
-
-CREATE TABLE registrasi_akhir (
+-- new
+CREATE TABLE detail_pendaftar (
   id                    VARCHAR (36),
-  nama                  VARCHAR (255) NOT NULL,
+  id_pendaftar          VARCHAR (36) NOT  NULL,
   ttl                   VARCHAR (255) NOT NULL,
   jenis_kelamin         VARCHAR (13) NOT NULL,
   golongan_darah        VARCHAR (36) NOT NULL,
@@ -114,6 +126,7 @@ CREATE TABLE registrasi_akhir (
   jumlah_tanggungan     VARCHAR (36) NOT NULL,
   rencana_biaya         VARCHAR (36) NOT NULL,
   PRIMARY KEY (id),
+  FOREIGN KEY (id_pendaftar) REFERENCES pendaftar (id),
   UNIQUE (no_ktp)
 
 );

@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface KabupatenKotaDao extends PagingAndSortingRepository<KabupatenKota, String> {
     List<KabupatenKota> findByProvinsiAndNamaContainingIgnoreCaseOrderByNama(Provinsi p, String nama);
+    List<KabupatenKota> findByNamaContainingIgnoreCaseOrderByNama(String nama);
 }

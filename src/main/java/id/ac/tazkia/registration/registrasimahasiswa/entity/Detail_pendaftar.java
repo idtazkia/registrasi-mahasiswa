@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class RegistrasiAkhir {
+public class Detail_pendaftar {
 
     @Id
     @GeneratedValue(generator = "uuid" )
@@ -20,10 +20,7 @@ public class RegistrasiAkhir {
     private String id;
 
     @Column(nullable = false)
-    @NotNull
-    @NotEmpty
-    @Size(min = 3, max = 150)
-    private String nama;
+    private String id_pendaftar;
 
     @Column(nullable = false)
     @NotNull
@@ -188,12 +185,12 @@ public class RegistrasiAkhir {
         this.id = id;
     }
 
-    public String getNama() {
-        return nama;
+    public String getId_pendaftar() {
+        return id_pendaftar;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setId_pendaftar(String id_pendaftar) {
+        this.id_pendaftar = id_pendaftar;
     }
 
     public String getTtl() {
