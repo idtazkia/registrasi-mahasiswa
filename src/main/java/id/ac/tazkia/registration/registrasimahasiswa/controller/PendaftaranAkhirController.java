@@ -17,8 +17,8 @@ public class PendaftaranAkhirController {
         m.addAttribute("daftarPendaftaranakhir", pd.findAll());
     }
 
-    @GetMapping("/selesai")
-    public void selesai(){
-
+    @RequestMapping("/selesai")
+    public  void  selesai(){
+        
     }
 }

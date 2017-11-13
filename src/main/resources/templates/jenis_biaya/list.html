@@ -21,22 +21,50 @@
                             </div>
                             <!--Table-->
                             <div class="body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                        <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Jenis Biaya</th>
-                                        </tr>
-                                        </thead>
+                                <form method="get">
+                                    Nama Grade : <br><input type="text" name="nama" th:value="${nama}">
+                                    <input type="submit" value="Cari" class="btn  bg-blue-grey waves-effect">
+                                </form>
+                                <br>
+                                Show <span sd:page-size-selector="javascript"></span> entries
+
+                                <hr>
+
+
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Jenis Biaya</th>
+                                                </tr>
+                                            </thead>
                                         <tbody>
-                                        <tr th:each="p : ${daftarBiaya}">
-                                            <td>#</td>
+                                        <tr th:each="p, row : ${daftarBiaya}">
+                                            <td th:text="${(row.index + 1) + (daftarBiaya.number * daftarBiaya.size)}">#</td>
                                             <td th:text="${p. nama}">muamalah</td>
 
                                         </tr>
                                         </tbody>
                                     </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div sd:pagination-summary="">info</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <nav class="pull-right">
+                                            <ul class="pagination" sd:pagination="full">
+                                                <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
                                 </div>
                             </div>
                             <!--//table//-->

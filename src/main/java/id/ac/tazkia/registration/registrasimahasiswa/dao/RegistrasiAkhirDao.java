@@ -1,7 +1,8 @@
 package id.ac.tazkia.registration.registrasimahasiswa.dao;
 
-import id.ac.tazkia.registration.registrasimahasiswa.entity.RegistrasiAkhir;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.Detail_pendaftar;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface RegistrasiAkhirDao extends PagingAndSortingRepository<RegistrasiAkhir, String> {
+public interface RegistrasiAkhirDao extends PagingAndSortingRepository<Detail_pendaftar, String> {
+
 }

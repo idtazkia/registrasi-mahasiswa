@@ -13,5 +13,14 @@ public class Registrasi {
     @Email
     private String email;
     @NotNull @NotEmpty
-    private String hp;
+    private String noHp;
+    private String pemberiRekomendasi;
+    private String namaPerekomendasi;
+    private String negara;
+    private String idKabupatenKota;
+    private String namaAsalSekolah;
+    private String programStudiPilihan;
+    private String konsentrasi;
+
+
 }

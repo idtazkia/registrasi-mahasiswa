@@ -19,6 +19,7 @@ $(document).ready(function(){
     var inputProvinsi = $("#provinsi");
     var inputKabupatenKota = $("#kabupatenKota");
     var inputKokabawal = $("#kokabawal");
+    var inputHiddenKokab = $("input[name=idKabupatenKota]");
 
     var resetInput = function(inputField){
         inputField.val('');
@@ -51,8 +52,7 @@ $(document).ready(function(){
             $.get(urlKabupaten, {nama: cari}, function(hasil){
                 process(hasil);
             }, "json");
-        }, 500),
-
+        }, 500)
     });
 
     inputSekolah.typeahead({
@@ -62,7 +62,7 @@ $(document).ready(function(){
             $.get(urlSekolah, {nama: cari}, function(hasil){
                 process(hasil.content);
             }, "json");
-        }, 500),
+        }, 500)
 
     });
 
@@ -74,7 +74,9 @@ $(document).ready(function(){
                 process(hasil);
             }, "json");
         }, 500),
-
+        afterSelect: function(pilihan) {
+            inputHiddenKokab.val(pilihan.id);
+        }
     });
 
 });

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
@@ -117,6 +117,11 @@
 
                             <div class="body">
                                 <div class="row">
+                                    <ul>
+                                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+                                    </ul>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <div class="form-line">
@@ -131,7 +136,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>No Hp</label>
-                                                <input type="number" name="no_hp" th:field="*{no_hp}"
+                                                <input type="number" name="no_hp" th:field="*{noHp}"
                                                        class="form-control"
                                                        placeholder="No Telepon" required autofocus/>
                                             </div>
@@ -161,7 +166,8 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Kota Asal Sekolah</label>
-                                                <input type="text" class="form-control" th:field="*{kota_asal_sekolah}"
+                                                <input type="text" hidden="" name="idKabupatenKota">
+                                                <input type="text" class="form-control" 
                                                        id="kokabawal" placeholder="Cari Kabupaten/Kota ..."
                                                        data-provide="typeahead"
                                                        autocomplete="off" required autofocus>
@@ -172,7 +178,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Nama Asal Sekolah</label>
-                                                <input type="text" class="form-control" th:field="*{nama_asal_sekolah}"
+                                                <input type="text" class="form-control" th:field="*{namaAsalSekolah}"
                                                        id="sekolah" placeholder="Cari Sekolah ..."
                                                        data-provide="typeahead" autocomplete="off" required autofocus>
                                             </div>
@@ -182,7 +188,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Pemberi Rekomendasi</label>
-                                                <select name="pemberi_rekomendasi" th:field="*{pemberi_rekomendasi}" class="form-control" id="pemberi_rekomendasi" required autofocus>
+                                                <select name="pemberi_rekomendasi" th:field="*{pemberiRekomendasi}" class="form-control" id="pemberi_rekomendasi" required autofocus>
                                                     <option value=""></option>
                                                     <option value="agen">Agen</option>
                                                     <option value="dosen">Dosen</option>
@@ -200,7 +206,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Nama Perekomendasi</label>
-                                                <input type="text" name="nama_perekomendasi"  th:field="*{nama_perekomendasi}"
+                                                <input type="text" name="nama_perekomendasi"  th:field="*{namaPerekomendasi}"
                                                        class="form-control"
                                                        placeholder="Nama Perekomendasi"/>
                                             </div>
@@ -210,7 +216,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Program Studi Pilihan</label>
-                                                <select v-on:change="onChange" id="select1" th:field="*{program_studi_pilihan}"
+                                                <select v-on:change="onChange" id="select1" th:field="*{programStudiPilihan}"
                                                         required name="program_studi" class="form-control" />
                                                     <option value="">-Pilih Data-</option>
                                                     <option v-for="option in options" v-bind:value="option.value">
