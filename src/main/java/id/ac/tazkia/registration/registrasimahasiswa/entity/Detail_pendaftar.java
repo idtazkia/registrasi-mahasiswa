@@ -1,5 +1,6 @@
 package id.ac.tazkia.registration.registrasimahasiswa.entity;
 
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -11,7 +12,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity
+@Entity @Data
 public class Detail_pendaftar {
 
     @Id
@@ -20,7 +21,7 @@ public class Detail_pendaftar {
     private String id;
 
     @Column(nullable = false)
-    private String id_pendaftar;
+    private String idPendaftar;
 
     @Column(nullable = false)
     @NotNull
@@ -30,23 +31,23 @@ public class Detail_pendaftar {
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String jenis_kelamin;
+    private String jenisKelamin;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
     @Size(max = 2)
-    private String golongan_darah;
+    private String golonganDarah;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String no_ktp;
+    private String noKtp;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String alamat_rumah;
+    private String alamatRumah;
 
     @Column(nullable = false)
     @NotNull
@@ -61,12 +62,12 @@ public class Detail_pendaftar {
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String kode_pos;
+    private String kodePos;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String no_hp;
+    private String noHp;
 
     @Column(nullable = false)
     @NotNull
@@ -77,12 +78,12 @@ public class Detail_pendaftar {
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String asal_sekolah;
+    private String asalSekolah;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String jurusan_sekolah;
+    private String jurusanSekolah;
 
     @Column(nullable = false)
     private String nisn;
@@ -90,363 +91,90 @@ public class Detail_pendaftar {
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String tahun_lulus_sekolah;
+    private String tahunLulusSekolah;
 
     @Column(nullable = false)
-    private String pekerjaan_pribadi;
+    private String pekerjaanPribadi;
 
     @Column(nullable = false)
-    private String penghasilan_pribadi;
-
-    @Column(nullable = false)
-    @NotNull
-    @NotEmpty
-    private String status_sipil;
+    private String penghasilanPribadi;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String nama_ayah;
+    private String statusSipil;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String agama_ayah;
+    private String namaAyah;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String pendidikan_ayah;
+    private String agamaAyah;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String pekerjaan_ayah;
+    private String pendidikanAyah;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String nama_ibu;
+    private String pekerjaanAyah;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String agama_ibu;
+    private String namaIbu;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String pendidikan_ibu;
+    private String agamaIbu;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String pekerjaan_ibu;
+    private String pendidikanIbu;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String alamat_orangtua;
+    private String pekerjaanIbu;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String kokab_orangtua;
+    private String alamatOrangtua;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String nohp_orangtua;
-
-    @Column(nullable = false)
-    private String email_orangtua;
+    private String kokabOrangtua;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String penghasilan_orangtua;
+    private String nohpOrangtua;
+
+    @Column(nullable = false)
+    private String emailOrangtua;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String jumlah_tanggungan;
+    private String penghasilanOrangtua;
 
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String rencana_biaya;
+    private String jumlahTanggungan;
 
-//getter and
-    public String getId() {
-        return id;
-    }
+    @Column(nullable = false)
+    @NotNull
+    @NotEmpty
+    private String rencanaBiaya;
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getId_pendaftar() {
-        return id_pendaftar;
-    }
-
-    public void setId_pendaftar(String id_pendaftar) {
-        this.id_pendaftar = id_pendaftar;
-    }
-
-    public String getTtl() {
-        return ttl;
-    }
-
-    public void setTtl(String ttl) {
-        this.ttl = ttl;
-    }
-
-    public String getJenis_kelamin() {
-        return jenis_kelamin;
-    }
-
-    public void setJenis_kelamin(String jenis_kelamin) {
-        this.jenis_kelamin = jenis_kelamin;
-    }
-
-    public String getGolongan_darah() {
-        return golongan_darah;
-    }
-
-    public void setGolongan_darah(String golongan_darah) {
-        this.golongan_darah = golongan_darah;
-    }
-
-    public String getNo_ktp() {
-        return no_ktp;
-    }
-
-    public void setNo_ktp(String no_ktp) {
-        this.no_ktp = no_ktp;
-    }
-
-    public String getAlamat_rumah() {
-        return alamat_rumah;
-    }
-
-    public void setAlamat_rumah(String alamat_rumah) {
-        this.alamat_rumah = alamat_rumah;
-    }
-
-    public String getProvinsi() {
-        return provinsi;
-    }
-
-    public void setProvinsi(String provinsi) {
-        this.provinsi = provinsi;
-    }
-
-    public String getKokab() {
-        return kokab;
-    }
-
-    public void setKokab(String kokab) {
-        this.kokab = kokab;
-    }
-
-    public String getKode_pos() {
-        return kode_pos;
-    }
-
-    public void setKode_pos(String kode_pos) {
-        this.kode_pos = kode_pos;
-    }
-
-    public String getNo_hp() {
-        return no_hp;
-    }
-
-    public void setNo_hp(String no_hp) {
-        this.no_hp = no_hp;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-    public String getAsal_sekolah() {
-        return asal_sekolah;
-    }
-
-    public void setAsal_sekolah(String asal_sekolah) {
-        this.asal_sekolah = asal_sekolah;
-    }
-
-    public String getJurusan_sekolah() {
-        return jurusan_sekolah;
-    }
-
-    public void setJurusan_sekolah(String jurusan_sekolah) {
-        this.jurusan_sekolah = jurusan_sekolah;
-    }
-
-    public String getNisn() {
-        return nisn;
-    }
-
-    public void setNisn(String nisn) {
-        this.nisn = nisn;
-    }
-
-    public String getTahun_lulus_sekolah() {
-        return tahun_lulus_sekolah;
-    }
-
-    public void setTahun_lulus_sekolah(String tahun_lulus_sekolah) {
-        this.tahun_lulus_sekolah = tahun_lulus_sekolah;
-    }
-
-    public String getPekerjaan_pribadi() {
-        return pekerjaan_pribadi;
-    }
-
-    public void setPekerjaan_pribadi(String pekerjaan_pribadi) {
-        this.pekerjaan_pribadi = pekerjaan_pribadi;
-    }
-
-    public String getPenghasilan_pribadi() {
-        return penghasilan_pribadi;
-    }
-
-    public void setPenghasilan_pribadi(String penghasilan_pribadi) {
-        this.penghasilan_pribadi = penghasilan_pribadi;
-    }
-
-    public String getStatus_sipil() {
-        return status_sipil;
-    }
-
-    public void setStatus_sipil(String status_sipil) {
-        this.status_sipil = status_sipil;
-    }
-
-    public String getNama_ayah() {
-        return nama_ayah;
-    }
-
-    public void setNama_ayah(String nama_ayah) {
-        this.nama_ayah = nama_ayah;
-    }
-
-    public String getAgama_ayah() {
-        return agama_ayah;
-    }
-
-    public void setAgama_ayah(String agama_ayah) {
-        this.agama_ayah = agama_ayah;
-    }
-
-    public String getPendidikan_ayah() {
-        return pendidikan_ayah;
-    }
-
-    public void setPendidikan_ayah(String pendidikan_ayah) {
-        this.pendidikan_ayah = pendidikan_ayah;
-    }
-
-    public String getPekerjaan_ayah() {
-        return pekerjaan_ayah;
-    }
-
-    public void setPekerjaan_ayah(String pekerjaan_ayah) {
-        this.pekerjaan_ayah = pekerjaan_ayah;
-    }
-
-    public String getNama_ibu() {
-        return nama_ibu;
-    }
-
-    public void setNama_ibu(String nama_ibu) {
-        this.nama_ibu = nama_ibu;
-    }
-
-    public String getAgama_ibu() {
-        return agama_ibu;
-    }
-
-    public void setAgama_ibu(String agama_ibu) {
-        this.agama_ibu = agama_ibu;
-    }
-
-    public String getPendidikan_ibu() {
-        return pendidikan_ibu;
-    }
-
-    public void setPendidikan_ibu(String pendidikan_ibu) {
-        this.pendidikan_ibu = pendidikan_ibu;
-    }
-
-    public String getPekerjaan_ibu() {
-        return pekerjaan_ibu;
-    }
-
-    public void setPekerjaan_ibu(String pekerjaan_ibu) {
-        this.pekerjaan_ibu = pekerjaan_ibu;
-    }
-
-    public String getAlamat_orangtua() {
-        return alamat_orangtua;
-    }
-
-    public void setAlamat_orangtua(String alamat_orangtua) {
-        this.alamat_orangtua = alamat_orangtua;
-    }
-
-    public String getKokab_orangtua() {
-        return kokab_orangtua;
-    }
-
-    public void setKokab_orangtua(String kokab_orangtua) {
-        this.kokab_orangtua = kokab_orangtua;
-    }
-
-    public String getNohp_orangtua() {
-        return nohp_orangtua;
-    }
-
-    public void setNohp_orangtua(String nohp_orangtua) {
-        this.nohp_orangtua = nohp_orangtua;
-    }
-
-    public String getEmail_orangtua() {
-        return email_orangtua;
-    }
-
-    public void setEmail_orangtua(String email_orangtua) {
-        this.email_orangtua = email_orangtua;
-    }
-
-    public String getPenghasilan_orangtua() {
-        return penghasilan_orangtua;
-    }
-
-    public void setPenghasilan_orangtua(String penghasilan_orangtua) {
-        this.penghasilan_orangtua = penghasilan_orangtua;
-    }
-
-    public String getJumlah_tanggungan() {
-        return jumlah_tanggungan;
-    }
-
-    public void setJumlah_tanggungan(String jumlah_tanggungan) {
-        this.jumlah_tanggungan = jumlah_tanggungan;
-    }
-
-    public String getRencana_biaya() {
-        return rencana_biaya;
-    }
-
-    public void setRencana_biaya(String rencana_biaya) {
-        this.rencana_biaya = rencana_biaya;
-    }
 }

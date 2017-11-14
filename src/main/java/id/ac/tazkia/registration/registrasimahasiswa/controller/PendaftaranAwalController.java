@@ -20,7 +20,7 @@ public class PendaftaranAwalController {
             m.addAttribute("nama", nama);
             m.addAttribute("daftarPendaftaran", pd.findByNamaContainingIgnoreCaseOrderByNama(nama, page));
         } else {
-            m.addAttribute("daftarPendaftran", pd.findAll(page));
+            m.addAttribute("daftarPendaftaran", pd.findAll(page));
         }
     }
 }

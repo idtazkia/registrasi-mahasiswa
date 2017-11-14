@@ -23,4 +23,5 @@ public class GradeController {
             m.addAttribute("daftarGrade", go.findAll(page));
         }
     }
+
 }
