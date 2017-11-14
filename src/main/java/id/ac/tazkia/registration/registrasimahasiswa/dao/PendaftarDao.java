@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface RegistrasiAwalDao  extends PagingAndSortingRepository<Pendaftar, String> {
+public interface PendaftarDao extends PagingAndSortingRepository<Pendaftar, String> {
     Page<Pendaftar> findByNamaContainingIgnoreCaseOrderByNama(String nama, Pageable page);
 
 }

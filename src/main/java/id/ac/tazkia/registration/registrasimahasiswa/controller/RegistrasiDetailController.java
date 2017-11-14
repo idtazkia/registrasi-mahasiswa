@@ -1,37 +1,40 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
-import id.ac.tazkia.registration.registrasimahasiswa.dao.RegistrasiAkhirDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.DetailPendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/")
-public class RegistrasiAkhirController {
+public class RegistrasiDetailController {
 
     @Autowired
-    private RegistrasiAkhirDao ra;
+    private DetailPendaftarDao detailPendaftarDao;
 
-    @RequestMapping(value = "/registrasi/detail_pendaftaran/form", method = RequestMethod.GET)
+    @GetMapping("/registrasi/detail/list")
+    public void daftarPendaftaran(Model m){
+        m.addAttribute("daftarPendaftaranakhir", detailPendaftarDao.findAll());
+    }
+
+
+    @GetMapping(value = "/registrasi/detail/form")
     public void tampilkanForm(Model model){
         model.addAttribute("registrasi", new DetailPendaftar());
     }
 
-    @RequestMapping(value = "/registrasi/detail_pendaftaran/form", method = RequestMethod.POST)
+    @PostMapping(value = "/registrasi/detail/form")
     public String prosesForm(@Valid DetailPendaftar p, BindingResult errors){
         if(errors.hasErrors()){
-            return "/registrasi/detail_pendaftaran/form";
+            return "/registrasi/detail/form";
         }
-        ra.save(p);
+        detailPendaftarDao.save(p);
         return "redirect:/selesai";
 
     }
-
-
 }

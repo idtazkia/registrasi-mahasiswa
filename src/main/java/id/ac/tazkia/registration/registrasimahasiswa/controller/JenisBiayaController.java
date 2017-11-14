@@ -14,7 +14,7 @@ public class JenisBiayaController {
     @Autowired
     private JenisBiayaDao jb;
 
-    @RequestMapping("/jenis_biaya/list")
+    @RequestMapping("/biaya/jenis/list")
     public void daftarJenisBiaya(@RequestParam(required = false)String nama, Model m, Pageable page){
         if(StringUtils.hasText(nama)) {
             m.addAttribute("nama", nama);
