@@ -103,7 +103,7 @@
 
 <section class="content">
     <section class="clearfix">
-        <form th:action="@{/registrasi/pendaftar}" th:object="${registrasi}" method="post">
+        <form th:action="@{/registrasi/form}" th:object="${registrasi}" method="post">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -189,7 +189,7 @@
                                             <div class="form-line">
                                                 <label>Pemberi Rekomendasi</label>
                                                 <select name="pemberi_rekomendasi" th:field="*{pemberiRekomendasi}" class="form-control" id="pemberi_rekomendasi" required autofocus>
-                                                    <option value=""></option>
+                                                    <option value="">-Pilih Perekomendasi-</option>
                                                     <option value="agen">Agen</option>
                                                     <option value="dosen">Dosen</option>
                                                     <option value="mahasiswa">Mahasiswa</option>
