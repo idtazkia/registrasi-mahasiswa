@@ -6,6 +6,7 @@ import id.ac.tazkia.registration.registrasimahasiswa.dto.Registrasi;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.KabupatenKota;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.RunningNumber;
+import id.ac.tazkia.registration.registrasimahasiswa.service.NotifikasiService;
 import id.ac.tazkia.registration.registrasimahasiswa.service.RunningNumberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,7 @@ public class RegistrasiController {
     @Autowired private PendaftarDao pendaftarDao;
     @Autowired private KabupatenKotaDao kabupatenKotaDao;
     @Autowired private RunningNumberService runningNumberService;
+    @Autowired private NotifikasiService notifikasiService;
 
     @GetMapping("/registrasi/list")
     public void daftarPendaftaran(@RequestParam(required = false)String nama, Model m, Pageable page){
@@ -70,6 +72,7 @@ public class RegistrasiController {
         p.setNomorRegistrasi(nomorPendaftar);
 
         pendaftarDao.save(p);
+        notifikasiService.kirimNotifikasiRegistrasi(p);
         return "redirect:/selesai";
 
     }
