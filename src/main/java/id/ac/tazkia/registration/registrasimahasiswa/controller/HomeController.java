@@ -9,4 +9,7 @@ public class HomeController {
     public String defaultPage(){
         return "redirect:/registrasi/pendaftar";
     }
+
+    @GetMapping("/home")
+    public void home(){}
 }

@@ -45,12 +45,12 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr th:each="s,row : ${daftarPendaftaran}">
+                                            <tr th:each="s, row : ${daftarPendaftaran}">
                                                 <td th:text="${(row.index + 1) + (daftarPendaftaran.number * daftarPendaftaran.size)}">#</td>
                                                 <td th:text="${s.nama}">SMK Wiladatika</td>
                                                 <td th:text="${s.email}">12342341212</td>
-                                                <td th:text="${s.no_hp}">Jln Raya Wangun</td>
-                                                <td th:text="${s.nama_asal_sekolah}">0251453224</td>
+                                                <td th:text="${s.noHp}">Jln Raya Wangun</td>
+                                                <td th:text="${s.namaAsalSekolah}">0251453224</td>
                                                 <td>
                                                     <a href=""
                                                        class="btn btn-lg bg-blue-grey waves-effect" type="submit">Selesai</a>

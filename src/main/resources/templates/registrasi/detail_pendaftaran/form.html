@@ -142,7 +142,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Jenis Kelamin</label>
-                                                <select name="jeniskelamin" th:field="*{jenis_kelamin}" class="form-control" id="" required autofocus>
+                                                <select name="jeniskelamin" th:field="*{jenisKelamin}" class="form-control" id="" required autofocus>
                                                     <option value="">-Pilih Jenis Kelamin-</option>
                                                     <option value="L">Laki-Laki</option>
                                                     <option value="P">Perempuan</option>
@@ -154,7 +154,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Golongan Darah</label>
-                                                <select type="text" name="goldar" th:field="*{golongan_darah}"class="form-control" required autofocus>
+                                                <select type="text" name="goldar" th:field="*{golonganDarah}"class="form-control" required autofocus>
                                                     <option value="">-Pilih Golongan Darah-</option>
                                                     <option value="A">A</option>
                                                     <option value="B">B</option>
@@ -168,7 +168,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>N0. KTP</label>
-                                                <input type="number" name="noktp" th:field="*{no_ktp}"
+                                                <input type="number" name="noktp" th:field="*{noKtp}"
                                                        class="form-control"
                                                        placeholder="No. Ktp" required autofocus/>
                                             </div>
@@ -178,7 +178,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Alamat Rumah</label>
-                                                <input type="text" name="alamat" th:field="*{alamat_rumah}"
+                                                <input type="text" name="alamat" th:field="*{alamatRumah}"
                                                        class="form-control"
                                                        placeholder="Alamat Rumah" required autofocus/>
                                             </div>
@@ -214,7 +214,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Kode Pos</label>
-                                                <input type="number" name="kodepos" th:field="*{kode_pos}"
+                                                <input type="number" name="kodepos" th:field="*{kodePos}"
                                                        class="form-control"
                                                        placeholder="Kode Pos" required autofocus/>
                                             </div>
@@ -224,7 +224,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>No Hp</label>
-                                                <input type="number" name="nohp" th:field="*{no_hp}"
+                                                <input type="number" name="nohp" th:field="*{noHp}"
                                                        class="form-control"
                                                        placeholder="No Handphone" required autofocus/>
                                             </div>
@@ -244,7 +244,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Asal Sekolah</label>
-                                                <input type="text" class="form-control" th:field="*{asal_sekolah}"
+                                                <input type="text" class="form-control" th:field="*{asalSekolah}"
                                                        id="sekolah" placeholder="Cari Sekolah ..."
                                                        data-provide="typeahead" autocomplete="off" required autofocus>
                                             </div>
@@ -254,7 +254,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Jurusan Sekolah</label>
-                                                <input type="text" name="jurusan_sekolah" th:field="*{jurusan_sekolah}"
+                                                <input type="text" name="jurusan_sekolah" th:field="*{jurusanSekolah}"
                                                        class="form-control"
                                                        placeholder="Jurusan Sekolah" required autofocus/>
                                             </div>
@@ -274,7 +274,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Tahun Lulus Sekolah</label>
-                                                <input type="number" name="tahun_lulus" th:field="*{tahun_lulus_sekolah}"
+                                                <input type="number" name="tahun_lulus" th:field="*{tahunLulusSekolah}"
                                                        class="form-control"
                                                        placeholder="Tahun Lulus Sekolah" required autofocus />
                                             </div>
@@ -285,7 +285,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Pekerjaan Pribadi</label>
-                                                <input type="text" name="pekerjaan" th:field="*{pekerjaan_pribadi}"
+                                                <input type="text" name="pekerjaan" th:field="*{pekerjaanPribadi}"
                                                        class="form-control"
                                                        placeholder="Pekerjaan Pribadi"/>
                                             </div>
@@ -295,7 +295,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Penghasilan Pribadi</label>
-                                                <input type="text" name="penghasilan" th:field="*{penghasilan_pribadi}"
+                                                <input type="text" name="penghasilan" th:field="*{penghasilanPribadi}"
                                                        class="form-control"
                                                        placeholder="Penghasilan Pribadi"/>
                                             </div>
@@ -305,7 +305,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Status Sipil</label><br>
-                                                <select name="statusSipil" th:field="*{status_sipil}" class="form-control" required autofocus>
+                                                <select name="statusSipil" th:field="*{statusSipil}" class="form-control" required autofocus>
                                                     <option value="">-Pilih Status Sipil-</option>
                                                     <option value="wni">WNI (Warga Negara Indonesia)</option>
                                                     <option value="wna">WNA (Warga Negara Asing)</option>
@@ -346,7 +346,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Nama Ayah</label>
-                                                <input type="text" name="nama_ayah" th:field="*{nama_ayah}"
+                                                <input type="text" name="nama_ayah" th:field="*{namaAyah}"
                                                        class="form-control"
                                                        placeholder="Nama Ayah" required autofocus/>
                                             </div>
@@ -356,7 +356,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Agama Ayah</label>
-                                                <input type="text" name="agama_ayah" th:field="*{agama_ayah}"
+                                                <input type="text" name="agama_ayah" th:field="*{agamaAyah}"
                                                        class="form-control"
                                                        placeholder="Agama Ayah" required autofocus/>
                                             </div>
@@ -366,7 +366,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Pendidikan Ayah</label>
-                                                <select name="pendidikan_ayah" th:field="*{pendidikan_ayah}" class="form-control" required autofocus>
+                                                <select name="pendidikan_ayah" th:field="*{pendidikanAyah}" class="form-control" required autofocus>
                                                     <option value=""></option>
                                                     <option value="sd">SD</option>
                                                     <option value="smp">SMP</option>
@@ -383,7 +383,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Pekerjaan Ayah</label>
-                                                <input type="text" name="pekerjaan_ayah" th:field="*{pekerjaan_ayah}"
+                                                <input type="text" name="pekerjaan_ayah" th:field="*{pekerjaanAyah}"
                                                        class="form-control"
                                                        placeholder="Pendidikan Ayah" required autofocus/>
                                             </div>
@@ -393,7 +393,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Nama Ibu</label>
-                                                <input type="text" name="nama_ibu" th:field="*{nama_ibu}"
+                                                <input type="text" name="nama_ibu" th:field="*{namaIbu}"
                                                        class="form-control"
                                                        placeholder="Nama Ibu" required autofocus/>
                                             </div>
@@ -403,7 +403,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Agama Ibu</label>
-                                                <input type="text" name="agama_ibu" th:field="*{agama_ibu}"
+                                                <input type="text" name="agama_ibu" th:field="*{agamaIbu}"
                                                        class="form-control"
                                                        placeholder="Agama Ibu" required autofocus/>
                                             </div>
@@ -413,7 +413,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Pendidikan Ibu</label>
-                                                <select name="pendidikan_ibu" th:field="*{pendidikan_ibu}" class="form-control" required autofocus >
+                                                <select name="pendidikan_ibu" th:field="*{pendidikanIbu}" class="form-control" required autofocus >
                                                     <option value=""></option>
                                                     <option value="sd">SD</option>
                                                     <option value="smp">SMP</option>
@@ -430,7 +430,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Pekerjaan Ibu</label>
-                                                <input type="text" name="pekerjaan_ibu" th:field="*{pekerjaan_ibu}"
+                                                <input type="text" name="pekerjaan_ibu" th:field="*{pekerjaanIbu}"
                                                        class="form-control"
                                                        placeholder="Pendidikan Ibu" required autofocus/>
                                             </div>
@@ -440,7 +440,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Alamat Orangtua</label>
-                                                <input type="text" name="alamat_orangtua" th:field="*{alamat_orangtua}"
+                                                <input type="text" name="alamat_orangtua" th:field="*{alamatOrangtua}"
                                                        class="form-control"
                                                        placeholder="Alamat Orangtua" required autofocus/>
                                             </div>
@@ -450,7 +450,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Kab./Kota Orangtua</label>
-                                                <input type="text" class="form-control" th:field="*{kokab_orangtua}"
+                                                <input type="text" class="form-control" th:field="*{kokabOrangtua}"
                                                        id="kokab" placeholder="Cari Kabupaten/Kota ..."
                                                        data-provide="typeahead"
                                                        autocomplete="off" required autofocus>
@@ -461,7 +461,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Telepon/Hp Orangtua</label>
-                                                <input type="number" name="hp_orangtua" th:field="*{nohp_orangtua}"
+                                                <input type="number" name="hp_orangtua" th:field="*{nohpOrangtua}"
                                                        class="form-control"
                                                        placeholder="Kota/Kab. Orangtua" required autofocus/>
                                             </div>
@@ -471,7 +471,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Email Orangtua</label>
-                                                <input type="email" name="email_orangtua" th:field="*{email_orangtua}"
+                                                <input type="email" name="email_orangtua" th:field="*{emailOrangtua}"
                                                        class="form-control"
                                                        placeholder="Email Orangtua" required autofocus/>
                                             </div>
@@ -481,7 +481,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Penghasilan Orangtua</label>
-                                                <input type="text" name="penghasilan_orangtua" th:field="*{penghasilan_orangtua}"
+                                                <input type="text" name="penghasilan_orangtua" th:field="*{penghasilanOrangtua}"
                                                        class="form-control"
                                                        placeholder="Penghasilan Orangtua" required autofocus/>
                                             </div>
@@ -491,7 +491,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Jumlah Tanggungan</label>
-                                                <input type="text" name="jumlah_tanggungan" th:field="*{jumlah_tanggungan}"
+                                                <input type="text" name="jumlah_tanggungan" th:field="*{jumlahTanggungan}"
                                                        class="form-control"
                                                        placeholder="Jumlah Tanggungan" required autofocus/>
                                             </div>
@@ -501,7 +501,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Rencana Biaya</label>
-                                                <input type="text" name="rencana_biaya" th:field="*{rencana_biaya}"
+                                                <input type="text" name="rencana_biaya" th:field="*{rencanaBiaya}"
                                                        class="form-control"
                                                        placeholder="Rencana Biaya" required autofocus/>
                                             </div>
