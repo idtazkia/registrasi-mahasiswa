@@ -1,8 +1,3 @@
--- INSERT INTO sekolah VALUES
---         ('1','SC','5','50103364','SMA Gilimandala','Jln. Kutilang','kab.Padang','0251754335'
---         );
-
-
 INSERT INTO program_studi VALUES ('001','Islamic Economic');
 INSERT INTO program_studi VALUES ('002', 'Islamic Accounting');
 INSERT INTO program_studi VALUES ('003', 'Bisnis Manajemen' );
