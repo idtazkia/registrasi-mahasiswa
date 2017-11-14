@@ -20,8 +20,12 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
             + "WHERE u.username = ?";
 
     private static final String SQL_PERMISSION
-            ="SELECT u.username,ur.name AS authority FROM s_user u JOIN s_role ur ON  u.id_role = ur.id\n" +
-            "where u.username = ?";
+            = "select u.username, p.permission_value as authority "
+            + "from s_user u "
+            + "inner join s_role r on u.id_role = r.id "
+            + "inner join s_role_permission rp on rp.id_role = r.id "
+            + "inner join s_permission p on rp.id_permission = p.id "
+            + "where u.username = ?";
 
     @Autowired
     private DataSource ds;
