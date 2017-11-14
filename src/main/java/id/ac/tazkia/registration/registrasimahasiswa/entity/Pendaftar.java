@@ -66,5 +66,10 @@ public class Pendaftar {
     @Column(nullable = false)
     private String konsentrasi;
 
+    @NotNull
+    @ManyToOne @JoinColumn(name = "id_user")
+    private User user;
+
+
 
 }
