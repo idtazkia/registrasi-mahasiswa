@@ -49,15 +49,17 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/registrasi/form")
+                .antMatchers("/registrasi/form*")
+                .antMatchers("/selesai*")
                 .antMatchers("/api/kokabawal*")
                 .antMatchers("/api/sekolah*")
                 .antMatchers("/info")
-                .antMatchers("/js/*")
-                .antMatchers("/img/*")
-                .antMatchers("/images/*")
-                .antMatchers("/")
-                .antMatchers("/css/*");
+                .antMatchers("/js/**")
+                .antMatchers("/img/**")
+                .antMatchers("/images/**")
+                .antMatchers("/css/**")
+                .antMatchers("/favicon.ico")
+                .antMatchers("/");
     }
 
 
