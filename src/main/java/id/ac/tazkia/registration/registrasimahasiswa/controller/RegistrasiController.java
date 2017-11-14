@@ -60,7 +60,7 @@ public class RegistrasiController {
         }
 
         if(errors.hasErrors()){
-            return "/registrasi/pendaftar";
+            return "/registrasi/form";
         }
 
         p.setKabupatenKota(kk);
