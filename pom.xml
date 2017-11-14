@@ -5,7 +5,7 @@
 
 	<groupId>id.ac.tazkia.registration</groupId>
 	<artifactId>registrasi-mahasiswa</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${revision}</version>
 	<packaging>jar</packaging>
 
 	<name>registrasi-mahasiswa</name>
@@ -24,6 +24,7 @@
 		<java.version>1.8</java.version>
 		<thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
 		<thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
+		<revision>1.0.0-RELEASE</revision>
 	</properties>
 
 	<dependencies>
