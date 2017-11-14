@@ -7,6 +7,9 @@ import lombok.Data;
 public class DataNotifikasiRegistrasi {
     private String nomor;
     private String nama;
+    private String noHp;
+    private String email;
+    private String sekolah;
     private String biaya;
     private String rekening;
     private String keterangan;
