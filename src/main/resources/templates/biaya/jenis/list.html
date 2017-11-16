@@ -18,6 +18,10 @@
                                 <h3>
                                     Data Jenis Biaya
                                 </h3>
+                                <br>
+                                <a th:href="@{/biaya/jenis/form}"
+                                   class="btn btn-lg bg-blue-grey waves-effect" type="submit">Tambah</a>
+                            </div>
                             </div>
                             <!--Table-->
                             <div class="body">
@@ -38,13 +42,23 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Jenis Biaya</th>
+                                                    <th colspan="2">&nbsp;</th>
                                                 </tr>
                                             </thead>
                                         <tbody>
                                         <tr th:each="p, row : ${daftarBiaya}">
                                             <td th:text="${(row.index + 1) + (daftarBiaya.number * daftarBiaya.size)}">#</td>
                                             <td th:text="${p. nama}">muamalah</td>
-
+                                            <td width="100px">
+                                                <a href="form"  th:href="@{/biaya/jenis/form(id=${p.id})}"
+                                                   class="btn bg-green waves-effec">Edit
+                                                </a>
+                                            </td>
+                                            <td width="100px">
+                                                <a href="form"  th:href="@{/biaya/jenis/hapus(id=${p.id})}"
+                                                   class="btn bg-red waves-effec">Hapus
+                                                </a>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>

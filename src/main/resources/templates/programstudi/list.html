@@ -18,6 +18,9 @@
                                 <h3>
                                     Data Program Studi
                                 </h3>
+                                <br>
+                                <a th:href="@{/programstudi/form}"
+                                   class="btn btn-lg bg-blue-grey waves-effect" type="submit">Tambah</a>
                             </div>
                             <!--Table-->
                             <div class="body">
@@ -35,16 +38,24 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped table-hover">
                                             <thead>
-                                            <tr>
+                                        <tr>
                                             <th>No</th>
                                             <th>Nama Program Studi</th>
+                                            <th colspan="2" ></th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="p, row : ${daftarProgram}">
                                             <td th:text="${(row.index + 1) + (daftarProgram.number * daftarProgram.size)}">#</td>
                                             <td th:text="${p. nama}">muamalah</td>
-
+                                            <td width="100px">
+                                                <a href="form"  th:href="@{/programstudi/form(id=${p.id})}"
+                                                   class="btn bg-green waves-effec" >Edit</a>
+                                            </td>
+                                            <td width="100px">
+                                                <a href="form"  th:href="@{/programstudi/hapus(id=${p.id})}"
+                                                   class="btn bg-red waves-effec">Hapus</a>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
