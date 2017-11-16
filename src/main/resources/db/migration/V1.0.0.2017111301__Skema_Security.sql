@@ -39,3 +39,4 @@ create table s_user_password (
   primary key (id_user),
   foreign key (id_user) references s_user (id)
 );
+-- Jalan Kiputih No.12, Ciumbuleuit, Cidadap, Ciumbuleuit, Cidadap, Kota Bandung, Jawa Barat 40142

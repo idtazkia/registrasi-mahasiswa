@@ -67,6 +67,7 @@
         <!-- #User Info -->
         <!-- Menu -->
         <div class="menu">
+            <div sec:authorize="hasAuthority('VIEW_MASTER')">
             <ul class="list">
                 <li class="header">MAIN NAVIGATION</li>
                 <li class="active">
@@ -149,9 +150,57 @@
 
                     </ul>
                 </li>
+            </ul>
+            </div>
+
+                <div sec:authorize="hasAuthority('VIEW_PESERTA')">
+               <ul class="list">
+                <li class="active">
+                <li class="header"><h3>Kontak Kami</h3></li>
+
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="material-icons">home</i>
+                        <span>Jl.Ir. H. Djuanda No.78 Sentul City, Bogor 16810 Indonesia</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="material-icons">email</i>
+                        <span>contact@tazkia.ac.id</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="material-icons">phone</i>
+                        <span>TEL: 021-87962293</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="material-icons">chat</i>
+                        <span>ANWAR: 0895320102086</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="material-icons">chat</i>
+                        <span>SADAM: 085211464969</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="material-icons">chat</i>
+                        <span>IRMA: 08159551299</span>
+                    </a>
+                </li>
+                </li>
+               </ul>
+                </div>
 <!--////-->
 
             </ul>
+            
         </div>
         <!-- Footer -->
         <div class="legal">
