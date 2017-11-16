@@ -1,13 +1,12 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
-import id.ac.tazkia.registration.registrasimahasiswa.dao.KabupatenKotaDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
+import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.Registrasi;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.KabupatenKota;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.RunningNumber;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import id.ac.tazkia.registration.registrasimahasiswa.service.NotifikasiService;
 import id.ac.tazkia.registration.registrasimahasiswa.service.RunningNumberService;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -31,6 +30,9 @@ import java.time.format.DateTimeFormatter;
 public class RegistrasiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegistrasiController.class);
 
+    @Autowired private RoleDao roleDao;
+    @Autowired private UserDao userDao;
+    @Autowired private UserPasswordDao userPasswordDao;
     @Autowired private PendaftarDao pendaftarDao;
     @Autowired private KabupatenKotaDao kabupatenKotaDao;
     @Autowired private RunningNumberService runningNumberService;
@@ -71,6 +73,20 @@ public class RegistrasiController {
         BeanUtils.copyProperties(registrasi, p);
         p.setNomorRegistrasi(nomorPendaftar);
 
+        Role rolePendaftar = roleDao.findOne(AppConstants.ID_ROLE_PENDAFTAR);
+
+        User user = new User();
+        user.setUsername(nomorPendaftar);
+        user.setActive(false);
+        user.setRole(rolePendaftar);
+        userDao.save(user);
+
+        UserPassword up = new UserPassword();
+        up.setUser(user);
+        up.setPassword(RandomStringUtils.randomAlphabetic(6));
+        userPasswordDao.save(up);
+
+        p.setUser(user);
         pendaftarDao.save(p);
         notifikasiService.kirimNotifikasiRegistrasi(p);
         return "redirect:/selesai";

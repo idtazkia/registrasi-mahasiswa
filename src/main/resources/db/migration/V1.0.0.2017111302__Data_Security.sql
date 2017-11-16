@@ -20,8 +20,8 @@ INSERT INTO s_user (id, active, username, id_role) VALUES
 INSERT INTO s_user (id, active, username, id_role) VALUES
   ('u002', true, 'admin', 'humas');
 
-INSERT INTO s_user_password (id_user, password) VALUES
-  ('u001', '123');
+INSERT INTO s_user_password (id, id_user, password) VALUES
+  ('up001', 'u001', '123');
 
-INSERT INTO s_user_password (id_user, password) VALUES
-  ('u002', '1234');
+INSERT INTO s_user_password (id, id_user, password) VALUES
+  ('up002', 'u002', '1234');

@@ -34,9 +34,9 @@ CREATE TABLE s_user (
 
 
 create table s_user_password (
+  id varchar(36),
   id_user varchar(36) not null,
   password varchar(255) not null,
-  primary key (id_user),
+  primary key (id),
   foreign key (id_user) references s_user (id)
 );
--- Jalan Kiputih No.12, Ciumbuleuit, Cidadap, Ciumbuleuit, Cidadap, Kota Bandung, Jawa Barat 40142
