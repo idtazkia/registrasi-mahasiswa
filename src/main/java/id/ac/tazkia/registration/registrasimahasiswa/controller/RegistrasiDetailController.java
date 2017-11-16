@@ -29,11 +29,12 @@ public class RegistrasiDetailController {
 
 
     @GetMapping(value = "/registrasi/{id}/form")
-    public void tampilkanForm(Model model, @PathVariable String id){
+    public String tampilkanForm(Model model, @PathVariable String id){
         Pendaftar p = pendaftarDao.findOne(id);
         DetailPendaftar dp = new DetailPendaftar();
         dp.setPendaftar(p);
         model.addAttribute("registrasi", dp);
+        return "/registrasi/detail/form";
     }
 
     @PostMapping(value = "/registrasi/detail/form")
