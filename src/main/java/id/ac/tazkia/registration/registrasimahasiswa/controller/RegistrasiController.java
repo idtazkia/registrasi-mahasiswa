@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -30,6 +31,7 @@ import java.time.format.DateTimeFormatter;
 public class RegistrasiController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RegistrasiController.class);
 
+    @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private RoleDao roleDao;
     @Autowired private UserDao userDao;
     @Autowired private UserPasswordDao userPasswordDao;
@@ -83,7 +85,7 @@ public class RegistrasiController {
 
         UserPassword up = new UserPassword();
         up.setUser(user);
-        up.setPassword(RandomStringUtils.randomAlphabetic(6));
+        up.setPassword(passwordEncoder.encode(RandomStringUtils.randomAlphabetic(6)));
         userPasswordDao.save(up);
 
         p.setUser(user);
