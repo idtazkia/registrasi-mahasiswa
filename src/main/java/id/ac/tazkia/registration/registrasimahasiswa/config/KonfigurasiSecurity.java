@@ -1,12 +1,15 @@
 package id.ac.tazkia.registration.registrasimahasiswa.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -20,8 +23,12 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
             + "WHERE u.username = ?";
 
     private static final String SQL_PERMISSION
-            ="SELECT u.username,ur.name AS authority FROM s_user u JOIN s_role ur ON  u.id_role = ur.id\n" +
-            "where u.username = ?";
+            = "select u.username, p.permission_value as authority "
+            + "from s_user u "
+            + "inner join s_role r on u.id_role = r.id "
+            + "inner join s_role_permission rp on rp.id_role = r.id "
+            + "inner join s_permission p on rp.id_permission = p.id "
+            + "where u.username = ?";
 
     @Autowired
     private DataSource ds;
@@ -63,6 +70,9 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
     }
 
 
-
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder(17);
+    }
 }
 

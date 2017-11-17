@@ -1,2 +1,2 @@
 ALTER TABLE pendaftar
-ADD id_user VARCHAR (36);
+ADD id_user VARCHAR (36) NOT NULL;
