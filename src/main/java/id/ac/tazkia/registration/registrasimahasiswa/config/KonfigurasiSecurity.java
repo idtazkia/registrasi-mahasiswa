@@ -1,15 +1,12 @@
 package id.ac.tazkia.registration.registrasimahasiswa.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -46,6 +43,16 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/sekolah/list").hasAuthority("VIEW_MASTER")
+                .antMatchers("/sekolah/form").hasAuthority("VIEW_MASTER")
+                .antMatchers("/programstudi/list").hasAuthority("VIEW_MASTER")
+                .antMatchers("/periode/list").hasAuthority("VIEW_MASTER")
+                .antMatchers("/grade/list").hasAuthority("VIEW_MASTER")
+                .antMatchers("/biaya/jenis/form").hasAuthority("VIEW_MASTER")
+                .antMatchers("/biaya/nilai/form").hasAuthority("VIEW_MASTER")
+                .antMatchers("/registrasi/list").hasAuthority("VIEW_MASTER")
+                .antMatchers("/registrasi/detail/list").hasAuthority("VIEW_MASTER")
+
                 .anyRequest().authenticated()
                 .and().logout().permitAll()
                 .and().formLogin().defaultSuccessUrl("/registrasi/form")
@@ -56,23 +63,18 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/registrasi/form*")
-                .antMatchers("/selesai*")
+                .antMatchers("/registrasi/pendaftar")
                 .antMatchers("/api/kokabawal*")
                 .antMatchers("/api/sekolah*")
                 .antMatchers("/info")
-                .antMatchers("/js/**")
-                .antMatchers("/img/**")
-                .antMatchers("/images/**")
-                .antMatchers("/css/**")
-                .antMatchers("/favicon.ico")
-                .antMatchers("/");
+                .antMatchers("/js/*")
+                .antMatchers("/img/*")
+                .antMatchers("/images/*")
+                .antMatchers("/")
+                .antMatchers("/css/*");
     }
 
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder(17);
-    }
+
 }
 
