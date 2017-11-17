@@ -145,47 +145,41 @@
             </div>
 
                 <div sec:authorize="hasAuthority('VIEW_PENDAFTAR')">
-               <ul class="list">
-                <li class="active">
-                <li class="header"><h3>Kontak Kami</h3></li>
+                    <ul class="list">
+                        <li class="header">MAIN NAVIGATION</li>
+                        <li class="active">
+                            <a th:href="@{/home}">
+                                <i class="material-icons">home</i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+<!--menu-->
+                        <li>
+                            <a th:href="@{/registrasi/detail/form}">
+                                <i class="material-icons">widgets</i>
+                                <span>Edit Data</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">assignment</i>
+                                <span>Daftar Biaya</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li>
+                                    <a href="">
+                                        <span>Lihat Tagihan</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <span>Lihat Pembayaran</span>
+                                    </a>
+                                </li>
 
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">home</i>
-                        <span>Jl.Ir. H. Djuanda No.78 Sentul City, Bogor 16810 Indonesia</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">email</i>
-                        <span>contact@tazkia.ac.id</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">phone</i>
-                        <span>TEL: 021-87962293</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">chat</i>
-                        <span>ANWAR: 0895320102086</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">chat</i>
-                        <span>SADAM: 085211464969</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">chat</i>
-                        <span>IRMA: 08159551299</span>
-                    </a>
-                </li>
-                </li>
+                            </ul>
+                        </li>
+<!--////-->
                </ul>
                 </div>
 <!--////-->
