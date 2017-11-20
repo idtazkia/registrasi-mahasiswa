@@ -39,7 +39,8 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .jdbcAuthentication()
                 .dataSource(ds)
                 .usersByUsernameQuery(SQL_LOGIN)
-                .authoritiesByUsernameQuery(SQL_PERMISSION);
+                .authoritiesByUsernameQuery(SQL_PERMISSION)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
