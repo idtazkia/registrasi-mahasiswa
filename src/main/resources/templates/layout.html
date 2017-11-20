@@ -29,18 +29,19 @@
             <a href="javascript:void(0);" class="bars"></a>
             <a class="navbar-brand" href="">STEI Tazkia</a>
         </div>
+
         <div class="collapse navbar-collapse" id="navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
+            <div class="nav navbar-nav navbar-right">
                 <div class="navbar-header">
                     <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                     <a href="javascript:void(0);" class="bars"></a>
-                    <form class="" name="f" th:action="@{/logout}" method="post">
-                        <button class="btn bg-teal btn-block btn-lg waves-effect" type="submit">Logout</button>
+                    <form name="f" th:action="@{/logout}" method="post">
+                        <button class="btn bg-teal btn-block btn-lg waves-effect">Logout</button>
                     </form>
                 </div>
-            </ul>
+            </div>
         </div>
-    </div>
+  </div>
 
 </nav>
 <!-- #Top Bar -->
@@ -50,7 +51,7 @@
         <!-- User Info -->
         <div class="user-info" >
             <div class="image">
-                <img src="../images/logo.png" width="100%" height="100%" style="margin-top:-15px;" align="center" alt="User" />
+                <img src="../../images/logo.png" width="100%" height="100%" style="margin-top:-15px;" align="center" alt="User" />
             </div>
 
         </div>
@@ -107,12 +108,12 @@
                                 <span>Data Grade</span>
                             </a>
                         </li><li>
-                        <a th:href="@{/jenis_biaya/list}">
+                        <a th:href="@{/biaya/jenis/list}">
                                 <span>Data Jenis Biaya</span>
                             </a>
                         </li>
                         <li>
-                            <a th:href="@{/nilai_biaya/list}">
+                            <a th:href="@{/biaya/nilai/list}">
                                 <span>Data Nilai Biaya</span>
                             </a>
                         </li>
@@ -144,47 +145,41 @@
             </div>
 
                 <div sec:authorize="hasAuthority('VIEW_PENDAFTAR')">
-               <ul class="list">
-                <li class="active">
-                <li class="header"><h3>Kontak Kami</h3></li>
+                    <ul class="list">
+                        <li class="header">MAIN NAVIGATION</li>
+                        <li class="active">
+                            <a th:href="@{/home}">
+                                <i class="material-icons">home</i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+<!--menu-->
+                        <li>
+                            <a th:href="@{/registrasi/detail/form}">
+                                <i class="material-icons">widgets</i>
+                                <span>Edit Data</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">assignment</i>
+                                <span>Daftar Biaya</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li>
+                                    <a href="">
+                                        <span>Lihat Tagihan</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <span>Lihat Pembayaran</span>
+                                    </a>
+                                </li>
 
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">home</i>
-                        <span>Jl.Ir. H. Djuanda No.78 Sentul City, Bogor 16810 Indonesia</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">email</i>
-                        <span>contact@tazkia.ac.id</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">phone</i>
-                        <span>TEL: 021-87962293</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">chat</i>
-                        <span>ANWAR: 0895320102086</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">chat</i>
-                        <span>SADAM: 085211464969</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);">
-                        <i class="material-icons">chat</i>
-                        <span>IRMA: 08159551299</span>
-                    </a>
-                </li>
-                </li>
+                            </ul>
+                        </li>
+<!--////-->
                </ul>
                 </div>
 <!--////-->
@@ -229,7 +224,25 @@
 <script th:src="@{/js/dataTables.bootstrap.js}"></script>
 <script th:src="@{/js/jquery-datatable.js}"></script>
 
+<!---->
+<script type='text/javascript'
+        src="https://cdn.jsdelivr.net/select2/3.4.1/select2.min.js"></script>
+<link rel="stylesheet" type="text/css"
+      href="http://cdn.jsdelivr.net/select2/3.4.1/select2.css">
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+</body>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>-->
+<script src="https://cdn.rawgit.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.js"></script>
+<script th:src="@{/js/aplikasi.js}"></script>
+
+
 
 
 </body>
