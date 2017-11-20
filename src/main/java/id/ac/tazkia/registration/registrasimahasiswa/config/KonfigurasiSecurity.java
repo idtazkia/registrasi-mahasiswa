@@ -39,7 +39,8 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .jdbcAuthentication()
                 .dataSource(ds)
                 .usersByUsernameQuery(SQL_LOGIN)
-                .authoritiesByUsernameQuery(SQL_PERMISSION);
+                .authoritiesByUsernameQuery(SQL_PERMISSION)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -48,7 +49,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and().logout().permitAll()
-                .and().formLogin().defaultSuccessUrl("/registrasi/form")
+                .and().formLogin().defaultSuccessUrl("/home")
                 .loginPage("/login")
                 .permitAll();
     }
