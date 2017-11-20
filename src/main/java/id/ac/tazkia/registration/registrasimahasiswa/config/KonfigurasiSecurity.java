@@ -62,6 +62,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .and().formLogin().defaultSuccessUrl("/home")
                 .loginPage("/login")
                 .permitAll();
+        
     }
 
     @Override
