@@ -77,8 +77,10 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/*")
                 .antMatchers("/img/*")
                 .antMatchers("/images/*")
+                .antMatchers("/index/*")
                 .antMatchers("/")
                 .antMatchers("/css/**");
+
     }
 
     @Bean
