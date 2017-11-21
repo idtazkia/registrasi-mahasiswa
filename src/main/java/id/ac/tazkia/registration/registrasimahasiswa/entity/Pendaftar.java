@@ -67,7 +67,7 @@ public class Pendaftar {
     private String konsentrasi;
 
     @NotNull
-    @ManyToOne @JoinColumn(name = "id_user")
+    @OneToOne @JoinColumn(name = "id_user")
     private User user;
 
 }
