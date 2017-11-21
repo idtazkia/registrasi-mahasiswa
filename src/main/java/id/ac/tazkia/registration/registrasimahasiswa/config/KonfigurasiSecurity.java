@@ -68,7 +68,9 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/registrasi/pendaftar")
+                .antMatchers("/registrasi/form")
+                .antMatchers("/selesai")
+                .antMatchers("/favicon.ico")
                 .antMatchers("/api/kokabawal*")
                 .antMatchers("/api/sekolah*")
                 .antMatchers("/info")
@@ -76,7 +78,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/img/*")
                 .antMatchers("/images/*")
                 .antMatchers("/")
-                .antMatchers("/css/*");
+                .antMatchers("/css/**");
     }
 
     @Bean
