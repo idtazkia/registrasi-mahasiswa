@@ -74,10 +74,10 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/kokabawal*")
                 .antMatchers("/api/sekolah*")
                 .antMatchers("/info")
-                .antMatchers("/js/*")
+                .antMatchers("/js/**")
                 .antMatchers("/img/*")
                 .antMatchers("/images/*")
-                .antMatchers("/index/*")
+                .antMatchers("/index")
                 .antMatchers("/")
                 .antMatchers("/css/**");
 
