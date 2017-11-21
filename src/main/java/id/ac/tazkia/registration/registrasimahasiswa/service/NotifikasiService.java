@@ -41,7 +41,7 @@ public class NotifikasiService {
                         .sekolah(p.getNamaAsalSekolah())
                         .biaya("300."+p.getNomorRegistrasi().substring(p.getNomorRegistrasi().length() - 3))
                         .keterangan("Biaya Registrasi")
-                        .rekening("BNI Syariah 1100319991 a.n Tazkia Cendekia")
+                        .rekening("Bank Syariah Mandiri 7031904018 a.n STEI Tazkia")
                         .namaKontak1("Irma")
                         .nomorKontak1("08159551299")
                         .namaKontak2("Siti")
