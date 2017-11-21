@@ -47,33 +47,42 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/sekolah/list").hasAuthority("VIEW_MASTER")
+                .antMatchers("/sekolah/form").hasAuthority("VIEW_MASTER")
+                .antMatchers("/programstudi/list").hasAuthority("VIEW_MASTER")
+                .antMatchers("/periode/list").hasAuthority("VIEW_MASTER")
+                .antMatchers("/grade/list").hasAuthority("VIEW_MASTER")
+                .antMatchers("/biaya/jenis/form").hasAuthority("VIEW_MASTER")
+                .antMatchers("/biaya/jenis/list").hasAuthority("VIEW_MASTER")
+                .antMatchers("/biaya/nilai/list").hasAuthority("VIEW_MASTER")
+                .antMatchers("/registrasi/list").hasAuthority("VIEW_MASTER")
+                .antMatchers("/registrasi/detail/list").hasAuthority("VIEW_MASTER")
                 .anyRequest().authenticated()
                 .and().logout().permitAll()
                 .and().formLogin().defaultSuccessUrl("/home")
                 .loginPage("/login")
                 .permitAll();
+        
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/registrasi/form*")
-                .antMatchers("/selesai*")
+                .antMatchers("/registrasi/pendaftar")
                 .antMatchers("/api/kokabawal*")
                 .antMatchers("/api/sekolah*")
                 .antMatchers("/info")
-                .antMatchers("/js/**")
-                .antMatchers("/img/**")
-                .antMatchers("/images/**")
-                .antMatchers("/css/**")
-                .antMatchers("/favicon.ico")
-                .antMatchers("/");
+                .antMatchers("/js/*")
+                .antMatchers("/img/*")
+                .antMatchers("/images/*")
+                .antMatchers("/")
+                .antMatchers("/css/*");
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(17);
     }
+
 }
 
