@@ -2,7 +2,6 @@ package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
 import id.ac.tazkia.registration.registrasimahasiswa.dao.ProgramStudiDao;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.ProgramStudi;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Sekolah;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
