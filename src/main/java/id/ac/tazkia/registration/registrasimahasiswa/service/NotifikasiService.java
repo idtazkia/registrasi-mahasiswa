@@ -1,39 +1,36 @@
 package id.ac.tazkia.registration.registrasimahasiswa.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.DataNotifikasiRegistrasi;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.NotifikasiRegistrasi;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
-import javax.annotation.PostConstruct;
 
 
 @Service
 public class NotifikasiService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(NotifikasiService.class);
+
     @Value("${notifikasi.url}") private String urlNotifikasi;
     @Value("${notifikasi.username}") private String usernameNotifikasi;
     @Value("${notifikasi.password}") private String passwordNotifikasi;
+    @Value("${kafka.topic.notifikasi}") private String registrasiTopic;
+    @Value("${notifikasi.registrasi.konfigurasi}") private String konfigurasiNotifikasiRegistrasi;
 
-    private RestTemplate restTemplate;
-    private RestTemplateBuilder builder;
+    @Autowired private KafkaTemplate<String, String> kafkaTemplate;
+    @Autowired private ObjectMapper objectMapper;
 
-    public NotifikasiService(RestTemplateBuilder builder){
-        this.builder = builder;
-    }
-
-    @PostConstruct
-    public void inisialisasiRestTemplate(){
-        restTemplate = builder.basicAuthorization(usernameNotifikasi, passwordNotifikasi)
-                .build();
-    }
 
     @Async
     public void kirimNotifikasiRegistrasi(Pendaftar p){
         NotifikasiRegistrasi notif = NotifikasiRegistrasi.builder()
+                .konfigurasi(konfigurasiNotifikasiRegistrasi)
                 .email(p.getEmail())
                 .mobile(p.getNoHp())
                 .data(DataNotifikasiRegistrasi.builder()
@@ -54,6 +51,10 @@ public class NotifikasiService {
                         .build())
                 .build();
 
-        restTemplate.postForObject(urlNotifikasi, notif, Void.class);
+        try {
+            kafkaTemplate.send(registrasiTopic, objectMapper.writeValueAsString(notif));
+        } catch (Exception err) {
+            LOGGER.warn(err.getMessage(), err);
+        }
     }
 }
