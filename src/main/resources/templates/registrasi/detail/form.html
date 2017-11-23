@@ -8,12 +8,9 @@
 </head>
 <body>
 <section layout:fragment="content" class="clearfix">
-        <div th:if="${registrasi == null}">
-            Data Pendaftar untuk user ini tidak ditemukan.
-        </div>
 
         <section class="clearfix" th:if="${registrasi != null}">
-            <form action="#" th:action="@{/registrasi/detail_pendaftaran/form}" th:object="${registrasi}" method="post">
+            <form action="#" th:action="@{/registrasi/detail/form}" th:object="${registrasi}" method="post">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
@@ -442,6 +439,10 @@
                 </div>
             </form>
         </section>
+    <div th:if="${registrasi == null}">
+        Data Pendaftar untuk user ini tidak ditemukan.
+    </div>
+
 </section>
 
 </body>

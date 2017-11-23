@@ -51,8 +51,6 @@ public class RegistrasiDetailController {
             return "/registrasi/detail/form";
         }
 
-
-
         Pendaftar p = pendaftarDao.findByUser(u);
 
         if(p == null){
