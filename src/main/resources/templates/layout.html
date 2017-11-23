@@ -187,7 +187,27 @@
 <!--////-->
                </ul>
                 </div>
-<!--////-->
+
+
+<!--////--><div sec:authorize="hasAuthority('VIEW_FINANCE')">
+            <ul class="list">
+                <li class="header">MAIN NAVIGATION</li>
+                <li class="active">
+                    <a th:href="@{/home}">
+                        <i class="material-icons">home</i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <!--menu-->
+                <li>
+                    <a th:href="@{/biaya/pembayaran/list}">
+                        <i class="material-icons">account_balance_wallet</i>
+                        <span>Verifikasi Pembayaran</span>
+                    </a>
+                </li>
+                <!--////-->
+            </ul>
+        </div>
 
             </ul>
             
