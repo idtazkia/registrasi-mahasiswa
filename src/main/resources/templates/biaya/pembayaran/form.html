@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Input Jenis Biaya</title>
+</head>
+<body>
+<section layout:fragment="content" class="clearfix">
+    <section class="clearfix">
+        <form method="post">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+                        <!-- Identitas awal-->
+                        <div class="card">
+                            <div class="header">
+                                <h1>
+                                    Input Pembayaran
+                                </h1>
+                            </div>
+
+                            <div class="body">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>No. Tagihan</label>
+                                                <input type="text" name="noTagihan"
+                                                       class="form-control"
+                                                       placeholder="No. Tagihan" disabled required autofocus/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Cara Bayar</label>
+                                                <select name="caraBayar" class="form-control" required autofocus>
+                                                    <option value="">-Pilih Cara Bayar-</option>
+                                                    <option value="agen">Tunai</option>
+                                                    <option value="dosen">Transfer</option>
+                                                    <option value="mahasiswa">Virtual Account</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Bank</label>
+                                                <select name="bank" class="form-control" required autofocus>
+                                                    <option value="">-Pilih Bank-</option>
+                                                    <option value="agen">Mandiri Syariah</option>
+                                                    <option value="dosen">BRI</option>
+                                                    <option value="mahasiswa">BCA</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Nilai</label>
+                                                <input type="text" name="nilai"
+                                                       class="form-control"
+                                                       placeholder="Nilai" required autofocus/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Upload Bukti</label>
+                                                <input type="file" name="bukti"
+                                                       class="form-control"
+                                                       placeholder="Upload Bukti" autofocus/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Simpan Data -->
+                                    <div class="col-sm-12" align="right" >
+                                        <div class="form-group">
+                                            <div class="col-xs-12" >
+                                                <button class="btn btn-lg bg-blue-grey waves-effect" type="submit">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+</section>
+
+</body>
+</html>
