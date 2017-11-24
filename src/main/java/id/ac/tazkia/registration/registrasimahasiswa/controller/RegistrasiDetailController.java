@@ -54,12 +54,10 @@ public class RegistrasiDetailController {
 
 
         Pendaftar p = pendaftarDao.findByUser(u);
-
+        logger.debug("Nama Pendaftar : "+p.getNama());
         if(p == null){
             return "/registrasi/detail/form";
         }
-
-        logger.debug("Nama Pendaftar : "+p.getNama());
 
         RegistrasiDetail detail = new RegistrasiDetail();
         detail.setNama(p.getNama());
