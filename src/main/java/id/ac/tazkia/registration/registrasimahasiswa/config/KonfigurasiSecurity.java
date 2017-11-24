@@ -55,7 +55,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/biaya/jenis/form").hasAuthority("VIEW_MASTER")
                 .antMatchers("/biaya/jenis/list").hasAuthority("VIEW_MASTER")
                 .antMatchers("/biaya/nilai/list").hasAuthority("VIEW_MASTER")
-                .antMatchers("/biaya/pembayaran/list").hasAuthority("VIEW_FINANCE")
+                .antMatchers("/biaya/tagihan/list").hasAuthority("VIEW_FINANCE")
                 .antMatchers("/registrasi/list").hasAuthority("VIEW_MASTER")
                 .antMatchers("/registrasi/detail/list").hasAuthority("VIEW_MASTER")
                 .antMatchers("/registrasi/detail/list").hasAuthority("VIEW_MASTER")

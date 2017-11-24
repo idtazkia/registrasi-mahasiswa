@@ -29,7 +29,7 @@ public class Pembayaran {
     private Bank bank;
 
     @NotNull
-    private LocalDateTime waktuPembayaran;
+    private LocalDateTime waktuPembayaran = LocalDateTime.now();
 
     @NotNull @NotEmpty
     private String buktiPembayaran;
