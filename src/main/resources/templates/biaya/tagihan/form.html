@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Input Grade</title>
+</head>
+<body>
+<section layout:fragment="content" class="clearfix">
+    <section class="clearfix">
+        <form method="post">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <!-- Identitas awal-->
+                        <div class="card">
+                            <div class="header">
+                                <h1>
+                                    Input Tagihan Baru
+                                </h1>
+                            </div>
+
+                            <div class="body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>No Pendaftar</label>
+                                                <input type="text" name="noPendaftar"
+                                                       class="form-control" required  placeholder="Nomor Pendaftar" disabled readonly/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Nama</label>
+                                                <input type="text" name="nama" class="form-control" placeholder="Nama" disabled  required readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Jenis Biaya</label>
+                                                <select name="jenisBiaya" class="form-control" id="pemberi_rekomendasi"required>
+                                                    <option>-Pilih Jenis Biaya-</option>
+                                                    <option value="registrasi">Registrasi</option>
+                                                    <option value="daftarUlang">Daftar Ulang</option>
+                                                    <option value="ukt2Tahun">UKT 2 Tahun</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Nilai</label>
+                                                <input type="text" name="nilai" placeholder="Nilai" class="form-control" required />
+                                            </div>
+                                        </div>
+                                    </div><div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Rekening</label>
+                                                <input type="text" name="rekening" placeholder="Rekening" class="form-control" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Simpan Data -->
+                                    <div class="col-sm-12" align="right" >
+                                        <div class="form-group">
+                                            <div class="col-xs-12" >
+                                                <button class="btn btn-lg bg-blue-grey waves-effect" type="submit">SIMPAN</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+</section>
+
+</body>
+</html>

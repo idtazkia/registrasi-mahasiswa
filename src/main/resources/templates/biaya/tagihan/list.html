@@ -19,7 +19,7 @@
                                 <label><h5>No pendaftaraan : </h5></label>
                                 <input type="text" placeholder="No Pendaftaraan">
                                 <a href="#"
-                                   class="btn bg-blue-grey waves-effect" type="submit">Tambah</a>
+                                   class="btn bg-blue-grey waves-effect" type="submit">Cari</a>
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -51,65 +51,71 @@
                                                 </table>
                                             </div>
                                             <br><hr>
-                                            <h4>Tagihan Dan Pembayaran</h4><br>
+                                            <h4>Tagihan Dan Pembayaran</h4>
+                                                <a class="btn bg-blue btn-lg waves-effect pull-right"  th:href="@{/biaya/tagihan/form}">Tambah</a>
+                                            <br><br><br>
                                             <div class="table-responsive">
                                                 <table class="table table-bordered table-striped table-hover">
                                                     <tr>
                                                         <th>Tanggal Tagihan</th>
+                                                        <th>No Tagihan</th>
                                                         <th>Keterangan</th>
                                                         <th>Nilai</th>
                                                         <th>Status Pembayaran</th>
                                                         <th>Tanggal Pembayaran</th>
-                                                        <th>Cara Pembayaran</th>
                                                         <th>Rekening Tujuan</th>
                                                         <th>&nbsp;</th>
                                                     </tr>
                                                     <tr>
                                                         <td>10-Nov-2017</td>
+                                                        <td>20171121001</td>
                                                         <td>Biaya Reistrasi</td>
                                                         <td>Rp. 300.001</td>
                                                         <td>Lunas</td>
                                                         <td>11-Nov-2017</td>
-                                                        <td>Transfer Bank</td>
                                                         <td>BNI Syariah 1234556789</td>
                                                         <td>
-                                                            <a href="" class="btn  bg-blue-grey waves-effect">Lihat Bukti</a>
+                                                            <a href="" class="btn  bg-blue-grey btn-block waves-effect">Lihat Bukti</a>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>10-Des-2017</td>
+                                                        <td>20171121001</td>
                                                         <td>UKT 2 Tahun 40%</td>
                                                         <td>Rp. 300.001</td>
                                                         <td>Belum Lunas</td>
                                                         <td>-</td>
-                                                        <td>Transfer Bank</td>
                                                         <td>BNI Syariah 1234556789</td>
                                                         <td>
-                                                            <a href="" class="btn  bg-blue-grey waves-effect">Upload Bukti</a>
+                                                            <a href="" class="btn  bg-blue-grey btn-block waves-effect">Upload Bukti</a>
+                                                            <a href="" class="btn bg-teal btn-block waves-effect"> Hapus</a>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>10-Des-2017</td>
+                                                        <td>20171121001</td>
                                                         <td>UKT 2 Tahun 15% #1</td>
                                                         <td>Rp. 300.001</td>
                                                         <td>Belum Lunas</td>
                                                         <td>-</td>
-                                                        <td>VA BNISy</td>
                                                         <td>BNI Syariah 0842425564454</td>
                                                         <td>
-                                                            <a href="" class="btn  bg-blue-grey waves-effect">Upload Bukti</a>
+                                                            <a href="" class="btn  bg-blue-grey btn-block waves-effect">Upload Bukti</a>
+                                                            <a href="" class="btn bg-teal btn-block waves-effect"> Hapus</a>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>10-Des-2017</td>
+                                                        <td>20171121001</td>
                                                         <td>UKT 2 Tahun 15% #2</td>
                                                         <td>Rp. 300.001</td>
                                                         <td>Belum Lunas</td>
                                                         <td>-</td>
-                                                        <td>VA BNISy</td>
                                                         <td>BNI Syariah 0842425564454</td>
                                                         <td>
-                                                            <a href="" class="btn  bg-blue-grey waves-effect">Upload Bukti</a>
+                                                            <a href="" class="btn  bg-blue-grey btn-block waves-effect">Upload Bukti</a>
+                                                            <a href="" class="btn bg-teal btn-block waves-effect"> Hapus</a>
+
                                                         </td>
                                                     </tr>
                                                 </table>
