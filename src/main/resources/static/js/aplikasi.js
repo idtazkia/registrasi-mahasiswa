@@ -2,6 +2,7 @@ $(document).ready(function(){
     var urlProvinsi = "/api/provinsi";
     var urlSekolah ="/api/sekolah";
     var urlKokabawal = "/api/kokabawal";
+    var urlPendaftar = "/api/pendaftar";
 
     var templateUrlKabupaten = "/api/provinsi/{provinsi}/kabupaten";
 
@@ -13,6 +14,7 @@ $(document).ready(function(){
     var provinsi = null;
     var kabupatenKota = null;
     var kokab = null;
+    var pendaftar = null;
 
 
     var inputSekolah = $("#sekolah");
@@ -20,6 +22,9 @@ $(document).ready(function(){
     var inputKabupatenKota = $("#kabupatenKota");
     var inputKokabawal = $("#kokabawal");
     var inputHiddenKokab = $("input[name=idKabupatenKota]");
+
+    var inputPendaftar = $("#pendaftar");
+    var no = $("#nomorRegistrasi");
 
     var resetInput = function(inputField){
         inputField.val('');
@@ -76,6 +81,25 @@ $(document).ready(function(){
         }, 500),
         afterSelect: function(pilihan) {
             inputHiddenKokab.val(pilihan.id);
+        }
+    });
+
+    //pendaftar(tagihan)
+    inputPendaftar.typeahead({
+        displayText: function(item){ return item.nomorRegistrasi;},
+        source: _.debounce(function(cari, process){
+            pendaftar = null;
+            $.get(urlPendaftar, {nomorRegistrasi: cari}, function(hasil){
+                process(hasil.content);
+            }, "json");
+        }, 500),
+        afterSelect: function(pilihan) {
+            console.log( pilihan.nama);
+            // no.val(pilihan.nomorRegistrasi);
+            document.getElementById('nomorRegistrasi').innerHTML = pilihan.nomorRegistrasi;
+            document.getElementById('nama').innerHTML = pilihan.nama;
+            document.getElementById('email').innerHTML = pilihan.email;
+            document.getElementById('noHp').innerHTML = pilihan.noHp;
         }
     });
 

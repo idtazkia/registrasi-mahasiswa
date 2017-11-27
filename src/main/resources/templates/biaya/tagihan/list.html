@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
+<script th:src="@{/js/aplikasi.js}"></script>
+
 <head>
     <meta charset="UTF-8">
     <title>Data Pendaftaran Mahasiswa</title>
@@ -16,10 +18,11 @@
                                 <h1>
                                     Verifikasi Pembayaran
                                 </h1><br>
-                                <label><h5>No pendaftaraan : </h5></label>
-                                <input type="text" placeholder="No Pendaftaraan">
-                                <a href="#"
-                                   class="btn bg-blue-grey waves-effect" type="submit">Cari</a>
+                                <label><h5>No Pendaftaraan : </h5></label>
+                                <input type="text" placeholder="No Pendaftar ..."
+                                       id="pendaftar"
+                                       data-provide="typeahead"
+                                       autocomplete="off" required autofocus>
                             </div>
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -31,22 +34,30 @@
                                                         <tr>
                                                             <td width="20%">No Pendaftran</td>
                                                             <td width="10px">:</td>
-                                                            <td>201711001</td>
+                                                            <td>
+                                                                <span id="nomorRegistrasi" ></span>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td width="20%">Nama</td>
                                                             <td width="10px">:</td>
-                                                            <td>Ramadhani Indra</td>
+                                                            <td>
+                                                                <span id="nama"></span>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td width="20%">Email</td>
                                                             <td width="10px">:</td>
-                                                            <td>ramadhani@gmail.com</td>
+                                                            <td>
+                                                                <span id="email"></span>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td width="20%">No Hp</td>
                                                             <td width="10px">:</td>
-                                                            <td>081584321520    </td>
+                                                            <td>
+                                                                <span id="noHp"></span>
+                                                            </td>
                                                         </tr>
                                                 </table>
                                             </div>
