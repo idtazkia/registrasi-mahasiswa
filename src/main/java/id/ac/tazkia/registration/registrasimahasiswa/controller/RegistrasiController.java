@@ -39,6 +39,7 @@ public class RegistrasiController {
     @Autowired private KabupatenKotaDao kabupatenKotaDao;
     @Autowired private RunningNumberService runningNumberService;
     @Autowired private NotifikasiService notifikasiService;
+    @Autowired private ProgramStudiDao programStudiDao;
 
     @GetMapping("/registrasi/list")
     public void daftarPendaftaran(@RequestParam(required = false)String nama, Model m, Pageable page){
@@ -65,11 +66,18 @@ public class RegistrasiController {
             errors.reject("idKabupatenKota", "Data kabupaten tidak ada dalam database");
         }
 
+        // load program studi
+        ProgramStudi prodi = programStudiDao.findOne(registrasi.getProgramStudiPilihan());
+        if(prodi == null){
+            errors.reject("programStudiPilihan", "Program studi tidak ada dalam database");
+        }
+
         if(errors.hasErrors()){
             return "/registrasi/form";
         }
 
         p.setKabupatenKota(kk);
+        p.setProgramStudi(prodi);
 
         String nomorPendaftar = generateNomorRegistrasi();
         BeanUtils.copyProperties(registrasi, p);
