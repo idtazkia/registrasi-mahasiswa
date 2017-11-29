@@ -7,8 +7,8 @@ import id.ac.tazkia.registration.registrasimahasiswa.entity.NilaiBiaya;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Tagihan;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +29,7 @@ public class TagihanService {
         pendaftaran.setId(JENIS_BIAYA_PENDAFTARAN);
     }
 
-    public void createTagihanPendaftaran(Pendaftar p){
+    public Tagihan createTagihanPendaftaran(Pendaftar p){
         Tagihan t = new Tagihan();
         t.setPendaftar(p);
         t.setTanggalTagihan(LocalDate.now());
@@ -43,6 +43,7 @@ public class TagihanService {
         t.setJenisBiaya(pendaftaran);
 
         tagihanDao.save(t);
+        return t;
     }
 
     public BigDecimal hitungBiayaPendaftaran(){
