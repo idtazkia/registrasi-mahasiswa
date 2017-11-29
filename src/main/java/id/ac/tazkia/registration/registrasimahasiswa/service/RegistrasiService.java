@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -26,6 +27,7 @@ public class RegistrasiService {
 
     @Autowired private RunningNumberService runningNumberService;
     @Autowired private NotifikasiService notifikasiService;
+    @Autowired private TagihanService tagihanService;
     @Autowired private PendaftarDao pendaftarDao;
     @Autowired private RoleDao roleDao;
     @Autowired private UserDao userDao;
@@ -42,6 +44,7 @@ public class RegistrasiService {
 
         createUser(p);
         pendaftarDao.save(p);
+        tagihanService.createTagihanPendaftaran(p);
         notifikasiService.kirimNotifikasiRegistrasi(p);
 
         return p;
