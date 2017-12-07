@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List Tagihan Pendaftar</title>
+</head>
+<body>
+<section layout:fragment="content" class="clearfix">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="header" >
+                                <h3>
+                                    Daftar Tagihan
+
+                                    <!--<a class="btn bg-blue btn-lg waves-effect pull-right"  th:href="@{/biaya/tagihan/form(id=${pendaftar.id})}">Tambah</a>-->
+
+                                </h3>
+                            </div>
+                            <!--Table-->
+                            <div class="body">
+                                <!--<br>-->
+                                <!--Show <span sd:page-size-selector="javascript"></span> entries-->
+
+                                <!--<hr>-->
+
+
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>Tanggal Tagihan</th>
+                                                <th>Nomor Tagihan</th>
+                                                <th>Keterangan</th>
+                                                <th>Nilai</th>
+                                                <th>Status</th>
+                                                <th>&nbsp;</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="test : ${daftarTagihan}">
+                                                <td th:text="${test.tanggalTagihan}">SMK Wiladatika</td>
+                                                <td th:text="${test.nomorTagihan}">12342341212</td>
+                                                <td th:text="${test.Keterangan}">Jln Raya Wangun</td>
+                                                <td th:text="${test.nilai}">0251453224</td>
+                                                <td>
+                                                   <span th:if="${test.lunas}">Sudah Lunas</span>
+                                                   <span th:if="${!test.lunas}">Belum Lunas</span>
+                                                </td>
+                                                <td>
+                                                    <span th:if="${test.lunas}">
+                                                        <a th:href="@{/biaya/pembayaran/list}" class="btn  bg-blue-grey btn-block waves-effect">Lihat Bukti</a>
+                                                    </span>
+                                                    <span th:if="${!test.lunas}">
+                                                        <a th:href="@{/biaya/pembayaran/form}" class="btn  bg-blue-grey btn-block waves-effect">Upload Bukti</a>
+                                                        <a  th:href="@{/biaya/pembayaran/hapus(id=${test.id})}" class="btn bg-teal btn-block waves-effect"> Hapus</a>
+                                                    </span>
+                                                </td>
+                                                <input type="text" hidden="" id="id" th:value="${test.Pendaftar.id}">
+                                            </tr>
+
+                                            <!--<tr>-->
+                                                <!--<td></td>-->
+                                                <!--<td></td>-->
+                                                <!--<td></td>-->
+                                                <!--<td></td>-->
+                                            <!--</tr>-->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <!--<div sd:pagination-summary="">info</div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--//table//-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>
