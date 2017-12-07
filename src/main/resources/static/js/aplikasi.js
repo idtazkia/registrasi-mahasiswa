@@ -6,15 +6,19 @@ $(document).ready(function(){
 
     var templateUrlKabupaten = "/api/provinsi/{provinsi}/kabupaten";
 
+    var templateUrlTagihan = "/tagihan/list?pendaftar={pendaftar}";
+
 
 
     var urlKabupaten = null;
+    var urltagihan =null;
 
     var sekolah = null;
     var provinsi = null;
     var kabupatenKota = null;
     var kokab = null;
     var pendaftar = null;
+    var tagihan =  null;
 
 
     var inputSekolah = $("#sekolah");
@@ -24,7 +28,7 @@ $(document).ready(function(){
     var inputHiddenKokab = $("input[name=idKabupatenKota]");
 
     var inputPendaftar = $("#pendaftar");
-    var no = $("#nomorRegistrasi");
+    var inputTagihan = $("#id");
 
     var resetInput = function(inputField){
         inputField.val('');
@@ -57,7 +61,9 @@ $(document).ready(function(){
             $.get(urlKabupaten, {nama: cari}, function(hasil){
                 process(hasil);
             }, "json");
-        }, 500)
+        }, 500),
+        afterSelect: function(pilihan) {
+            console.log( pilihan.id);}
     });
 
     inputSekolah.typeahead({
@@ -94,12 +100,17 @@ $(document).ready(function(){
             }, "json");
         }, 500),
         afterSelect: function(pilihan) {
-            console.log( pilihan.nama);
-            // no.val(pilihan.nomorRegistrasi);
+            console.log( pilihan.id);
             document.getElementById('nomorRegistrasi').innerHTML = pilihan.nomorRegistrasi;
             document.getElementById('nama').innerHTML = pilihan.nama;
             document.getElementById('email').innerHTML = pilihan.email;
             document.getElementById('noHp').innerHTML = pilihan.noHp;
+            inputTagihan.val(pilihan.id);
+        // http request ke api query tagihan by pendaftar
+            tagihan = pilihan;
+            urltagihan = _.replace(templateUrlTagihan, '{pendaftar}', pilihan.id);
+            window.open(urltagihan);
+
         }
     });
 
