@@ -66,8 +66,10 @@ public class Pendaftar {
     @Column(nullable = false)
     private String namaPerekomendasi;
 
-    @Column(nullable = false)
-    private String programStudiPilihan;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "id_program_studi")
+    private ProgramStudi programStudi;
 
     @Column(nullable = false)
     private String konsentrasi;

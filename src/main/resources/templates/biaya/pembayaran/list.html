@@ -26,31 +26,34 @@
                                     <div class="col-sm-9">
                                         <div class="table-responsive">
                                             <table class="table table-responsive">
-                                                <tr>
-                                                    <td width="20%">No Tagihan</td>
-                                                    <td width="10px">:</td>
-                                                    <td>201711001</td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="20%">Cara Bayar</td>
-                                                    <td width="10px">:</td>
-                                                    <td>Transfer</td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="20%">Bank</td>
-                                                    <td width="10px">:</td>
-                                                    <td>Mandiri</td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="20%">Nilai</td>
-                                                    <td width="10px">:</td>
-                                                    <td>300.000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="20%">Bukti</td>
-                                                    <td width="10px">:</td>
-                                                    <td><assdsfd></assdsfd></td>
-                                                </tr>
+
+                                                <div th:each="p : ${pembayaran}">
+                                                    <tr>
+                                                        <td width="20%">No Tagihan</td>
+                                                        <td width="10px">:</td>
+                                                        <td th:text="${p.tagihan.nomorTagihan}"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="20%">Cara Bayar</td>
+                                                        <td width="10px">:</td>
+                                                        <td th:text="${p.caraPembayaran}">Transfer</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="20%">Bank</td>
+                                                        <td width="10px">:</td>
+                                                        <td th:text="${p.bank.namaBank}">Mandiri1</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="20%">Nilai</td>
+                                                        <td width="10px">:</td>
+                                                        <td th:text="${p.nilai}">300.0001</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="20%">Bukti</td>
+                                                        <td width="10px">:</td>
+                                                        <td th:text="${p.buktiPembayaran}"></td>
+                                                    </tr>
+                                                </div>
                                             </table>
                                     </div>
 

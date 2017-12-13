@@ -7,6 +7,7 @@ import id.ac.tazkia.registration.registrasimahasiswa.dto.RegistrasiDetail;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
+import org.hibernate.annotations.AttributeAccessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -51,8 +53,6 @@ public class RegistrasiDetailController {
             return "/registrasi/detail/form";
         }
 
-
-
         Pendaftar p = pendaftarDao.findByUser(u);
         logger.debug("Nama Pendaftar : "+p.getNama());
         if(p == null){
@@ -61,19 +61,34 @@ public class RegistrasiDetailController {
 
         RegistrasiDetail detail = new RegistrasiDetail();
         detail.setNama(p.getNama());
+        detail.setPendaftar(p.getId());
+        detail.setEmail(p.getEmail());
         detail.setAsalSekolah(p.getNamaAsalSekolah());
         detail.setKabupatenKota(p.getKabupatenKota().getNama());
         model.addAttribute("registrasi", detail);
+
+
+        DetailPendaftar d = detailPendaftarDao.findByPendaftar(p);
+        logger.debug("Nomor Registrasi :"+ p.getNomorRegistrasi());
+        if (d == null){
+            return "/registrasi/detail/form";
+        }
+
+        model.addAttribute("detail", detailPendaftarDao.findByPendaftar(p));
         return "/registrasi/detail/form";
+
     }
 
     @PostMapping(value = "/registrasi/detail/form")
-    public String prosesForm(@Valid DetailPendaftar p, BindingResult errors){
+    public String prosesForm(@ModelAttribute @Valid DetailPendaftar p, BindingResult errors){
         if(errors.hasErrors()){
+            logger.debug("Error Validasi Form : {}", errors.toString());
             return "/registrasi/detail/form";
         }
         detailPendaftarDao.save(p);
-        return "redirect:/selesai";
+        return "redirect:/home";
 
     }
+
+
 }

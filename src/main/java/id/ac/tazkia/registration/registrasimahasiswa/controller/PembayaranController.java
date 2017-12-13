@@ -21,11 +21,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
+
 import javax.validation.Valid;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
@@ -70,6 +68,9 @@ public class PembayaranController {
     @RequestMapping(value = "/biaya/pembayaran/form", method = RequestMethod.POST)
     public String prosesForm(@ModelAttribute @Valid Pembayaran pembayaran, BindingResult errors,
                              MultipartFile buktiPembayaran) throws Exception{
+        if(errors.hasErrors()){
+            return "/biaya/tagihan/form";
+        }
 
         String idPeserta = pembayaran.getTagihan().getPendaftar().getId();
 
@@ -119,7 +120,28 @@ public class PembayaranController {
     }
 
 
+    @GetMapping("/pembayaran/{pembayaran}/bukti/")
+    public ResponseEntity<byte[]> tampilkanBuktiPembayaran(@PathVariable Pembayaran pembayaran) throws Exception{
+        String lokasiFile = uploadFolder + File.separator + pembayaran.getTagihan().getPendaftar().getId()
+                + File.separator + pembayaran.getBuktiPembayaran();
+        LOGGER.debug("Lokasi file bukti : "+lokasiFile);
 
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            if(pembayaran.getBuktiPembayaran().toLowerCase().endsWith("jpeg") || pembayaran.getBuktiPembayaran().toLowerCase().endsWith("jpg")) {
+                headers.setContentType(MediaType.IMAGE_JPEG);
+            } else if(pembayaran.getBuktiPembayaran().toLowerCase().endsWith("png")){
+                headers.setContentType(MediaType.IMAGE_PNG);
+            } else {
+                headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            }
+            byte[] data = Files.readAllBytes(Paths.get(lokasiFile));
+            return new ResponseEntity<byte[]>(data, headers, HttpStatus.OK);
+        } catch (Exception err){
+            LOGGER.warn(err.getMessage(), err);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 
 
 }

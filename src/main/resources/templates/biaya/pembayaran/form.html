@@ -9,7 +9,7 @@
 <body>
 <section layout:fragment="content" class="clearfix">
     <section class="clearfix">
-        <form method="post">
+        <form method="post" th:action="@{/biaya/pembayaran/form}" th:object="${bayar}" enctype="multipart/form-data">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
@@ -25,22 +25,23 @@
                                 <div class="row">
                                     <div class="col-sm-9">
                                         <div class="form-group">
-                                            <div class="form-line">
+                                            <div class="form-line" >
                                                 <label>No. Tagihan</label>
-                                                <input type="text" name="noTagihan"
+                                                <input type="hidden" name="tagihan"
                                                        class="form-control"
-                                                       placeholder="No. Tagihan" disabled required autofocus/>
+                                                       th:field="*{tagihan}"required autofocus/><br>
+                                                <span th:text="${bayar.tagihan.nomorTagihan}"></span>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Cara Bayar</label>
-                                                <select name="caraBayar" class="form-control" required autofocus>
+                                                <select name="caraPembayaran" th:field="*{caraPembayaran}"  class="form-control" required autofocus>
                                                     <option value="">-Pilih Cara Bayar-</option>
-                                                    <option value="agen">Tunai</option>
-                                                    <option value="dosen">Transfer</option>
-                                                    <option value="mahasiswa">Virtual Account</option>
+                                                    <option value="TUNAI">Tunai</option>
+                                                    <option value="TRANSFER">Transfer</option>
+                                                    <option value="VIRTUAL_ACCOUNT">Virtual Account</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -48,28 +49,29 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Bank</label>
-                                                <select name="bank" class="form-control" required autofocus>
+                                                <select name="bank" th:field="*{bank}" class="form-control" required autofocus>
                                                     <option value="">-Pilih Bank-</option>
-                                                    <option value="agen">Mandiri Syariah</option>
-                                                    <option value="dosen">BRI</option>
-                                                    <option value="mahasiswa">BCA</option>
+                                                    <option th:each="ins : ${daftarBank}"
+                                                            th:value="${ins.kodeBank}"
+                                                            th:text="${ins.namaBank}">Mandiri Syariah</option>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label>Nilai</label>
+                                                <label>Nilai</label><br>
                                                 <input type="text" name="nilai"
                                                        class="form-control"
-                                                       placeholder="Nilai" required autofocus/>
+                                                       placeholder="Nilai" disaled th:field="*{nilai}"
+                                                       required autofocus/>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Upload Bukti</label>
-                                                <input type="file" name="bukti"
+                                                <input type="file" name="buktiPembayaran"
                                                        class="form-control"
                                                        placeholder="Upload Bukti" autofocus/>
                                             </div>
