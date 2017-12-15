@@ -11,4 +11,6 @@ public interface PendaftarDao extends PagingAndSortingRepository<Pendaftar, Stri
     Pendaftar findByUser(User u);
 
     Page<Pendaftar> findByNomorRegistrasiContainingIgnoreCaseOrderByNomorRegistrasi(String nomorRegistrasi, Pageable page);
+
+    Page<Pendaftar> findByIdContainingIgnoreCaseOrderById(String idPendaftar, Pageable page);
 }

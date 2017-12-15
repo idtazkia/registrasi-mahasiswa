@@ -49,6 +49,23 @@ public class RegistrasiService {
         return p;
     }
 
+    public void resetPassword(Pendaftar p){
+        User u = p.getUser();
+        UserPassword up = userPasswordDao.findByUser(u);
+
+        LOGGER.debug("userName = {}", u.getUsername());
+
+
+        String passwordBaru = RandomStringUtils.randomAlphabetic(6);
+        up.setPassword(passwordEncoder.encode(passwordBaru));
+
+        LOGGER.debug("passwordBaru = {}", passwordBaru);
+
+
+        userPasswordDao.save(up);
+        notifikasiService.kirimNotifikasiResetPassword(p,passwordBaru);
+    }
+
     private void createUser(Pendaftar p) {
         Role rolePendaftar = roleDao.findOne(AppConstants.ID_ROLE_PENDAFTAR);
 
