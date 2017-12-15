@@ -52,8 +52,7 @@
                                                 <td th:text="${s.noHp}">Jln Raya Wangun</td>
                                                 <td th:text="${s.namaAsalSekolah}">0251453224</td>
                                                 <td>
-                                                    &nbsp;
-                                                </td>
+                                                    <a th:href="@{/registrasi/reset/form(pendaftar = ${s.id})}" target="_blank" class="btn bg-blue waves-effec">Reset Password</a>                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>

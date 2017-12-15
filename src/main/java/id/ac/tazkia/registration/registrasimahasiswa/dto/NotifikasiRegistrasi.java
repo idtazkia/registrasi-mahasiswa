@@ -9,4 +9,5 @@ public class NotifikasiRegistrasi {
     private String email;
     private String mobile;
     private DataNotifikasiRegistrasi data;
+    private DataNotifikasiResetPassword dataReset;
 }

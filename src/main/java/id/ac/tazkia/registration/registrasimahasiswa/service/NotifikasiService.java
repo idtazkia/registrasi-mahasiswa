@@ -2,6 +2,7 @@ package id.ac.tazkia.registration.registrasimahasiswa.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.DataNotifikasiRegistrasi;
+import id.ac.tazkia.registration.registrasimahasiswa.dto.DataNotifikasiResetPassword;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.NotifikasiRegistrasi;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import org.slf4j.Logger;
@@ -21,7 +22,8 @@ public class NotifikasiService {
     @Value("${notifikasi.username}") private String usernameNotifikasi;
     @Value("${notifikasi.password}") private String passwordNotifikasi;
     @Value("${kafka.topic.notifikasi}") private String registrasiTopic;
-    @Value("${notifikasi.registrasi.konfigurasi}") private String konfigurasiNotifikasiRegistrasi;
+    @Value("${notifikasi.registrasi.konfigurasi.pendaftaran}") private String konfigurasiNotifikasiPendaftaran;
+    @Value("${notifikasi.registrasi.konfigurasi.reset-password}") private String konfigurasiNotifikasiResetPassword;
 
     @Autowired private KafkaTemplate<String, String> kafkaTemplate;
     @Autowired private ObjectMapper objectMapper;
@@ -30,7 +32,7 @@ public class NotifikasiService {
     @Async
     public void kirimNotifikasiRegistrasi(Pendaftar p){
         NotifikasiRegistrasi notif = NotifikasiRegistrasi.builder()
-                .konfigurasi(konfigurasiNotifikasiRegistrasi)
+                .konfigurasi(konfigurasiNotifikasiPendaftaran)
                 .email(p.getEmail())
                 .mobile(p.getNoHp())
                 .data(DataNotifikasiRegistrasi.builder()
@@ -48,6 +50,36 @@ public class NotifikasiService {
                         .nomorKontak2("089696792628")
                         .namaKontak3("Panitia Penerimaan Mahasiswa Baru")
                         .nomorKontak3("humas@tazkia.ac.id")
+                        .build())
+                .build();
+
+        try {
+            kafkaTemplate.send(registrasiTopic, objectMapper.writeValueAsString(notif));
+        } catch (Exception err) {
+            LOGGER.warn(err.getMessage(), err);
+        }
+    }
+
+    @Async
+    public void kirimNotifikasiResetPassword(Pendaftar p, String passwordBaru){
+        NotifikasiRegistrasi notif = NotifikasiRegistrasi.builder()
+                .konfigurasi(konfigurasiNotifikasiPendaftaran)
+                .email(p.getEmail())
+                .mobile(p.getNoHp())
+                .dataReset(DataNotifikasiResetPassword.builder().build().builder()
+                        .nama(p.getNama())
+                        .nomorRegistrasi(p.getNomorRegistrasi())
+                        .noHp(p.getNoHp())
+                        .email(p.getEmail())
+                        .namaAsalSekolah(p.getNamaAsalSekolah())
+                        .username(p.getNomorRegistrasi())
+                        .password(passwordBaru)
+                        .infoNama1("Irma")
+                        .infoHandphone1("08159551299")
+                        .infoNama2("Furqon")
+                        .infoHandphone2("089696792628")
+                        .infoNama3("Panitia Penerimaan Mahasiswa Baru")
+                        .infoHandphone3("humas@tazkia.ac.id")
                         .build())
                 .build();
 

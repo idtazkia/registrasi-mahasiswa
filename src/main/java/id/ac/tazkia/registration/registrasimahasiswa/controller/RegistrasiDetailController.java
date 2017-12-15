@@ -7,7 +7,6 @@ import id.ac.tazkia.registration.registrasimahasiswa.dto.RegistrasiDetail;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
-import org.hibernate.annotations.AttributeAccessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
