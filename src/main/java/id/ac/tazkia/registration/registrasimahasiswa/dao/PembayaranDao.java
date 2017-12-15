@@ -9,5 +9,4 @@ import java.util.List;
 
 public interface PembayaranDao extends PagingAndSortingRepository<Pembayaran, String>{
     List<Pembayaran> findByIdContainingIgnoreCaseOrderByTagihan(String tagihan);
-
 }

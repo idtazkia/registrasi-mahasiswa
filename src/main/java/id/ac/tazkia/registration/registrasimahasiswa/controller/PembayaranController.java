@@ -68,9 +68,6 @@ public class PembayaranController {
     @RequestMapping(value = "/biaya/pembayaran/form", method = RequestMethod.POST)
     public String prosesForm(@ModelAttribute @Valid Pembayaran pembayaran, BindingResult errors,
                              MultipartFile buktiPembayaran) throws Exception{
-        if(errors.hasErrors()){
-            return "/biaya/tagihan/form";
-        }
 
         String idPeserta = pembayaran.getTagihan().getPendaftar().getId();
 

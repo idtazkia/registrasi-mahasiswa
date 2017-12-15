@@ -30,7 +30,6 @@ public class Pembayaran {
     @NotNull
     private LocalDateTime waktuPembayaran = LocalDateTime.now();
 
-    @NotNull @NotEmpty
     private String buktiPembayaran;
 
     @NotNull @Enumerated(EnumType.STRING)

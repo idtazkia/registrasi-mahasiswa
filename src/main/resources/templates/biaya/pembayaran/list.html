@@ -51,7 +51,7 @@
                                                     <tr>
                                                         <td width="20%">Bukti</td>
                                                         <td width="10px">:</td>
-                                                        <td th:text="${p.buktiPembayaran}"></td>
+                                                        <td><img th:src="@{/pembayaran/{imageId}/bukti/(imageId=${p.id})}" th:width="400px" height="400px" alt=""></td>
                                                     </tr>
                                                 </div>
                                             </table>
