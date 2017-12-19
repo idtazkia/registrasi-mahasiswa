@@ -39,23 +39,27 @@ public class RegistrasiDetailController {
 
 
     @GetMapping(value = "/registrasi/detail/form")
-    public String tampilkanForm(Model model, Authentication currentUser){
+    public void tampilkanForm(Model model, Authentication currentUser){
         logger.debug("Authentication class : {}",currentUser.getClass().getName());
 
         if(currentUser == null){
-            return "/registrasi/detail/form";
+            logger.warn("Current user is null");
+            return;
         }
 
-        User u = userDao.findByUsername(((UserDetails)currentUser.getPrincipal()).getUsername());
+        String username = ((UserDetails)currentUser.getPrincipal()).getUsername();
+        User u = userDao.findByUsername(username);
         logger.debug("User ID : {}", u.getId());
         if(u == null){
-            return "/registrasi/detail/form";
+            logger.warn("Username {} not found in database ", username);
+            return;
         }
 
         Pendaftar p = pendaftarDao.findByUser(u);
         logger.debug("Nama Pendaftar : "+p.getNama());
         if(p == null){
-            return "/registrasi/detail/form";
+            logger.warn("Pendaftar not found for username {} ", username);
+            return;
         }
 
         RegistrasiDetail detail = new RegistrasiDetail();
@@ -66,16 +70,11 @@ public class RegistrasiDetailController {
         detail.setKabupatenKota(p.getKabupatenKota().getNama());
         model.addAttribute("registrasi", detail);
 
-
         DetailPendaftar d = detailPendaftarDao.findByPendaftar(p);
         logger.debug("Nomor Registrasi :"+ p.getNomorRegistrasi());
-        if (d == null){
-            return "/registrasi/detail/form";
+        if (d != null){
+            model.addAttribute("detail", d);
         }
-
-        model.addAttribute("detail", detailPendaftarDao.findByPendaftar(p));
-        return "/registrasi/detail/form";
-
     }
 
     @PostMapping(value = "/registrasi/detail/form")
