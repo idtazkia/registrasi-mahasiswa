@@ -37,6 +37,7 @@
                                             <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>No. Pendaftaran</th>
                                                 <th>Nama</th>
                                                 <th>Email</th>
                                                 <th>No Handphone</th>
@@ -47,6 +48,7 @@
                                             <tbody>
                                             <tr th:each="s, row : ${daftarPendaftaran}">
                                                 <td th:text="${(row.index + 1) + (daftarPendaftaran.number * daftarPendaftaran.size)}">#</td>
+                                                <td th:text="${s.nomorRegistrasi}">1234567890</td>
                                                 <td th:text="${s.nama}">SMK Wiladatika</td>
                                                 <td th:text="${s.email}">12342341212</td>
                                                 <td th:text="${s.noHp}">Jln Raya Wangun</td>
