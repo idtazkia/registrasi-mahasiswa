@@ -3,8 +3,9 @@ package id.ac.tazkia.registration.registrasimahasiswa.controller;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.BankDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PembayaranDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanDao;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.Bank;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.Pembayaran;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.Tagihan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import javax.validation.Valid;
 import java.io.File;
