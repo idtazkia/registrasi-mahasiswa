@@ -49,7 +49,7 @@ public class RegistrasiService {
         return p;
     }
 
-    public void resetPassword(Pendaftar p){
+    public String resetPassword(Pendaftar p){
         User u = p.getUser();
         UserPassword up = userPasswordDao.findByUser(u);
 
@@ -61,9 +61,9 @@ public class RegistrasiService {
 
         LOGGER.debug("passwordBaru = {}", passwordBaru);
 
-
         userPasswordDao.save(up);
-        notifikasiService.kirimNotifikasiResetPassword(p,passwordBaru);
+        //notifikasiService.kirimNotifikasiResetPassword(p,passwordBaru);
+        return passwordBaru;
     }
 
     private void createUser(Pendaftar p) {

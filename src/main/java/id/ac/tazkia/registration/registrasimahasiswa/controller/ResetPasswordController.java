@@ -5,10 +5,8 @@ import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ResetPasswordController {
@@ -22,9 +20,14 @@ public class ResetPasswordController {
     }
 
     @PostMapping(value = "/registrasi/reset/form")
-    public String prosesForm(@RequestParam Pendaftar pendaftar){
-        registrasiService.resetPassword(pendaftar);
-        return "redirect:/home";
+    public String prosesForm(@RequestParam Pendaftar pendaftar, RedirectAttributes redirectAttributes){
+        String passwordBaru = registrasiService.resetPassword(pendaftar);
+        redirectAttributes.addFlashAttribute("pendaftar", pendaftar);
+        redirectAttributes.addFlashAttribute("passwordBaru", passwordBaru);
+        return "redirect:selesai";
     }
+
+    @GetMapping("/registrasi/reset/selesai")
+    public void selesaiReset(){ }
 }
 
