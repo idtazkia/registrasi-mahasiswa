@@ -16,4 +16,6 @@ public interface TagihanDao extends PagingAndSortingRepository<Tagihan, String> 
     List<Tagihan> findByPendaftarOrderByTanggalTagihan(Pendaftar pendaftar, Pageable page);
 
     Page<Tagihan> findById(String tagihan, Pageable page);
+
+    Tagihan findByPendaftar(Pendaftar p);
 }

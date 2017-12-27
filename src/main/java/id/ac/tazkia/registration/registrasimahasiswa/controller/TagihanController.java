@@ -3,12 +3,18 @@ package id.ac.tazkia.registration.registrasimahasiswa.controller;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.JenisBiayaDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisBiaya;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Tagihan;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,7 +29,10 @@ import java.util.List;
 @Controller
 public class TagihanController {
 
+    private static final Logger logger = LoggerFactory.getLogger(RegistrasiDetailController.class);
 
+    @Autowired
+    private UserDao userDao;
     @Autowired
     private PendaftarDao pendaftarDao;
     @Autowired
@@ -96,4 +105,33 @@ public class TagihanController {
         return "redirect:list";
     }
 
+
+//Tagihan Pendaftar
+
+    @RequestMapping("/registrasi/tagihan/list")
+    public void tagihanPendaftar(ModelMap model, Authentication currentUser){
+        logger.debug("Authentication class : {}",currentUser.getClass().getName());
+
+        if(currentUser == null){
+            logger.warn("Current user is null");
+            return;
+        }
+
+        String username = ((UserDetails)currentUser.getPrincipal()).getUsername();
+        User u = userDao.findByUsername(username);
+        logger.debug("User ID : {}", u.getId());
+        if(u == null){
+            logger.warn("Username {} not found in database ", username);
+            return;
+        }
+
+        Pendaftar p = pendaftarDao.findByUser(u);
+        logger.debug("Nama Pendaftar : "+p.getNama());
+        if(p == null){
+            logger.warn("Pendaftar not found for username {} ", username);
+            return;
+        }
+
+        model.addAttribute("tagihan",tagihanDao.findByPendaftarOrderByTanggalTagihan(p));
+    }
 }
