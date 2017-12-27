@@ -53,7 +53,7 @@
                                                 <td th:text="${s.email}">12342341212</td>
                                                 <td th:text="${s.noHp}">Jln Raya Wangun</td>
                                                 <td th:text="${s.namaAsalSekolah}">0251453224</td>
-                                                <td>
+                                                <td sec:authorize="hasAuthority('VIEW_MASTER')">
                                                     <a th:href="@{/registrasi/reset/form(pendaftar = ${s.id})}" class="btn bg-blue waves-effec">Reset Password</a>
                                                 </td>
                                                 <td sec:authorize="hasAuthority('VIEW_FINANCE')">
