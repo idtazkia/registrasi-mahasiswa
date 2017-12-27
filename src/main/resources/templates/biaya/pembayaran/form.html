@@ -29,7 +29,7 @@
                                                 <label>No. Tagihan</label>
                                                 <input type="hidden" name="tagihan"
                                                        class="form-control"
-                                                       th:field="*{tagihan}"required autofocus/><br>
+                                                       th:field="*{tagihan}" readonly/><br>
                                                 <span th:text="${bayar.tagihan.nomorTagihan}"></span>
                                             </div>
                                         </div>
@@ -52,7 +52,7 @@
                                                 <select name="bank" th:field="*{bank}" class="form-control" required autofocus>
                                                     <option value="">-Pilih Bank-</option>
                                                     <option th:each="ins : ${daftarBank}"
-                                                            th:value="${ins.kodeBank}"
+                                                            th:value="${ins.id}"
                                                             th:text="${ins.namaBank}">Mandiri Syariah</option>
                                                 </select>
                                             </div>
@@ -63,8 +63,8 @@
                                                 <label>Nilai</label><br>
                                                 <input type="text" name="nilai"
                                                        class="form-control"
-                                                       placeholder="Nilai" disaled th:field="*{nilai}"
-                                                       required autofocus/>
+                                                       placeholder="Nilai" readonly disaled th:field="*{nilai}"
+                                                       />
                                             </div>
                                         </div>
 

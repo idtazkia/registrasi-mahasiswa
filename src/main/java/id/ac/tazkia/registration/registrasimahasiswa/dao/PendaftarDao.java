@@ -7,10 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface PendaftarDao extends PagingAndSortingRepository<Pendaftar, String> {
-    Page<Pendaftar> findByNamaContainingIgnoreCaseOrderByNama(String nama, Pageable page);
+    Page<Pendaftar> findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseOrderByNomorRegistrasi(String nomor, String nama, Pageable page);
     Pendaftar findByUser(User u);
 
     Page<Pendaftar> findByNomorRegistrasiContainingIgnoreCaseOrderByNomorRegistrasi(String nomorRegistrasi, Pageable page);
 
     Page<Pendaftar> findByIdContainingIgnoreCaseOrderById(String idPendaftar, Pageable page);
+
 }

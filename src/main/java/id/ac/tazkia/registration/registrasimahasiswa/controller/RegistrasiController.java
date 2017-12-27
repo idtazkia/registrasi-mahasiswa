@@ -33,10 +33,11 @@ public class RegistrasiController {
     @Autowired private ProgramStudiDao programStudiDao;
 
     @GetMapping("/registrasi/list")
-    public void daftarPendaftaran(@RequestParam(required = false)String nama, Model m, Pageable page){
-        if(StringUtils.hasText(nama)) {
-            m.addAttribute("nama", nama);
-            m.addAttribute("daftarPendaftaran", pendaftarDao.findByNamaContainingIgnoreCaseOrderByNama(nama, page));
+    public void daftarPendaftaran(@RequestParam(required = false)String search, Model m, Pageable page){
+        if(StringUtils.hasText(search)) {
+            m.addAttribute("search", search);
+            m.addAttribute("daftarPendaftaran", pendaftarDao
+                    .findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseOrderByNomorRegistrasi(search,search,page));
         } else {
             m.addAttribute("daftarPendaftaran", pendaftarDao.findAll(page));
         }

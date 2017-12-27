@@ -61,6 +61,7 @@ public class PembayaranController {
             Tagihan p= tagihanDao.findOne(id);
             if (p != null){
                 Pembayaran x = new Pembayaran();
+                x.setNilai(p.getNilai());
                 x.setTagihan(p);
                 m.addAttribute("bayar", x);
             }
@@ -114,7 +115,7 @@ public class PembayaranController {
         userDao.save(user);
 
 
-
+        System.out.println("Bank : "+pembayaran.getBank());
 
 
         pembayaranDao.save(pembayaran);
