@@ -3,9 +3,11 @@ package id.ac.tazkia.registration.registrasimahasiswa.controller;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.BankDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PembayaranDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Bank;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pembayaran;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Tagihan;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,8 @@ public class PembayaranController {
     private TagihanDao tagihanDao;
     @Autowired
     private BankDao bankDao;
+    @Autowired
+    private UserDao userDao;
     @Value("${upload.folder}")
     private String uploadFolder;
 
@@ -101,15 +105,28 @@ public class PembayaranController {
         buktiPembayaran.transferTo(tujuan);
         System.out.println("File sudah dicopy ke :"+tujuan.getAbsolutePath());
 
+        Tagihan tagihan = pembayaran.getTagihan();
+        tagihan.setLunas(true);
+        tagihanDao.save(tagihan);
+
+        User user = pembayaran.getTagihan().getPendaftar().getUser();
+        user.setActive(true);
+        userDao.save(user);
+
+
+
+
+
         pembayaranDao.save(pembayaran);
         return "redirect:/biaya/tagihan/list";
     }
 
     @RequestMapping("/biaya/pembayaran/list")
-    public void  list(@RequestParam(value = "id",required = false)String nama, Model m, Pageable page){
-        if(StringUtils.hasText(nama)) {
-            m.addAttribute("nama", nama);
-            m.addAttribute("pembayaran", pembayaranDao.findByIdContainingIgnoreCaseOrderByTagihan(nama));
+    public void  list(@RequestParam(value = "id",required = false)String idTagihan, Model m, Pageable page){
+        if(StringUtils.hasText(idTagihan)) {
+            m.addAttribute("nama", idTagihan);
+            Tagihan t = tagihanDao.findOne(idTagihan);
+            m.addAttribute("pembayaran", pembayaranDao.findByTagihan(t));
         } else {
             m.addAttribute("pembayaran", pembayaranDao.findAll(page));
         }

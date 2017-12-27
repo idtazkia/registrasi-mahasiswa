@@ -55,10 +55,10 @@
                                                 </td>
                                                 <td>
                                                     <span th:if="${test.lunas}">
-                                                        <a th:href="@{/biaya/pembayaran/list}" class="btn  bg-blue-grey btn-block waves-effect">Lihat Bukti</a>
+                                                        <a th:href="@{/biaya/pembayaran/list(id=${test.id})}" class="btn  bg-blue-grey btn-block waves-effect">Lihat Bukti</a>
                                                     </span>
                                                     <span th:if="${!test.lunas}">
-                                                        <a th:href="@{/biaya/pembayaran/form}" class="btn  bg-blue-grey btn-block waves-effect">Upload Bukti</a>
+                                                        <a th:href="@{/biaya/pembayaran/form(id=${test.id})}" class="btn  bg-blue-grey btn-block waves-effect">Upload Bukti</a>
                                                         <a  th:href="@{/biaya/pembayaran/hapus(id=${test.id})}" class="btn bg-teal btn-block waves-effect"> Hapus</a>
                                                     </span>
                                                 </td>
