@@ -1,0 +1,41 @@
+image: maven:3-jdk-8
+
+cache:
+ paths:
+ - /root/.m2/repository
+
+stages:
+ - build
+ - deploy
+
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && ssh-keyscan -H "$SSH_HOSTNAME" > ~/.ssh/known_hosts'
+
+
+maven-build:
+  image: maven:3-jdk-8
+  stage: build
+  services:
+    - postgres:latest
+  variables:
+    POSTGRES_DB : "registrasidb"
+    POSTGRES_USER: "ittazkia"
+    POSTGRES_PASSWORD: "ittazkia"
+    SPRING_DATASOURCE_URL: jdbc:postgresql://postgres/registrasidb
+  script: mvn package -B -Dmaven.repo.local=.m2/repository
+  artifacts:
+    paths:
+      - target/*.jar
+
+deploy-to-production:
+  image: debian:latest
+  stage: deploy
+  only:
+    - /-RELEASE$/
+  script:
+  - scp target/*.jar root@$SSH_HOSTNAME:/home/registrasi/
+  - ssh root@$SSH_HOSTNAME /home/registrasi/deploy-registrasi.sh $CI_PROJECT_NAME-$CI_COMMIT_TAG.jar
