@@ -119,7 +119,7 @@ public class PembayaranController {
 
 
         pembayaranDao.save(pembayaran);
-        return "redirect:/biaya/tagihan/list";
+        return "redirect:/registrasi/list";
     }
 
     @RequestMapping("/biaya/pembayaran/list")

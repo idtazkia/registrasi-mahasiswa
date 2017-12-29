@@ -56,9 +56,13 @@
                                                 <td sec:authorize="hasAuthority('VIEW_MASTER')">
                                                     <a th:href="@{/registrasi/reset/form(pendaftar = ${s.id})}" class="btn bg-blue waves-effec">Reset Password</a>
                                                 </td>
-                                                <td sec:authorize="hasAuthority('VIEW_FINANCE')">
-                                                    <a th:href="@{/tagihan/list(pendaftar = ${s.id})}" class="btn bg-green waves-effec">Lihat Tagihan</a>
+                                                <td>
+                                                    <a th:href="@{/registrasi/detail/view(id = ${s.id})}" class="btn btn-warning waves-effec">Data Detail</a>
                                                 </td>
+                                                <td sec:authorize="hasAuthority('VIEW_FINANCE')">
+                                                    <a th:href="@{/tagihan/list(pendaftar = ${s.id})}" target="_blank" class="btn bg-green waves-effec">Lihat Tagihan</a>
+                                                </td>
+
                                             </tr>
                                             </tbody>
                                         </table>

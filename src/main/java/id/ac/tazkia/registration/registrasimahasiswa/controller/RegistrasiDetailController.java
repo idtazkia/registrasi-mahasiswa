@@ -10,14 +10,18 @@ import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -88,5 +92,18 @@ public class RegistrasiDetailController {
 
     }
 
+
+//VIEW DETAIL PENDAFTAR
+
+    @GetMapping("/registrasi/detail/view")
+    public void  viewDetail(@RequestParam(value = "id",required = false)String idPendaftar, Model m, Pageable page){
+        if(StringUtils.hasText(idPendaftar)) {
+            m.addAttribute("pendaftar", idPendaftar);
+            Pendaftar p = pendaftarDao.findOne(idPendaftar);
+            m.addAttribute("view", detailPendaftarDao.findByPendaftar(p));
+        } else {
+            m.addAttribute("view", detailPendaftarDao.findAll(page));
+        }
+    }
 
 }
