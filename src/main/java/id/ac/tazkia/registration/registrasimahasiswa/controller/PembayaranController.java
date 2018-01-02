@@ -52,20 +52,18 @@ public class PembayaranController {
     }
 
     @RequestMapping(value = "/biaya/pembayaran/form", method = RequestMethod.GET)
-    public void tampilkanForm(@RequestParam(value = "id", required = false) String id,
-                                Model m){
+    public void tampilkanForm(@RequestParam(value = "id", required = true) String id,
+                              @RequestParam(required = false) String error,
+                              Model m){
         //defaultnya, isi dengan object baru
-        m.addAttribute("bayar", new Tagihan());
+        Pembayaran p = new Pembayaran();
+        m.addAttribute("bayar", p);
+        m.addAttribute("error", error);
 
-        if (id != null && !id.isEmpty()){
-            Tagihan p= tagihanDao.findOne(id);
-            if (p != null){
-                Pembayaran x = new Pembayaran();
-                x.setNilai(p.getNilai());
-                x.setTagihan(p);
-                m.addAttribute("bayar", x);
-            }
-
+        Tagihan t = tagihanDao.findOne(id);
+        if (t != null){
+            p.setNilai(t.getNilai());
+            p.setTagihan(t);
         }
     }
 
@@ -75,7 +73,7 @@ public class PembayaranController {
 
         if (errors.hasErrors()) {
             LOGGER.debug("Error upload bukti pembayaran : {}",errors.toString());
-            return "redirect:/biaya/pembayaran/form"+pembayaran.getTagihan().getId();
+            return "redirect:/biaya/pembayaran/form?error=Invalid&id="+pembayaran.getTagihan().getId();
         }
 
         String idPeserta = pembayaran.getTagihan().getPendaftar().getId();
