@@ -67,12 +67,15 @@ public class PembayaranController {
             }
 
         }
-        return "/biaya/pembayaran/form";
     }
 
     @RequestMapping(value = "/biaya/pembayaran/form", method = RequestMethod.POST)
     public String prosesForm(@ModelAttribute @Valid Pembayaran pembayaran, BindingResult errors,
                              MultipartFile buktiPembayaran) throws Exception{
+
+        if (errors.hasErrors()) {
+            return "/biaya/pembayaran/form?id="+pembayaran.getTagihan().getId();
+        }
 
         String idPeserta = pembayaran.getTagihan().getPendaftar().getId();
 
@@ -96,7 +99,6 @@ public class PembayaranController {
             extension = namaAsli.substring(i+1);
         }
 
-
         String idFile = UUID.randomUUID().toString();
         String lokasiUpload = uploadFolder+ File.separator + idPeserta;
         LOGGER.debug("Lokasi upload : {}",lokasiUpload);
@@ -114,9 +116,7 @@ public class PembayaranController {
         user.setActive(true);
         userDao.save(user);
 
-
         LOGGER.debug("Bank : {}",pembayaran.getBank());
-
 
         pembayaranDao.save(pembayaran);
         return "redirect:/registrasi/list";
