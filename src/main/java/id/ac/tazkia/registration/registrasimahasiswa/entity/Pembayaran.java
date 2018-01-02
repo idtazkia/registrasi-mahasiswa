@@ -32,7 +32,7 @@ public class Pembayaran {
     private String buktiPembayaran;
 
     @NotNull @Enumerated(EnumType.STRING)
-    private CaraPembayaran caraPembayaran;
+    private CaraPembayaran caraPembayaran = CaraPembayaran.TUNAI;
 
     @NotNull @Min(0)
     private BigDecimal nilai;
