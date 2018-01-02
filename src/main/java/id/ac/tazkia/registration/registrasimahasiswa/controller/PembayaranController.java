@@ -74,7 +74,8 @@ public class PembayaranController {
                              MultipartFile buktiPembayaran) throws Exception{
 
         if (errors.hasErrors()) {
-            return "/biaya/pembayaran/form?id="+pembayaran.getTagihan().getId();
+            LOGGER.debug("Error upload bukti pembayaran : {}",errors.toString());
+            return "redirect:/biaya/pembayaran/form"+pembayaran.getTagihan().getId();
         }
 
         String idPeserta = pembayaran.getTagihan().getPendaftar().getId();
