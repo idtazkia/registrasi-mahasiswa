@@ -52,7 +52,7 @@ public class PembayaranController {
     }
 
     @RequestMapping(value = "/biaya/pembayaran/form", method = RequestMethod.GET)
-    public String tampilkanForm(@RequestParam(value = "id", required = false) String id,
+    public void tampilkanForm(@RequestParam(value = "id", required = false) String id,
                                 Model m){
         //defaultnya, isi dengan object baru
         m.addAttribute("bayar", new Tagihan());
