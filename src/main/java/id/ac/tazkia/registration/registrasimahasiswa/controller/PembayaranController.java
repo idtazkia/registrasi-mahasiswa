@@ -81,10 +81,10 @@ public class PembayaranController {
         String namaAsli = buktiPembayaran.getOriginalFilename();
         Long ukuran = buktiPembayaran.getSize();
 
-        System.out.println("Nama File :" + namaFile);
-        System.out.println("Jenis File :" + jenisFile);
-        System.out.println("Nama Asli File :" + namaAsli);
-        System.out.println("Ukuran File :" + ukuran);
+        LOGGER.debug("Nama File : {}", namaFile);
+        LOGGER.debug("Jenis File : {}", jenisFile);
+        LOGGER.debug("Nama Asli File : {}", namaAsli);
+        LOGGER.debug("Ukuran File : {}", ukuran);
 
 //        memisahkan extensi
         String extension = "";
@@ -99,12 +99,12 @@ public class PembayaranController {
 
         String idFile = UUID.randomUUID().toString();
         String lokasiUpload = uploadFolder+ File.separator + idPeserta;
-        System.out.println("Lokasi upload : "+lokasiUpload);
+        LOGGER.debug("Lokasi upload : {}",lokasiUpload);
         new File(lokasiUpload).mkdirs();
         File tujuan = new File(lokasiUpload + File.separator + idFile + "." + extension);
         pembayaran.setBuktiPembayaran(idFile+"."+extension);
         buktiPembayaran.transferTo(tujuan);
-        System.out.println("File sudah dicopy ke :"+tujuan.getAbsolutePath());
+        LOGGER.debug("File sudah dicopy ke : {}",tujuan.getAbsolutePath());
 
         Tagihan tagihan = pembayaran.getTagihan();
         tagihan.setLunas(true);
@@ -115,7 +115,7 @@ public class PembayaranController {
         userDao.save(user);
 
 
-        System.out.println("Bank : "+pembayaran.getBank());
+        LOGGER.debug("Bank : {}",pembayaran.getBank());
 
 
         pembayaranDao.save(pembayaran);
@@ -139,7 +139,7 @@ public class PembayaranController {
     public ResponseEntity<byte[]> tampilkanBuktiPembayaran(@PathVariable Pembayaran pembayaran) throws Exception{
         String lokasiFile = uploadFolder + File.separator + pembayaran.getTagihan().getPendaftar().getId()
                 + File.separator + pembayaran.getBuktiPembayaran();
-        LOGGER.debug("Lokasi file bukti : "+lokasiFile);
+        LOGGER.debug("Lokasi file bukti : {}",lokasiFile);
 
         try {
             HttpHeaders headers = new HttpHeaders();
