@@ -69,7 +69,7 @@ public class PembayaranController {
 
     @RequestMapping(value = "/biaya/pembayaran/form", method = RequestMethod.POST)
     public String prosesForm(@ModelAttribute @Valid Pembayaran pembayaran, BindingResult errors,
-                             MultipartFile buktiPembayaran) throws Exception{
+                             MultipartFile fileBukti) throws Exception{
 
         if (errors.hasErrors()) {
             LOGGER.debug("Error upload bukti pembayaran : {}",errors.toString());
@@ -78,10 +78,10 @@ public class PembayaranController {
 
         String idPeserta = pembayaran.getTagihan().getPendaftar().getId();
 
-        String namaFile = buktiPembayaran.getName();
-        String jenisFile = buktiPembayaran.getContentType();
-        String namaAsli = buktiPembayaran.getOriginalFilename();
-        Long ukuran = buktiPembayaran.getSize();
+        String namaFile = fileBukti.getName();
+        String jenisFile = fileBukti.getContentType();
+        String namaAsli = fileBukti.getOriginalFilename();
+        Long ukuran = fileBukti.getSize();
 
         LOGGER.debug("Nama File : {}", namaFile);
         LOGGER.debug("Jenis File : {}", jenisFile);
@@ -104,7 +104,7 @@ public class PembayaranController {
         new File(lokasiUpload).mkdirs();
         File tujuan = new File(lokasiUpload + File.separator + idFile + "." + extension);
         pembayaran.setBuktiPembayaran(idFile+"."+extension);
-        buktiPembayaran.transferTo(tujuan);
+        fileBukti.transferTo(tujuan);
         LOGGER.debug("File sudah dicopy ke : {}",tujuan.getAbsolutePath());
 
         Tagihan tagihan = pembayaran.getTagihan();
