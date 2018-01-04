@@ -50,7 +50,7 @@
                                         <tr th:each="p,row : ${daftarGrade}">
                                             <td th:text="${(row.index + 1) + (daftarGrade.number * daftarGrade.size)}">#</td>
                                             <td th:text="${p. nama}">muamalah</td>
-                                            <td th:text="${p. nilai_minimum}">10-08-2017</td>
+                                            <td th:text="${p. nilaiMinimum}">10-08-2017</td>
                                             <td width="100px">
                                                 <a href="form"  th:href="@{/grade/form(id=${p.id})}"
                                                    class="btn bg-green waves-effec">Edit

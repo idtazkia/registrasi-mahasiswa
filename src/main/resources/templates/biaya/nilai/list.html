@@ -16,14 +16,24 @@
                         <div class="card">
                             <div class="header">
                                 <h3>
-                                    Data Periode
+                                    Data Jenis Biaya
                                 </h3>
                             </div>
                             <!--Table-->
                             <div class="body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                        <thead>
+                                <form method="get">
+                                    Nama Jenis Biaya  : <br><input type="text" name="nama" th:value="${nama}">
+                                    <input type="submit" value="Cari" class="btn  bg-blue-grey waves-effect">
+                                </form>
+                                <br>
+                                Show <span sd:page-size-selector="javascript"></span> entries
+
+                                <hr>
+
+
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-hover">  <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Jenis Biaya</th>
@@ -34,17 +44,34 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="p : ${daftarNilai}">
-                                            <td>#</td>
-                                            <td th:text="${p. id_jenisbiaya}">muamalah</td>
-                                            <td th:text="${p. id_grade}">10-08-2017</td>
-                                            <td th:text="${p. id_periode}">10-10-2017</td>
-                                            <td th:text="${p. id_programstudi}">10-10-2017</td>
+                                        <tr th:each="p, row : ${daftarNilai}">
+                                            <td th:text="${(row.index + 1) + (daftarNilai.number * daftarNilai.size)}">#</td>
+                                            <td th:text="${p. jenisBiaya.nama}">muamalah</td>
+                                            <td th:text="${p. Grade.nama}">10-08-2017</td>
+                                            <td th:text="${p. periode.nama}">10-10-2017</td>
+                                            <td th:text="${p. programStudi.nama}">10-10-2017</td>
                                             <td th:text="${p. nilai}">10-10-2017</td>
 
                                         </tr>
                                         </tbody>
                                     </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div sd:pagination-summary="">info</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <nav class="pull-right">
+                                            <ul class="pagination" sd:pagination="full">
+                                                <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
                                 </div>
                             </div>
                             <!--//table//-->

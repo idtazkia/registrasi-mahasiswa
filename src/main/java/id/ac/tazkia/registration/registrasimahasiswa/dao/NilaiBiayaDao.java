@@ -8,4 +8,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface NilaiBiayaDao extends PagingAndSortingRepository <NilaiBiaya, String> {
     Page<NilaiBiaya> findByJenisBiaya(JenisBiaya jd, Pageable page);
+
+    Page<JenisBiaya> findByJenisBiayaContainingIgnoreCaseOrderByJenisBiaya(String nama, Pageable page);
 }
