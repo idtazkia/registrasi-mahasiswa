@@ -1,10 +1,7 @@
 package id.ac.tazkia.registration.registrasimahasiswa.service;
 
 import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.RoleDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.UserPasswordDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.Registrasi;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -16,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -32,6 +30,7 @@ public class RegistrasiService {
     @Autowired private UserDao userDao;
     @Autowired private UserPasswordDao userPasswordDao;
     @Autowired private PasswordEncoder passwordEncoder;
+    @Autowired private GradeDao gradeDao;
 
     public Pendaftar prosesPendaftaran(Registrasi registrasi, ProgramStudi ps, KabupatenKota kk){
         Pendaftar p = new Pendaftar();
@@ -94,6 +93,10 @@ public class RegistrasiService {
         LOGGER.debug("Nomor Registrasi : {}", nomorRegistrasi);
 
         return nomorRegistrasi;
+    }
+
+    public Grade hitungGrade(BigDecimal nilai){
+        return gradeDao.findTopByNilaiMinimumLessThanOrderByNilaiMinimumDesc(nilai);
     }
 
 }
