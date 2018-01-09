@@ -45,12 +45,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Nilai</label>
-                                                <select name="nilai" th:field="*{grade}" class="form-control" required autofocus>
-                                                    <option value="">-Pilih Niai-</option>
-                                                    <option th:each="ins : ${daftarGrade}"
-                                                            th:value="${ins.id}"
-                                                            th:text="${ins.nilaiMinimum}">70.00</option>
-                                                </select>
+                                                <input type="number" class="form-control" name="nilai" th:field="*{nilai}">
                                             </div>
                                         </div>
                                     </div>

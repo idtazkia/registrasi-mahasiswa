@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity @Data
 public class HasilTest{
@@ -19,7 +20,9 @@ public class HasilTest{
     private Pendaftar pendaftar;
 
     @NotNull
+    private BigDecimal nilai;
+
     @ManyToOne @JoinColumn (name="id_grade")
     private Grade grade;
-
+    
 }
