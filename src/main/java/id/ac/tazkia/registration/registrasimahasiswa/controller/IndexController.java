@@ -10,5 +10,9 @@ public class IndexController {
     public void index(){
 
     }
+    @GetMapping("/frontend/home")
+    public void home(){
+
+    }
 
 }
