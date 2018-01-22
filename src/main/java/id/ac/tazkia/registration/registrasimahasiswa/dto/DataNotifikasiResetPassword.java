@@ -8,14 +8,14 @@ public class DataNotifikasiResetPassword {
     private String nama;
     private String email;
     private String noHp;
-    private String nomorRegistrasi;
-    private String namaAsalSekolah;
+    private String nomor;
+    private String sekolah;
     private String username;
     private String password;
-    private String infoNama1;
-    private String infoHandphone1;
-    private String infoNama2;
-    private String infoHandphone2;
-    private String infoNama3;
-    private String infoHandphone3;
+    private String namaKontak1;
+    private String nomorKontak1;
+    private String namaKontak2;
+    private String nomorKontak2;
+    private String namaKontak3;
+    private String nomorKontak3;
 }

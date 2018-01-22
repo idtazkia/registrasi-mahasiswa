@@ -48,20 +48,21 @@ public class RegistrasiService {
         return p;
     }
 
-    public String resetPassword(Pendaftar p){
+    public String aktivasiUser(Pendaftar p){
         User u = p.getUser();
         UserPassword up = userPasswordDao.findByUser(u);
 
         LOGGER.debug("userName = {}", u.getUsername());
-
 
         String passwordBaru = RandomStringUtils.randomAlphabetic(6);
         up.setPassword(passwordEncoder.encode(passwordBaru));
 
         LOGGER.debug("passwordBaru = {}", passwordBaru);
 
+        u.setActive(true);
+        userDao.save(u);
         userPasswordDao.save(up);
-        //notifikasiService.kirimNotifikasiResetPassword(p,passwordBaru);
+        notifikasiService.kirimNotifikasiResetPassword(p,passwordBaru);
         return passwordBaru;
     }
 

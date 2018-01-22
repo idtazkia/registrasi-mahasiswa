@@ -2,14 +2,14 @@ package id.ac.tazkia.registration.registrasimahasiswa.service;
 
 import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.NilaiBiayaDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.PembayaranDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.DebiturRequest;
+import id.ac.tazkia.registration.registrasimahasiswa.dto.PembayaranTagihan;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.TagihanRequest;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisBiaya;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.NilaiBiaya;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Tagihan;
-import org.apache.tomcat.jni.Local;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -19,16 +19,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Service @Transactional
 public class TagihanService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TagihanService.class);
+    private static final DateTimeFormatter FORMATTER_ISO_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     @Value("${tagihan.id.registrasi}") private String idTagihanRegistrasi;
 
     @Autowired private NilaiBiayaDao nilaiBiayaDao;
     @Autowired private TagihanDao tagihanDao;
+    @Autowired private PembayaranDao pembayaranDao;
     @Autowired private KafkaSender kafkaSender;
 
     private JenisBiaya pendaftaran;
@@ -63,6 +69,25 @@ public class TagihanService {
                 .build();
 
         kafkaSender.requestCreateTagihan(tagihanRequest);
+    }
+
+    public void prosesPembayaran(Tagihan tagihan, PembayaranTagihan pt) {
+        tagihan.setLunas(true);
+
+        Pembayaran pembayaran = new Pembayaran();
+        pembayaran.setTagihan(tagihan);
+        pembayaran.setNilai(pt.getNilaiPembayaran());
+        pembayaran.setWaktuPembayaran(LocalDateTime.parse(pt.getWaktuPembayaran(), FORMATTER_ISO_DATE_TIME));
+
+        Bank bank = new Bank();
+        bank.setId(pt.getBank());
+        pembayaran.setBank(bank);
+        pembayaran.setBuktiPembayaran(pt.getReferensiPembayaran());
+
+        tagihanDao.save(tagihan);
+        pembayaranDao.save(pembayaran);
+        LOGGER.debug("Pembayaran untuk tagihan {} berhasil disimpan", pt.getNomorTagihan());
+
     }
 
     public BigDecimal hitungBiayaPendaftaran(){

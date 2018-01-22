@@ -8,6 +8,5 @@ public class NotifikasiRegistrasi {
     private String konfigurasi;
     private String email;
     private String mobile;
-    private DataNotifikasiRegistrasi data;
-    private DataNotifikasiResetPassword dataReset;
+    private Object data;
 }

@@ -21,7 +21,7 @@ public class ResetPasswordController {
 
     @PostMapping(value = "/registrasi/reset/form")
     public String prosesForm(@RequestParam Pendaftar pendaftar, RedirectAttributes redirectAttributes){
-        String passwordBaru = registrasiService.resetPassword(pendaftar);
+        String passwordBaru = registrasiService.aktivasiUser(pendaftar);
         redirectAttributes.addFlashAttribute("pendaftar", pendaftar);
         redirectAttributes.addFlashAttribute("passwordBaru", passwordBaru);
         return "redirect:selesai";

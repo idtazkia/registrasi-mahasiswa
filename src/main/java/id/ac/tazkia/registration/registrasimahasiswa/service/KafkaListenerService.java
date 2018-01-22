@@ -2,14 +2,15 @@ package id.ac.tazkia.registration.registrasimahasiswa.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.BankDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PembayaranDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.DebiturResponse;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.PembayaranTagihan;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.TagihanResponse;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisBiaya;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.Tagihan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +18,16 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 
 @Service @Transactional
 public class KafkaListenerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaListenerService.class);
-    private static final DateTimeFormatter FORMATTER_ISO_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Autowired private ObjectMapper objectMapper;
     @Autowired private TagihanService tagihanService;
+    @Autowired private RegistrasiService registrasiService;
     @Autowired private PendaftarDao pendaftarDao;
     @Autowired private TagihanDao tagihanDao;
     @Autowired private PembayaranDao pembayaranDao;
@@ -86,22 +83,8 @@ public class KafkaListenerService {
                 return;
             }
 
-            tagihan.setLunas(true);
-
-            Pembayaran pembayaran = new Pembayaran();
-            pembayaran.setTagihan(tagihan);
-            pembayaran.setNilai(pt.getNilaiPembayaran());
-            pembayaran.setWaktuPembayaran(LocalDateTime.parse(pt.getWaktuPembayaran(), FORMATTER_ISO_DATE_TIME));
-
-            Bank bank = new Bank();
-            bank.setId(pt.getBank());
-            pembayaran.setBank(bank);
-            pembayaran.setBuktiPembayaran(pt.getReferensiPembayaran());
-
-            tagihanDao.save(tagihan);
-            pembayaranDao.save(pembayaran);
-
-            LOGGER.debug("Pembayaran untuk tagihan {} berhasil disimpan", pt.getNomorTagihan());
+            tagihanService.prosesPembayaran(tagihan, pt);
+            registrasiService.aktivasiUser(tagihan.getPendaftar());
 
         } catch (Exception err) {
             LOGGER.warn(err.getMessage(), err);
