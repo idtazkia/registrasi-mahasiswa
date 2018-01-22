@@ -1,10 +1,14 @@
 package id.ac.tazkia.registration.registrasimahasiswa.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.DebiturResponse;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.TagihanResponse;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisBiaya;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.Tagihan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +16,19 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.time.ZoneId;
+
 @Service @Transactional
 public class KafkaListenerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaListenerService.class);
+    private static final String JENIS_BIAYA_PENDAFTARAN = "001";
 
     @Autowired private ObjectMapper objectMapper;
     @Autowired private TagihanService tagihanService;
     @Autowired private PendaftarDao pendaftarDao;
+    @Autowired private TagihanDao tagihanDao;
 
     @KafkaListener(topics = "${kafka.topic.debitur.response}", group = "${spring.kafka.consumer.group-id}")
     public void handleDebiturResponse(String message) {
@@ -53,9 +62,33 @@ public class KafkaListenerService {
 
             LOGGER.debug("Create tagihan untuk pendaftar {} sukses dengan nomor {}",
                     response.getDebitur(), response.getNomorTagihan());
+
+            insertTagihanRegistrasi(response);
         } catch (Exception err) {
             LOGGER.warn(err.getMessage(), err);
         }
+    }
+
+
+    private void insertTagihanRegistrasi(TagihanResponse tagihanResponse) {
+        Pendaftar pendaftar = pendaftarDao.findByNomorRegistrasi(tagihanResponse.getDebitur());
+        if (pendaftar == null) {
+            LOGGER.warn("Pendaftar dengan nomor registrasi {} tidak ditemukan", tagihanResponse.getDebitur());
+        }
+
+        Tagihan tagihan = new Tagihan();
+        tagihan.setPendaftar(pendaftar);
+        tagihan.setNomorTagihan(tagihanResponse.getNomorTagihan());
+        tagihan.setLunas(false);
+        tagihan.setTanggalTagihan(tagihanResponse.getTanggalTagihan().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        tagihan.setNilai(tagihanResponse.getNilaiTagihan());
+        tagihan.setKeterangan(tagihanResponse.getKeterangan());
+
+        JenisBiaya pendaftaran = new JenisBiaya();
+        pendaftaran.setId(AppConstants.JENIS_BIAYA_PENDAFTARAN);
+        tagihan.setJenisBiaya(pendaftaran);
+
+        tagihanDao.save(tagihan);
     }
 
 }

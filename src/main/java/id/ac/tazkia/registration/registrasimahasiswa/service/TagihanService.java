@@ -1,5 +1,6 @@
 package id.ac.tazkia.registration.registrasimahasiswa.service;
 
+import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.NilaiBiayaDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.DebiturRequest;
@@ -23,7 +24,6 @@ import java.util.Date;
 
 @Service @Transactional
 public class TagihanService {
-    private static final String JENIS_BIAYA_PENDAFTARAN = "001";
 
     @Value("${tagihan.id.registrasi}") private String idTagihanRegistrasi;
 
@@ -35,7 +35,7 @@ public class TagihanService {
 
     public TagihanService(){
         pendaftaran = new JenisBiaya();
-        pendaftaran.setId(JENIS_BIAYA_PENDAFTARAN);
+        pendaftaran.setId(AppConstants.JENIS_BIAYA_PENDAFTARAN);
     }
 
     public void prosesTagihanPendaftaran(Pendaftar p){
