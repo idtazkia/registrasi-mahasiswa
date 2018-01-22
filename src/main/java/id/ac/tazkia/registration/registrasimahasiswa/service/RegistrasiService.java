@@ -42,7 +42,7 @@ public class RegistrasiService {
 
         createUser(p);
         pendaftarDao.save(p);
-        tagihanService.createTagihanPendaftaran(p);
+        tagihanService.prosesTagihanPendaftaran(p);
         notifikasiService.kirimNotifikasiRegistrasi(p);
 
         return p;
