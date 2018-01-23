@@ -7,7 +7,6 @@ import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Bank;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pembayaran;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Tagihan;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
 import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

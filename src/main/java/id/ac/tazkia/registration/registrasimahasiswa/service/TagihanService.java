@@ -56,13 +56,9 @@ public class TagihanService {
     }
 
     public void createTagihanRegistrasi(Pendaftar p) {
-        BigDecimal kodeUnik = new BigDecimal(p.getNomorRegistrasi().substring(p.getNomorRegistrasi().length() - 3));
-        BigDecimal biayaPendaftaran = hitungBiayaPendaftaran();
-        BigDecimal tagihanPendaftaran = biayaPendaftaran.add(kodeUnik);
-
         TagihanRequest tagihanRequest = TagihanRequest.builder()
                 .jenisTagihan(idTagihanRegistrasi)
-                .nilaiTagihan(tagihanPendaftaran)
+                .nilaiTagihan(hitungBiayaPendaftaran())
                 .debitur(p.getNomorRegistrasi())
                 .keterangan("Pembayaran Registrasi Mahasiswa Baru STEI Tazkia 2018")
                 .tanggalJatuhTempo(Date.from(LocalDate.now().plusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
