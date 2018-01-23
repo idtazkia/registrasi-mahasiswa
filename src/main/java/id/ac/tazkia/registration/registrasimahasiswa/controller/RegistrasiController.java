@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -33,7 +35,8 @@ public class RegistrasiController {
     @Autowired private ProgramStudiDao programStudiDao;
 
     @GetMapping("/registrasi/list")
-    public void daftarPendaftaran(@RequestParam(required = false)String search, Model m, Pageable page){
+    public void daftarPendaftaran(@RequestParam(required = false)String search, Model m,
+                                  @PageableDefault(size = 10, sort = "nomorRegistrasi", direction = Sort.Direction.DESC) Pageable page){
         if(StringUtils.hasText(search)) {
             m.addAttribute("search", search);
             m.addAttribute("daftarPendaftaran", pendaftarDao
