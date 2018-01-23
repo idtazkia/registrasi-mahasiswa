@@ -8,6 +8,7 @@ import id.ac.tazkia.registration.registrasimahasiswa.entity.Bank;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pembayaran;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Tagihan;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
+import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class PembayaranController {
     private UserDao userDao;
     @Value("${upload.folder}")
     private String uploadFolder;
+    @Autowired private RegistrasiService registrasiService;
 
     @ModelAttribute("daftarBank")
     public Iterable<Bank> daftarBank(){
@@ -111,9 +113,7 @@ public class PembayaranController {
         tagihan.setLunas(true);
         tagihanDao.save(tagihan);
 
-        User user = pembayaran.getTagihan().getPendaftar().getUser();
-        user.setActive(true);
-        userDao.save(user);
+        registrasiService.aktivasiUser(tagihan.getPendaftar());
 
         LOGGER.debug("Bank : {}",pembayaran.getBank());
 
