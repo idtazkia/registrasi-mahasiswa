@@ -13,10 +13,10 @@
                 <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="http://spmb.tazkia.ac.id/registrasi/form" target="_blank">Registrasi</a>
             </div>
         </div>
-    </header>
+    </header><br>
 
     <!-- Program Studi -->
-    <section id="prodi">
+    <section id="prodi" class="bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -71,8 +71,74 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section><br>
+    <!--Hasil Test-->
+    <section id="hasilTest">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase">Daftar Hasil Test</h2>
+                </div>
+            </div>
+            <center>
+                <form method="get">
+                    <br><input type="text" id="search" name="search" placeholder="Nama/No Registrasi Anda" th:value="${search}" >
+                    <input type="submit" value="Cari" class="btn-success"><br><br>
+                    Show <span sd:page-size-selector="javascript"></span> entries
+                </form>
+            </center><br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <table border="1" class="table table-responsive">
+                                <tr align="center">
+                                    <th width="4%">No</th>
+                                    <th>Nomor Registrasi</th>
+                                    <th>Nama</th>
+                                    <th>Asal Sekolah</th>
+                                    <th>Grade</th>
+                                </tr>
+                                <tr th:each="p,row : ${daftarHasil}" align="center">
+                                    <td th:text="${(row.index + 1) + (daftarHasil.number * daftarHasil.size)}">#</td>
+                                    <td th:text="${p.pendaftar.nomorRegistrasi}"></td>
+                                    <td th:text="${p.pendaftar.nama}"></td>
+                                    <td th:text="${p.pendaftar.namaAsalSekolah}"></td>
 
+                                    <td>
+                                        <span style="color: #4fa9e8; font-size: 16px;" th:if="${p.nilai}>30">Lulus(
+                                           <span th:text="${p.grade.nama}"  style="color:black; font-size: 16px;"></span> )
+                                        </span>
+                                        <span th:if="${p.nilai}<30">
+                                           <span th:text="${p.grade.nama}"  style="color: red; font-size: 16px;"></span>                                        </span>
+                                    </td>
+
+                                </tr>
+                            </table>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div sd:pagination-summary="">info</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <nav class="pull-right">
+                                        <ul class="pagination" sd:pagination="full">
+                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section><br>
+    <!---->
     <!-- biaya S1&S2-->
     <section class="bg-light" id="biaya">
         <center>
@@ -168,7 +234,7 @@
         <!---->
         <hr><br>
         <!--S2-->
-        <<div class="container" id="s2">
+        <div class="container" id="s2">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h3 class="section-heading text-uppercase">Biaya Pendidikan S2</h3>
@@ -208,9 +274,10 @@
         </div>
     </div>
     </section>
+    <br>
 
     <!-- periode -->
-    <section id="periode">
+    <section   id="periode">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -254,7 +321,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section><br>
 
 
     <!-- prosedur -->
@@ -391,7 +458,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section><br>
 
 
     <!-- contact -->
