@@ -10,13 +10,12 @@ import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
@@ -81,4 +80,17 @@ public class HasilTestController {
     }
 
 ////
+
+//List
+
+    @GetMapping("registrasi/hasil/list")
+    public String listHasilTest(@RequestParam(required = false)String search, Model m, Pageable page){
+        if(StringUtils.hasText(search)) {
+            m.addAttribute("search", search);
+            m.addAttribute("daftarHasil", hasilTestDao.findByPendaftarNomorRegistrasiContainingOrPendaftarNamaOrGradeNamaContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(search,search, search, page));
+        } else {
+            m.addAttribute("daftarHasil", hasilTestDao.findAll(page));
+        }
+        return "registrasi/hasil/list";
+    }
 }

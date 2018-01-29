@@ -12,4 +12,6 @@ public interface HasilTestDao extends PagingAndSortingRepository<HasilTest, Stri
     HasilTest findByPendaftar(Pendaftar p);
 
     Page<HasilTest> findByPendaftarNomorRegistrasiContainingOrPendaftarNamaContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(String nomor, String nama, Pageable page);
+
+    Page<HasilTest> findByPendaftarNomorRegistrasiContainingOrPendaftarNamaOrGradeNamaContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(String nomor, String nama, String grade, Pageable page);
 }
