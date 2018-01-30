@@ -38,9 +38,11 @@ public class TagihanService {
     @Autowired private KafkaSender kafkaSender;
 
     private JenisBiaya pendaftaran;
+    private ProgramStudi programStudi;
 
     public TagihanService(){
         pendaftaran = new JenisBiaya();
+        programStudi = new ProgramStudi();
         pendaftaran.setId(AppConstants.JENIS_BIAYA_PENDAFTARAN);
     }
 
@@ -53,18 +55,20 @@ public class TagihanService {
                 .build();
 
         kafkaSender.requestCreateDebitur(request);
+
     }
 
     public void createTagihanRegistrasi(Pendaftar p) {
         TagihanRequest tagihanRequest = TagihanRequest.builder()
                 .jenisTagihan(idTagihanRegistrasi)
-                .nilaiTagihan(hitungBiayaPendaftaran())
+                .nilaiTagihan(hitungBiayaPendaftaran(p))
                 .debitur(p.getNomorRegistrasi())
                 .keterangan("Pembayaran Registrasi Mahasiswa Baru STEI Tazkia 2018")
                 .tanggalJatuhTempo(Date.from(LocalDate.now().plusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
 
         kafkaSender.requestCreateTagihan(tagihanRequest);
+
     }
 
     public void prosesPembayaran(Tagihan tagihan, PembayaranTagihan pt) {
@@ -86,8 +90,9 @@ public class TagihanService {
 
     }
 
-    public BigDecimal hitungBiayaPendaftaran(){
-        Page<NilaiBiaya> biaya = nilaiBiayaDao.findByJenisBiaya(pendaftaran, new PageRequest(0,1));
+    public BigDecimal hitungBiayaPendaftaran(Pendaftar p){
+        p.getProgramStudi();
+        Page<NilaiBiaya> biaya = nilaiBiayaDao.findByJenisBiayaAndProgramStudi(pendaftaran, p.getProgramStudi(), new PageRequest(0,1));
         if(!biaya.hasContent()){
             return BigDecimal.ZERO;
         }

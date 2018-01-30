@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" >
 <head>
+    <link rel="icon" href="https://tazkia.ac.id/images/logo-tazkia-2.png"/>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <title>Form Pendaftaran</title>
@@ -26,7 +27,7 @@
         <div class="navbar-header">
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="https://registrasi.tazkia.ac.id/">PMB - STEI Tazkia</a>
+            <a class="navbar-brand" href="https://spmb.tazkia.ac.id/">PMB - STEI Tazkia</a>
         </div>
     </div>
 </nav>
@@ -214,12 +215,11 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Program Studi Pilihan</label>
-                                                <select v-on:change="onChange" id="select1" th:field="*{programStudiPilihan}"
-                                                        required name="program_studi" class="form-control" />
-                                                    <option value="">-Pilih Data-</option>
-                                                    <option v-for="option in options" v-bind:value="option.value">
-                                                        {{ option.text }}
-                                                    </option>
+                                                <select name="bank" th:field="*{programStudiPilihan}" class="form-control" required autofocus>
+                                                    <option value="">-Pilih Program Studi-</option>
+                                                    <option th:each="ins : ${daftarProdi}"
+                                                            th:value="${ins.id}"
+                                                            th:text="${ins.nama}">Ekonomi Syariah</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -270,51 +270,4 @@
 
 </body>
 
-<!--program studi-->
-<script>
-    var TypesArr = {
-        akuntansi: [{ text: 'Sistem Informasi', value: 'sistem_informasi' },
-                    { text: 'Pengauditan', value: 'pengauditan' }],
-        managemen: [{ text: 'Keuangan Dan Perbankan Islam', value: 'keuangan_perbankan' },
-                    { text: 'Pemasaran & Kewirausahaan Islam', value: 'pemasaran_islam' }],
-        ekonomi:  [{ text: 'Ekonomi Pembangunan', value: 'ekonomi_pembangunan'},
-                   { text: 'Keuangan Dan Moneter Islam', value: 'keuangan_islam' }]
-    }
-
-
-    var selectTwo = new Vue({
-        el: '#select2',
-        data: {
-            selected: TypesArr['akuntansi'][0],
-            options: TypesArr['']
-        },
-        methods: {
-            update: function (value)
-            {
-                this.options = TypesArr[value]
-            }
-        }
-    })
-
-
-    new Vue({
-        el: '#select1',
-        data: {
-            selected: 'akuntansi',
-            options: [ { text: 'Akuntansi Syariah', value: '002' },
-                { text: 'Program Khusus CCIT FTUI ', value: '005' },
-                { text: 'Manajemen Bisnis Syariah', value: '003' },
-                { text: 'Ekonomi Syariah', value: '001' },
-                { text: 'Hukum Bisnis Syariah (Muamalah) ', value: '004' },
-                         { text: 'Pendidikan Ekonomi Islam (Tadris IPS)', value: '006' }
-            ]
-        },
-        methods: {
-            onChange: function (event)
-            {
-                selectTwo.update(event.srcElement.value)
-            }
-        }
-    })
-</script>
 </html>

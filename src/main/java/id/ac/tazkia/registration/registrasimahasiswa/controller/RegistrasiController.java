@@ -74,6 +74,11 @@ public class RegistrasiController {
         return "redirect:/selesai";
     }
 
+    @ModelAttribute("daftarProdi")
+    public Iterable<ProgramStudi> daftarProdi(){
+        return programStudiDao.findAll();
+    }
+
 
     @GetMapping("/selesai")
     public  void  selesai(){ }
