@@ -35,14 +35,14 @@ $(document).ready(function(){
         inputField.prop('disabled', true);
     };
 
-    resetInput(inputKabupatenKota);
+    // resetInput(inputKabupatenKota);
 
 
     inputProvinsi.typeahead({
         displayText: function(item){ return item.nama;},
         source: _.debounce(function(cari, process){
             provinsi = null;
-            resetInput(inputKabupatenKota);
+            // resetInput(inputKabupatenKota);
             $.get(urlProvinsi, {nama: cari}, function(hasil){
                 process(hasil);
             }, "json");
