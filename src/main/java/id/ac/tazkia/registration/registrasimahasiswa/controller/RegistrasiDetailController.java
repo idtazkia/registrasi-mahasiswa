@@ -1,5 +1,12 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
+import fr.opensagres.xdocreport.converter.ConverterTypeTo;
+import fr.opensagres.xdocreport.converter.Options;
+import fr.opensagres.xdocreport.core.document.DocumentKind;
+import fr.opensagres.xdocreport.document.IXDocReport;
+import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
+import fr.opensagres.xdocreport.template.IContext;
+import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.DetailPendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
@@ -7,9 +14,12 @@ import id.ac.tazkia.registration.registrasimahasiswa.dto.RegistrasiDetail;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
+import id.ac.tazkia.registration.registrasimahasiswa.service.NotifikasiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +32,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Locale;
 
 @Controller
 public class RegistrasiDetailController {
@@ -34,6 +53,12 @@ public class RegistrasiDetailController {
 
     @Autowired
     private DetailPendaftarDao detailPendaftarDao;
+    @Autowired
+    private NotifikasiService notifikasiService;
+
+    @Value("classpath:kartu-ujian-tpa.odt")
+    private Resource templateKartuUjian;
+
 
     @GetMapping("/registrasi/detail/list")
     public void daftarPendaftaran(Model m){
@@ -86,6 +111,13 @@ public class RegistrasiDetailController {
             logger.debug("Error Validasi Form : {}", errors.toString());
             return "/registrasi/detail/form";
         }
+
+// kirim kartu hanya pada waktu isi data pertama kali
+// kalau update data tidak perlu kirim kartu lagi
+        if(p.getId() == null) {
+            notifikasiService.kirimNotifikasiKartuUjian(p);
+        }
+//simpan
         detailPendaftarDao.save(p);
         return "redirect:/home";
 
@@ -102,6 +134,57 @@ public class RegistrasiDetailController {
             m.addAttribute("view", detailPendaftarDao.findByPendaftar(p));
         } else {
             m.addAttribute("view", detailPendaftarDao.findAll(page));
+        }
+    }
+
+
+
+    @GetMapping("/kartu")
+    public void kartuUjian(@RequestParam(name = "id") Pendaftar pendaftar,
+                           HttpServletResponse response){
+        try {
+            // 0. Setup converter
+            Options options = Options.getFrom(DocumentKind.ODT).to(ConverterTypeTo.PDF);
+
+            // 1. Load template dari file
+            InputStream in = templateKartuUjian.getInputStream();
+
+            // 2. Inisialisasi template engine, menentukan sintaks penulisan variabel
+            IXDocReport report = XDocReportRegistry.getRegistry().
+                    loadReport(in, TemplateEngineKind.Freemarker);
+
+            // 3. Context object, untuk mengisi variabel
+
+            IContext ctx = report.createContext();
+            ctx.put("nomor", pendaftar.getNomorRegistrasi());
+            ctx.put("nama", pendaftar.getNama());
+            ctx.put("prodi", pendaftar.getProgramStudi().getNama());
+            ctx.put("program", "Reguler");
+            ctx.put("hp", "08159551299");
+
+            Locale indonesia = new Locale("id", "id");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", indonesia);
+
+            LocalDate mingguKeduaBulanDepan =
+                    LocalDate.now(ZoneId.systemDefault())
+                            .plusMonths(1)
+                            .with(TemporalAdjusters.firstInMonth(DayOfWeek.SUNDAY))
+                            .plusWeeks(1);
+
+            LocalDate berlaku = mingguKeduaBulanDepan.plusWeeks(2);
+
+            String tanggalUjian = mingguKeduaBulanDepan.format(formatter);
+            String tanggalBerlaku = berlaku.format(formatter);
+
+            ctx.put("tanggalUjian", tanggalUjian);
+            ctx.put("berlaku", tanggalBerlaku);
+
+            response.setHeader("Content-Disposition", "attachment;filename=kartu-ujian.pdf");
+            OutputStream out = response.getOutputStream();
+            report.convert(ctx, options, out);
+            out.flush();
+        } catch (Exception err){
+            logger.error(err.getMessage(), err);
         }
     }
 
