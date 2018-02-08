@@ -25,10 +25,8 @@ public class IndexController {
         if(StringUtils.hasText(search)) {
             m.addAttribute("search", search);
             m.addAttribute("daftarHasil", hasilTestDao.findByPendaftarNomorRegistrasiContainingOrPendaftarNamaContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(search,search, tpa));
-            m.addAttribute("daftarSmart", smartTestDao.findByNamaContainingOrSekolahContainingIgnoreCaseOrderByNama(search,search, smart));
         } else {
             m.addAttribute("daftarHasil", hasilTestDao.findAll(tpa));
-            m.addAttribute("daftarSmart", smartTestDao.findAll(smart));
         }
         if(StringUtils.hasText(cari)) {
             m.addAttribute("cari", cari);
