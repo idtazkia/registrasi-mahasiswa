@@ -74,69 +74,151 @@
     </section><br>
     <!--Hasil Test-->
     <section id="hasilTest">
-        <div class="container">
+      <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase">Daftar Hasil Test</h2>
+                    <h2 class="section-heading text-uppercase">Pilih Hasil Test</h2>
                 </div>
             </div>
-            <center>
-                <form method="get">
-                    <br><input type="text" id="search" name="search" placeholder="Nama/No Registrasi Anda" th:value="${search}" >
-                    <input type="submit" value="Cari" class="btn-success"><br><br>
-                    Show <span sd:page-size-selector="javascript"></span> entries
-                </form>
-            </center><br>
-            <div class="row">
-                <div class="col-lg-12">
+        <div class="col-lg-12 text-center">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tpa" role="tab">Hasil Test Potensi Akademik</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#smart" role="tab">Hasil Smart Test</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!--Test Potensi Akademik-->
+            <div class="tab-pane" id="tpa" role="tabpanel" sd:page-object="${daftarHasil}" sd:pagination-qualifier="tpa">
                     <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <table border="1" class="table table-responsive">
-                                <tr align="center">
-                                    <th width="4%">No</th>
-                                    <th>Nomor Registrasi</th>
-                                    <th>Nama</th>
-                                    <th>Asal Sekolah</th>
-                                    <th>Grade</th>
-                                </tr>
-                                <tr th:each="p,row : ${daftarHasil}" align="center">
-                                    <td th:text="${(row.index + 1) + (daftarHasil.number * daftarHasil.size)}">#</td>
-                                    <td th:text="${p.pendaftar.nomorRegistrasi}"></td>
-                                    <td th:text="${p.pendaftar.nama}"></td>
-                                    <td th:text="${p.pendaftar.namaAsalSekolah}"></td>
+                        <div class="col-lg-12 text-center"><br>
+                            <h3 class="section-heading text-uppercase">Hasil Test Potensi Akademik </h3>
+                        </div>
+                    </div>
+                    <center>
+                        <form method="get">
+                            <br><input type="text" id="search" name="search" placeholder="Nama/No Registrasi Anda" th:value="${search}" >
+                            <input type="submit" value="Cari" class="btn-success"><br><br>
+                            Show <span sd:page-size-selector="javascript"></span> entries
+                        </form>
+                    </center><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <table border="1" class="table table-responsive">
+                                        <tr align="center">
+                                            <th width="4%">No</th>
+                                            <th>Nomor Registrasi</th>
+                                            <th>Nama</th>
+                                            <th>Asal Sekolah</th>
+                                            <th>Grade</th>
+                                        </tr>
+                                        <tr th:each="p,row : ${daftarHasil}" align="center">
+                                            <td th:text="${(row.index + 1) + (daftarHasil.number * daftarHasil.size)}">#</td>
+                                            <td th:text="${p.pendaftar.nomorRegistrasi}"></td>
+                                            <td th:text="${p.pendaftar.nama}"></td>
+                                            <td th:text="${p.pendaftar.namaAsalSekolah}"></td>
 
-                                    <td>
+                                            <td>
                                         <span style="color: #4fa9e8; font-size: 16px;" th:if="${p.nilai}>30">Lulus(
                                            <span th:text="${p.grade.nama}"  style="color:black; font-size: 16px;"></span> )
                                         </span>
-                                        <span th:if="${p.nilai}<30">
+                                                <span th:if="${p.nilai}<30">
                                            <span th:text="${p.grade.nama}"  style="color: red; font-size: 16px;"></span>                                        </span>
-                                    </td>
+                                            </td>
 
-                                </tr>
-                            </table>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div sd:pagination-summary="">info</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <nav class="pull-right">
-                                        <ul class="pagination" sd:pagination="full">
-                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
-                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                        </ul>
-                                    </nav>
+                                        </tr>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div sd:pagination-summary="">info</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <nav class="pull-right">
+                                                <ul class="pagination" sd:pagination="full">
+                                                    <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <!---->
+
+            <!--Smart Test-->
+            <div class="tab-pane" id="smart" role="tabpanel" sd:page-object="${daftarSmart}" sd:pagination-qualifier="smart">
+                    <div class="row">
+                        <div class="col-lg-12 text-center"><br>
+                            <h3 class="section-heading text-uppercase">Hasil Smart Test</h3>
+                        </div>
+                    </div>
+                    <center>
+                        <form method="get">
+                            <br><input type="text" id="cari" name="cari" placeholder="Nama/Sekolah Anda" th:value="${cari}" >
+                            <input type="submit" value="Cari" class="btn-success"><br><br>
+                            Show <span sd:page-size-selector="javascript"></span> entries
+                        </form>
+                    </center><br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <table border="1" class="table table-responsive">
+                                        <tr align="center">
+                                            <th width="4%">No</th>
+                                            <th>Nama</th>
+                                            <th>Asal Sekolah</th>
+                                            <th>Nilai</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        <tr th:each="p,row : ${daftarSmart}" align="center">
+                                            <td th:text="${(row.index + 1) + (daftarSmart.number * daftarSmart.size)}">#</td>
+                                            <td th:text="${p.nama}"></td>
+                                            <td th:text="${p.sekolah}"></td>
+                                            <td th:text="${p.nilai}"></td>
+
+                                            <td>
+                                                <a th:href="@{registrasi/form(id = ${p.id})}" target="_blank" class="btn btn-primary text-uppercase js-scroll-trigger">Daftar</a>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div sd:pagination-summary="">info</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-8">
+                                            <nav class="pull-right">
+                                                <ul class="pagination" sd:pagination="full">
+                                                    <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!---->
         </div>
-        </div>
+      </div>
     </section><br>
     <!---->
     <!-- biaya S1&S2-->
