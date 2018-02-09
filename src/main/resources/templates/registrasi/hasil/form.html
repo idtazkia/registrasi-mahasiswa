@@ -49,6 +49,19 @@
                                             </div>
                                         </div>
                                     </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Jenis Test</label>
+                                                    <select name="bank" th:field="*{jenisTest}" class="form-control" required autofocus>
+                                                        <option value="">-Pilih Jenis Test-</option>
+                                                        <option value="TPA">TPA</option>
+                                                        <option value="JPA">JPA</option>
+                                                        <option value="SMART_TEST">Smart Test</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     <input type="hidden" name="pendaftar"
                                            th:field="*{pendaftar}"/><br>
                                     <input type="hidden" name="id"
