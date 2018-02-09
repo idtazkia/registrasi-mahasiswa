@@ -24,5 +24,9 @@ public class HasilTest{
 
     @ManyToOne @JoinColumn (name="id_grade")
     private Grade grade;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private JenisTest jenisTest;
     
 }
