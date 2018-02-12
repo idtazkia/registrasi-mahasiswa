@@ -12,7 +12,6 @@ public class Registrasi {
     private String nama;
     @Email
     private String email;
-    @NotNull @NotEmpty
     private String noHp;
     private String pemberiRekomendasi;
     private String namaPerekomendasi;

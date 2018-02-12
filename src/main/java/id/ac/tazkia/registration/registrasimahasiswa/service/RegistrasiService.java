@@ -83,7 +83,7 @@ public class RegistrasiService {
         p.setUser(user);
     }
 
-    private String generateNomorRegistrasi(){
+    public String generateNomorRegistrasi(){
         String tanggalSekarang = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMM"));
         RunningNumber terbaru = runningNumberService.generate(tanggalSekarang);
 

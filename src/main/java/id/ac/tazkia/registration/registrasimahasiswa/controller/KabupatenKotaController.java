@@ -3,11 +3,11 @@ package id.ac.tazkia.registration.registrasimahasiswa.controller;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.KabupatenKotaDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.ProvinsiDao;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.KabupatenKota;
+import org.flywaydb.core.internal.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +26,16 @@ public class KabupatenKotaController {
     @GetMapping("/api/kokabawal")
     public List<KabupatenKota> findByName(@RequestParam String nama){
         return kabupatenKotaDao.findByNamaContainingIgnoreCaseOrderByNama(nama);
+    }
+
+//uploadSmartTest
+    @GetMapping("/api/cariKokab")
+    @ResponseBody
+    public Page<KabupatenKota> findByKokab(@RequestParam(required = false) String nama, Pageable page){
+        if(!StringUtils.hasText(nama)) {
+            return kabupatenKotaDao.findAll(page);
+        }
+        return kabupatenKotaDao.findByNamaContainingIgnoreCaseOrderById(nama, page);
+
     }
 }

@@ -3,6 +3,7 @@ $(document).ready(function(){
     var urlSekolah ="/api/sekolah";
     var urlKokabawal = "/api/kokabawal";
     var urlPendaftar = "/api/pendaftar";
+    var urlCariKokab = "/api/cariKokab";
 
     var templateUrlKabupaten = "/api/provinsi/{provinsi}/kabupaten";
 
@@ -19,6 +20,8 @@ $(document).ready(function(){
     var kokab = null;
     var pendaftar = null;
     var tagihan =  null;
+    var cariSekolah =  null;
+    var cariKokab =  null;
 
 
     var inputSekolah = $("#sekolah");
@@ -26,6 +29,11 @@ $(document).ready(function(){
     var inputKabupatenKota = $("#kabupatenKota");
     var inputKokabawal = $("#kokabawal");
     var inputHiddenKokab = $("input[name=idKabupatenKota]");
+    //uploadSmartTest
+    var inputCariSekolah = $("#cariSekolah");
+    var inputCariKokab = $("#cariKokab");
+    var inputHiddenIdKotakabupaten = $("input[name=kabupatenKota]");
+    var inputHiddenIdSekolah = $("input[name=idSekolah]");
 
     var inputPendaftar = $("#pendaftar");
     var inputTagihan = $("#id");
@@ -74,6 +82,35 @@ $(document).ready(function(){
                 process(hasil.content);
             }, "json");
         }, 500)
+
+    });
+    inputCariKokab.typeahead({
+        displayText: function(item){ return item.nama;},
+        source: _.debounce(function(cari, process){
+            sekolah = null;
+            $.get(urlCariKokab, {nama: cari}, function(hasil){
+                process(hasil.content);
+            }, "json");
+        }, 500),
+        afterSelect: function(pilihan) {
+            inputHiddenIdKotakabupaten.val(pilihan.id);
+            console.log( pilihan.id);
+
+    }
+
+    });
+    inputCariSekolah.typeahead({
+        displayText: function(item){ return item.nama;},
+        source: _.debounce(function(cari, process){
+            sekolah = null;
+            $.get(urlSekolah, {nama: cari}, function(hasil){
+                process(hasil.content);
+            }, "json");
+        }, 500),
+        afterSelect: function(pilihan) {
+            inputHiddenIdSekolah.val(pilihan.id);
+            console.log( pilihan.id);
+    }
 
     });
 

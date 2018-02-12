@@ -2,10 +2,13 @@ package id.ac.tazkia.registration.registrasimahasiswa.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Entity @Data
 public class HasilTest{
@@ -28,5 +31,9 @@ public class HasilTest{
     @NotNull
     @Enumerated(EnumType.STRING)
     private JenisTest jenisTest;
+
+    @NotNull
+    @Column(columnDefinition = "DATE")
+    private Date tanggalTest;
     
 }
