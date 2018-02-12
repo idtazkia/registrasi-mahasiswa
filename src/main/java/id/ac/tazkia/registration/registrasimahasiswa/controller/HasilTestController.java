@@ -64,11 +64,10 @@ public class HasilTestController {
 
 //simpan
     @RequestMapping(value = "registrasi/hasil/form", method = RequestMethod.POST)
-    public String prosesForm(@Valid HasilTest hasilTest,String nilai, BindingResult errors){
+    public String prosesForm(@Valid HasilTest hasilTest, String nilai, BindingResult errors){
         if(errors.hasErrors()){
             return "/registrasi/hasil/form";
         }
-
 
         Grade hasil = registrasiService.hitungGrade(new BigDecimal(nilai));
         logger.debug("ID GRADE :"+ hasil.getId());

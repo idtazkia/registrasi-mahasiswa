@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity @Data
@@ -32,6 +31,7 @@ public class HasilTest{
     @Enumerated(EnumType.STRING)
     private JenisTest jenisTest;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     @Column(columnDefinition = "DATE")
     private Date tanggalTest;
