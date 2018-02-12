@@ -165,7 +165,8 @@ public class SmartTestController {
         return "redirect:hasil";
     }
 
-
+    @GetMapping("/registrasi/smart/hasil")
+    public void hasilFormUpload(){}
 
 
 }
