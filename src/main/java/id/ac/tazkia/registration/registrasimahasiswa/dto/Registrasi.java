@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class Registrasi {
+
+    private  String id;
+    private  String nomorRegistrasi;
     @NotNull @NotEmpty
     private String nama;
     @Email
@@ -18,7 +21,7 @@ public class Registrasi {
     private String negara;
     private String idKabupatenKota;
     private String namaAsalSekolah;
-    private String programStudiPilihan;
+    private String programStudi;
     private String konsentrasi;
 
 

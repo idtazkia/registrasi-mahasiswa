@@ -5,6 +5,7 @@ import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.ProgramStudiDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.Registrasi;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.KabupatenKota;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.ProgramStudi;
 import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
 import org.slf4j.Logger;
@@ -17,10 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
@@ -46,10 +44,22 @@ public class RegistrasiController {
         }
     }
 
-    @GetMapping(value = "/registrasi/form")
-    public void tampilkanForm(Model model){
-        model.addAttribute("registrasi", new Registrasi());
+    //tampikan form
+    @RequestMapping(value = "/registrasi/form", method = RequestMethod.GET)
+    public String tampilkanForm(@RequestParam(value = "id", required = false) String id,
+                                Model m){
+        //defaultnya, isi dengan object baru
+        m.addAttribute("registrasi", new Pendaftar());
+
+        if (id != null && !id.isEmpty()){
+            Pendaftar p= pendaftarDao.findOne(id);
+            if (p != null){
+                m.addAttribute("registrasi", p);
+            }
+        }
+        return "/registrasi/form";
     }
+////
 
     @PostMapping(value = "/registrasi/form")
     public String prosesForm(@ModelAttribute @Valid Registrasi registrasi, BindingResult errors, SessionStatus status){
@@ -60,7 +70,7 @@ public class RegistrasiController {
         }
 
         // load program studi
-        ProgramStudi prodi = programStudiDao.findOne(registrasi.getProgramStudiPilihan());
+        ProgramStudi prodi = programStudiDao.findOne(registrasi.getProgramStudi());
         if(prodi == null){
             errors.reject("programStudiPilihan", "Program studi tidak ada dalam database");
         }

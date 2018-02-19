@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -38,7 +39,14 @@ public class RegistrasiService {
         p.setKabupatenKota(kk);
 
         BeanUtils.copyProperties(registrasi, p);
-        p.setNomorRegistrasi(generateNomorRegistrasi());
+
+        System.out.println("id  : "+registrasi.getId());
+
+        if (!StringUtils.hasText(registrasi.getId())) {
+            p.setNomorRegistrasi(generateNomorRegistrasi());
+        } else {
+            p.setNomorRegistrasi(registrasi.getNomorRegistrasi());
+        }
 
         createUser(p);
         pendaftarDao.save(p);

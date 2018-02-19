@@ -128,6 +128,8 @@
                                                 <input type="text" name="nama" th:field="*{nama}"
                                                        class="form-control"
                                                        placeholder="Nama" required autofocus/>
+                                                <input type="hidden" name="id" id="id" th:field="*{id}">
+                                                <input type="hidden" name="nomor" id="nomor" th:field="*{nomorRegistrasi}">
                                             </div>
                                         </div>
                                     </div>
@@ -156,7 +158,9 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Negara</label>
-                                                 <input type="text" name="negara" required autofocus
+                                                 <input type="text" name="negara"
+                                                        placeholder="Negara"
+                                                        required autofocus
                                                         class="form-control" th:field="*{negara}"/>
                                             </div>
                                         </div>
@@ -171,6 +175,7 @@
                                                        data-provide="typeahead"
                                                        autocomplete="off" required autofocus>
                                             </div>
+                                            <span style="color: red">Cari Kabupaten/kota secara otomatis.</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -181,6 +186,7 @@
                                                        id="sekolah" placeholder="Cari Sekolah ..."
                                                        data-provide="typeahead" autocomplete="off" required autofocus>
                                             </div>
+                                            <span style="color: red">Cari asal sekolah secara otomatis.</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -215,7 +221,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Program Studi Pilihan</label>
-                                                <select name="bank" th:field="*{programStudiPilihan}" class="form-control" required autofocus>
+                                                <select name="programStudi" th:field="*{programStudi}" class="form-control" required autofocus>
                                                     <option value="">-Pilih Program Studi-</option>
                                                     <option th:each="ins : ${daftarProdi}"
                                                             th:value="${ins.id}"

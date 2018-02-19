@@ -194,9 +194,10 @@
                                                 <span th:if="${p.nilai}<30">
                                            <span th:text="${p.grade.nama}"  style="color: red; font-size: 16px;"></span>                                        </span>
                                             </td>
-
                                             <td>
+                                              <span th:if="${p.pendaftar.programStudi == null}">
                                                 <a th:href="@{registrasi/form(id = ${p.pendaftar.id})}" target="_blank" class="btn btn-primary text-uppercase js-scroll-trigger">Daftar</a>
+                                              </span>
                                             </td>
 
                                         </tr>
