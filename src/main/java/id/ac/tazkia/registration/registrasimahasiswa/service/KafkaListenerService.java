@@ -14,6 +14,7 @@ import id.ac.tazkia.registration.registrasimahasiswa.entity.Tagihan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,9 @@ import java.time.ZoneId;
 public class KafkaListenerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaListenerService.class);
+
+    @Value("${tagihan.id.registrasi}") private String idTagihanRegistrasi;
+    @Value("${tagihan.id.daftarUlang}") private String idTagihanDaftarUlang;
 
     @Autowired private ObjectMapper objectMapper;
     @Autowired private TagihanService tagihanService;
@@ -106,9 +110,16 @@ public class KafkaListenerService {
         tagihan.setNilai(tagihanResponse.getNilaiTagihan());
         tagihan.setKeterangan(tagihanResponse.getKeterangan());
 
-        JenisBiaya pendaftaran = new JenisBiaya();
-        pendaftaran.setId(AppConstants.JENIS_BIAYA_PENDAFTARAN);
-        tagihan.setJenisBiaya(pendaftaran);
+        JenisBiaya jenisBiaya = new JenisBiaya();
+        if(idTagihanRegistrasi.equals(tagihanResponse.getJenisTagihan())) {
+            jenisBiaya.setId(AppConstants.JENIS_BIAYA_PENDAFTARAN);
+        } else if(idTagihanDaftarUlang.equals(tagihanResponse.getJenisTagihan())){
+            jenisBiaya.setId(AppConstants.JENIS_BIAYA_DAFTAR_ULANG);
+        } else {
+            LOGGER.error("Jenis Biaya {} belum terdaftar", tagihanResponse.getJenisTagihan());
+            return;
+        }
+        tagihan.setJenisBiaya(jenisBiaya);
 
         tagihanDao.save(tagihan);
     }

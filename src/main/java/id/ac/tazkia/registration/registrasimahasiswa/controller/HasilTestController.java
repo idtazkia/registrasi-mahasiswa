@@ -7,6 +7,7 @@ import id.ac.tazkia.registration.registrasimahasiswa.entity.Grade;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.HasilTest;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
+import id.ac.tazkia.registration.registrasimahasiswa.service.TagihanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.time.ZoneId;
 
 @Controller
 public class HasilTestController {
@@ -33,6 +35,8 @@ public class HasilTestController {
     private HasilTestDao hasilTestDao;
     @Autowired
     private RegistrasiService registrasiService;
+    @Autowired
+    private TagihanService tagihanService;
 
 
     @ModelAttribute("daftarGrade")
@@ -75,6 +79,11 @@ public class HasilTestController {
         hasilTest.setGrade(hasil);
 
         hasilTestDao.save(hasilTest);
+        HasilTest h = hasilTestDao.findByPendaftar(hasilTest.getPendaftar());
+        Pendaftar p = h.getPendaftar();
+
+        tagihanService.createTagihanDaftarUlang(p, h, hasilTest.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
         return "redirect:/registrasi/list";
     }
 

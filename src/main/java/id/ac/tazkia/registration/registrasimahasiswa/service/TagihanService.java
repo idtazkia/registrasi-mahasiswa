@@ -3,6 +3,7 @@ package id.ac.tazkia.registration.registrasimahasiswa.service;
 import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.NilaiBiayaDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PembayaranDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.PeriodeDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.DebiturRequest;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.PembayaranTagihan;
@@ -14,8 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -23,6 +26,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 @Service @Transactional
 public class TagihanService {
@@ -31,19 +35,26 @@ public class TagihanService {
     private static final DateTimeFormatter FORMATTER_ISO_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Value("${tagihan.id.registrasi}") private String idTagihanRegistrasi;
+    @Value("${tagihan.id.daftarUlang}") private String idTagihanDaftarUlang;
 
     @Autowired private NilaiBiayaDao nilaiBiayaDao;
     @Autowired private TagihanDao tagihanDao;
     @Autowired private PembayaranDao pembayaranDao;
     @Autowired private KafkaSender kafkaSender;
+    @Autowired private PeriodeDao periodeDao;
 
     private JenisBiaya pendaftaran;
+    private JenisBiaya daftarUlang;
     private ProgramStudi programStudi;
 
     public TagihanService(){
         pendaftaran = new JenisBiaya();
         programStudi = new ProgramStudi();
         pendaftaran.setId(AppConstants.JENIS_BIAYA_PENDAFTARAN);
+
+//DaftarUlang
+        daftarUlang = new JenisBiaya();
+        daftarUlang.setId(AppConstants.JENIS_BIAYA_DAFTAR_ULANG);
     }
 
     public void prosesTagihanPendaftaran(Pendaftar p){
@@ -93,6 +104,35 @@ public class TagihanService {
     public BigDecimal hitungBiayaPendaftaran(Pendaftar p){
         p.getProgramStudi();
         Page<NilaiBiaya> biaya = nilaiBiayaDao.findByJenisBiayaAndProgramStudi(pendaftaran, p.getProgramStudi(), new PageRequest(0,1));
+        if(!biaya.hasContent()){
+            return BigDecimal.ZERO;
+        }
+        return biaya.getContent().get(0).getNilai();
+    }
+
+
+    public void createTagihanDaftarUlang(Pendaftar p, HasilTest h,@RequestParam (required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate tanggalTest){
+
+        TagihanRequest tagihanRequest = TagihanRequest.builder()
+
+                .jenisTagihan(idTagihanDaftarUlang)
+                .nilaiTagihan(hitungBiayaDaftarUlang(p, h, tanggalTest))
+                .debitur(p.getNomorRegistrasi())
+                .keterangan("Pembayaran Daftar Ulang Mahasiswa Baru STEI Tazkia 2018")
+                .tanggalJatuhTempo(Date.from(LocalDate.now().plusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .build();
+
+        kafkaSender.requestCreateTagihan(tagihanRequest);
+
+    }
+
+
+    public BigDecimal hitungBiayaDaftarUlang(Pendaftar p, HasilTest h,
+                                             @RequestParam (required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate tanggalTest){
+        List<Periode> daftarPeriode = periodeDao.cariPeriodeUntukTanggal(tanggalTest);
+
+        p.getProgramStudi();
+        Page<NilaiBiaya> biaya = nilaiBiayaDao.findByJenisBiayaAndProgramStudiAndGradeAndPeriode(daftarUlang, p.getProgramStudi(), h.getGrade(),daftarPeriode, new PageRequest(0,1));
         if(!biaya.hasContent()){
             return BigDecimal.ZERO;
         }

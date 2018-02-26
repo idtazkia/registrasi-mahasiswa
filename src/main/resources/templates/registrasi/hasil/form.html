@@ -37,6 +37,7 @@
                                                 <label>Nama</label>
                                                 <br>
                                                 <b><span name="nama" th:text="${pendaftar.nama}"></span></b>
+                                                <input type="hidden" hidden th:value="${pendaftar.id}">
                                             </div>
                                         </div>
                                     </div>
@@ -79,7 +80,7 @@
                                     <div class="col-sm-12" align="right" >
                                         <div class="form-group">
                                             <div class="col-xs-12" >
-                                                <button class="btn btn-lg bg-blue-grey waves-effect" type="submit">SELESAI</button>
+                                                <button  class="btn btn-lg bg-blue-grey waves-effect" type="">SELESAI</button>
 
                                                 <a th:href="@{/registrasi/list}" class="btn btn-lg bg-red waves-effect">BATAL</a>
                                             </div>
