@@ -6,6 +6,7 @@ import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Grade;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.HasilTest;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
+import id.ac.tazkia.registration.registrasimahasiswa.service.NotifikasiService;
 import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
 import id.ac.tazkia.registration.registrasimahasiswa.service.TagihanService;
 import org.slf4j.Logger;
@@ -37,7 +38,8 @@ public class HasilTestController {
     private RegistrasiService registrasiService;
     @Autowired
     private TagihanService tagihanService;
-
+    @Autowired
+    private NotifikasiService notifikasiService;
 
     @ModelAttribute("daftarGrade")
     public Iterable<Grade> daftarGrade(){return gradeDao.findAll(); }
@@ -81,6 +83,8 @@ public class HasilTestController {
         hasilTestDao.save(hasilTest);
         HasilTest h = hasilTestDao.findByPendaftar(hasilTest.getPendaftar());
         Pendaftar p = h.getPendaftar();
+
+        notifikasiService.kirimNotifikasiHasilTest(p,h);
 
         tagihanService.createTagihanDaftarUlang(p, h, hasilTest.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 

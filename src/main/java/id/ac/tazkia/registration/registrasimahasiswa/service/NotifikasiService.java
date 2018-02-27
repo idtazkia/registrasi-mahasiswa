@@ -1,11 +1,9 @@
 package id.ac.tazkia.registration.registrasimahasiswa.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import id.ac.tazkia.registration.registrasimahasiswa.dto.DataNotifikasiKartuUjian;
-import id.ac.tazkia.registration.registrasimahasiswa.dto.DataNotifikasiRegistrasi;
-import id.ac.tazkia.registration.registrasimahasiswa.dto.DataNotifikasiResetPassword;
-import id.ac.tazkia.registration.registrasimahasiswa.dto.NotifikasiRegistrasi;
+import id.ac.tazkia.registration.registrasimahasiswa.dto.*;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.HasilTest;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +22,7 @@ public class NotifikasiService {
     @Value("${notifikasi.registrasi.konfigurasi.pendaftaran}") private String konfigurasiNotifikasiPendaftaran;
     @Value("${notifikasi.registrasi.konfigurasi.reset-password}") private String konfigurasiNotifikasiResetPassword;
     @Value("${notifikasi.registrasi.konfigurasi.kartu-ujian}") private String getKonfigurasiNotifikasiKartuUjian;
+    @Value("${notifikasi.registrasi.konfigurasi.grade}") private String getKonfigurasiNotifikasiHasilTest;
 
     @Autowired private KafkaTemplate<String, String> kafkaTemplate;
     @Autowired private ObjectMapper objectMapper;
@@ -104,6 +103,34 @@ public class NotifikasiService {
                         .email(p.getEmail())
                         .sekolah(p.getPendaftar().getNamaAsalSekolah())
                         .prodi(p.getPendaftar().getProgramStudi().getNama())
+                        .namaKontak1("Irma")
+                        .nomorKontak1("08159551299")
+                        .namaKontak2("Furqon")
+                        .nomorKontak2("089696792628")
+                        .namaKontak3("Panitia Penerimaan Mahasiswa Baru")
+                        .nomorKontak3("humas@tazkia.ac.id")
+                        .build())
+                .build();
+
+        try {
+            kafkaTemplate.send(topicNotifikasi, objectMapper.writeValueAsString(notif));
+        } catch (Exception err) {
+            LOGGER.warn(err.getMessage(), err);
+        }
+    }
+
+    @Async
+    public void kirimNotifikasiHasilTest(Pendaftar p, HasilTest h){
+        NotifikasiRegistrasi notif = NotifikasiRegistrasi.builder()
+                .konfigurasi(getKonfigurasiNotifikasiHasilTest)
+                .email(p.getEmail())
+                .data(DataNotifikasiPengumuman.builder()
+                        .nama(p.getNama())
+                        .nomor(p.getNomorRegistrasi())
+                        .email(p.getEmail())
+                        .grade(h.getGrade().getNama())
+                        .sekolah(p.getNamaAsalSekolah())
+                        .prodi(p.getProgramStudi().getNama())
                         .namaKontak1("Irma")
                         .nomorKontak1("08159551299")
                         .namaKontak2("Furqon")
