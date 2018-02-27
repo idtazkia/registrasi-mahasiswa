@@ -84,7 +84,7 @@ public class HasilTestController {
         HasilTest h = hasilTestDao.findByPendaftar(hasilTest.getPendaftar());
         Pendaftar p = h.getPendaftar();
 
-        notifikasiService.kirimNotifikasiHasilTest(p,h);
+        notifikasiService.kirimNotifikasiHasilTest(h);
 
         tagihanService.createTagihanDaftarUlang(p, h, hasilTest.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 

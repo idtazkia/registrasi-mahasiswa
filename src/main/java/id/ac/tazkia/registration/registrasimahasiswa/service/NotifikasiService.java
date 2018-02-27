@@ -120,7 +120,8 @@ public class NotifikasiService {
     }
 
     @Async
-    public void kirimNotifikasiHasilTest(Pendaftar p, HasilTest h){
+    public void kirimNotifikasiHasilTest(HasilTest h){
+        Pendaftar p = h.getPendaftar();
         NotifikasiRegistrasi notif = NotifikasiRegistrasi.builder()
                 .konfigurasi(getKonfigurasiNotifikasiHasilTest)
                 .email(p.getEmail())

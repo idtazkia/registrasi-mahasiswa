@@ -8,13 +8,16 @@ import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.DetailPendaftarDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.HasilTestDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.RegistrasiDetail;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.HasilTest;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
 import id.ac.tazkia.registration.registrasimahasiswa.service.NotifikasiService;
+import id.ac.tazkia.registration.registrasimahasiswa.service.TagihanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +53,8 @@ public class RegistrasiDetailController {
 
     @Autowired private PendaftarDao pendaftarDao;
     @Autowired private UserDao userDao;
+    @Autowired private HasilTestDao hasilTestDao;
+    @Autowired private TagihanService tagihanService;
 
     @Autowired
     private DetailPendaftarDao detailPendaftarDao;
@@ -112,11 +117,22 @@ public class RegistrasiDetailController {
             return "/registrasi/detail/form";
         }
 
+        HasilTest h = hasilTestDao.findByPendaftar(p.getPendaftar());
+        if (h != null && p.getId() == null) {
+
+            Pendaftar pe = h.getPendaftar();
+            notifikasiService.kirimNotifikasiHasilTest(h);
+            tagihanService.createTagihanDaftarUlang(pe, h, h.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
+        } else {
 // kirim kartu hanya pada waktu isi data pertama kali
 // kalau update data tidak perlu kirim kartu lagi
-        if(p.getId() == null) {
-            notifikasiService.kirimNotifikasiKartuUjian(p);
+            if (p.getId() == null) {
+                notifikasiService.kirimNotifikasiKartuUjian(p);
+            }
         }
+
+
 //simpan
         detailPendaftarDao.save(p);
         return "redirect:/home";
