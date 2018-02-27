@@ -57,7 +57,7 @@ public class RegistrasiController {
                 m.addAttribute("registrasi", p);
             }
         }
-        return "/registrasi/form";
+        return "registrasi/form";
     }
 ////
 
@@ -76,7 +76,7 @@ public class RegistrasiController {
         }
 
         if(errors.hasErrors()){
-            return "/registrasi/form";
+            return "registrasi/form";
         }
 
         registrasiService.prosesPendaftaran(registrasi, prodi, kk);
