@@ -54,7 +54,7 @@ public class SekolahController {
                 m.addAttribute("sekolah", p);
             }
         }
-        return "/sekolah/form";
+        return "sekolah/form";
     }
 ////
 //simpan
