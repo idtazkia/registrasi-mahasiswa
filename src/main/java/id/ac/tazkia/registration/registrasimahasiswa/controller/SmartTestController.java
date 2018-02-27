@@ -57,7 +57,7 @@ public class SmartTestController {
 
     @RequestMapping(value = "/registrasi/smart/form", method = RequestMethod.GET)
     public String tampilkanForm(){
-        return "/registrasi/smart/form";
+        return "registrasi/smart/form";
     }
 
     @PostMapping("/registrasi/smart/form")
