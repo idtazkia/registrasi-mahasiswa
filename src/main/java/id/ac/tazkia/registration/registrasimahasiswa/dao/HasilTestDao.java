@@ -5,7 +5,9 @@ import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisTest;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -14,9 +16,14 @@ public interface HasilTestDao extends PagingAndSortingRepository<HasilTest, Stri
 
     Page<HasilTest> findByPendaftarNomorRegistrasiContainingOrPendaftarNamaOrGradeNamaContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(String nomor, String nama, String grade, Pageable page);
 
-    Page<HasilTest> findByJenisTestInOrPendaftarNomorRegistrasiContainingOrPendaftarNamaContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(List<JenisTest>daftarJenisTest, String nomor, String nama, Pageable tpaPage);
+    @Query("select h from HasilTest h where h.jenisTest in :jenis and (h.pendaftar.nomorRegistrasi like :pendaftar or lower(h.pendaftar.nama) like :pendaftar) order by h.pendaftar.nomorRegistrasi")
+    Page<HasilTest> cariByJenisTestTpaJPaDanPendaftar(@Param("jenis") List<JenisTest> jenis, @Param("pendaftar") String pendaftar, Pageable page);
 
-    Page<HasilTest>  findByJenisTestInOrPendaftarNamaContainingOrPendaftarNamaAsalSekolahContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(List<JenisTest>daftarJenisTest, String nama, String sekolah, Pageable smartPage);
+    @Query("select h from HasilTest h where h.jenisTest in :jenis and (h.pendaftar.namaAsalSekolah like :pendaftar or lower(h.pendaftar.nama) like :pendaftar) order by h.pendaftar.nomorRegistrasi")
+    Page<HasilTest> cariByJenisTestSmartTestDanPendaftar(@Param("jenis") List<JenisTest> jenis, @Param("pendaftar") String pendaftar, Pageable page);
+
+
+//    Page<HasilTest>  findByJenisTestInOrPendaftarNamaContainingOrPendaftarNamaAsalSekolahContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(List<JenisTest>daftarJenisTest, String nama, String sekolah, Pageable smartPage);
 
     Page<HasilTest> findByJenisTestIn(Pageable tpaPage, JenisTest... jenisTests);
 }

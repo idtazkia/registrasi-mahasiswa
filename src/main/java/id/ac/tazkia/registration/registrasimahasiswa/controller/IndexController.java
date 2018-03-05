@@ -25,7 +25,8 @@ public class IndexController {
         if(StringUtils.hasText(search)) {
             m.addAttribute("search", search);
             List<JenisTest> jpaTpa = Arrays.asList(JenisTest.JPA, JenisTest.TPA);
-            m.addAttribute("daftarHasil", hasilTestDao.findByJenisTestInOrPendaftarNomorRegistrasiContainingOrPendaftarNamaContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(jpaTpa, search,search, tpaPage));
+            m.addAttribute("daftarHasil", hasilTestDao.cariByJenisTestTpaJPaDanPendaftar(jpaTpa, "%"+search.toLowerCase()+"%", tpaPage));
+            System.out.println("hasil pencarian : "+ search);
         } else {
             m.addAttribute("daftarHasil", hasilTestDao.findByJenisTestIn(tpaPage, JenisTest.TPA, JenisTest.JPA));
         }
@@ -33,7 +34,7 @@ public class IndexController {
         if(StringUtils.hasText(cari)) {
             m.addAttribute("cari", cari);
             List<JenisTest> smartTest = Arrays.asList(JenisTest.SMART_TEST);
-            m.addAttribute("daftarSmart", hasilTestDao.findByJenisTestInOrPendaftarNamaContainingOrPendaftarNamaAsalSekolahContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(smartTest,cari,cari, smartPage));
+            m.addAttribute("daftarSmart", hasilTestDao.cariByJenisTestSmartTestDanPendaftar(smartTest, "%"+cari.toLowerCase()+"%", smartPage));
         } else {
             m.addAttribute("daftarSmart", hasilTestDao.findByJenisTestIn(smartPage, JenisTest.SMART_TEST));
         }
