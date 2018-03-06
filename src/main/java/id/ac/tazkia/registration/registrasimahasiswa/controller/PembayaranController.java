@@ -156,6 +156,16 @@ public class PembayaranController {
         }
     }
 
-
+//list
+    @GetMapping("/registrasi/pembayaran/list")
+    public void daftarPembayaran(@RequestParam(required = false)String pendaftar, Model m, Pageable page){
+        if(StringUtils.hasText(pendaftar)) {
+            m.addAttribute("pendaftar", pendaftar);
+            m.addAttribute("daftarPembayaran", pembayaranDao.cariByPendaftar("%"+pendaftar.toLowerCase()+"%", page));
+        } else {
+            m.addAttribute("daftarPembayaran", pembayaranDao.findAll(page));
+        }
+    }
+/////
 }
 

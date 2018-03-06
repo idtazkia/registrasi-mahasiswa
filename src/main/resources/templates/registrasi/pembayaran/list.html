@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Pembayaran Pendaftar</title>
+</head>
+<body>
+<section layout:fragment="content" class="clearfix">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="header">
+                                <h3>
+                                    Data Pembayaran Pendaftar
+                                </h3>
+                            </div>
+                        </div>
+                        <!--Table-->
+                        <div class="body">
+                            <form method="get">
+                                Nama Pendaftar : <br><input type="text" id="pendaftar" name="pendaftar" th:value="${pendaftar}">
+                                <input type="submit" value="Cari" class="btn  bg-blue-grey waves-effect">
+                            </form>
+                            <br>
+                            Show <span sd:page-size-selector="javascript"></span> entries
+
+                            <hr>
+
+
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>Jenis Biaya</th>
+                                            <th>Bank</th>
+                                            <th>Nilai Transfer</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="p,row : ${daftarPembayaran}">
+                                            <td th:text="${(row.index + 1) + (daftarPembayaran.number * daftarPembayaran.size)}">#</td>
+                                            <td th:text="${p. tagihan.pendaftar.nama}">haffizh</td>
+                                            <td th:text="${p. tagihan.jenisBiaya.nama }">10-08-2017</td>
+                                            <td th:text="${p. bank.namaBank }">10-08-2017</td>
+                                            <td th:text="${p. nilai }">10-08-2017</td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div sd:pagination-summary="">info</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <nav class="pull-right">
+                                        <ul class="pagination" sd:pagination="full">
+                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <!--//table//-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</section>
+
+</body>
+</html>
