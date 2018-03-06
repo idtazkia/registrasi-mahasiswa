@@ -16,7 +16,7 @@ public interface PembayaranDao extends PagingAndSortingRepository<Pembayaran, St
 
 //    List<Pembayaran> findByTagihanPendaftarNamaContainingIgnoreCaseOrderByTagihan(String pendaftar,Pageable page);
 
-    @Query("select h from Pembayaran h where (lower(h.tagihan.pendaftar.nama) like :pendaftar ) order by h.tagihan.pendaftar.nama")
+    @Query("select h from Pembayaran h where (lower(h.tagihan.pendaftar.nama) like :pendaftar  or lower(h.tagihan.jenisBiaya.nama) like:pendaftar) order by h.tagihan.pendaftar.nama")
     Page<Pembayaran> cariByPendaftar(@Param("pendaftar") String pendaftar, Pageable page);
 
 }
