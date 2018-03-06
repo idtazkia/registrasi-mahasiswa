@@ -19,7 +19,7 @@ public interface HasilTestDao extends PagingAndSortingRepository<HasilTest, Stri
     @Query("select h from HasilTest h where h.jenisTest in :jenis and (h.pendaftar.nomorRegistrasi like :pendaftar or lower(h.pendaftar.nama) like :pendaftar) order by h.pendaftar.nomorRegistrasi")
     Page<HasilTest> cariByJenisTestTpaJPaDanPendaftar(@Param("jenis") List<JenisTest> jenis, @Param("pendaftar") String pendaftar, Pageable page);
 
-    @Query("select h from HasilTest h where h.jenisTest in :jenis and (h.pendaftar.namaAsalSekolah like :pendaftar or lower(h.pendaftar.nama) like :pendaftar) order by h.pendaftar.nomorRegistrasi")
+    @Query("select h from HasilTest h where h.jenisTest in :jenis and (lower(h.pendaftar.nama) like :pendaftar or lower (h.pendaftar.namaAsalSekolah) like :pendaftar) order by h.pendaftar.nomorRegistrasi")
     Page<HasilTest> cariByJenisTestSmartTestDanPendaftar(@Param("jenis") List<JenisTest> jenis, @Param("pendaftar") String pendaftar, Pageable page);
 
 
