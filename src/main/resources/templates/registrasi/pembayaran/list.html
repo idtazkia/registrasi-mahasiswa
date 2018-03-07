@@ -38,6 +38,7 @@
                                         <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>No Registrasi</th>
                                             <th>Nama</th>
                                             <th>Jenis Biaya</th>
                                             <th>Bank</th>
@@ -47,6 +48,7 @@
                                         <tbody>
                                         <tr th:each="p,row : ${daftarPembayaran}">
                                             <td th:text="${(row.index + 1) + (daftarPembayaran.number * daftarPembayaran.size)}">#</td>
+                                            <td th:text="${p. tagihan.pendaftar.nomorRegistrasi}">201801002</td>
                                             <td th:text="${p. tagihan.pendaftar.nama}">haffizh</td>
                                             <td th:text="${p. tagihan.jenisBiaya.nama }">10-08-2017</td>
                                             <td th:text="${p. bank.namaBank }">10-08-2017</td>
