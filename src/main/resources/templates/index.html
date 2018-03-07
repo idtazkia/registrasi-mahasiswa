@@ -180,6 +180,7 @@
                                             <th width="4%">No</th>
                                             <th>Nama</th>
                                             <th>Asal Sekolah</th>
+                                            <th>Kota Asal Sekolah</th>
                                             <th>Nilai</th>
                                             <th>&nbsp;</th>
                                         </tr>
@@ -187,6 +188,7 @@
                                             <td th:text="${(row.index + 1) + (daftarSmart.number * daftarSmart.size)}">#</td>
                                             <td th:text="${p.pendaftar.nama}"></td>
                                             <td th:text="${p.pendaftar.namaAsalSekolah}"></td>
+                                            <td th:text="${p.pendaftar.kabupatenKota.nama}"></td>
                                             <td>
                                         <span style="color: #4fa9e8; font-size: 16px;" th:if="${p.nilai}>29">Lulus(
                                            <span th:text="${p.grade.nama}"  style="color:black; font-size: 16px;"></span> )
