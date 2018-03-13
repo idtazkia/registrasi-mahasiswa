@@ -8,6 +8,7 @@ import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.DebiturResponse;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.PembayaranTagihan;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.TagihanResponse;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisBiaya;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Tagihan;
@@ -35,6 +36,7 @@ public class KafkaListenerService {
     @Autowired private PendaftarDao pendaftarDao;
     @Autowired private TagihanDao tagihanDao;
     @Autowired private PembayaranDao pembayaranDao;
+    @Autowired private NotifikasiService notifikasiService;
 
     @KafkaListener(topics = "${kafka.topic.debitur.response}", group = "${spring.kafka.consumer.group-id}")
     public void handleDebiturResponse(String message) {
@@ -76,7 +78,7 @@ public class KafkaListenerService {
     }
 
     @KafkaListener(topics = "${kafka.topic.tagihan.payment}", group = "${spring.kafka.consumer.group-id}")
-    public void handlePayment(String message) {
+    public void handlePayment(String message, DetailPendaftar dp) {
         try {
             LOGGER.debug("Terima message : {}", message);
             PembayaranTagihan pt = objectMapper.readValue(message, PembayaranTagihan.class);
@@ -88,7 +90,12 @@ public class KafkaListenerService {
             }
 
             tagihanService.prosesPembayaran(tagihan, pt);
-            registrasiService.aktivasiUser(tagihan.getPendaftar());
+
+            if (tagihan.getJenisBiaya().getId() == AppConstants.JENIS_BIAYA_DAFTAR_ULANG){
+                notifikasiService.kirimNotifikasiKeteranganLulus(dp);
+            }else {
+                registrasiService.aktivasiUser(tagihan.getPendaftar());
+            }
 
         } catch (Exception err) {
             LOGGER.warn(err.getMessage(), err);
