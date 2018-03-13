@@ -23,6 +23,7 @@ public class NotifikasiService {
     @Value("${notifikasi.registrasi.konfigurasi.reset-password}") private String konfigurasiNotifikasiResetPassword;
     @Value("${notifikasi.registrasi.konfigurasi.kartu-ujian}") private String getKonfigurasiNotifikasiKartuUjian;
     @Value("${notifikasi.registrasi.konfigurasi.grade}") private String getKonfigurasiNotifikasiHasilTest;
+    @Value("${notifikasi.registrasi.konfigurasi.keterangan-lulus}") private String getKonfigurasiNotifikasiKeteranganLulus;
 
     @Autowired private KafkaTemplate<String, String> kafkaTemplate;
     @Autowired private ObjectMapper objectMapper;
@@ -132,6 +133,33 @@ public class NotifikasiService {
                         .grade(h.getGrade().getNama())
                         .sekolah(p.getNamaAsalSekolah())
                         .prodi(p.getProgramStudi().getNama())
+                        .namaKontak1("Irma")
+                        .nomorKontak1("08159551299")
+                        .namaKontak2("Furqon")
+                        .nomorKontak2("089696792628")
+                        .namaKontak3("Panitia Penerimaan Mahasiswa Baru")
+                        .nomorKontak3("humas@tazkia.ac.id")
+                        .build())
+                .build();
+
+        try {
+            kafkaTemplate.send(topicNotifikasi, objectMapper.writeValueAsString(notif));
+        } catch (Exception err) {
+            LOGGER.warn(err.getMessage(), err);
+        }
+    }
+
+    @Async
+    public void kirimNotifikasiKeteranganLulus(DetailPendaftar dp){
+        Pendaftar p = dp.getPendaftar();
+        NotifikasiRegistrasi notif = NotifikasiRegistrasi.builder()
+                .konfigurasi(getKonfigurasiNotifikasiKeteranganLulus)
+                .email(p.getEmail())
+                .data(DataNotifikasiKeteranganLulus.builder()
+                        .id(p.getId())
+                        .nama(p.getNama())
+                        .nomor(p.getNomorRegistrasi())
+                        .email(p.getEmail())
                         .namaKontak1("Irma")
                         .nomorKontak1("08159551299")
                         .namaKontak2("Furqon")
