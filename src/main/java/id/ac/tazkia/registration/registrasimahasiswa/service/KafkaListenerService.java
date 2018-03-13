@@ -2,6 +2,7 @@ package id.ac.tazkia.registration.registrasimahasiswa.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.DetailPendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PembayaranDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanDao;
@@ -34,6 +35,7 @@ public class KafkaListenerService {
     @Autowired private TagihanService tagihanService;
     @Autowired private RegistrasiService registrasiService;
     @Autowired private PendaftarDao pendaftarDao;
+    @Autowired private DetailPendaftarDao detailPendaftarDao;
     @Autowired private TagihanDao tagihanDao;
     @Autowired private PembayaranDao pembayaranDao;
     @Autowired private NotifikasiService notifikasiService;
@@ -78,20 +80,25 @@ public class KafkaListenerService {
     }
 
     @KafkaListener(topics = "${kafka.topic.tagihan.payment}", group = "${spring.kafka.consumer.group-id}")
-    public void handlePayment(String message, DetailPendaftar dp) {
+    public void handlePayment(String message) {
         try {
             LOGGER.debug("Terima message : {}", message);
             PembayaranTagihan pt = objectMapper.readValue(message, PembayaranTagihan.class);
 
             Tagihan tagihan = tagihanDao.findByNomorTagihan(pt.getNomorTagihan());
             if (tagihan == null) {
-                LOGGER.debug("Tagihan dengan nomor {} tidak ditemukan", pt.getNomorTagihan());
+                LOGGER.warn("Tagihan dengan nomor {} tidak ditemukan", pt.getNomorTagihan());
                 return;
             }
 
             tagihanService.prosesPembayaran(tagihan, pt);
 
             if (tagihan.getJenisBiaya().getId() == AppConstants.JENIS_BIAYA_DAFTAR_ULANG){
+                DetailPendaftar dp = detailPendaftarDao.findByPendaftar(tagihan.getPendaftar());
+                if(dp == null){
+                    LOGGER.warn("Tagihan dengan nomor {} tidak memiliki data detail pendaftar", pt.getNomorTagihan());
+                    return;
+                }
                 notifikasiService.kirimNotifikasiKeteranganLulus(dp);
             }else {
                 registrasiService.aktivasiUser(tagihan.getPendaftar());
