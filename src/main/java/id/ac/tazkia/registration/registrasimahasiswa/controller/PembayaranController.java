@@ -240,8 +240,8 @@ public class PembayaranController {
 
     @GetMapping("/formNimko")
     public void downloadContohFileTagihan(HttpServletResponse response) throws Exception {
-        response.setContentType("text/xlsx");
-        response.setHeader("Content-Disposition", "attachment; filename=Form NIRM.xlsx");
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=Form-NIRM.xlsx");
         FileCopyUtils.copy(formNimko.getInputStream(), response.getOutputStream());
         response.getOutputStream().flush();
     }
