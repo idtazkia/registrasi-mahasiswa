@@ -93,7 +93,9 @@ public class KafkaListenerService {
 
             tagihanService.prosesPembayaran(tagihan, pt);
 
-            if (tagihan.getJenisBiaya().getId() == AppConstants.JENIS_BIAYA_DAFTAR_ULANG){
+            System.out.println("jenis tagihan : "+ tagihan.getJenisBiaya().getId() );
+
+            if (tagihan.getJenisBiaya().getId().equals(AppConstants.JENIS_BIAYA_DAFTAR_ULANG)){
                 DetailPendaftar dp = detailPendaftarDao.findByPendaftar(tagihan.getPendaftar());
                 if(dp == null){
                     LOGGER.warn("Tagihan dengan nomor {} tidak memiliki data detail pendaftar", pt.getNomorTagihan());
