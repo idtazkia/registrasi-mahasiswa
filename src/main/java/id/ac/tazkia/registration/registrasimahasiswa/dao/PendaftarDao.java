@@ -22,4 +22,6 @@ public interface PendaftarDao extends PagingAndSortingRepository<Pendaftar, Stri
 
     List<Pendaftar> findByProgramStudiNotNull();
 
+    Page<Pendaftar> findByProgramStudiNotNull(Pageable page);
+
 }

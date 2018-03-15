@@ -42,7 +42,7 @@ public class RegistrasiController {
             m.addAttribute("daftarPendaftaran", pendaftarDao
                     .findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseOrderByNomorRegistrasi(search,search,page));
         } else {
-            m.addAttribute("daftarPendaftaran", pendaftarDao.findAll(page));
+            m.addAttribute("daftarPendaftaran", pendaftarDao.findByProgramStudiNotNull(page));
         }
     }
 
@@ -115,7 +115,7 @@ public class RegistrasiController {
             response.getWriter().print(",");
             response.getWriter().print(p.getNama());
             response.getWriter().print(",");
-            response.getWriter().print(p.getKabupatenKota().getNama());
+            response.getWriter().print(p.getKabupatenKota());
             response.getWriter().print(",");
             response.getWriter().print(p.getNamaAsalSekolah());
             response.getWriter().print(",");
