@@ -21,7 +21,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 
 @Controller
 public class RegistrasiController {
@@ -92,5 +94,40 @@ public class RegistrasiController {
 
     @GetMapping("/selesai")
     public  void  selesai(){ }
+
+
+    @GetMapping("/registrasi/csv")
+    public void rekapPendaftarCsv(HttpServletResponse response) throws Exception {
+
+        response.setHeader("Content-Disposition", "attachment;filename=Pendaftar.csv");
+        response.setContentType("text/csv");
+        response.getWriter().println("No,Nomor Registrasi,Nama,Kota/Kab Sekolah,Asal Sekolah,No Hp,Email,Program Studi");
+
+        Iterable<Pendaftar> dataPendaftar = pendaftarDao.findByProgramStudiNotNull();
+
+        Integer baris = 0;
+        BigDecimal total = BigDecimal.ZERO;
+        for (Pendaftar p : dataPendaftar) {
+            baris++;
+            response.getWriter().print(baris);
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNomorRegistrasi());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNama());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getKabupatenKota().getNama());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNamaAsalSekolah());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNoHp());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getEmail());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getProgramStudi().getNama());
+            response.getWriter().println();
+        }
+
+           response.getWriter().flush();
+    }
 }
 
