@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +35,7 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -69,6 +72,9 @@ public class PembayaranController {
 
     @Autowired
     private DetailPendaftarDao detailPendaftarDao;
+
+    @Autowired
+    private JenisBiayaDao jenisBiayaDao;
 
     @RequestMapping(value = "/biaya/pembayaran/form", method = RequestMethod.GET)
     public void tampilkanForm(@RequestParam(value = "id", required = true) String id,
@@ -247,5 +253,79 @@ public class PembayaranController {
     }
 //
 
+//Report Pembayaran
+//
+    @ModelAttribute("listJenisTagihan")
+    public Iterable<JenisBiaya> listJenisTagihan() {
+        return jenisBiayaDao.findAll(new Sort(Sort.Direction.ASC, "id"));
+    }
+
+    @ModelAttribute("awalBulan")
+    public String awalBulan(){
+        return LocalDate.now().withDayOfMonth(1).format(DateTimeFormatter.ISO_LOCAL_DATE);
+    }
+
+    @ModelAttribute("akhirBulan")
+    public String akhirBulan(){
+        return LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth()).format(DateTimeFormatter.ISO_LOCAL_DATE);
+    }
+    @GetMapping("/pembayaran/csv")
+    public void rekapPembayaranCsv(@RequestParam JenisBiaya jenis,
+                                   @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate mulai,
+                                   @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate sampai,
+                                   HttpServletResponse response) throws Exception {
+        String filename = "pembayaran-"
+                +mulai.format(DateTimeFormatter.BASIC_ISO_DATE)
+                +"-"
+                +sampai.format(DateTimeFormatter.BASIC_ISO_DATE)
+                +".csv";
+        response.setHeader("Content-Disposition", "attachment;filename="+filename);
+        response.setContentType("text/csv");
+        response.getWriter().println("No,Nomor Registrasi,Nama,Bank,Nominal,Tanggal Transfer,Waktu Transfer");
+
+
+        Iterable<Pembayaran> dataPembayaran = pembayaranDao
+                .findByTagihanJenisBiayaAndWaktuPembayaranBetweenOrderByWaktuPembayaran(jenis,mulai.atStartOfDay(), sampai.plusDays(1).atStartOfDay());
+
+        Integer baris = 0;
+        BigDecimal total = BigDecimal.ZERO;
+        for (Pembayaran p : dataPembayaran) {
+            baris++;
+            total = total.add(p.getNilai());
+            response.getWriter().print(baris);
+            response.getWriter().print(",");
+            response.getWriter().print(p.getTagihan().getPendaftar().getNomorRegistrasi());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getTagihan().getPendaftar().getNama());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getBank().getNamaBank());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNilai().setScale(0).toPlainString());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getWaktuPembayaran().format(DateTimeFormatter.ISO_LOCAL_DATE));
+            response.getWriter().print(",");
+            response.getWriter().print(p.getWaktuPembayaran().format(DateTimeFormatter.ISO_LOCAL_TIME));
+            response.getWriter().println();
+        }
+
+        response.getWriter().print("-");
+        response.getWriter().print(",");
+        response.getWriter().print("-");
+        response.getWriter().print(",");
+        response.getWriter().print("Jumlah");
+        response.getWriter().print(",");
+        response.getWriter().print("-");
+        response.getWriter().print(",");
+        response.getWriter().print(total.setScale(0).toPlainString());
+        response.getWriter().print(",");
+        response.getWriter().print("-");
+        response.getWriter().print(",");
+        response.getWriter().print("-");
+        response.getWriter().println();
+
+        response.getWriter().flush();
+    }
+
+//
 }
 
