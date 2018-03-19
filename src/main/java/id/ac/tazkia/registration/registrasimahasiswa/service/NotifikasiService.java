@@ -178,13 +178,13 @@ public class NotifikasiService {
     }
 
     @Async
-    public void kirimNotifikasiJpa(Pendaftar p){
+    public void kirimNotifikasiJpa(DetailPendaftar p){
         NotifikasiRegistrasi notif = NotifikasiRegistrasi.builder()
                 .konfigurasi(getKonfigurasiNotifikasiKartuJpa)
                 .email(p.getEmail())
                 .data(DataNotifikasiJpa.builder()
-                        .nama(p.getNama())
-                        .nomor(p.getNomorRegistrasi())
+                        .nama(p.getPendaftar().getNama())
+                        .nomor(p.getPendaftar().getNomorRegistrasi())
                         .email(p.getEmail())
                         .namaKontak1("Irma")
                         .nomorKontak1("08159551299")

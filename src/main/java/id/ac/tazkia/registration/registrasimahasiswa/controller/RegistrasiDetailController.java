@@ -130,7 +130,7 @@ public class RegistrasiDetailController {
                 notifikasiService.kirimNotifikasiKartuUjian(p);
             }
             else if (p.getId() == null && JenisTest.JPA.equals(p.getJenisTest())) {
-                System.out.println("Kirim Perintah pengumpulan berkas");
+                notifikasiService.kirimNotifikasiJpa(p);
             }
         }
 
