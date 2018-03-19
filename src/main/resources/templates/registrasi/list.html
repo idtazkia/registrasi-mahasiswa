@@ -27,7 +27,10 @@
                                 </form>
                                 <br>
                                 <form th:action="@{/registrasi/csv}" method="get">
-                                    <input type="submit" class="btn  bg-blue-grey waves-effect" value="Download Data CSV">
+                                    <input type="submit" class="btn  bg-blue-grey waves-effect" value="Download Data Pendaftar CSV">
+                                </form>
+                                <form th:action="@{/registrasi/detail/csv}" method="get">
+                                    <input type="submit" class="btn  bg-blue-grey waves-effect" value="Download Data Detail Pendaftar CSV">
                                 </form>
                                 <br>
                                 Show <span sd:page-size-selector="javascript" ></span> entries

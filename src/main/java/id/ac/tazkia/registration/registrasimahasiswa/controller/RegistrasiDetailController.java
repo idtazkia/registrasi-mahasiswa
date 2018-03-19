@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -204,4 +205,58 @@ public class RegistrasiDetailController {
         }
     }
 
+    @GetMapping("/registrasi/detail/csv")
+    public void rekapPendaftarCsv(HttpServletResponse response) throws Exception {
+
+        response.setHeader("Content-Disposition", "attachment;filename=Detail Pendaftar.csv");
+        response.setContentType("text/csv");
+        response.getWriter().println("No,Nomor Registrasi,Nama,Kota/Kab Sekolah,Asal Sekolah,No Hp,Email,Program Studi,Alamat,Tempat Tanggal Lahir,,Warga Negara,Jenis Kelamin,Nama Ayah,Pekerjaan Ayah,Nama Ibu,Pekerjaan Ibu,Nomor Hp Orang Tua, Email Orang Tua");
+
+        Iterable<DetailPendaftar> dataPendaftar = detailPendaftarDao.findAll();
+
+        Integer baris = 0;
+        BigDecimal total = BigDecimal.ZERO;
+        for (DetailPendaftar p : dataPendaftar) {
+            baris++;
+            response.getWriter().print(baris);
+            response.getWriter().print(",");
+            response.getWriter().print(p.getPendaftar().getNomorRegistrasi());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getPendaftar().getNama());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getPendaftar().getKabupatenKota().getNama());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getAsalSekolah());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNoHp());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getEmail());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getPendaftar().getProgramStudi().getNama());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getAlamatRumah());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getTtl());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getStatusSipil());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getJenisKelamin());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNamaAyah());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getPekerjaanAyah());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNamaIbu());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getPekerjaanIbu());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNohpOrangtua());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getEmailOrangtua());
+
+            response.getWriter().println();
+        }
+
+        response.getWriter().flush();
+    }
 }
