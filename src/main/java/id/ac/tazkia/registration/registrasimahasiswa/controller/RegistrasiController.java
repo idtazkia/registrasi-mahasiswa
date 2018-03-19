@@ -1,9 +1,11 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
+import id.ac.tazkia.registration.registrasimahasiswa.dao.DetailPendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.KabupatenKotaDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.ProgramStudiDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.Registrasi;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.KabupatenKota;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.ProgramStudi;
@@ -33,16 +35,22 @@ public class RegistrasiController {
     @Autowired private KabupatenKotaDao kabupatenKotaDao;
     @Autowired private RegistrasiService registrasiService;
     @Autowired private ProgramStudiDao programStudiDao;
+    @Autowired private DetailPendaftarDao detailPendaftarDao;
 
     @GetMapping("/registrasi/list")
     public void daftarPendaftaran(@RequestParam(required = false)String search, Model m,
                                   @PageableDefault(size = 10, sort = "nomorRegistrasi", direction = Sort.Direction.DESC) Pageable page){
+
+
         if(StringUtils.hasText(search)) {
             m.addAttribute("search", search);
             m.addAttribute("daftarPendaftaran", pendaftarDao
                     .findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseOrderByNomorRegistrasi(search,search,page));
+            m.addAttribute("asa", detailPendaftarDao.findAll());
+
         } else {
             m.addAttribute("daftarPendaftaran", pendaftarDao.findByProgramStudiNotNull(page));
+            m.addAttribute("asa", detailPendaftarDao.findAll());
         }
     }
 
@@ -128,6 +136,15 @@ public class RegistrasiController {
         }
 
            response.getWriter().flush();
+    }
+
+    @GetMapping("/registrasi/hahah")
+    public void detailPendaftar(Pendaftar pendaftar, Model m,
+                                HttpServletResponse response){
+        DetailPendaftar d = detailPendaftarDao.findByPendaftar(pendaftar);
+        LOGGER.debug("Nomor Registrasi :"+ pendaftar.getNomorRegistrasi());
+        m.addAttribute("detail", d);
+
     }
 }
 
