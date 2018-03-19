@@ -123,7 +123,7 @@ public class RegistrasiController {
             response.getWriter().print(",");
             response.getWriter().print(p.getNama());
             response.getWriter().print(",");
-            response.getWriter().print(p.getKabupatenKota());
+            response.getWriter().print(p.getKabupatenKota().getNama());
             response.getWriter().print(",");
             response.getWriter().print(p.getNamaAsalSekolah());
             response.getWriter().print(",");
