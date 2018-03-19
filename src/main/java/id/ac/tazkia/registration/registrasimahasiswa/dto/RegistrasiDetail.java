@@ -39,4 +39,5 @@ public class RegistrasiDetail {
     private String penghasilanOrangtua;
     private String jumlahTanggungan;
     private String rencanaBiaya;
+    private String jenisTest;
 }

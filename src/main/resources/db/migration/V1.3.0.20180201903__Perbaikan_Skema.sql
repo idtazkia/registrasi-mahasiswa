@@ -1,0 +1,1 @@
+ALTER TABLE detail_pendaftar ADD jenis_test VARCHAR (36);

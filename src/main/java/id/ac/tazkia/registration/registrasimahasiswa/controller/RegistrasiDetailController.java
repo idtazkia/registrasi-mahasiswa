@@ -12,10 +12,7 @@ import id.ac.tazkia.registration.registrasimahasiswa.dao.HasilTestDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.RegistrasiDetail;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.HasilTest;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import id.ac.tazkia.registration.registrasimahasiswa.service.NotifikasiService;
 import id.ac.tazkia.registration.registrasimahasiswa.service.TagihanService;
 import org.slf4j.Logger;
@@ -101,6 +98,7 @@ public class RegistrasiDetailController {
         detail.setPendaftar(p.getId());
         detail.setEmail(p.getEmail());
         detail.setAsalSekolah(p.getNamaAsalSekolah());
+        detail.setNoHp(p.getNoHp());
         detail.setKabupatenKota(p.getKabupatenKota().getNama());
         model.addAttribute("registrasi", detail);
 
@@ -128,8 +126,11 @@ public class RegistrasiDetailController {
         } else {
 // kirim kartu hanya pada waktu isi data pertama kali
 // kalau update data tidak perlu kirim kartu lagi
-            if (p.getId() == null) {
+            if (p.getId() == null && JenisTest.TPA.equals(p.getJenisTest())) {
                 notifikasiService.kirimNotifikasiKartuUjian(p);
+            }
+            else if (p.getId() == null && JenisTest.JPA.equals(p.getJenisTest())) {
+                System.out.println("Kirim Perintah pengumpulan berkas");
             }
         }
 
@@ -204,6 +205,8 @@ public class RegistrasiDetailController {
             logger.error(err.getMessage(), err);
         }
     }
+
+//Laporan
 
     @GetMapping("/registrasi/detail/csv")
     public void rekapPendaftarCsv(HttpServletResponse response) throws Exception {

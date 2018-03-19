@@ -144,4 +144,7 @@ public class DetailPendaftar {
     @NotEmpty
     private String rencanaBiaya;
 
+    @Enumerated(EnumType.STRING)
+    private JenisTest jenisTest;
+
 }

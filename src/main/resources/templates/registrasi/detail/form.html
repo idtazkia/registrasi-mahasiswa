@@ -199,7 +199,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label>Penghasilan Pribadi</label>
@@ -209,7 +209,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-5">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label>Status Sipil</label><br>
@@ -217,6 +217,19 @@
                                                         <option value="">-Pilih Status Sipil-</option>
                                                         <option value="wni">WNI (Warga Negara Indonesia)</option>
                                                         <option value="wna">WNA (Warga Negara Asing)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Jalur Pendaftaran</label><br>
+                                                    <select name="jenisTest" th:field="*{jenisTest}" class="form-control" required autofocus>
+                                                        <option value="">-Pilih Jenis Test-</option>
+                                                        <option value="TPA">TPA (Test Potensi Akademik)</option>
+                                                        <option value="JPA">JPA (Jalur Prestasi Akademik)</option>
+                                                        <option value="SMART_TEST">SMART TEST</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -293,7 +306,7 @@
                                                     <label>Pekerjaan Ayah</label>
                                                     <input type="text" name="pekerjaan_ayah"
                                                            class="form-control" th:field="*{pekerjaanAyah}"
-                                                           placeholder="Pendidikan Ayah" required autofocus/>
+                                                           placeholder="Pekerjaan Ayah" required autofocus/>
                                                 </div>
                                             </div>
                                         </div>
@@ -340,7 +353,7 @@
                                                     <label>Pekerjaan Ibu</label>
                                                     <input type="text" name="pekerjaan_ibu"
                                                            class="form-control" th:field="*{pekerjaanIbu}"
-                                                           placeholder="Pendidikan Ibu" required autofocus/>
+                                                           placeholder="Pekerjaan Ibu" required autofocus/>
                                                 </div>
                                             </div>
                                         </div>
