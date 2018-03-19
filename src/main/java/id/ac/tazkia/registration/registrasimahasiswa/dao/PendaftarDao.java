@@ -12,7 +12,7 @@ import org.springframework.security.access.method.P;
 import java.util.List;
 
 public interface PendaftarDao extends PagingAndSortingRepository<Pendaftar, String> {
-    Page<Pendaftar> findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseOrderByNomorRegistrasi(String nomor, String nama, Pageable page);
+    Page<Pendaftar> findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseAndProgramStudiNotNullOrderByNomorRegistrasi(String nomor, String nama, Pageable page);
     Pendaftar findByUser(User u);
     Pendaftar findByNomorRegistrasi(String nomor);
 

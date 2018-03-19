@@ -45,7 +45,7 @@ public class RegistrasiController {
         if(StringUtils.hasText(search)) {
             m.addAttribute("search", search);
             m.addAttribute("daftarPendaftaran", pendaftarDao
-                    .findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseOrderByNomorRegistrasi(search,search,page));
+                    .findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseAndProgramStudiNotNullOrderByNomorRegistrasi(search,search,page));
             m.addAttribute("asa", detailPendaftarDao.findAll());
 
         } else {
