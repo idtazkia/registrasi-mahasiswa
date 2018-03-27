@@ -422,9 +422,12 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label>Rencana Biaya</label>
-                                                    <input type="text" name="rencana_biaya"
-                                                           class="form-control" th:field="*{rencanaBiaya}"
-                                                           placeholder="Rencana Biaya" required autofocus/>
+                                                    <select type="text" name="rencanaBiaya" th:field="*{rencanaBiaya}" class="form-control" required autofocus>
+                                                        <option value="">-Pilih Rencana Biaya-</option>
+                                                        <option value="Sendiri">Sendiri</option>
+                                                        <option value="Orang Tua">Orang Tua</option>
+                                                        <option value="Beasiswa">Beasiswa</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
