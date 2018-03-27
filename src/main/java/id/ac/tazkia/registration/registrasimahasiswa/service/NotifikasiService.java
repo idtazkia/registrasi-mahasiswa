@@ -184,7 +184,7 @@ public class NotifikasiService {
                 .email(p.getEmail())
                 .data(DataNotifikasiJpa.builder()
                         .nama(p.getPendaftar().getNama())
-                        .nomor(p.getPendaftar().getNomorRegistrasi())
+                        .nomorRegistrasi(p.getPendaftar().getNomorRegistrasi())
                         .email(p.getEmail())
                         .namaKontak1("Irma")
                         .nomorKontak1("08159551299")

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data @Builder
 public class DataNotifikasiJpa {
-    private String nomor;
+    private String nomorRegistrasi;
     private String nama;
     private String noHp;
     private String email;
