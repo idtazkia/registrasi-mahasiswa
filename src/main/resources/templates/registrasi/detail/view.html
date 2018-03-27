@@ -11,7 +11,6 @@
 
     <!--//Data Sudah Di Isi (DiTampilkan)-->
     <section class="clearfix">
-        <form method="post">
             <div class="container-fluid"  th:each=" v : ${view}">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
@@ -21,6 +20,10 @@
                                 <h1>
                                     Identitas Mahasiswa
                                 </h1>
+                                <form method="post" th:action="@{/registrasi/detail/notifikasi(p=${v.id})}">
+                                    <input type="text" name="jt" hidden="" th:value="${v.jenisTest}">
+                                    <button class="btn bg-green waves-effec">Kirim Notifikasi</button>
+                                </form>
                             </div>
 
                             <div class="body">
@@ -156,7 +159,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Penghasilan Pribadi</label><br>
@@ -164,11 +167,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Status Sipil</label><br>
                                                 <span name="statusSipil" th:text="${v.statusSipil}">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Jenis Test</label><br>
+                                                <span name="jenisTest" th:text="${v.jenisTest}">
                                                 </span>
                                             </div>
                                         </div>
@@ -337,7 +349,6 @@
                     </div>
                 </div>
             </div>
-        </form>
     </section>
 
 </section>

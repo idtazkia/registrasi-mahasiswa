@@ -25,12 +25,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -62,6 +60,9 @@ public class RegistrasiDetailController {
     @Value("classpath:kartu-ujian-tpa.odt")
     private Resource templateKartuUjian;
 
+    @GetMapping("/registrasi/detail/sukses")
+    public void sukses(){
+    }
 
     @GetMapping("/registrasi/detail/list")
     public void daftarPendaftaran(Model m){
@@ -137,7 +138,7 @@ public class RegistrasiDetailController {
 
 //simpan
         detailPendaftarDao.save(p);
-        return "redirect:/home";
+        return "redirect:/registrasi/detail/sukses";
 
     }
 
@@ -262,4 +263,37 @@ public class RegistrasiDetailController {
 
         response.getWriter().flush();
     }
+
+
+    @PostMapping("/registrasi/detail/notifikasi")
+    public String processNotifikasiForm(@RequestParam DetailPendaftar p){
+    if (p == null) {
+          logger.warn("Notifikasi detail null");
+          return "redirect:list";
+        }
+
+        HasilTest h = hasilTestDao.findByPendaftar(p.getPendaftar());
+
+            System.out.println("Id Detail : "+ p.getId());
+            System.out.println("Jenis Test : "+ p.getJenisTest());
+
+            if (h != null && p.getJenisTest().equals(JenisTest.SMART_TEST)){
+                System.out.println(p.getJenisTest());
+                Pendaftar pe = h.getPendaftar();
+                notifikasiService.kirimNotifikasiHasilTest(h);
+                tagihanService.createTagihanDaftarUlang(pe, h, h.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            }else {
+                if (p.getJenisTest().equals(JenisTest.JPA)) {
+                    System.out.println(p.getJenisTest());
+                    notifikasiService.kirimNotifikasiJpa(p);
+                } else if (p.getJenisTest().equals(JenisTest.TPA)) {
+                    System.out.println(p.getJenisTest());
+                    notifikasiService.kirimNotifikasiKartuUjian(p);
+                }
+            }
+
+            return "redirect:/registrasi/list";
+    }
+
+
 }
