@@ -152,6 +152,20 @@
 
                     </ul>
                 </li>
+
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">call_split</i>
+                        <span>Agen</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a th:href="@{/agen/list}">
+                                <span>Daftar Agen</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 
             </ul>
             </div>
@@ -205,6 +219,26 @@
                     <a th:href="@{/registrasi/list}">
                         <i class="material-icons">account_balance_wallet</i>
                         <span>Daftar Tagihan</span>
+                    </a>
+                </li>
+                <!--////-->
+            </ul>
+        </div>
+
+            <div sec:authorize="hasAuthority('VIEW_AGEN')">
+            <ul class="list">
+                <li class="header">MAIN NAVIGATION</li>
+                <li class="active">
+                    <a th:href="@{/home}">
+                        <i class="material-icons">home</i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <!--menu-->
+                <li>
+                    <a th:href="@{/agen/pendaftar/form}">
+                        <i class="material-icons">account_balance_wallet</i>
+                        <span>Pendaftaran</span>
                     </a>
                 </li>
                 <!--////-->

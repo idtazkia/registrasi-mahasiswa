@@ -9,7 +9,7 @@
 <body>
 <section layout:fragment="content" class="clearfix">
     <section class="clearfix">
-        <form method="post" th:action="@{/agenHumas/form}" th:object="${agen}">
+        <form method="post" th:action="@{/agen/form}" th:object="${agen}">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -81,6 +81,7 @@
                                                        class="form-control"
                                                        placeholder="username" required autofocus/>
                                             </div>
+                                            <span style="font-size: 12px;">*Nama Depan/Tengah Penanggung Jawab</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -93,8 +94,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <!-- Simpan Data -->
                                     <div class="col-sm-12" align="right" >
                                         <div class="form-group">

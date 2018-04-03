@@ -16,10 +16,11 @@ INSERT INTO s_role_permission (id_role, id_permission) VALUES
 
 CREATE TABLE agen (
   id       VARCHAR (36),
-  nama     VARCHAR(255) NOT NULL,
+  nama_cabang     VARCHAR(255) NOT NULL,
   alamat_cabang   VARCHAR(255) NOT NULL,
   no_hp     VARCHAR(255) NOT NULL,
   email    VARCHAR(255) NOT NULL,
+  penanggung_jawab    VARCHAR(255) NOT NULL,
   status   BOOLEAN      NOT NULL,
   id_user VARCHAR (36) NOT NULL,
   PRIMARY KEY (id),

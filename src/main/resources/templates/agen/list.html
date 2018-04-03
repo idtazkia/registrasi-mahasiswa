@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Data Agen</title>
+</head>
+<body>
+<section layout:fragment="content" class="clearfix">
+    <div class="row clearfix">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            <div class="card">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="header">
+                            <h3>
+                                Data Agen
+                            </h3>
+                            <br>
+                            <a th:href="@{/agen/form}"
+                               class="btn btn-lg bg-blue-grey waves-effect" type="submit">Tambah</a>
+
+                            <form method="get"><br>
+                                Nama Cabang : <br><input type="text" name="nama" th:value="${nama}">
+                                <input type="submit" value="Cari" class="btn  bg-blue-grey waves-effect">
+                            </form>
+                            <br>
+                            Show <span sd:page-size-selector="javascript"></span> entries
+                        </div>
+                        <br>
+
+                        <!--Table-->
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="card" th:each="a : ${daftarAgen}">
+                                <div class="header bg-blue-grey" style="height: 150px;">
+                                    <h2>
+                                        <span th:text="${a. namaCabang+ ' > ' + a.penanggungJawab}"></span>
+                                        <small th:text="${'Alamat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  :  '+ a. alamatCabang}"></small>
+                                        <small th:text="${'No Handphone&nbsp;&nbsp; :  '+ a. noHp}"></small>
+                                    </h2>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <span th:if="${a.status}">
+                                                    <a th:href="@{/agen/tagihan/form}">
+                                                        <button type="button" class="btn btn-xs btn-success waves-effect">
+                                                            <i class="material-icons">insert_invitation</i>
+                                                            <span>Create Tagihan&nbsp;</span>
+                                                        </button>
+                                                    </a>
+                                                </span>
+                                                <span th:if="${!a.status}">
+                                                    <form th:action="@{/agen/aktif(agen=${a.id})}" method="post">
+                                                      <button type="submit"
+                                                         class="btn btn-xs btn-warning waves-effect">
+                                                         <i class="material-icons">lock_open</i>
+                                                         <span>Aktifkan&nbsp;</span>
+                                                      </button>
+                                                    </form>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                            <span th:if="${a.status}">
+                                                    <form th:action="@{/agen/nonaktif(agen=${a.id})}" method="post">
+                                                        <button type="submit"
+                                                                class="btn btn-xs btn-warning waves-effect">
+                                                            <i class="material-icons">lock</i>
+                                                            <span>Nonaktifkan&nbsp;</span>
+                                                        </button>
+                                                    </form>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div sd:pagination-summary="">info</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <nav class="pull-right">
+                                        <ul class="pagination" sd:pagination="full">
+                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                            <li class="disabled"><a href="#" aria-label="Previous"><span
+                                                    aria-hidden="true">&laquo;</span></a></li>
+                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <!--//table//-->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

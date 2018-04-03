@@ -11,7 +11,9 @@ public class AgenDto {
 
     private  String id;
     @NotNull @NotEmpty
-    private String nama;
+    private String namaCabang;
+    @NotNull @NotEmpty
+    private String penanggungJawab;
     @Email
     private String email;
     private String noHp;

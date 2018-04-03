@@ -20,7 +20,7 @@ public class Agen {
     @Column(nullable = false)
     @NotNull
     @Size(min = 3, max = 150)
-    private String nama;
+    private String namaCabang;
 
     @Column(nullable = false)
     @Email
@@ -31,6 +31,11 @@ public class Agen {
 
     @Column(nullable = false)
     private String alamatCabang;
+
+    @Column(nullable = false)
+    @NotNull
+    @Size(min = 3, max = 150)
+    private String penanggungJawab;
 
     private Boolean status;
 

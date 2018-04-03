@@ -1,11 +1,9 @@
 package id.ac.tazkia.registration.registrasimahasiswa.service;
 
 import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.AgenDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.RoleDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.UserPasswordDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.AgenDto;
+import id.ac.tazkia.registration.registrasimahasiswa.dto.Registrasi;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.flywaydb.core.internal.util.StringUtils;
@@ -32,8 +30,12 @@ public class AgenService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserPasswordDao userPasswordDao;
+    @Autowired
+    private RegistrasiService registrasiService;
+    @Autowired
+    private PendaftarDao pendaftarDao;
 
-
+//CreateAgen
     public Agen prosesPendaftaranAgen(AgenDto agenDto, @RequestParam String password,@RequestParam String username) {
         Agen p = new Agen();
         p.setStatus(true);
@@ -61,4 +63,29 @@ public class AgenService {
 
         p.setUser(user);
     }
+//
+////Create Pendaftar
+//    public Pendaftar prosesPendaftaran(Registrasi registrasi, ProgramStudi ps, KabupatenKota kk){
+//        Pendaftar p = new Pendaftar();
+//        p.setProgramStudi(ps);
+//        p.setKabupatenKota(kk);
+//
+//        BeanUtils.copyProperties(registrasi, p);
+//
+//        System.out.println("id  : "+registrasi.getId());
+//
+//        if (!org.springframework.util.StringUtils.hasText(registrasi.getId())) {
+//            p.setNomorRegistrasi(registrasiService.generateNomorRegistrasi());
+//        } else {
+//            p.setNomorRegistrasi(registrasi.getNomorRegistrasi());
+//        }
+//
+//        registrasiService.createUser(p);
+//        pendaftarDao.save(p);
+////        tagihanService.prosesTagihanPendaftaran(p);
+////        notifikasiService.kirimNotifikasiRegistrasi(p);
+////
+////        return p;
+//    }
+
 }
