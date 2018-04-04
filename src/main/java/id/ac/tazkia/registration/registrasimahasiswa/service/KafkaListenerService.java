@@ -53,8 +53,9 @@ public class KafkaListenerService {
             if (p == null) {
                 LOGGER.warn("Pendaftar dengan nomor registrasi {} tidak ditemukan", response.getNomorDebitur());
                 return;
+            }else if (!AppConstants.PENDAFTAR_AGEN.equals(p.getPemberiRekomendasi())){
+                tagihanService.createTagihanRegistrasi(p);
             }
-            tagihanService.createTagihanRegistrasi(p);
         } catch (Exception err) {
             LOGGER.warn(err.getMessage(), err);
         }

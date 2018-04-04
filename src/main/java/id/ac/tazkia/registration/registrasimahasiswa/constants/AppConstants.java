@@ -5,4 +5,5 @@ public interface AppConstants {
     String JENIS_BIAYA_PENDAFTARAN = "001";
     String JENIS_BIAYA_DAFTAR_ULANG = "002";
     String ID_ROLE_AGEN = "agen";
+    String PENDAFTAR_AGEN = "Agen";
 }

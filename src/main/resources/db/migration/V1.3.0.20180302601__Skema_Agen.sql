@@ -26,5 +26,16 @@ CREATE TABLE agen (
   PRIMARY KEY (id),
   foreign key (id_user) references s_user (id)
 );
+-- ///
 
+-- Tbl Pendaftar_Agen
+CREATE TABLE pendaftar_agen (
+  id       VARCHAR (36),
+  id_agen VARCHAR (36) NOT NULL,
+  id_pendaftar VARCHAR (36) NOT NULL,
+  tanggal DATE NOT NULL,
+  PRIMARY KEY (id),
+  foreign key (id_pendaftar) references pendaftar (id),
+  foreign key (id_agen) references agen (id)
+);
 -- ///
