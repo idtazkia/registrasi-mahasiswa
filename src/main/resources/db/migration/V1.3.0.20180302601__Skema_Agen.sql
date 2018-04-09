@@ -33,9 +33,25 @@ CREATE TABLE pendaftar_agen (
   id       VARCHAR (36),
   id_agen VARCHAR (36) NOT NULL,
   id_pendaftar VARCHAR (36) NOT NULL,
-  tanggal DATE NOT NULL,
+  tanggal TIMESTAMP NOT NULL,
+  tagihan BOOLEAN      NOT NULL,
   PRIMARY KEY (id),
   foreign key (id_pendaftar) references pendaftar (id),
   foreign key (id_agen) references agen (id)
 );
 -- ///
+
+-- Tagihan Agen
+
+CREATE TABLE tagihan_agen (
+  id       VARCHAR (36),
+  id_agen VARCHAR (36) NOT NULL,
+  tanggal_tagihan DATE NOT NULL,
+  keterangan VARCHAR (255) NOT NULL,
+  nilai NUMERIC (19,2) NOT NULL,
+  lunas BOOLEAN NOT NULL DEFAULT FALSE,
+  PRIMARY KEY (id),
+  foreign key (id_agen) references agen (id)
+);
+
+--////
