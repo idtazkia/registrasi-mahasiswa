@@ -22,11 +22,14 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 public class RegistrasiAgenController {
     private static final Logger logger = LoggerFactory.getLogger(RegistrasiDetailController.class);
+    private static final DateTimeFormatter FORMATTER_ISO_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 
     @Autowired private PendaftarDao pendaftarDao;
@@ -119,7 +122,8 @@ public class RegistrasiAgenController {
         PendaftarAgen pa = new PendaftarAgen();
         pa.setAgen(p);
         pa.setPendaftar(pendaftar);
-        pa.setTanggal(LocalDate.now());
+        pa.setTanggal(LocalDateTime.now());
+        pa.setTagihan(false);
         pendaftarAgenDao.save(pa);
 
 

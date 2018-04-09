@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity @Data
@@ -26,5 +27,8 @@ public class PendaftarAgen {
     private Pendaftar pendaftar;
 
     @NotNull @Column(columnDefinition = "DATE")
-    private LocalDate tanggal;
+    private LocalDateTime tanggal = LocalDateTime.now();
+
+    @NotNull
+    private boolean  tagihan;
 }
