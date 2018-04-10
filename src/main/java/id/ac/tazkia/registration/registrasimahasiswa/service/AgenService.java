@@ -50,6 +50,8 @@ public class AgenService {
         p.setStatus(true);
         BeanUtils.copyProperties(agenDto, p);
 
+        p.setKode("A"+registrasiService.generateNomorRegistrasi());
+
         createUserAgen(p,password,username);
         agenDao.save(p);
 

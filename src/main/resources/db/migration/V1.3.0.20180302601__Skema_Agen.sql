@@ -21,6 +21,7 @@ CREATE TABLE agen (
   no_hp     VARCHAR(255) NOT NULL,
   email    VARCHAR(255) NOT NULL,
   penanggung_jawab    VARCHAR(255) NOT NULL,
+  kode    VARCHAR(255) NOT NULL,
   status   BOOLEAN      NOT NULL,
   id_user VARCHAR (36) NOT NULL,
   PRIMARY KEY (id),
