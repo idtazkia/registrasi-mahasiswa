@@ -5,9 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity @Data
 public class PendaftarAgen {
@@ -29,6 +27,6 @@ public class PendaftarAgen {
     @NotNull @Column(columnDefinition = "DATE")
     private LocalDateTime tanggal = LocalDateTime.now();
 
-    @NotNull
-    private boolean  tagihan;
+    @NotNull @Enumerated(EnumType.STRING)
+    private StatusTagihan statusTagihan = StatusTagihan.BELUM_DITAGIH;
 }

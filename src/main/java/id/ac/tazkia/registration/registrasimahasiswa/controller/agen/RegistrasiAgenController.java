@@ -123,7 +123,7 @@ public class RegistrasiAgenController {
         pa.setAgen(p);
         pa.setPendaftar(pendaftar);
         pa.setTanggal(LocalDateTime.now());
-        pa.setTagihan(false);
+        pa.setStatusTagihan(StatusTagihan.BELUM_DITAGIH);
         pendaftarAgenDao.save(pa);
 
 
