@@ -1,10 +1,7 @@
 package id.ac.tazkia.registration.registrasimahasiswa.service;
 
 import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.NilaiBiayaDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.PembayaranDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.PeriodeDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.DebiturRequest;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.PembayaranTagihan;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.TagihanRequest;
@@ -16,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,12 +34,17 @@ public class TagihanService {
 
     @Value("${tagihan.id.registrasi}") private String idTagihanRegistrasi;
     @Value("${tagihan.id.daftarUlang}") private String idTagihanDaftarUlang;
+    @Value("${tagihan.id.agen}") private String idTagihanAgen;
+    @Value("${nilai.tagihan.agen}") private BigDecimal nilaiTagihanAgen;
+
 
     @Autowired private NilaiBiayaDao nilaiBiayaDao;
     @Autowired private TagihanDao tagihanDao;
     @Autowired private PembayaranDao pembayaranDao;
     @Autowired private KafkaSender kafkaSender;
     @Autowired private PeriodeDao periodeDao;
+    @Autowired private AgenDao agenDao;
+    @Autowired private PendaftarAgenDao pendaftarAgenDao;
 
     private JenisBiaya pendaftaran;
     private JenisBiaya daftarUlang;
@@ -138,4 +141,55 @@ public class TagihanService {
         }
         return biaya.getContent().get(0).getNilai();
     }
+
+    @Scheduled(cron = "${jadwal.tagihan.agen}")
+    public void prosesTagihanAgen() {
+        Iterable<Agen> semuaAgen = agenDao.findAll();
+        for (Agen agen : semuaAgen) {
+            LOGGER.debug("Memproses tagihan agen {}", agen.getNamaCabang());
+            createDebitur(agen);
+        }
+    }
+
+    public void createDebitur(Agen agen){
+        DebiturRequest request = DebiturRequest.builder()
+                .email(agen.getEmail())
+                .nama(agen.getNamaCabang())
+                .noHp(agen.getNoHp())
+                .nomorDebitur(agen.getKode())
+                .build();
+        kafkaSender.requestCreateDebitur(request);
+
+    }
+
+
+    public void createTagihanAgen(Agen agen) {
+        LocalDateTime sampai = LocalDateTime.now().toLocalDate().atStartOfDay();
+        LocalDateTime mulai = sampai.minusDays(7);
+
+        Long jumlahPendaftar = pendaftarAgenDao.jumlahTagihanAgen(agen, mulai, sampai, StatusTagihan.BELUM_DITAGIH);
+        System.out.println("Jumlah pendaftar ="+ jumlahPendaftar);
+
+        if (jumlahPendaftar == null){
+         LOGGER.debug("Belum ada pendaftar untuk agen {}" + agen.getNamaCabang());
+        }else {
+            BigDecimal nilaiTagihan =
+                    new BigDecimal(jumlahPendaftar)
+                            .multiply(nilaiTagihanAgen);
+
+            TagihanRequest tagihanRequest = TagihanRequest.builder()
+                    .jenisTagihan(idTagihanAgen)
+                    .nilaiTagihan(nilaiTagihan)
+                    .debitur(agen.getKode())
+                    .keterangan("Pembayaran Registrasi Mahasiswa Baru STEI Tazkia 2018 Via Agen Pendaftar")
+                    .tanggalJatuhTempo(Date.from(LocalDate.now().plusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                    .build();
+
+            kafkaSender.requestCreateTagihan(tagihanRequest);
+
+            pendaftarAgenDao.updateStatusTagihan(agen, mulai, sampai, StatusTagihan.BELUM_DIBAYAR);
+        }
+    }
+    
+
 }

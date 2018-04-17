@@ -9,5 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface AgenDao extends PagingAndSortingRepository<Agen, String> {
     Page<Agen> findByNamaCabangContainingIgnoreCaseOrderByNamaCabang(String nama, Pageable page);
     Agen findByUser(User u);
+
+    Agen findByKode(String kode);
 }
 

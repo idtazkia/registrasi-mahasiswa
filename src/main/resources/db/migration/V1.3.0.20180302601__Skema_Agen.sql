@@ -12,6 +12,8 @@ INSERT INTO s_role_permission (id_role, id_permission) VALUES
 
 -- ////
 
+INSERT INTO jenis_biaya VALUES ('010','Agen Pendaftar');
+
 --Tbl Agen
 
 CREATE TABLE agen (
@@ -35,7 +37,7 @@ CREATE TABLE pendaftar_agen (
   id_agen VARCHAR (36) NOT NULL,
   id_pendaftar VARCHAR (36) NOT NULL,
   tanggal TIMESTAMP NOT NULL,
-  tagihan BOOLEAN      NOT NULL,
+  status_tagihan VARCHAR (36)  NOT NULL,
   PRIMARY KEY (id),
   foreign key (id_pendaftar) references pendaftar (id),
   foreign key (id_agen) references agen (id)
@@ -47,12 +49,15 @@ CREATE TABLE pendaftar_agen (
 CREATE TABLE tagihan_agen (
   id       VARCHAR (36),
   id_agen VARCHAR (36) NOT NULL,
+  id_jenisbiaya VARCHAR (36) NOT NULL,
+  nomor_tagihan VARCHAR (255) NOT NULL,
   tanggal_tagihan DATE NOT NULL,
   keterangan VARCHAR (255) NOT NULL,
   nilai NUMERIC (19,2) NOT NULL,
   lunas BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (id),
-  foreign key (id_agen) references agen (id)
+  foreign key (id_agen) references agen (id),
+  foreign key (id_jenisbiaya) references jenis_biaya (id)
 );
 
 --////

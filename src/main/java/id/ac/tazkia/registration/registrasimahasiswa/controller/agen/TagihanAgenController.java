@@ -1,54 +1,34 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller.agen;
 
-import id.ac.tazkia.registration.registrasimahasiswa.dao.AgenDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarAgenDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dto.RekapTagihanAgen;
+import id.ac.tazkia.registration.registrasimahasiswa.controller.RegistrasiDetailController;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanAgenDao;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Agen;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.PendaftarAgen;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class TagihanAgenController {
-    @Autowired private AgenDao agenDao;
-    @Autowired private PendaftarAgenDao pendaftarAgenDao;
+    private static final Logger logger = LoggerFactory.getLogger(RegistrasiDetailController.class);
 
-    @GetMapping ("/agen/tagihan/form")
-    public void tagihanAgen(@RequestParam(value = "agen",required = false)String agen, Model m, Pageable page){
+    @Autowired private TagihanAgenDao tagihanAgenDao;
 
-        if (agen != null && !agen.isEmpty()){
-            Agen p= agenDao.findOne(agen);
-            if (p != null){
-//Tampil Nama Cabang
-                m.addAttribute("view", p);
-//
-//rekap Pendaftar
-                LocalDateTime mulai = LocalDateTime.now().minusMonths(1);
-                LocalDateTime sampai = LocalDateTime.now();
 
-                List<RekapTagihanAgen> hasil = pendaftarAgenDao.rekapTagihan(p, mulai, sampai);
-                m.addAttribute("hasil", hasil);
-///////
-            }
-        }
+    @GetMapping ("/agen/tagihan/list")
+    public ModelMap listTagihanAgen(@RequestParam(value = "agen")Agen agen, Pageable page){
+
+        return new ModelMap()
+                .addAttribute("daftarTagihan", tagihanAgenDao.findByAgenOrderByTanggalTagihan(agen, page))
+                .addAttribute("agen", agen);
+
     }
+
+
 
 }
 

@@ -16,6 +16,7 @@ public class AgenDto {
     private String penanggungJawab;
     @Email
     private String email;
+    private String kode;
     private String noHp;
     private String alamatCabang;
     private String status;
