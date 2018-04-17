@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Hasil Test</title>
+</head>
+<body>
+<section layout:fragment="content" class="clearfix">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="header">
+                            <h3>
+                                <span style="font-style: normal" th:text="${'List Tagihan Agen : '+ agen.namaCabang + ' > ' + agen.penanggungJawab}"></span>
+                            </h3>
+                        </div>
+                        <!--Table-->
+                        <div class="body">
+                            <br>
+                            Show <span sd:page-size-selector="javascript" ></span> entries
+                            <hr>
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <thead>
+                                        <tr align="center">
+                                            <th>No</th>
+                                            <th>Tanggal Tagihan</th>
+                                            <th>Nomor Tagihan</th>
+                                            <th>Nilai</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="p,row : ${daftarTagihan}">
+                                            <td th:text="${(row.index + 1) + (daftarTagihan.number * daftarTagihan.size)}">#</td>
+                                            <td th:text="${p.tanggalTagihan}"></td>
+                                            <td th:text="${p.nomorTagihan}"></td>
+                                            <td th:text="${p.nilai}"></td>
+                                            <td>
+                                                <span th:if="${p.lunas}" style="color: #00b0e4">Sudah Lunas</span>
+                                                <span th:if="${!p.lunas}" style="color: red">Belum Lunas</span>
+                                            </td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div sd:pagination-summary="">info</div>
+                                        <small>*Untuk mengirim ulang notifikasi tagihan silahkan gunakan <a href="https://tagihan.tazkia.ac.id/login" target="_blank">Aplikasi Tagihan.</a></small>
+
+                                    </div>
+                                </div>
+
+                            <div class="row">
+                                    <div class="col-sm-8">
+                                        <nav class="pull-right">
+                                            <ul class="pagination" sd:pagination="full">
+                                                <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                        </div>
+                        <!--//table//-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</section>
+
+</body>
+</html>
