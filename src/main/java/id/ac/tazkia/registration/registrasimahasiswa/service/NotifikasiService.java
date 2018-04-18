@@ -2,6 +2,7 @@ package id.ac.tazkia.registration.registrasimahasiswa.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.*;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.Agen;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.HasilTest;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
@@ -25,6 +26,8 @@ public class NotifikasiService {
     @Value("${notifikasi.registrasi.konfigurasi.grade}") private String getKonfigurasiNotifikasiHasilTest;
     @Value("${notifikasi.registrasi.konfigurasi.keterangan-lulus}") private String getKonfigurasiNotifikasiKeteranganLulus;
     @Value("${notifikasi.registrasi.konfigurasi.kartu-jpa}") private String getKonfigurasiNotifikasiKartuJpa;
+    @Value("${notifikasi.registrasi.konfigurasi.reset-password-agen}") private String getKonfigurasiNotifikasiResetPasswordAgen;
+
 
     @Autowired private KafkaTemplate<String, String> kafkaTemplate;
     @Autowired private ObjectMapper objectMapper;
@@ -192,6 +195,36 @@ public class NotifikasiService {
                         .nomorKontak2("089696792628")
                         .namaKontak3("Panitia Penerimaan Mahasiswa Baru")
                         .nomorKontak3("humas@tazkia.ac.id")
+                        .build())
+                .build();
+
+        try {
+            kafkaTemplate.send(topicNotifikasi, objectMapper.writeValueAsString(notif));
+        } catch (Exception err) {
+            LOGGER.warn(err.getMessage(), err);
+        }
+    }
+
+    @Async
+    public void kirimNotifikasiResetPasswordAgen(Agen agen, String passwordBaru){
+        NotifikasiRegistrasi notif = NotifikasiRegistrasi.builder()
+                .konfigurasi(getKonfigurasiNotifikasiResetPasswordAgen)
+                .email(agen.getEmail())
+                .mobile(agen.getNoHp())
+                .data(DataNotifikasiResetPasswordAgen.builder()
+                        .namaCabang(agen.getNamaCabang())
+                        .nomor(agen.getKode())
+                        .noHp(agen.getNoHp())
+                        .email(agen.getEmail())
+                        .penanggungJawab(agen.getPenanggungJawab())
+                        .username(agen.getKode())
+                        .password(passwordBaru)
+                        .namaKontak3("Irma")
+                        .nomorKontak3("08159551299")
+                        .namaKontak2("Furqon")
+                        .nomorKontak2("089696792628")
+                        .namaKontak1("Panitia Penerimaan Mahasiswa Baru")
+                        .nomorKontak1("humas@tazkia.ac.id")
                         .build())
                 .build();
 

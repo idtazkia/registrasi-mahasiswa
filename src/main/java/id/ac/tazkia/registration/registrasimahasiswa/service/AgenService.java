@@ -45,34 +45,53 @@ public class AgenService {
     private PendaftarAgenDao pendaftarAgenDao;
 
 //CreateAgen
-    public Agen prosesPendaftaranAgen(AgenDto agenDto, @RequestParam String password,@RequestParam String username) {
+    public Agen prosesPendaftaranAgen(AgenDto agenDto) {
         Agen p = new Agen();
         p.setStatus(true);
         BeanUtils.copyProperties(agenDto, p);
 
         p.setKode(9 +registrasiService.generateNomorRegistrasi());
 
-        createUserAgen(p,password,username);
+        createUserAgen(p);
         agenDao.save(p);
+        aktivasiUserAgen(p);
 
         return p;
     }
 
-    private void createUserAgen(Agen p, @RequestParam String password,@RequestParam String username) {
+    private void createUserAgen(Agen agen) {
         Role roleAgen = roleDao.findOne(AppConstants.ID_ROLE_AGEN);
 
         User user = new User();
-        user.setUsername(username);
+        user.setUsername(agen.getKode());
         user.setActive(true);
         user.setRole(roleAgen);
         userDao.save(user);
 
         UserPassword up = new UserPassword();
         up.setUser(user);
-        up.setPassword(passwordEncoder.encode(password));
+        up.setPassword(passwordEncoder.encode(RandomStringUtils.randomAlphabetic(6)));
         userPasswordDao.save(up);
 
-        p.setUser(user);
+        agen.setUser(user);
+    }
+
+    public String aktivasiUserAgen(Agen agen){
+        User u = agen.getUser();
+        UserPassword up = userPasswordDao.findByUser(u);
+
+        LOGGER.debug("userName = {}", u.getUsername());
+
+        String passwordBaru = RandomStringUtils.randomAlphabetic(6);
+        up.setPassword(passwordEncoder.encode(passwordBaru));
+
+        LOGGER.debug("passwordBaruAgen = {}", passwordBaru);
+
+        u.setActive(true);
+        userDao.save(u);
+        userPasswordDao.save(up);
+        notifikasiService.kirimNotifikasiResetPasswordAgen(agen,passwordBaru);
+        return passwordBaru;
     }
 //
 ////Create Pendaftar

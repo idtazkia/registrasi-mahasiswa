@@ -63,12 +63,12 @@ public class AgenController {
 ////
 
     @PostMapping("/agen/form")
-    public String formAgen(@ModelAttribute @Valid AgenDto agenDto, @RequestParam String password, @RequestParam String username, BindingResult errors) {
+    public String formAgen(@ModelAttribute @Valid AgenDto agenDto, BindingResult errors) {
 
         if (errors.hasErrors()) {
             return "agen/form";
         }
-        agenService.prosesPendaftaranAgen(agenDto, password, username);
+        agenService.prosesPendaftaranAgen(agenDto);
 
         return "redirect:/agen/list";
     }
