@@ -34,9 +34,10 @@
 
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="card" th:each="a : ${daftarAgen}">
-                                <div class="header bg-blue-grey" style="height: 150px;">
+                                <div class="header bg-blue-grey">
                                     <h2>
                                         <span th:text="${a. namaCabang+ ' > ' + a.penanggungJawab}"></span>
+                                        <small th:text="${'Kode &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :  '+ a. kode}"></small>
                                         <small th:text="${'Alamat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  :  '+ a. alamatCabang}"></small>
                                         <small th:text="${'No Handphone&nbsp;&nbsp; :  '+ a. noHp}"></small>
                                     </h2>
