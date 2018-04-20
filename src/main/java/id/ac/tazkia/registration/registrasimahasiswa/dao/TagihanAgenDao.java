@@ -11,4 +11,5 @@ public interface TagihanAgenDao extends PagingAndSortingRepository<TagihanAgen, 
 
     Page<TagihanAgen> findByAgenOrderByTanggalTagihan(Agen agen, Pageable page);
 
+    TagihanAgen findByNomorTagihan(String nomorTagihan);
 }

@@ -96,26 +96,41 @@ public class KafkaListenerService {
             PembayaranTagihan pt = objectMapper.readValue(message, PembayaranTagihan.class);
 
                 Tagihan tagihan = tagihanDao.findByNomorTagihan(pt.getNomorTagihan());
+
+                TagihanAgen tagihanAgen = tagihanAgenDao.findByNomorTagihan(pt.getNomorTagihan());
+
                 if (tagihan == null) {
-                    LOGGER.warn("Tagihan dengan nomor {} tidak ditemukan", pt.getNomorTagihan());
-                    return;
-                }
+                    LOGGER.warn("Tagihan Pendaftar tidak ditemukan");
 
-                tagihanService.prosesPembayaran(tagihan, pt);
-
-                System.out.println("jenis tagihan : " + tagihan.getJenisBiaya().getId());
-
-                if (tagihan.getJenisBiaya().getId().equals(AppConstants.JENIS_BIAYA_DAFTAR_ULANG)) {
-                    DetailPendaftar dp = detailPendaftarDao.findByPendaftar(tagihan.getPendaftar());
-                    if (dp == null) {
-                        LOGGER.warn("Tagihan dengan nomor {} tidak memiliki data detail pendaftar", pt.getNomorTagihan());
-                        return;
+                    //Cek di Tagihan Agen
+                    if (tagihanAgen == null){
+                        LOGGER.warn("Tagihan Agen dengan nomor {} tidak ditemukan", pt.getNomorTagihan());
                     }
-                    notifikasiService.kirimNotifikasiKeteranganLulus(dp);
-                } else {
-                    registrasiService.aktivasiUser(tagihan.getPendaftar());
+
+                    tagihanService.prosesPembayaranAgen(tagihanAgen, pt);
+                    return;
+
                 }
-//            }
+
+                if (tagihanAgen == null) {
+                    if (tagihan == null){
+                        LOGGER.warn("Tagihan Pendaftar dengan nomor {} tidak ditemukan", pt.getNomorTagihan());
+                    }
+                    tagihanService.prosesPembayaran(tagihan, pt);
+
+                    System.out.println("jenis tagihan : " + tagihan.getJenisBiaya().getId());
+
+                    if (tagihan.getJenisBiaya().getId().equals(AppConstants.JENIS_BIAYA_DAFTAR_ULANG)) {
+                        DetailPendaftar dp = detailPendaftarDao.findByPendaftar(tagihan.getPendaftar());
+                        if (dp == null) {
+                            LOGGER.warn("Tagihan dengan nomor {} tidak memiliki data detail pendaftar", pt.getNomorTagihan());
+                            return;
+                        }
+                        notifikasiService.kirimNotifikasiKeteranganLulus(dp);
+                    } else {
+                        registrasiService.aktivasiUser(tagihan.getPendaftar());
+                    }
+                }
 
         } catch (Exception err) {
             LOGGER.warn(err.getMessage(), err);

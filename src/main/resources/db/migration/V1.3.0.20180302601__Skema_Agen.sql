@@ -61,3 +61,20 @@ CREATE TABLE tagihan_agen (
 );
 
 --////
+
+-- Pembayaran Agen
+
+create table pembayaran_agen (
+  id VARCHAR (36),
+  id_tagihan VARCHAR(36) NOT NULL,
+  id_bank VARCHAR (36) NOT NULL,
+  waktu_pembayaran TIMESTAMP NOT NULL ,
+  cara_pembayaran VARCHAR (255) NOT NULL ,
+  bukti_pembayaran VARCHAR (255) NOT NULL ,
+  nilai NUMERIC(19,2) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_tagihan) REFERENCES tagihan_agen(id),
+  FOREIGN KEY (id_bank) REFERENCES bank(id)
+);
+
+-- ///

@@ -45,6 +45,8 @@ public class TagihanService {
     @Autowired private PeriodeDao periodeDao;
     @Autowired private AgenDao agenDao;
     @Autowired private PendaftarAgenDao pendaftarAgenDao;
+    @Autowired private PembayaranAgenDao pembayaranAgenDao;
+    @Autowired private TagihanAgenDao tagihanAgenDao;
 
     private JenisBiaya pendaftaran;
     private JenisBiaya daftarUlang;
@@ -189,6 +191,25 @@ public class TagihanService {
 
             pendaftarAgenDao.updateStatusTagihan(agen, mulai, sampai, StatusTagihan.BELUM_DIBAYAR);
         }
+    }
+
+    public void prosesPembayaranAgen(TagihanAgen tagihanAgen, PembayaranTagihan pt) {
+        tagihanAgen.setLunas(true);
+
+        PembayaranAgen pembayaranAgen = new PembayaranAgen();
+        pembayaranAgen.setTagihanAgen(tagihanAgen);
+        pembayaranAgen.setNilai(pt.getNilaiPembayaran());
+        pembayaranAgen.setWaktuPembayaran(LocalDateTime.parse(pt.getWaktuPembayaran(), FORMATTER_ISO_DATE_TIME));
+
+        Bank bank = new Bank();
+        bank.setId(pt.getBank());
+        pembayaranAgen.setBank(bank);
+        pembayaranAgen.setBuktiPembayaran(pt.getReferensiPembayaran());
+
+        tagihanAgenDao.save(tagihanAgen);
+        pembayaranAgenDao.save(pembayaranAgen);
+        LOGGER.debug("Pembayaran untuk tagihanAgen {} berhasil disimpan", pt.getNomorTagihan());
+
     }
     
 
