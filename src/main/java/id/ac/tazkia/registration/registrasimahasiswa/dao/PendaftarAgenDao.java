@@ -3,6 +3,8 @@ package id.ac.tazkia.registration.registrasimahasiswa.dao;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Agen;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.PendaftarAgen;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.StatusTagihan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -30,5 +32,6 @@ public interface PendaftarAgenDao extends PagingAndSortingRepository<PendaftarAg
                              @Param("sampai") LocalDateTime sampai,
                              @Param("status") StatusTagihan statusTagihan);
 
+    Page<PendaftarAgen> findByAgenOrderByTanggal(Agen agen, Pageable page);
 }
 

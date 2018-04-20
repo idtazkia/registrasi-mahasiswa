@@ -9,15 +9,17 @@ import id.ac.tazkia.registration.registrasimahasiswa.service.AgenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
@@ -130,4 +132,34 @@ public class RegistrasiAgenController {
 
         return "redirect:/home";
     }
+
+//List
+        @RequestMapping("/agen/pendaftar/list")
+        public void tagihanAgen(ModelMap model, Authentication currentUser, Pageable page){
+            logger.debug("Authentication class : {}",currentUser.getClass().getName());
+
+            if(currentUser == null){
+                logger.warn("Current user is null");
+                return;
+            }
+
+            String username = ((UserDetails)currentUser.getPrincipal()).getUsername();
+            User u = userDao.findByUsername(username);
+            logger.debug("User ID : {}", u.getId());
+            if(u == null){
+                logger.warn("Username {} not found in database ", username);
+                return;
+            }
+
+            Agen agen = agenDao.findByUser(u);
+            logger.debug("Nama Cabang : "+agen.getNamaCabang());
+            if(agen == null){
+                logger.warn("Pendaftar not found for username {} ", username);
+                return;
+            }
+
+            model.addAttribute("daftarPendaftaran", pendaftarAgenDao.findByAgenOrderByTanggal(agen, page));
+            model.addAttribute("agen", agen);
+
+}
 }
