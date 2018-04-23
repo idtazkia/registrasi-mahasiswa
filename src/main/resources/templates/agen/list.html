@@ -56,6 +56,17 @@
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
+                                                    <a th:href="@{/agen/pendaftar/list(agen=${a.id})}">
+                                                        <button type="submit" class="btn btn-xs btn-success waves-effect">
+                                                            <i class="material-icons">line_weight</i>
+                                                            <span>Data Pendaftar&nbsp;</span>
+                                                        </button>
+                                                    </a>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
                                             <span th:if="${a.status}">
                                                     <form th:action="@{/agen/nonaktif(agen=${a.id})}" method="post">
                                                         <button type="submit"

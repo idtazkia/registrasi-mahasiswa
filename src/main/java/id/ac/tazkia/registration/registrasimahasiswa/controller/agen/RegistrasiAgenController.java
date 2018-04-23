@@ -161,5 +161,15 @@ public class RegistrasiAgenController {
             model.addAttribute("daftarPendaftaran", pendaftarAgenDao.findByAgenOrderByTanggal(agen, page));
             model.addAttribute("agen", agen);
 
-}
+        }
+
+        @GetMapping ("/agen/pendaftar/list")
+        public ModelMap listTagihanAgen(@RequestParam(value = "agen")Agen agen, Pageable page){
+
+            return new ModelMap()
+                    .addAttribute("daftarPendaftaran", pendaftarAgenDao.findByAgenOrderByTanggal(agen, page))
+                    .addAttribute("agen", agen);
+
+        }
+
 }
