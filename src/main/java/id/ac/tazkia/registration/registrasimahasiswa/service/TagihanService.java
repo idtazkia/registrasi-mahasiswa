@@ -194,6 +194,10 @@ public class TagihanService {
     }
 
     public void prosesPembayaranAgen(TagihanAgen tagihanAgen, PembayaranTagihan pt) {
+
+        LocalDateTime sampai = tagihanAgen.getTanggalTagihan().atStartOfDay();
+        LocalDateTime mulai = sampai.minusDays(7);
+
         tagihanAgen.setLunas(true);
 
         PembayaranAgen pembayaranAgen = new PembayaranAgen();
@@ -208,7 +212,9 @@ public class TagihanService {
 
         tagihanAgenDao.save(tagihanAgen);
         pembayaranAgenDao.save(pembayaranAgen);
-        LOGGER.debug("Pembayaran untuk tagihanAgen {} berhasil disimpan", pt.getNomorTagihan());
+        pendaftarAgenDao.updateStatusTagihan(tagihanAgen.getAgen(), mulai, sampai, StatusTagihan.LUNAS);
+
+        LOGGER.debug("Pembayaran untuk Tagihan Agen {} berhasil disimpan", pt.getNomorTagihan());
 
     }
     
