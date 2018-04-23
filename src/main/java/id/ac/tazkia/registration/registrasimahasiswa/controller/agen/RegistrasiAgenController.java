@@ -134,7 +134,7 @@ public class RegistrasiAgenController {
     }
 
 //List
-        @RequestMapping("/agen/pendaftar/list")
+        @RequestMapping("/agen/pendaftar/listAgen")
         public void tagihanAgen(ModelMap model, Authentication currentUser, Pageable page){
             logger.debug("Authentication class : {}",currentUser.getClass().getName());
 
