@@ -70,7 +70,7 @@ public class AgenController {
         }
         agenService.prosesPendaftaranAgen(agenDto);
 
-        return "redirect:agen/list";
+        return "redirect:/agen/list";
     }
 
 
@@ -78,27 +78,27 @@ public class AgenController {
     public String processHapusForm(@RequestParam Agen agen) {
         if (agen == null) {
             logger.warn("Update Agen null");
-            return "redirect:agen/list";
+            return "redirect:/agen/list";
         }
 
         Agen u = agenDao.findByUser(agen.getUser());
         u.getUser().setActive(false);
         agen.setStatus(false);
         agenDao.save(agen);
-        return "redirect:agen/list";
+        return "redirect:/agen/list";
     }
 
     @PostMapping("/agen/aktif")
     public String processAktifForm(@RequestParam Agen agen) {
         if (agen == null) {
             logger.warn("Update Agen null");
-            return "redirect:agen/list";
+            return "redirect:/agen/list";
         }
 
         Agen u = agenDao.findByUser(agen.getUser());
         u.getUser().setActive(true);
         agen.setStatus(true);
         agenDao.save(agen);
-        return "redirect:agen/list";
+        return "redirect:/agen/list";
     }
 }
