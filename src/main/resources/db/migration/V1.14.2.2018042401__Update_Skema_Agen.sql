@@ -1,4 +1,16 @@
--- Tbl Pendaftar_Agen
+INSERT INTO jenis_biaya VALUES ('010','Agen Pendaftar');
+
+ALTER TABLE agen
+    RENAME nama TO nama_cabang;
+
+alter table agen
+  add column penanggung_jawab VARCHAR(255) not NULL;
+
+alter table agen
+  add column kode VARCHAR(255) not NULL;
+
+
+--- Tbl Pendaftar_Agen
 CREATE TABLE pendaftar_agen (
   id       VARCHAR (36),
   id_agen VARCHAR (36) NOT NULL,
@@ -43,3 +55,5 @@ create table pembayaran_agen (
   FOREIGN KEY (id_tagihan) REFERENCES tagihan_agen(id),
   FOREIGN KEY (id_bank) REFERENCES bank(id)
 );
+
+--- ///
