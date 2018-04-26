@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -33,37 +33,25 @@
     </div>
     <div class="card">
         <div class="body">
-            <form id="sign_in" method="POST"  th:action="@{/login}">
-                <div class="msg">Sign in to start your session</div>
+            <form id="forgot_password" method="POST">
+                <div class="msg">
+                    Enter your Username that you used to register. We'll send you an email with your username and a
+                    link to reset your password.
+                </div>
                 <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                     <div class="form-line">
-                        <input type="text" class="form-control" name="username" placeholder="Username" required autofocus>
-                    </div>
-                </div>
-                <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                    <div class="form-line">
-                        <input type="password" class="form-control" name="password" placeholder="Password" required>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-8 p-t-5">
-                    </div>
-                    <div class="col-xs-4">
-                        <button class="btn btn-block bg-teal waves-effect" type="submit">SIGN IN</button>
-                    </div>
-                </div>
-                <div class="row m-t-0 m-b--20">
-                    <div class="col-xs-12 align-right">
-                        <a th:href="@{/reset}">Forgot Password?</a>
+                        <input type="text" class="form-control" name="user" placeholder="Username" required autofocus>
                     </div>
                 </div>
 
+                <button class="btn btn-block btn-lg bg-teal waves-effect" type="submit">RESET MY PASSWORD</button>
+
+                <div class="row m-t-20 m-b--5 align-center">
+                    <a th:href="@{/login}">Sign In!</a>
+                </div>
             </form>
         </div>
     </div>

@@ -66,7 +66,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .and().formLogin().defaultSuccessUrl("/home")
                 .loginPage("/login")
                 .permitAll();
-        
+
     }
 
     @Override
@@ -88,7 +88,11 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**")
                 .antMatchers("/kartu")
                 .antMatchers("/suratKeterangan")
-                .antMatchers("/formNimko");
+                .antMatchers("/formNimko")
+                .antMatchers("/404")
+                .antMatchers("/reset-sukses")
+                .antMatchers("/confirm")
+                .antMatchers("/reset");
 
     }
 

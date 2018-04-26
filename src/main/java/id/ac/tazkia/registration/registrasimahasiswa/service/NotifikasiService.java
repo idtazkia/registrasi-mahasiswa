@@ -1,11 +1,11 @@
 package id.ac.tazkia.registration.registrasimahasiswa.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.AgenDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.*;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Agen;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.HasilTest;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,13 @@ public class NotifikasiService {
     @Value("${notifikasi.registrasi.konfigurasi.keterangan-lulus}") private String getKonfigurasiNotifikasiKeteranganLulus;
     @Value("${notifikasi.registrasi.konfigurasi.kartu-jpa}") private String getKonfigurasiNotifikasiKartuJpa;
     @Value("${notifikasi.registrasi.konfigurasi.reset-password-agen}") private String getKonfigurasiNotifikasiResetPasswordAgen;
+    @Value("${notifikasi.registrasi.konfigurasi.it-reset-password}") private String getKonfigurasiNotifikasiReset;
 
 
     @Autowired private KafkaTemplate<String, String> kafkaTemplate;
     @Autowired private ObjectMapper objectMapper;
+    @Autowired private PendaftarDao pendaftarDao;
+    @Autowired private AgenDao agenDao;
 
 
     @Async
@@ -225,6 +228,46 @@ public class NotifikasiService {
                         .nomorKontak2("089696792628")
                         .namaKontak1("Panitia Penerimaan Mahasiswa Baru")
                         .nomorKontak1("humas@tazkia.ac.id")
+                        .build())
+                .build();
+
+        try {
+            kafkaTemplate.send(topicNotifikasi, objectMapper.writeValueAsString(notif));
+        } catch (Exception err) {
+            LOGGER.warn(err.getMessage(), err);
+        }
+    }
+
+    @Async
+    public void resetPassword(Reset p) {
+        User user = p.getUser();
+        Pendaftar pendaftar = pendaftarDao.findByUser(user);
+            NotifikasiReset notif = NotifikasiReset.builder().build().builder().build().builder()
+                    .konfigurasi(getKonfigurasiNotifikasiReset)
+                    .email(pendaftar.getEmail())
+                    .data(DataReset.builder()
+                            .code(p.getCode())
+                            .nama(p.getUser().getUsername())
+                            .build())
+                    .build();
+
+            try {
+                kafkaTemplate.send(topicNotifikasi, objectMapper.writeValueAsString(notif));
+            } catch (Exception err) {
+                LOGGER.warn(err.getMessage(), err);
+            }
+        }
+
+    @Async
+    public void resetPasswordAgen(Reset p) {
+        User user = p.getUser();
+        Agen agen = agenDao.findByUser(user);
+        NotifikasiReset notif = NotifikasiReset.builder().build().builder().build().builder()
+                .konfigurasi(getKonfigurasiNotifikasiReset)
+                .email(agen.getEmail())
+                .data(DataReset.builder()
+                        .code(p.getCode())
+                        .nama(p.getUser().getUsername())
                         .build())
                 .build();
 
