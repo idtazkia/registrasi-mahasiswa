@@ -77,6 +77,7 @@ public class TagihanService {
     public void createTagihanRegistrasi(Pendaftar p) {
         TagihanRequest tagihanRequest = TagihanRequest.builder()
                 .jenisTagihan(idTagihanRegistrasi)
+                .kodeBiaya(p.getProgramStudi().getKodeBiaya())
                 .nilaiTagihan(hitungBiayaPendaftaran(p))
                 .debitur(p.getNomorRegistrasi())
                 .keterangan("Pembayaran Registrasi Mahasiswa Baru STEI Tazkia 2018")

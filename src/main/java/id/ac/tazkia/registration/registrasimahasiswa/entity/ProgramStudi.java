@@ -1,13 +1,16 @@
 package id.ac.tazkia.registration.registrasimahasiswa.entity;
 
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
-@Entity
+@Entity @Data
 public class ProgramStudi {
 
 
@@ -19,19 +22,6 @@ public class ProgramStudi {
     @Column(nullable = false)
     private String nama;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNama() {
-        return nama;
-    }
-
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
+    @NotEmpty @NotNull
+    private String kodeBiaya;
 }
