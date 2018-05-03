@@ -10,6 +10,7 @@ import java.util.Date;
 @Data @Builder
 public class TagihanRequest {
     private String jenisTagihan;
+    private String kodeBiaya;
     private String debitur;
     private BigDecimal nilaiTagihan;
 
