@@ -8,6 +8,7 @@ import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import id.ac.tazkia.registration.registrasimahasiswa.service.AgenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -49,7 +50,8 @@ public class RegistrasiAgenController {
 
 
     @GetMapping("agen/pendaftar/form")
-    public void formDaftarViaAgen(Model model, Authentication currentUser){
+    public void formDaftarViaAgen(@RequestParam(value = "id", required = false) String id,
+                                  Model model, Authentication currentUser){
         logger.debug("Authentication class : {}",currentUser.getClass().getName());
 
         if(currentUser == null){
@@ -72,9 +74,22 @@ public class RegistrasiAgenController {
             return;
         }
 
-        Registrasi detail = new Registrasi();
-        detail.setNamaPerekomendasi(p.getNamaCabang());
-        model.addAttribute("registrasi", detail);
+        model.addAttribute("registrasi",new Registrasi());
+
+        if (id != null && !id.isEmpty()){
+            Pendaftar pendaftar= pendaftarDao.findOne(id);
+            if (pendaftar != null){
+                Registrasi registrasi = new Registrasi();
+                BeanUtils.copyProperties(pendaftar,registrasi);
+                registrasi.setIdKabupatenKota(pendaftar.getKabupatenKota().getId());
+                registrasi.setProgramStudi(pendaftar.getProgramStudi().getId());
+                registrasi.setUser(pendaftar.getUser());
+                model.addAttribute("registrasi",registrasi);
+            }
+        }
+
+        Iterable<KabupatenKota> kabupatenKotas = kabupatenKotaDao.findAll();
+        model.addAttribute("kokab",kabupatenKotas);
 
     }
 
@@ -117,20 +132,23 @@ public class RegistrasiAgenController {
         }
 
         registrasi.setPemberiRekomendasi(AppConstants.PENDAFTAR_AGEN);
+        registrasi.setNamaPerekomendasi(p.getNamaCabang());
 
         agenService.prosesDaftar(registrasi, prodi, kk);
 
-        Pendaftar pendaftar = pendaftarDao.findByNomorRegistrasi(registrasi.getNomorRegistrasi());
-        PendaftarAgen pa = new PendaftarAgen();
-        pa.setAgen(p);
-        pa.setPendaftar(pendaftar);
-        pa.setTanggal(LocalDateTime.now());
-        pa.setStatusTagihan(StatusTagihan.BELUM_DITAGIH);
-        pendaftarAgenDao.save(pa);
+        Pendaftar pe = pendaftarDao.findOne(registrasi.getId());
+        if (pe == null) {
+            Pendaftar pendaftar = pendaftarDao.findByNomorRegistrasi(registrasi.getNomorRegistrasi());
+            PendaftarAgen pa = new PendaftarAgen();
+            pa.setAgen(p);
+            pa.setPendaftar(pendaftar);
+            pa.setTanggal(LocalDateTime.now());
+            pa.setStatusTagihan(StatusTagihan.BELUM_DITAGIH);
+            pendaftarAgenDao.save(pa);
+        }
 
 
-
-        return "redirect:/home";
+        return "redirect:/agen/pendaftar/listAgen";
     }
 
 //List

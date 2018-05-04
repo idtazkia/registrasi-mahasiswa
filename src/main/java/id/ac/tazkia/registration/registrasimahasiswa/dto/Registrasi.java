@@ -1,5 +1,6 @@
 package id.ac.tazkia.registration.registrasimahasiswa.dto;
 
+import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,6 +24,7 @@ public class Registrasi {
     private String namaAsalSekolah;
     private String programStudi;
     private String konsentrasi;
+    private User user;
 
 
 }

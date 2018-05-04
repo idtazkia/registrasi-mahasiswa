@@ -7,10 +7,12 @@
     <title>Agen TAZKIA</title>
 </head>
 <body>
+
 <section layout:fragment="content" class="clearfix">
         <section class="clearfix">
             <form th:action="@{/agen/pendaftar/form}" th:object="${registrasi}" method="post">
-                <input type="hidden" name="id" id="id">
+                <input type="hidden" name="id" id="id" th:field="*{id}">
+                <input type="hidden" name="user" id="user" th:field="*{user}">
 
                 <div class="container-fluid">
                     <div class="row">
@@ -77,11 +79,20 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label>Kota Asal Sekolah</label>
-                                                    <input type="text" hidden="" name="idKabupatenKota">
-                                                    <input type="text" class="form-control"
-                                                           id="kokabawal" placeholder="Cari Kabupaten/Kota ..."
-                                                           data-provide="typeahead"
-                                                           autocomplete="off" required autofocus>
+                                                    <!--<input type="text" hidden="" name="idKabupatenKota" th:field="*{kabupatenKota}">-->
+                                                    <!--<input type="text" class="form-control"-->
+                                                           <!--id="kokabawal" placeholder="Cari Kabupaten/Kota ..."-->
+                                                           <!--data-provide="typeahead" th:field="*{kabupatenKota.nama}"-->
+                                                           <!--autocomplete="off" required autofocus>-->
+
+                                                    <select class="form-control border-input js-sr"
+                                                            name="idKabupatenKota" th:field="*{idKabupatenKota}">
+                                                        <option value=""></option>
+                                                        <option th:each="a : ${kokab}" th:text="${a.nama}" th:value="${a.id}">asdfasfasf</option>
+
+                                                    </select>
+
+
                                                 </div>
                                                 <span style="color: red">Cari Kabupaten/kota secara otomatis.</span>
                                             </div>
@@ -99,6 +110,9 @@
                                         </div>
 
                                                     <input type="hidden"  name="nama_perekomendasi"  th:field="*{namaPerekomendasi}"
+                                                           class="form-control" readonly
+                                                           placeholder="Nama Perekomendasi"/>
+                                                <input type="hidden"  name="nama_perekomendasi"  th:field="*{pemberiRekomendasi}"
                                                            class="form-control" readonly
                                                            placeholder="Nama Perekomendasi"/>
 
@@ -148,3 +162,9 @@
 
 </body>
 </html>
+<script>
+    $(".js-sr").select2({
+        placeholder: "--Pilih Kabupaten Kota--",
+        allowClear: true
+    });
+</script>

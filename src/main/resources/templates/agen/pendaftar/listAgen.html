@@ -37,6 +37,7 @@
                                                 <th>Asal Sekolah</th>
                                                 <th>Tanggal Daftar</th>
                                                 <th>Keterangan</th>
+                                                <th>&nbsp;</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -49,6 +50,9 @@
                                                 <td th:text="${s.pendaftar.namaAsalSekolah}">0251453224</td>
                                                 <td th:text="${s.tanggal}">16-08-2017</td>
                                                 <td th:text="${s.statusTagihan}"></td>
+                                                <td>
+                                                    <a th:href="@{/agen/pendaftar/form(id = ${s.pendaftar.id})}" target="_blank" class="btn btn-primary text-uppercase js-scroll-trigger">EDIT</a>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>

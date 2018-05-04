@@ -110,8 +110,19 @@ public class AgenService {
         registrasi.setNomorRegistrasi(p.getNomorRegistrasi());
         registrasi.setId(p.getId());
 
+        if (!StringUtils.hasText(registrasi.getId())){
+            createUserAktif(p);
+        }else{
+            UserPassword up = new UserPassword();
+            up.setUser(registrasi.getUser());
+            String passwordBaru = RandomStringUtils.randomAlphabetic(6);
+            up.setPassword(passwordEncoder.encode(passwordBaru));
 
-        createUserAktif(p);
+            userPasswordDao.save(up);
+            p.setUser(registrasi.getUser());
+            notifikasiService.kirimNotifikasiResetPassword(p,passwordBaru);
+        }
+
         pendaftarDao.save(p);
         notifikasiService.kirimNotifikasiRegistrasi(p);
         tagihanService.prosesTagihanPendaftaran(p);
