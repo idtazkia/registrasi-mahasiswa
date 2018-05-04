@@ -120,7 +120,7 @@ public class TagihanService {
     public void createTagihanDaftarUlang(Pendaftar p, HasilTest h,@RequestParam (required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate tanggalTest){
 
         TagihanRequest tagihanRequest = TagihanRequest.builder()
-
+                .kodeBiaya(p.getProgramStudi().getKodeBiaya())
                 .jenisTagihan(idTagihanDaftarUlang)
                 .nilaiTagihan(hitungBiayaDaftarUlang(p, h, tanggalTest))
                 .debitur(p.getNomorRegistrasi())
