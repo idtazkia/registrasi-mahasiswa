@@ -1,9 +1,6 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
-import id.ac.tazkia.registration.registrasimahasiswa.dao.DetailPendaftarDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.KabupatenKotaDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.ProgramStudiDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.Registrasi;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.KabupatenKota;
@@ -36,6 +33,7 @@ public class RegistrasiController {
     @Autowired private RegistrasiService registrasiService;
     @Autowired private ProgramStudiDao programStudiDao;
     @Autowired private DetailPendaftarDao detailPendaftarDao;
+    @Autowired private TagihanDao tagihanDao;
 
     @GetMapping("/registrasi/list")
     public void daftarPendaftaran(@RequestParam(required = false)String search, Model m,
@@ -47,10 +45,13 @@ public class RegistrasiController {
             m.addAttribute("daftarPendaftaran", pendaftarDao
                     .findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseAndProgramStudiNotNullOrderByNomorRegistrasi(search,search,page));
             m.addAttribute("asa", detailPendaftarDao.findAll());
+            m.addAttribute("reset", tagihanDao.findAll());
 
         } else {
             m.addAttribute("daftarPendaftaran", pendaftarDao.findByProgramStudiNotNull(page));
             m.addAttribute("asa", detailPendaftarDao.findAll());
+            m.addAttribute("resendPassword", tagihanDao.findAll());
+
         }
     }
 
