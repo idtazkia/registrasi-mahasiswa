@@ -1,12 +1,12 @@
 package id.ac.tazkia.registration.registrasimahasiswa.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
-@Data @Builder
+@Data
 public class PembayaranTagihan {
+    private String jenisTagihan;
     private String nomorTagihan;
     private String nomorDebitur;
     private String namaDebitur;
