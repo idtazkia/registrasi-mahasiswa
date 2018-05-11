@@ -64,12 +64,6 @@
                                                 <td th:text="${s.namaAsalSekolah}">0251453224</td>
                                                 <td th:text="${s.noHp}">Jln Raya Wangun</td>
                                                 <td sec:authorize="hasAuthority('VIEW_MASTER')">
-                                                    <span th:each="r : ${resendPassword}" >
-                                                        <a th:if="${r.lunas == true && r.pendaftar.id == s.id}"
-                                                       th:href="@{/registrasi/reset/form(pendaftar = ${s.id})}" class="btn bg-blue waves-effec">Reset Password</a>
-                                                    </span>
-                                                </td>
-                                                <td sec:authorize="hasAuthority('VIEW_MASTER')">
                                                     <a th:href="@{/registrasi/hasil/form(id = ${s.id})}" target="_blank" class="btn bg-green waves-effec">Input Hasil Test</a>
                                                 </td>
                                                 <td>
