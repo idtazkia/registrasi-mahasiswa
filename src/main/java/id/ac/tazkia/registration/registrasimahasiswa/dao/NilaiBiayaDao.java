@@ -10,7 +10,7 @@ import java.util.List;
 public interface NilaiBiayaDao extends PagingAndSortingRepository <NilaiBiaya, String> {
     Page<NilaiBiaya> findByJenisBiayaAndProgramStudi(JenisBiaya jd, ProgramStudi programStudi, Pageable page);
 
-    Page<JenisBiaya> findByJenisBiayaContainingIgnoreCaseOrderByJenisBiaya(String nama, Pageable page);
+    Page<NilaiBiaya> findByJenisBiayaNamaContainingIgnoreCaseOrderByJenisBiayaNama(String nama, Pageable page);
 
     Page<NilaiBiaya> findByJenisBiayaAndProgramStudiAndGradeAndPeriode(JenisBiaya daftarUlang, ProgramStudi programStudi, Grade grade, List<Periode> daftarPeriode, Pageable page);
 }

@@ -17,7 +17,7 @@ public class NilaiBiayaController {
     public void daftarNilaiBiaya(@RequestParam(required = false)String nama, Model m, Pageable page){
         if(StringUtils.hasText(nama)) {
             m.addAttribute("nama", nama);
-            m.addAttribute("daftarNilai", nb.findByJenisBiayaContainingIgnoreCaseOrderByJenisBiaya(nama, page));
+            m.addAttribute("daftarNilai", nb.findByJenisBiayaNamaContainingIgnoreCaseOrderByJenisBiayaNama(nama, page));
         } else {
             m.addAttribute("daftarNilai", nb.findAll(page));
         }
