@@ -10,6 +10,7 @@
 <section layout:fragment="content" class="clearfix">
     <section class="clearfix">
         <form th:action="@{/periode/form}" th:object="${periode}" method="post">
+            <input type="hidden" name="id" th:field="*{id}">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -37,7 +38,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Tanggal Mulai</label>
-                                                <input type="date" name="tglmulai" th:field="*{tanggal_mulai}"
+                                                <input type="date" name="tanggalMulai" th:field="*{tanggalMulai}"
                                                        class="form-control" required autofocus/>
                                             </div>
                                         </div>
@@ -46,7 +47,7 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Tanggal Selesai</label>
-                                                <input type="date" name="tglselesai" th:field="*{tanggal_selesai}"
+                                                <input type="date" name="tanggalSelesai" th:field="*{tanggalSelesai}"
                                                        class="form-control" required autofocus/>
                                             </div>
                                         </div>

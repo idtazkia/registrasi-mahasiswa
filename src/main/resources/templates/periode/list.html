@@ -43,23 +43,18 @@
                                             <th>Periode</th>
                                             <th>Tanggal Mulai</th>
                                             <th>Tanggal Selesai</th>
-                                            <th colspan="2">&nbsp;</th>
+                                            <th colspan="1">&nbsp;</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="p, row : ${daftarPeriode}">
                                             <td th:text="${(row.index + 1) + (daftarPeriode.number * daftarPeriode.size)}">#</td>
                                             <td th:text="${p. nama}">muamalah</td>
-                                            <td th:text="${p. tanggal_mulai}">10-08-2017</td>
-                                            <td th:text="${p. tanggal_selesai}">10-10-2017</td>
-                                            <td width="100px">
+                                            <td th:text="${p. tanggalMulai}">10-08-2017</td>
+                                            <td th:text="${p. tanggalSelesai}">10-10-2017</td>
+                                            <td width="100px" align="center">
                                                 <a href="form"  th:href="@{/periode/form(id=${p.id})}"
                                                    class="btn bg-green waves-effec">Edit
-                                                </a>
-                                            </td>
-                                            <td width="100px">
-                                                <a href="form"  th:href="@{/periode/hapus(id=${p.id})}"
-                                                   class="btn bg-red waves-effec">Hapus
                                                 </a>
                                             </td>
                                         </tr>
