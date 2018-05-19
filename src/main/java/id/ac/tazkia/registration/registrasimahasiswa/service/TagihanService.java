@@ -80,7 +80,7 @@ public class TagihanService {
                 .kodeBiaya(p.getProgramStudi().getKodeBiaya())
                 .nilaiTagihan(hitungBiayaPendaftaran(p))
                 .debitur(p.getNomorRegistrasi())
-                .keterangan("Pembayaran Registrasi Mahasiswa Baru STEI Tazkia 2018")
+                .keterangan("Registrasi Mahasiswa Baru a.n "+p.getNama())
                 .tanggalJatuhTempo(Date.from(LocalDate.now().plusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
 
@@ -124,7 +124,7 @@ public class TagihanService {
                 .jenisTagihan(idTagihanDaftarUlang)
                 .nilaiTagihan(hitungBiayaDaftarUlang(p, h, tanggalTest))
                 .debitur(p.getNomorRegistrasi())
-                .keterangan("Pembayaran Daftar Ulang Mahasiswa Baru STEI Tazkia 2018")
+                .keterangan("Daftar Ulang Mahasiswa Baru STEI Tazkia a.n "+p.getNama())
                 .tanggalJatuhTempo(Date.from(LocalDate.now().plusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
 
@@ -184,7 +184,7 @@ public class TagihanService {
                     .jenisTagihan(idTagihanAgen)
                     .nilaiTagihan(nilaiTagihan)
                     .debitur(agen.getKode())
-                    .keterangan("Pembayaran Registrasi Mahasiswa Baru STEI Tazkia 2018 Via Agen Pendaftar")
+                    .keterangan("Registrasi Mahasiswa via Agen Pendaftar "+agen.getKode())
                     .tanggalJatuhTempo(Date.from(LocalDate.now().plusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                     .build();
 
