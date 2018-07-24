@@ -92,7 +92,12 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/404")
                 .antMatchers("/reset-sukses")
                 .antMatchers("/confirm")
-                .antMatchers("/reset");
+                .antMatchers("/reset")
+                .antMatchers("/brosur/pei")
+                .antMatchers("/brosur/mua")
+                .antMatchers("/brosur/ai")
+                .antMatchers("/brosur/bmi")
+                .antMatchers("/brosur/ei")   ;
 
     }
 
