@@ -39,6 +39,9 @@ public class IndexController {
     @Value("classpath:sample/ei.pdf")
     private Resource brosurEi;
 
+    @Value("classpath:sample/FA L_O Isi Book all Tazkia.pdf")
+    private Resource bukuEi;
+
     @GetMapping("/")
     public String defaultPage(@RequestParam(required = false)String search,String cari, Model m, @Qualifier("tpa")Pageable tpaPage, @Qualifier("smart") Pageable smartPage){
         if(StringUtils.hasText(search)) {
@@ -99,6 +102,14 @@ public class IndexController {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=Ilmu Ekonomi Syariah. pdf");
         FileCopyUtils.copy(brosurEi.getInputStream(), response.getOutputStream());
+        response.getOutputStream().flush();
+    }
+
+    @GetMapping("/buku/ei")
+    public void downloadBukuEi(HttpServletResponse response) throws Exception {
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=FA L_O Isi Book all Tazkia.pdf. pdf");
+        FileCopyUtils.copy(bukuEi.getInputStream(), response.getOutputStream());
         response.getOutputStream().flush();
     }
 
