@@ -26,7 +26,7 @@ maven-build:
     POSTGRES_USER: "ittazkia"
     POSTGRES_PASSWORD: "ittazkia"
     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres/registrasidb
-  script: mvn package -B -Dmaven.repo.local=.m2/repository
+  script: mvn package sonar:sonar -B -Dsonar.organization=$SONAR_ORG -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_LOGIN -Dmaven.repo.local=.m2/repository
   artifacts:
     paths:
       - target/*.jar
