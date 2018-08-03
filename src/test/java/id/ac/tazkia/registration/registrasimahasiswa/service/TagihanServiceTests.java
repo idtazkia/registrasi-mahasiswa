@@ -55,7 +55,7 @@ public class TagihanServiceTests {
         Grade g= new Grade();
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date tanggalTest = formatter.parse("2018-01-02");
+        Date tanggalTest = formatter.parse("2018-08-01");
         LocalDate date = tanggalTest.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         ps.setId("002");
@@ -67,6 +67,32 @@ public class TagihanServiceTests {
         System.out.println("Tanggal Test :"+date);
         BigDecimal daftarUlang = new BigDecimal("6800000.00");
         Assert.assertEquals(daftarUlang, tagihanService.hitungBiayaDaftarUlang(p,h,date));
+        System.out.printf("biaya : "+ daftarUlang);
+
+
+    }
+
+//Test Biaya Daftar Ulang Diskon UP
+    @Test
+    public void testBiayaDaftarUlangDiskonUp() throws ParseException {
+        Pendaftar p = new Pendaftar();
+        ProgramStudi ps = new ProgramStudi();
+        HasilTest h = new HasilTest();
+        Grade g= new Grade();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date tanggalTest = formatter.parse("2018-08-01");
+        LocalDate date = tanggalTest.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        ps.setId("001");
+        p.setProgramStudi(ps);
+        h.setTanggalTest(tanggalTest);
+        g.setId("001");
+        h.setGrade(g);
+
+        System.out.println("Tanggal Test :"+date);
+        BigDecimal daftarUlang = new BigDecimal("8300000.00");
+        Assert.assertEquals(daftarUlang, tagihanService.hitungBiayaDUdiskonUp(p,h,date));
         System.out.printf("biaya : "+ daftarUlang);
 
 

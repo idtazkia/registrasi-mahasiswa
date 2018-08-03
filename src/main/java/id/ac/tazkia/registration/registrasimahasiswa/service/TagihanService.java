@@ -52,6 +52,9 @@ public class TagihanService {
     private JenisBiaya daftarUlang;
     private ProgramStudi programStudi;
 
+    private JenisBiaya daftarUlangDiskon;
+
+
     public TagihanService(){
         pendaftaran = new JenisBiaya();
         programStudi = new ProgramStudi();
@@ -60,6 +63,10 @@ public class TagihanService {
 //DaftarUlang
         daftarUlang = new JenisBiaya();
         daftarUlang.setId(AppConstants.JENIS_BIAYA_DAFTAR_ULANG);
+
+//DaftarUlangDiskonUp
+        daftarUlangDiskon = new JenisBiaya();
+        daftarUlangDiskon.setId(AppConstants.JENIS_BIAYA_DU_DISKON_UP);
     }
 
     public void prosesTagihanPendaftaran(Pendaftar p){
@@ -129,6 +136,7 @@ public class TagihanService {
                 .build();
 
         kafkaSender.requestCreateTagihan(tagihanRequest);
+        System.out.println("Nilai Daftar Ulang : "+ hitungBiayaDaftarUlang(p,h,tanggalTest));
 
     }
 
@@ -218,6 +226,32 @@ public class TagihanService {
         LOGGER.debug("Pembayaran untuk Tagihan Agen {} berhasil disimpan", pt.getNomorTagihan());
 
     }
-    
+
+    public void createTagihanDUdiskonUp(Pendaftar p, HasilTest h,@RequestParam (required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate tanggalTest){
+
+        TagihanRequest tagihanRequest = TagihanRequest.builder()
+                .kodeBiaya(p.getProgramStudi().getKodeBiaya())
+                .jenisTagihan(idTagihanDaftarUlang)
+                .nilaiTagihan(hitungBiayaDUdiskonUp(p, h, tanggalTest))
+                .debitur(p.getNomorRegistrasi())
+                .keterangan("Daftar Ulang (Diskon UP 50%) Mahasiswa Baru STEI Tazkia a.n "+p.getNama())
+                .tanggalJatuhTempo(Date.from(LocalDate.now().plusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .build();
+
+        kafkaSender.requestCreateTagihan(tagihanRequest);
+        System.out.println("Nilai Diskon : "+ hitungBiayaDUdiskonUp(p,h,tanggalTest));
+    }
+
+    public BigDecimal hitungBiayaDUdiskonUp(Pendaftar p, HasilTest h,
+                                             @RequestParam (required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate tanggalTest){
+        List<Periode> daftarPeriode = periodeDao.cariPeriodeUntukTanggal(tanggalTest);
+
+        p.getProgramStudi();
+        Page<NilaiBiaya> biaya = nilaiBiayaDao.findByJenisBiayaAndProgramStudiAndGradeAndPeriode(daftarUlangDiskon, p.getProgramStudi(), h.getGrade(),daftarPeriode, new PageRequest(0,1));
+        if(!biaya.hasContent()){
+            return BigDecimal.ZERO;
+        }
+        return biaya.getContent().get(0).getNilai();
+    }
 
 }

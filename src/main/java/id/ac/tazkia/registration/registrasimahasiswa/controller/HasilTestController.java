@@ -1,16 +1,21 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
+import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.GradeDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.HasilTestDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.KeluargaDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dto.HasilTestDto;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Grade;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.HasilTest;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.Keluarga;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.service.NotifikasiService;
 import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
 import id.ac.tazkia.registration.registrasimahasiswa.service.TagihanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -20,6 +25,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.time.ZoneId;
 
@@ -40,17 +46,19 @@ public class HasilTestController {
     private TagihanService tagihanService;
     @Autowired
     private NotifikasiService notifikasiService;
+    @Autowired
+    private KeluargaDao keluargaDao;
 
     @ModelAttribute("daftarGrade")
     public Iterable<Grade> daftarGrade(){return gradeDao.findAll(); }
 
-//tampikan form
+    //tampikan form
     @RequestMapping(value = "/registrasi/hasil/form", method = RequestMethod.GET)
     public void tampilkanForm(@RequestParam(value = "id", required = true) String id,
                               @RequestParam(required = false) String error,
                               Model m){
         //defaultnya, isi dengan object baru
-        HasilTest h = new HasilTest();
+        HasilTestDto h = new HasilTestDto();
         m.addAttribute("hasil", h);
         m.addAttribute("error", error);
 
@@ -68,9 +76,9 @@ public class HasilTestController {
     }
 ////
 
-//simpan
+    //simpan
     @RequestMapping(value = "registrasi/hasil/form", method = RequestMethod.POST)
-    public String prosesForm(@Valid HasilTest hasilTest, String nilai, BindingResult errors){
+    public String prosesForm(@Valid HasilTestDto hasilTestDto,  String nilai, BindingResult errors){
         if(errors.hasErrors()){
             return "/registrasi/hasil/form";
         }
@@ -78,6 +86,11 @@ public class HasilTestController {
         Grade hasil = registrasiService.hitungGrade(new BigDecimal(nilai));
         logger.debug("ID GRADE :"+ hasil.getId());
 
+        HasilTest hasilTest = new HasilTest();
+        Keluarga keluarga = new Keluarga();
+
+        BeanUtils.copyProperties(hasilTestDto, hasilTest);
+        hasilTest.setTanggalTest(hasilTestDto.getTanggalTest());
         hasilTest.setGrade(hasil);
 
         hasilTestDao.save(hasilTest);
@@ -86,7 +99,22 @@ public class HasilTestController {
 
         notifikasiService.kirimNotifikasiHasilTest(h);
 
-        tagihanService.createTagihanDaftarUlang(p, h, hasilTest.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        logger.debug("NIM : "+ hasilTestDto.getNim());
+        if (!hasilTestDto.getNim().isEmpty() && hasilTestDto.getNama() != null) {
+            keluarga.setNim(hasilTestDto.getNim());
+            keluarga.setNama(hasilTestDto.getNama());
+            keluarga.setHubungan(AppConstants.HUBUNGAN_KEL);
+            keluarga.setPendaftar(h.getPendaftar());
+            keluargaDao.save(keluarga);
+            tagihanService.createTagihanDUdiskonUp(p, h, hasilTest.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
+        }else{
+            tagihanService.createTagihanDaftarUlang(p, h, hasilTest.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        }
+
+//        if(hasilTestDto.getNim().isEmpty() && hasilTestDto.getNim() == null && !StringUtils.hasText(hasilTestDto.getNim())) {
+//            tagihanService.createTagihanDaftarUlang(p, h, hasilTest.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+//        }
 
         return "redirect:/registrasi/list";
     }
