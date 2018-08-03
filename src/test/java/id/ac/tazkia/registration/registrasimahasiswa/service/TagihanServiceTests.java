@@ -55,7 +55,7 @@ public class TagihanServiceTests {
         Grade g= new Grade();
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date tanggalTest = formatter.parse("2018-08-01");
+        Date tanggalTest = formatter.parse("2018-01-01");
         LocalDate date = tanggalTest.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         ps.setId("002");
