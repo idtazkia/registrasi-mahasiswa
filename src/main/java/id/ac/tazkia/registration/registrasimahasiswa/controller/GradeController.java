@@ -50,7 +50,7 @@ public class GradeController {
                 m.addAttribute("grade", p);
             }
         }
-        return "/grade/form";
+        return "grade/form";
     }
 ////
 

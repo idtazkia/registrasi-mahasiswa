@@ -1,7 +1,9 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
 import id.ac.tazkia.registration.registrasimahasiswa.dao.HasilTestDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.PeriodeDao;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisTest;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.Periode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +23,9 @@ import java.util.List;
 
 @Controller
 public class IndexController {
+
+    @Autowired
+    private PeriodeDao  periodeDao;
 
     @Autowired
     private HasilTestDao hasilTestDao;
@@ -113,5 +119,10 @@ public class IndexController {
         response.getOutputStream().flush();
     }
 
+
+    @ModelAttribute("daftarPeriode")
+    public Iterable<Periode> daftarPeriode(){
+        return periodeDao.findAll();
+    }
 
 }

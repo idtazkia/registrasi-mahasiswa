@@ -388,23 +388,11 @@
                                         <th>Tanggal Mulai</th>
                                         <th>Tanggal Selesai</th>
                                     </tr>
-                                    <tr>
-                                        <td>1.</td>
-                                        <td>Batch 1</td>
-                                        <td>1 November 2017</td>
-                                        <td>30 April 2018</td>
-                                    </tr>
-                                     <tr>
-                                        <td>2.</td>
-                                        <td>Batch 2</td>
-                                        <td>1 Mei 2018</td>
-                                        <td>30 Juli 2018</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3.</td>
-                                        <td>Batch 3</td>
-                                        <td>1 Agustus 2018</td>
-                                        <td>30 Oktober 2018</td>
+                                    <tr th:each="s,row : ${daftarPeriode}">
+                                        <td th:text="${(row.index + 1)}">#</td>
+                                        <td th:text="${s.nama}"></td>
+                                        <td th:text="${s.tanggalMulai}"></td>
+                                        <td th:text="${s.tanggalSelesai}"></td>
                                     </tr>
                                 </table>
                             </div>

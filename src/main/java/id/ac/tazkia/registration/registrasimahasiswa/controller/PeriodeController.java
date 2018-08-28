@@ -50,7 +50,7 @@ public class PeriodeController {
                     m.addAttribute("periode", p);
                 }
             }
-            return "/periode/form";
+            return "periode/form";
         }
 ////
 //simpan
