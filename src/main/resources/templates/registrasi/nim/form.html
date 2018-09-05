@@ -26,8 +26,8 @@
                                             <div class="card" id="previous">
                                                 <div class="header">
                                                     <h1>
-                                                        Identitas Mahasiswa
-                                                    </h1>
+                                                        Identitas Mahasiswa <span  th:if="${detail.nim != null}"> | <span style="color: #00b0e4" th:text="*{nim}"></span>  </span>
+                                                    </h1><br>
                                                 </div>
 
                                                 <input th:field="*{pendaftar}" name="pendaftar" hidden="" >
