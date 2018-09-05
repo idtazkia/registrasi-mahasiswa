@@ -221,12 +221,32 @@
                     </a>
                 </li>
                 <!--menu-->
+
                 <li>
-                    <a th:href="@{/registrasi/list}">
-                        <i class="material-icons">account_balance_wallet</i>
-                        <span>Daftar Tagihan</span>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">widgets</i>
+                        <span>Pendaftaran Mahasiswa</span>
                     </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a th:href="@{/registrasi/list}">
+                                <span>Daftar Tagihan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/registrasi/pembayaran/list}">
+                                <span>Data Pembayaran</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/registrasi/hasil/list}">
+                                <span>Data Hasil Test</span>
+                            </a>
+                        </li>
+
+                    </ul>
                 </li>
+
                 <!--////-->
             </ul>
         </div>
