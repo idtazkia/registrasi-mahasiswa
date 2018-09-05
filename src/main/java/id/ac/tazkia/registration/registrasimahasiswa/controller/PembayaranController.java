@@ -182,11 +182,19 @@ public class PembayaranController {
 
     //list
     @GetMapping("/registrasi/pembayaran/list")
-    public void daftarPembayaran(@RequestParam(required = false) String pendaftar, Model m, Pageable page) {
-        if (StringUtils.hasText(pendaftar)) {
+    public void daftarPembayaran(@RequestParam(required = false) String pendaftar,@RequestParam(required = false) JenisBiaya jenisBiaya, Model m, Pageable page) {
+        if (pendaftar != null && jenisBiaya != null) {
             m.addAttribute("pendaftar", pendaftar);
-            m.addAttribute("daftarPembayaran", pembayaranDao.cariByPendaftar("%" + pendaftar.toLowerCase() + "%", page));
-        } else {
+            m.addAttribute("jenisBiaya", jenisBiaya);
+            m.addAttribute("daftarPembayaran", pembayaranDao.findByTagihanJenisBiayaAndTagihanPendaftarNamaContainingIgnoreCase(jenisBiaya,pendaftar, page));
+        }else if (jenisBiaya != null && pendaftar == null){
+            m.addAttribute("jenisBiaya",jenisBiaya);
+            m.addAttribute("daftarPembayaran", pembayaranDao.findByTagihanJenisBiaya(jenisBiaya, page));
+        }
+        else if (pendaftar != null && jenisBiaya == null) {
+            m.addAttribute("pendaftar", pendaftar);
+            m.addAttribute("daftarPembayaran", pembayaranDao.findByTagihanPendaftarNamaContainingIgnoreCase(pendaftar, page));
+        }else{
             m.addAttribute("daftarPembayaran", pembayaranDao.findAll(page));
         }
     }

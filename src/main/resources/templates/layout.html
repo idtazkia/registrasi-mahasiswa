@@ -269,6 +269,39 @@
                 <!--////-->
             </ul>
         </div>
+            <div sec:authorize="hasAuthority('VIEW_AKADEMIK')">
+                <ul class="list">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="active">
+                        <a th:href="@{/home}">
+                            <i class="material-icons">home</i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <!--menu-->
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>Pendaftaran Mahasiswa</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a th:href="@{/registrasi/nim/list}">
+                                    <span>Daftar NIM</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a th:href="@{/registrasi/pembayaran/list}">
+                                    <span>Data Pembayaran</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--////-->
+                </ul>
+            </div>
+
+
 
             </ul>
             

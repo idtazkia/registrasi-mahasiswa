@@ -108,4 +108,15 @@ public class RegistrasiService {
         return gradeDao.findTopByNilaiMinimumLessThanOrderByNilaiMinimumDesc(nilai);
     }
 
+    public String generateNim(String formatNim){
+        RunningNumber terbaru = runningNumberService.generate(formatNim);
+
+        LOGGER.debug("Format NIM : {}", formatNim);
+        LOGGER.debug("Nomer Terakhir : {}", terbaru.getNomerTerakhir());
+
+        String nomorNim = formatNim + String.format("%03d", terbaru.getNomerTerakhir());
+        LOGGER.debug("Nomor Nim : {}", nomorNim);
+
+        return nomorNim;
+    }
 }

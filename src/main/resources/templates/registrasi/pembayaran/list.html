@@ -8,7 +8,7 @@
 </head>
 <body>
 <section layout:fragment="content" class="clearfix">
-    <div class="row clearfix">
+    <div class="row clearfix" sec:authorize="hasAuthority('VIEW_MASTER')">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="row clearfix">
@@ -107,10 +107,42 @@
                         <!--Table-->
                         <div class="body">
                             <form method="get">
-                                Nama Pendaftar / Jenis Biaya : <br><input type="text" placeholder="Nama/Jenis Biaya" id="pendaftar" name="pendaftar" th:value="${pendaftar}">
-                                <input type="submit" value="Cari" class="btn  bg-blue-grey waves-effect">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Jenis Biaya</label>
+                                                <select name="jenisBiaya" class="form-control">
+                                                    <option selected th:if="${jenisBiaya} != null" th:each="data: ${jenisBiaya}"
+                                                            th:value="${data.id}" th:text="${data.nama}">Akuntasi
+                                                        Islam</option>
+                                                    <option value=""></option>
+                                                    <option th:each="jenis : ${listJenisTagihan}"
+                                                            th:text="${jenis.nama}" th:value="${jenis.id}">Bisnis
+                                                        Manajemen Syariah</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label>Nama Pendaftar</label>
+                                                <input type="text" name="pendaftar"
+                                                       class="form-control" th:value="${pendaftar}"
+                                                       placeholder="Nama Pendaftar"   autofocus/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                                <label></label><br>
+                                                <input type="submit" value="Cari" class="btn  bg-blue-grey waves-effect">
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
-                            <br>
                             Show <span sd:page-size-selector="javascript"></span> entries
 
                             <hr>
@@ -128,6 +160,7 @@
                                             <th>Bank</th>
                                             <th>Nilai Transfer</th>
                                             <th></th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -141,6 +174,11 @@
                                             <td>
                                                 <span th:if="${p.tagihan.jenisBiaya.id == '001'}">
                                                     <a th:href="@{/registrasi/reset/form(pendaftar = ${p. tagihan.pendaftar.id})}" class="btn bg-blue waves-effec">Reset Password</a>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span th:if="${p.tagihan.jenisBiaya.id == '002'}">
+                                                    <a th:href="@{/registrasi/nim/form(id = ${p. tagihan.pendaftar.id})}" class="btn bg-blue waves-effec">Cek Data</a>
                                                 </span>
                                             </td>
 

@@ -147,4 +147,5 @@ public class DetailPendaftar {
     @Enumerated(EnumType.STRING)
     private JenisTest jenisTest;
 
+    private String nim;
 }

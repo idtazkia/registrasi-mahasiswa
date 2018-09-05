@@ -24,4 +24,7 @@ public class ProgramStudi {
 
     @NotEmpty @NotNull
     private String kodeBiaya;
+
+    @NotEmpty @NotNull
+    private String kodeSimak;
 }

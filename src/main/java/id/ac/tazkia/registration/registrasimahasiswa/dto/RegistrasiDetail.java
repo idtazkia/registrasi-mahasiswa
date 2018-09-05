@@ -1,5 +1,9 @@
 package id.ac.tazkia.registration.registrasimahasiswa.dto;
 
+import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisTest;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.ProgramStudi;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
 import lombok.Data;
 
 @Data
@@ -39,5 +43,12 @@ public class RegistrasiDetail {
     private String penghasilanOrangtua;
     private String jumlahTanggungan;
     private String rencanaBiaya;
-    private String jenisTest;
+    private JenisTest jenisTest;
+    private String nim;
+    private DetailPendaftar detailPendaftar;
+    private ProgramStudi programStudi;
+    private String nomorRegistrasi;
+    private String negara;
+    private String namaAsalSekolah;
+
 }
