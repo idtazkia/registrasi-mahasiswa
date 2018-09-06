@@ -13,7 +13,8 @@ public interface DetailPendaftarDao extends PagingAndSortingRepository<DetailPen
 
     DetailPendaftar findByPendaftar(Pendaftar p);
 
-    Page<DetailPendaftar> findByPendaftarNomorRegistrasiContainingOrPendaftarNamaContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(String nomor, String nama, Pageable page);
+    Page<DetailPendaftar> findByPendaftarNomorRegistrasiContainingOrPendaftarNamaContainingIgnoreCaseAndNimNotNullOrderByPendaftarNomorRegistrasi(String nomor, String nama, Pageable page);
 
 
+    Page<DetailPendaftar> findByNimNotNull(Pageable page);
 }
