@@ -135,7 +135,7 @@ public class HasilTestController {
         return "registrasi/hasil/list";
     }
 
-    @GetMapping("/hasilTest/csv")
+    @GetMapping("/registrasi/hasil/csv")
     public void rekapPendaftarCsv(HttpServletResponse response) throws Exception {
 
         response.setHeader("Content-Disposition", "attachment;filename=Hasil Test.csv");
@@ -147,25 +147,27 @@ public class HasilTestController {
         Integer baris = 0;
         BigDecimal total = BigDecimal.ZERO;
         for (HasilTest hasilTest : dataPendaftar) {
-            baris++;
-            response.getWriter().print(baris);
-            response.getWriter().print(",");
-            response.getWriter().print(hasilTest.getPendaftar().getNomorRegistrasi());
-            response.getWriter().print(",");
-            response.getWriter().print(hasilTest.getPendaftar().getNama());
-            response.getWriter().print(",");
-            response.getWriter().print(hasilTest.getPendaftar().getKabupatenKota().getNama());
-            response.getWriter().print(",");
-            response.getWriter().print(hasilTest.getPendaftar().getNoHp());
-            response.getWriter().print(",");
-            response.getWriter().print(hasilTest.getPendaftar().getEmail());
-            response.getWriter().print(",");
-            response.getWriter().print(hasilTest.getPendaftar().getProgramStudi().getNama());
-            response.getWriter().print(",");
-            response.getWriter().print(hasilTest.getGrade().getNama());
-            response.getWriter().print(",");
-            response.getWriter().print(hasilTest.getTanggalTest());
-            response.getWriter().println();
+            if (hasilTest.getPendaftar().getProgramStudi() != null) {
+                baris++;
+                response.getWriter().print(baris);
+                response.getWriter().print(",");
+                response.getWriter().print(hasilTest.getPendaftar().getNomorRegistrasi());
+                response.getWriter().print(",");
+                response.getWriter().print(hasilTest.getPendaftar().getNama());
+                response.getWriter().print(",");
+                response.getWriter().print(hasilTest.getPendaftar().getKabupatenKota().getNama());
+                response.getWriter().print(",");
+                response.getWriter().print(hasilTest.getPendaftar().getNoHp());
+                response.getWriter().print(",");
+                response.getWriter().print(hasilTest.getPendaftar().getEmail());
+                response.getWriter().print(",");
+                response.getWriter().print(hasilTest.getPendaftar().getProgramStudi().getNama());
+                response.getWriter().print(",");
+                response.getWriter().print(hasilTest.getGrade().getNama());
+                response.getWriter().print(",");
+                response.getWriter().print(hasilTest.getTanggalTest());
+                response.getWriter().println();
+            }
         }
 
         response.getWriter().flush();
