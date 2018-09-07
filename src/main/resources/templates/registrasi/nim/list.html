@@ -35,6 +35,7 @@
                                             <th>No</th>
                                             <th>Nomor Registrasi</th>
                                             <th>Nama</th>
+                                            <th>Jenis Kelamin</th>
                                             <th>NIM</th>
                                             <th>Program Studi</th>
                                         </tr>
@@ -44,6 +45,8 @@
                                             <td th:text="${(row.index + 1)}">#</td>
                                             <td th:text="${p.pendaftar.nomorRegistrasi}">201801002</td>
                                             <td th:text="${p.pendaftar.nama}">haffizh</td>
+                                            <td th:if="${p.jenisKelamin == 'L'}">Laki-Laki</td>
+                                            <td th:if="${p.jenisKelamin == 'P'}">Perempuan</td>
                                             <td th:text="${p.nim}" style="font-weight: bold; font-size: 16px; color: red">haffizh</td>
                                             <td th:text="${p.pendaftar.programStudi.nama}">haffizh</td>
 
