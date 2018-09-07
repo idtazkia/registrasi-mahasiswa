@@ -212,9 +212,9 @@ public class RegistrasiDetailController {
     @GetMapping("/registrasi/detail/csv")
     public void rekapPendaftarCsv(HttpServletResponse response) throws Exception {
 
-        response.setHeader("Content-Disposition", "attachment;filename=Detail Pendaftar.csv");
+        response.setHeader("Content-Disposition", "attachment;filename=Detail_Pendaftar.csv");
         response.setContentType("text/csv");
-        response.getWriter().println("No,Nomor Registrasi,Nama,Kota/Kab Sekolah,Asal Sekolah,No Hp,Email,Program Studi,Alamat,Tempat Tanggal Lahir,,Warga Negara,Jenis Kelamin,Nama Ayah,Pekerjaan Ayah,Nama Ibu,Pekerjaan Ibu,Nomor Hp Orang Tua, Email Orang Tua");
+        response.getWriter().println("No,Nomor Registrasi,Nama,Kota/Kab Sekolah,Asal Sekolah,No Hp,Email,Program Studi,Alamat,Tempat Tanggal Lahir,,Warga Negara,Jenis Kelamin,Nama Ayah,Pekerjaan Ayah,Nama Ibu,Pekerjaan Ibu,Nomor Hp Orang Tua, Email Orang Tua, Penghasilan Orang Tua, Jumlah Tanggungan, Rencana Biaya");
 
         Iterable<DetailPendaftar> dataPendaftar = detailPendaftarDao.findAll();
 
@@ -257,6 +257,12 @@ public class RegistrasiDetailController {
             response.getWriter().print(p.getNohpOrangtua());
             response.getWriter().print(",");
             response.getWriter().print(p.getEmailOrangtua());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getPenghasilanOrangtua());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getJumlahTanggungan());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getRencanaBiaya());
 
             response.getWriter().println();
         }
