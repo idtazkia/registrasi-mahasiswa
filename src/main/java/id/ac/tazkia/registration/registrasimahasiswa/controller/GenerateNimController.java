@@ -163,7 +163,7 @@ public class GenerateNimController{
     public void daftarDetail(@RequestParam(required = false) String search, Model m, Pageable page) {
         if(StringUtils.hasText(search)) {
             m.addAttribute("search", search);
-            m.addAttribute("daftarDetail", detailPendaftarDao.findByPendaftarNomorRegistrasiContainingOrPendaftarNamaContainingIgnoreCaseAndNimNotNullOrderByPendaftarNomorRegistrasi(search, search, page));
+            m.addAttribute("daftarDetail", detailPendaftarDao.findByPendaftarNomorRegistrasiContainingOrNimContainingOrPendaftarNamaContainingIgnoreCaseAndNimNotNullOrderByPendaftarNomorRegistrasi(search,search, search, page));
         } else {
             m.addAttribute("daftarDetail", detailPendaftarDao.findByNimNotNull(page));
         }
