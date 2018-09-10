@@ -214,7 +214,7 @@ public class RegistrasiDetailController {
 
         response.setHeader("Content-Disposition", "attachment;filename=Detail_Pendaftar.csv");
         response.setContentType("text/csv");
-        response.getWriter().println("No,Nomor Registrasi,Nama,Kota/Kab Sekolah,Asal Sekolah,No Hp,Email,Program Studi,Alamat,Tempat Tanggal Lahir,,Warga Negara,Jenis Kelamin,Nama Ayah,Pekerjaan Ayah,Nama Ibu,Pekerjaan Ibu,Nomor Hp Orang Tua, Email Orang Tua, Penghasilan Orang Tua, Jumlah Tanggungan, Rencana Biaya");
+        response.getWriter().println("No,Nomor Registrasi,Nim,Nama,Kota/Kab Sekolah,Asal Sekolah,No Hp,Email,Program Studi,Alamat,Tempat Tanggal Lahir,,Warga Negara,Jenis Kelamin,Nama Ayah,Pekerjaan Ayah,Nama Ibu,Pekerjaan Ibu,Nomor Hp Orang Tua, Email Orang Tua, Penghasilan Orang Tua, Jumlah Tanggungan, Rencana Biaya");
 
         Iterable<DetailPendaftar> dataPendaftar = detailPendaftarDao.findAll();
 
@@ -225,6 +225,12 @@ public class RegistrasiDetailController {
             response.getWriter().print(baris);
             response.getWriter().print(",");
             response.getWriter().print(p.getPendaftar().getNomorRegistrasi());
+            response.getWriter().print(",");
+            if (p.getNim() != null) {
+                response.getWriter().print(p.getNim());
+            } else {
+                response.getWriter().print("");
+            }
             response.getWriter().print(",");
             response.getWriter().print(p.getPendaftar().getNama());
             response.getWriter().print(",");

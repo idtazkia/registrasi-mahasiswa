@@ -22,7 +22,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 
 @Controller
 public class GenerateNimController{
@@ -168,4 +170,83 @@ public class GenerateNimController{
             m.addAttribute("daftarDetail", detailPendaftarDao.findByNimNotNull(page));
         }
     }
+
+
+    @GetMapping("/simak/detail/csv")
+    public void rekapPendaftarCsv(HttpServletResponse response) throws Exception {
+
+        response.setHeader("Content-Disposition", "attachment;filename=Data_Pendaftar_Simak.csv");
+        response.setContentType("text/csv");
+        response.getWriter().println("no,nim,nama,program studi, jenis kelamin, agama, alamat, asal sekolah," +
+                " provinsi, kokab, kode pos, email, no hp, no ktp, nisn, tempat lahir, tanggal lahir, status sipil, negara, tahun lulus, nama ayah, " +
+                "agama ayah, pendidikan ayah, nama ibu, agama ibu, pendidikan ibu, email ortu, nohp ortu");
+
+        Iterable<DetailPendaftar> dataPendaftar = detailPendaftarDao.findAll();
+
+        Integer baris = 0;
+        BigDecimal total = BigDecimal.ZERO;
+        for (DetailPendaftar p : dataPendaftar) {
+            if (p.getNim() != null) {
+                baris++;
+                response.getWriter().print(baris);
+                response.getWriter().print(",");
+                response.getWriter().print(p.getNim());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getPendaftar().getNama());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getPendaftar().getProgramStudi().getKodeSimak());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getJenisKelamin());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getAgamaAyah());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getAlamatRumah());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getAsalSekolah());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getPendaftar().getKabupatenKota().getProvinsi().getId());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getPendaftar().getKabupatenKota().getId());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getKodePos());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getEmail());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getNoHp());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getNoKtp());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getNisn());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getTtl());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getStatusSipil());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getPendaftar().getNegara());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getTahunLulusSekolah());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getNamaAyah());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getAgamaAyah());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getPendidikanAyah());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getNamaIbu());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getAgamaIbu());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getPendidikanIbu());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getEmailOrangtua());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getNohpOrangtua());
+
+                response.getWriter().println();
+            }
+        }
+
+        response.getWriter().flush();
+    }
+
 }

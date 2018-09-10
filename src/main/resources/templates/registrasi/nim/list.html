@@ -25,6 +25,10 @@
                                 <input type="submit" class="btn  bg-blue-grey waves-effect" value="Cari">
                             </form>
                             <br>
+                            <form th:action="@{/simak/detail/csv}" method="get">
+                                <input type="submit" class="btn  bg-blue-grey waves-effect" value="Download Detail Pendaftar Simak CSV">
+                            </form>
+                            <br>
                             Show <span sd:page-size-selector="javascript" ></span> entries
                             <hr>
                             <div class="row">
