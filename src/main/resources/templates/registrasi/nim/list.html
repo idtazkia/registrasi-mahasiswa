@@ -25,8 +25,15 @@
                                 <input type="submit" class="btn  bg-blue-grey waves-effect" value="Cari">
                             </form>
                             <br>
-                            <form th:action="@{/simak/detail/csv}" method="get">
+                            <form th:action="@{/simak/detail/csv}" method="get" sec:authorize="hasAuthority('VIEW_AKADEMIK')">
                                 <input type="submit" class="btn  bg-blue-grey waves-effect" value="Download Detail Pendaftar Simak CSV">
+                            </form>
+                            <br>
+                            <form th:action="@{/simak/xlsx}" method="get" sec:authorize="hasAuthority('VIEW_AKADEMIK')">
+                                <input type="submit" class="btn  bg-blue-grey waves-effect" value="Download Detail Pendaftar XLSX">
+                            </form>
+                            <form th:action="@{/humas/xlsx}" method="get" sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE')">
+                                <input type="submit" class="btn  bg-blue-grey waves-effect" value="Download Detail Pendaftar XLSX">
                             </form>
                             <br>
                             Show <span sd:page-size-selector="javascript" ></span> entries
