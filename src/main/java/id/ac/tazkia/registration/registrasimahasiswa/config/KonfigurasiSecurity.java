@@ -80,7 +80,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/info")
                 .antMatchers("/js/**")
                 .antMatchers("/img/*")
-                .antMatchers("/images/*")
+                .antMatchers("/images/**")
                 .antMatchers("/index")
                 .antMatchers("/frontend/home")
                 .antMatchers("/frontend/hasiltest/list")
@@ -98,7 +98,8 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/brosur/ai")
                 .antMatchers("/brosur/bmi")
                 .antMatchers("/brosur/ei")
-                .antMatchers("/buku/ei")   ;
+                .antMatchers("/buku/ei")
+                .antMatchers("/lib/**") ;
 
     }
 
