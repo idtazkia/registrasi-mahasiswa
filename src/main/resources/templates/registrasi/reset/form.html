@@ -8,88 +8,80 @@
 </head>
 <body>
 <section layout:fragment="content" class="clearfix">
-    <section class="clearfix">
-        <form method="post">
-            <div class="container-fluid">
-                <div class="row">
-                    <form class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
-                        <!-- Identitas awal-->
-                        <div class="card">
-                            <div class="header">
-                                <h1>
-                                    Reset Username Password
-                                </h1>
-                            </div>
-                            <form action="#" th:action="@{/registrasi/reset/form}" th:object="${pendaftar}" method="post">
-                                <input type="hidden" name="pendaftar" th:value="${pendaftar.id}">
-                                <div class="body">
-                                    <div class="row">
-                                        <div class="col-sm-9">
-                                            <div class="table-responsive">
-                                                <table class="table table-responsive">
-                                                    <tr>
-                                                        <td width="20%">No Registrasi</td>
-                                                        <td width="10px">:</td>
-                                                        <td>
-                                                            <span th:text="${pendaftar.nomorRegistrasi}"></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="20%">Nama</td>
-                                                        <td width="10px">:</td>
-                                                        <td>
-                                                            <span th:text="${pendaftar.nama}" ></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="20%">No Hp</td>
-                                                        <td width="10px">:</td>
-                                                        <td>
-                                                            <span th:text="${pendaftar.noHp}"></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="20%">Email</td>
-                                                        <td width="10px">:</td>
-                                                        <td>
-                                                            <span th:text="${pendaftar.email}"></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="20%">Asal Sekolah</td>
-                                                        <td width="10px">:</td>
-                                                        <td>
-                                                            <span th:text="${pendaftar.namaAsalSekolah}"></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="20%">Username</td>
-                                                        <td width="10px">:</td>
-                                                        <td>
-                                                            <span th:text="${pendaftar.user.username}"></span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="20%"></td>
-                                                        <td width="10px"></td>
-                                                        <td align="left">
-                                                            <button class="btn btn-lg bg-blue waves-effec">Reset Password</button>                                                        </td>
-                                                    </tr>
-                                                </table>
-
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title" style="color: black">
+                    <h1>Reset Password</h1>
+                    <div class="clearfix"></div>
                 </div>
+                <form action="#" th:action="@{/registrasi/reset/form}" th:object="${pendaftar}" method="post">
+                    <input type="hidden" name="pendaftar" th:value="${pendaftar.id}">
+                    <div class="body" style="color: black">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="table-responsive">
+                                    <table class="table table-responsive">
+                                        <tr>
+                                            <td width="20%">No Registrasi</td>
+                                            <td width="10px">:</td>
+                                            <td>
+                                                <span th:text="${pendaftar.nomorRegistrasi}"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="20%">Nama</td>
+                                            <td width="10px">:</td>
+                                            <td>
+                                                <span th:text="${pendaftar.nama}" ></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="20%">No Hp</td>
+                                            <td width="10px">:</td>
+                                            <td>
+                                                <span th:text="${pendaftar.noHp}"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="20%">Email</td>
+                                            <td width="10px">:</td>
+                                            <td>
+                                                <span th:text="${pendaftar.email}"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="20%">Asal Sekolah</td>
+                                            <td width="10px">:</td>
+                                            <td>
+                                                <span th:text="${pendaftar.namaAsalSekolah}"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="20%">Username</td>
+                                            <td width="10px">:</td>
+                                            <td>
+                                                <span th:text="${pendaftar.user.username}"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="20%"></td>
+                                            <td width="10px"></td>
+                                            <td align="left">
+                                                <button class="btn btn-md btn-info">Reset Password</button>                                                        </td>
+                                        </tr>
+                                    </table>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
-    </section>
+        </div>
+    </div>
 
 </section>
 

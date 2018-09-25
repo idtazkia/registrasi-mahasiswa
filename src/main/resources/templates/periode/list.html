@@ -8,85 +8,84 @@
 </head>
 <body>
 <section layout:fragment="content" class="clearfix">
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="row clearfix">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title" style="color: black">
+                    <h1>Data Periode</h1>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row clearfix" style="color: black">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="card">
-                            <div class="header">
-                                <h3>
-                                    Data Periode
-                                </h3>
-                                <br>
-                                <a th:href="@{/periode/form}"
-                                   class="btn btn-lg bg-blue-grey waves-effect" type="submit">Tambah</a>
-                            </div>
-                            <!--Table-->
-                            <div class="body">
-                                <form method="get">
-                                    Periode : <br><input type="text" name="nama" th:value="${nama}">
-                                    <input type="submit" value="Cari" class="btn  bg-blue-grey waves-effect">
-                                </form>
-                                <br>
-                                Show <span sd:page-size-selector="javascript"></span> entries
-
-                                <hr>
-
-
-                                <div class="row">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Periode</th>
-                                            <th>Tanggal Mulai</th>
-                                            <th>Tanggal Selesai</th>
-                                            <th colspan="1">&nbsp;</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="p, row : ${daftarPeriode}">
-                                            <td th:text="${(row.index + 1) + (daftarPeriode.number * daftarPeriode.size)}">#</td>
-                                            <td th:text="${p. nama}">muamalah</td>
-                                            <td th:text="${p. tanggalMulai}">10-08-2017</td>
-                                            <td th:text="${p. tanggalSelesai}">10-10-2017</td>
-                                            <td width="100px" align="center">
-                                                <a href="form"  th:href="@{/periode/form(id=${p.id})}"
-                                                   class="btn bg-green waves-effec">Edit
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div sd:pagination-summary="">info</div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <nav class="pull-right">
-                                            <ul class="pagination" sd:pagination="full">
-                                                <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
-                                                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                            </ul>
-                                        </nav>
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <form method="get">
+                                                <h4>Nama Periode : <br><input type="text" name="nama" placeholder="Cari Periode" th:value="${nama}">
+                                                    <input type="submit" class="btn btn-sm  btn-info" value="Cari"></h4>
+                                            </form>
+                                            <!--<a th:href="@{/periode/form}" class="btn btn-md  btn-warning">Tambah</a>-->
+                                            <!--<br><br>-->
+                                            Show <span sd:page-size-selector="javascript" ></span> entries
+                                            <hr>
+                                            <div class="row">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Periode</th>
+                                                            <th>Tanggal Mulai</th>
+                                                            <th>Tanggal Selesai</th>
+                                                            <th colspan="1">&nbsp;</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="p, row : ${daftarPeriode}">
+                                                            <td th:text="${(row.index + 1) + (daftarPeriode.number * daftarPeriode.size)}">#</td>
+                                                            <td th:text="${p. nama}">muamalah</td>
+                                                            <td th:text="${p. tanggalMulai}">10-08-2017</td>
+                                                            <td th:text="${p. tanggalSelesai}">10-10-2017</td>
+                                                            <td width="100px" align="center">
+                                                                <a href="form"  th:href="@{/periode/form(id=${p.id})}"
+                                                                   class="btn bg-green btn-xs">Edit
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div sd:pagination-summary="">info</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <nav class="pull-right">
+                                                        <ul class="pagination" sd:pagination="full">
+                                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--//table//-->
                                     </div>
                                 </div>
                             </div>
-                            <!--//table//-->
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
-
 </section>
 
 </body>

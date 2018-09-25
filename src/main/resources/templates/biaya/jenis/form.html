@@ -10,42 +10,49 @@
 <section layout:fragment="content" class="clearfix">
     <section class="clearfix">
         <form th:action="@{/biaya/jenis/form}" th:object="${jenis}" method="post">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <!-- Identitas awal-->
-                        <div class="card">
-                            <div class="header">
-                                <h1>
-                                    Input Jenis Biaya Baru
-                                </h1>
-                            </div>
+            <input type="hidden" name="id" th:field="*{id}">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel tile fixed_height_160">
+                        <div class="x_title" style="color: black">
+                            <h1>Input Jenis Biaya</h1>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="row clearfix" style="color: black">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="card">
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="card">
+                                                <div class="body">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <label>Nama</label>
+                                                                <input type="text" name="nama" th:field="*{nama}"
+                                                                       class="form-control"
+                                                                       placeholder="Nama" required autofocus/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <button class="btn btn-md btn-info waves-effect" type="submit">SELESAI</button>
+                                                                <a th:href="@{/biaya/jenis/list}" class="btn btn-md btn-danger waves-effect" type="submit">BATAL</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                            <div class="body">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Nama</label>
-                                                <input type="text" name="nama" th:field="*{nama}"
-                                                       class="form-control"
-                                                       placeholder="Nama" required autofocus/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Simpan Data -->
-                                    <div class="col-sm-12" align="right" >
-                                        <div class="form-group">
-                                            <div class="col-xs-12" >
-                                                <button class="btn btn-lg bg-blue-grey waves-effect" type="submit">SELESAI</button>
+                                                </div>
+                                                <!--//table//-->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

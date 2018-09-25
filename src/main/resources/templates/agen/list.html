@@ -8,116 +8,124 @@
 </head>
 <body>
 <section layout:fragment="content" class="clearfix">
-    <div class="row clearfix">
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-            <div class="card">
-                <div class="row clearfix">
+    <div class="row">
+        <div class="col-md-9 col-sm-9 col-xs-9">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title" style="color: black">
+                    <h1>Data Agen</h1>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row clearfix" style="color: black">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="header">
-                            <h3>
-                                Data Agen
-                            </h3>
-                            <br>
-                            <a th:href="@{/agen/form}"
-                               class="btn btn-lg bg-blue-grey waves-effect" type="submit">Tambah</a>
+                        <div class="card">
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <form method="get"><br>
+                                                Nama Cabang : <br><input type="text" name="nama" th:value="${nama}">
+                                                <input type="submit" value="Cari" class="btn  btn-info btn-sm waves-effect">
+                                            </form>
+                                            <a th:href="@{/agen/form}" class="btn btn-md  btn-warning">Tambah</a>
+                                            <br><br>
+                                            Show <span sd:page-size-selector="javascript" ></span> entries
+                                            <hr>
+                                            <div class="row">
+                                                <!--Table-->
 
-                            <form method="get"><br>
-                                Nama Cabang : <br><input type="text" name="nama" th:value="${nama}">
-                                <input type="submit" value="Cari" class="btn  bg-blue-grey waves-effect">
-                            </form>
-                            <br>
-                            Show <span sd:page-size-selector="javascript"></span> entries
-                        </div>
-                        <br>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="card" th:each="a : ${daftarAgen}">
+                                                        <div class="alert alert-success alert-dismissible fade in" role="alert">
+                                                            <h2>
+                                                                <span th:text="${a. namaCabang+ ' > ' + a.penanggungJawab}"></span>
+                                                                <br>
+                                                                <small style="color: white" th:text="${'Kode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :  '+ a. kode}"></small>
+                                                                <br>
+                                                                <small style="color: white" th:text="${'Alamat  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  :  '+ a. alamatCabang}"></small>
+                                                                <br>
+                                                                <small style="color: white" th:text="${'No Handphone &nbsp;&nbsp; :  '+ a. noHp}"></small>
+                                                            </h2>
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <div class="form-group">
+                                                                        <a th:href="@{/agen/tagihan/list(agen=${a.id})}">
+                                                                            <button type="submit" class="btn btn-sm btn-primary waves-effect">
+                                                                                <i class="fa fa-money"></i>
+                                                                                <span>Lihat Tagihan&nbsp;</span>
+                                                                            </button>
+                                                                        </a>
 
-                        <!--Table-->
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <div class="form-group">
+                                                                        <a th:href="@{/agen/pendaftar/list(agen=${a.id})}">
+                                                                            <button type="submit" class="btn btn-sm btn-success waves-effect">
+                                                                                <i class="fa fa-list"></i>
+                                                                                <span>Data Pendaftar&nbsp;</span>
+                                                                            </button>
+                                                                        </a>
 
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="card" th:each="a : ${daftarAgen}">
-                                <div class="header bg-blue-grey">
-                                    <h2>
-                                        <span th:text="${a. namaCabang+ ' > ' + a.penanggungJawab}"></span>
-                                        <small th:text="${'Kode &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :  '+ a. kode}"></small>
-                                        <small th:text="${'Alamat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  :  '+ a. alamatCabang}"></small>
-                                        <small th:text="${'No Handphone&nbsp;&nbsp; :  '+ a. noHp}"></small>
-                                    </h2>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                    <a th:href="@{/agen/tagihan/list(agen=${a.id})}">
-                                                        <button type="submit" class="btn btn-xs btn-primary waves-effect">
-                                                            <i class="material-icons">list</i>
-                                                            <span>Lihat Tagihan&nbsp;</span>
-                                                        </button>
-                                                    </a>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                    <a th:href="@{/agen/pendaftar/list(agen=${a.id})}">
-                                                        <button type="submit" class="btn btn-xs btn-success waves-effect">
-                                                            <i class="material-icons">line_weight</i>
-                                                            <span>Data Pendaftar&nbsp;</span>
-                                                        </button>
-                                                    </a>
-
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <div class="form-group">
                                             <span th:if="${a.status}">
                                                     <form th:action="@{/agen/nonaktif(agen=${a.id})}" method="post">
                                                         <button type="submit"
-                                                                class="btn btn-xs btn-warning waves-effect">
-                                                            <i class="material-icons">lock</i>
+                                                                class="btn btn-sm btn-warning waves-effect">
+                                                            <i class="fa fa-lock"></i>
                                                             <span>Nonaktifkan&nbsp;</span>
                                                         </button>
                                                     </form>
                                                 </span>
-                                                <span th:if="${!a.status}">
+                                                                        <span th:if="${!a.status}">
                                                     <form th:action="@{/agen/aktif(agen=${a.id})}" method="post">
                                                       <button type="submit"
-                                                              class="btn btn-xs btn-danger waves-effect">
-                                                         <i class="material-icons">lock_open</i>
+                                                              class="btn btn-sm btn-danger waves-effect">
+                                                         <i class="fa fa-unlock"></i>
                                                          <span>Aktifkan&nbsp;</span>
                                                       </button>
                                                     </form>
                                                 </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div sd:pagination-summary="">info</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-8">
+                                                            <nav class="pull-right">
+                                                                <ul class="pagination" sd:pagination="full">
+                                                                    <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                                    <li class="disabled"><a href="#" aria-label="Previous"><span
+                                                                            aria-hidden="true">&laquo;</span></a></li>
+                                                                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a>
+                                                                    </li>
+                                                                </ul>
+                                                            </nav>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--//table//-->
                                             </div>
                                         </div>
+                                        <!--//table//-->
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div sd:pagination-summary="">info</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <nav class="pull-right">
-                                        <ul class="pagination" sd:pagination="full">
-                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
-                                            <li class="disabled"><a href="#" aria-label="Previous"><span
-                                                    aria-hidden="true">&laquo;</span></a></li>
-                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
                         </div>
-                        <!--//table//-->
-
-
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
-
 </section>
 
 </body>

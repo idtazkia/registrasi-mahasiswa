@@ -1,398 +1,263 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <link rel="icon" href="https://tazkia.ac.id/images/logo-tazkia-2.png">
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-    <title>Form Registrasi</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" th:href="@{/images/logo.png}" type="image/ico" />
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <title>SIMAK | STEI TAZKIA</title>
 
-    <!-- Bootstrap Core Css -->
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
-    <link th:href="@{/css/waves.css}" rel="stylesheet" />
+    <!-- Bootstrap -->
+    <link th:href="@{/css/vendors/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link th:href="@{/css/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <!-- NProgress -->
+    <link th:href="@{/css/vendors/nprogress/nprogress.css}" rel="stylesheet">
+    <!-- iCheck -->
+    <link th:href="@{/css/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
 
-    <!-- Custom Css -->
+    <link th:href="@{/css/vendors/switchery/dist/switchery.min.css}" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link th:href="@{/css/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link th:href="@{/css/vendors/jqvmap/dist/jqvmap.min.css}" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link th:href="@{/css/vendors/bootstrap-daterangepicker/daterangepicker.css}" rel="stylesheet">
 
-    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link th:href="@{/css/themes/all-themes.css}" rel="stylesheet" />
-
-    <link th:href="@{/css/select2.css}" rel="stylesheet" />
-
+    <!-- Custom Theme Style -->
+    <link th:href="@{/css/build/css/custom.min.css}" rel="stylesheet">
+    <link th:href="@{/css/select2/css/select2.css}" rel="stylesheet">
 </head>
 
-<body class="theme-blue">
-<nav class="navbar">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-            <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="">STEI Tazkia</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="navbar-collapse">
-            <div class="nav navbar-nav navbar-right">
-                <div class="navbar-header">
-                    <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                    <a href="javascript:void(0);" class="bars"></a>
-                    <form name="f" th:action="@{/logout}" method="post">
-                        <button class="btn bg-teal btn-block btn-lg waves-effect">Logout</button>
-                    </form>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0; background-color: #1abb9c">
+                    <span class="site_title">SPMB STEI TAZKIA</span>
                 </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img th:src="@{/images/admn.svg}" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>Superadmin</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_s/home/it-tazkia-2/Downloads/admn.svgide hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>General</h3>
+                        <ul class="nav side-menu">
+                            <li><a th:href="@{/home}"><i class="fa fa-home"></i> Home </a></li>
+
+                            <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AKADEMIK')"><a><i class="fa fa-book"></i>Pendaftaran<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li sec:authorize="hasAuthority('VIEW_MASTER')"><a th:href="@{/registrasi/list}">Pendaftar</a></li>
+                                    <li sec:authorize="hasAuthority('VIEW_MASTER')"><a th:href="@{/registrasi/smart/form}">Upload Smart Test</a></li>
+                                    <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE')"><a th:href="@{/registrasi/hasil/list}">Hasil Test Pendaftar</a></li>
+                                    <li sec:authorize="hasAuthority('VIEW_MASTER')"><a th:href="@{/registrasi/nim/list}">NIM Pendafatar</a></li>
+                                    <li sec:authorize="hasAuthority('VIEW_AGEN')"><a th:href="@{/agen/pendaftar/form}">Registrasi Pendaftar</a></li>
+                                    <li sec:authorize="hasAuthority('VIEW_AGEN')"><a th:href="@{/agen/pendaftar/listAgen}">Data Pendaftar</a></li>
+
+                                </ul>
+                            </li>
+
+                            <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AGEN')"><a><i class="fa fa-money"></i>Keuangan<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li sec:authorize="hasAuthority('VIEW_FINANCE')"><a th:href="@{/registrasi/list}">Tagihan Pendaftar</a></li>
+                                    <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE')"><a th:href="@{/registrasi/pembayaran/list}">Pembayaran Pendaftar</a></li>
+                                    <li sec:authorize="hasAuthority('VIEW_AGEN')"><a th:href="@{/agen/tagihan/listAgen}">Tagihan</a></li>
+
+                                </ul>
+                            </li>
+
+                            <li sec:authorize="hasAuthority('VIEW_MASTER')"><a><i class="fa fa-sitemap"></i> Agen Pendaftar <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a th:href="@{/agen/list}">Data Agen</a></li>
+                                </ul>
+                            </li>
+
+                            <li sec:authorize="hasAuthority('VIEW_MASTER')"><a><i class="fa fa-wrench"></i>Setting<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a th:href="@{/programstudi/list}">Program</a></li>
+                                    <li><a th:href="@{/periode/list}">Periode</a></li>
+                                    <li><a th:href="@{/grade/list}">Grade</a></li>
+                                    <li><a th:href="@{/biaya/jenis/list}">Jenis Biaya</a></li>
+                                    <li><a th:href="@{/biaya/nilai/list}">Nilai Biaya</a></li>
+                                    <li><a th:href="@{/sekolah/list}">Sekolah</a></li>
+
+                                </ul>
+                            </li>
+
+                            <li sec:authorize="hasAuthority('VIEW_PENDAFTAR')"><a th:href="@{/registrasi/detail/form}"><i class="fa fa-book"></i>Edit Data</a></li>
+                            <li sec:authorize="hasAuthority('VIEW_PENDAFTAR')"><a th:href="@{/registrasi/tagihan/list}"><i class="fa fa-money"></i>Tagihan</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <div class="sidebar-footer hidden-small">
+                    <a data-toggle="tooltip" data-placement="top" title="Settings">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Lock">
+                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
+                </div>
+                <!-- /menu footer buttons -->
             </div>
         </div>
-  </div>
 
-</nav>
-<!-- #Top Bar -->
-<section>
-    <!-- Left Sidebar -->
-    <aside id="leftsidebar" class="sidebar">
-        <!-- User Info -->
-        <div class="user-info" >
-            <div class="image">
-                <img src="../../images/logo.png" width="100%" height="100%" style="margin-top:-15px;" align="center" alt="User" />
-            </div>
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
 
-        </div>
-        <!-- #User Info -->
-        <!-- Menu -->
-        <div class="menu">
-            <div sec:authorize="hasAuthority('VIEW_MASTER')">
-            <ul class="list">
-                <li class="header">MAIN NAVIGATION</li>
-                <li class="active">
-                    <a th:href="@{/home}">
-                        <i class="material-icons">home</i>
-                        <span>Home</span>
-                    </a>
-                </li>
-<!--Sekolah-->
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">assignment</i>
-                        <span>Sekolah</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a th:href="@{/sekolah/list}">
-                                <span>Data Sekolah</span>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="production/images/img.jpg" alt="">John Doe
+                                <span class=" fa fa-angle-down"></span>
                             </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/sekolah/form}">
-                                <span>Tambah Sekolah</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-<!--////-->
-<!--DataData-->
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">assignment</i>
-                        <span>Data Master</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a th:href="@{/programstudi/list}">
-                                <span>Data Program Studi</span>
-                            </a>
-                        </li><li>
-                            <a th:href="@{/periode/list}">
-                                <span>Data Periode</span>
-                            </a>
-                        </li><li>
-                            <a th:href="@{/grade/list}">
-                                <span>Data Grade</span>
-                            </a>
-                        </li><li>
-                        <a th:href="@{/biaya/jenis/list}">
-                                <span>Data Jenis Biaya</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/biaya/nilai/list}">
-                                <span>Data Nilai Biaya</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-<!--////-->
-<!--Pendaftar-->
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">widgets</i>
-                        <span>Pendaftaran Mahasiswa</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a th:href="@{/registrasi/list}">
-                                <span>Pendaftaran</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/registrasi/smart/form}">
-                                <span>Upload Smart Test</span>
-                            </a>
-                        </li>   
-                        <li>
-                            <a th:href="@{/registrasi/pembayaran/list}">
-                                <span>Data Pembayaran</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/registrasi/hasil/list}">
-                                <span>Data Hasil Test</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/registrasi/nim/list}">
-                                <span>Data NIM Mahasiswa</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">call_split</i>
-                        <span>Agen</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a th:href="@{/agen/list}">
-                                <span>Daftar Agen</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                
-            </ul>
-            </div>
-
-                <div sec:authorize="hasAuthority('VIEW_PENDAFTAR')">
-                    <ul class="list">
-                        <li class="header">MAIN NAVIGATION</li>
-                        <li class="active">
-                            <a th:href="@{/home}">
-                                <i class="material-icons">home</i>
-                                <span>Home</span>
-                            </a>
-                        </li>
-<!--menu-->
-                        <li>
-                            <a th:href="@{/registrasi/detail/form}">
-                                <i class="material-icons">widgets</i>
-                                <span>Edit Data</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" class="menu-toggle">
-                                <i class="material-icons">assignment</i>
-                                <span>Daftar Biaya</span>
-                            </a>
-                            <ul class="ml-menu">
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="javascript:;"> Profile</a></li>
                                 <li>
-                                    <a th:href="@{/registrasi/tagihan/list}">
-                                        <span>Lihat Daftar Tagihan</span>
+                                    <a href="javascript:;">
+                                        <span class="badge bg-red pull-right">50%</span>
+                                        <span>Settings</span>
                                     </a>
                                 </li>
-
+                                <li><a href="javascript:;">Help</a></li>
+                                <li>
+                                    <form name="f" th:action="@{/logout}" method="post">
+                                        <center><button class="btn btn-md btn-danger fa fa-sign-out center">Logout</button></center>
+                                    </form>
+                                </li>
                             </ul>
                         </li>
-<!--////-->
-               </ul>
-                </div>
-
-
-<!--////--><div sec:authorize="hasAuthority('VIEW_FINANCE')">
-            <ul class="list">
-                <li class="header">MAIN NAVIGATION</li>
-                <li class="active">
-                    <a th:href="@{/home}">
-                        <i class="material-icons">home</i>
-                        <span>Home</span>
-                    </a>
-                </li>
-                <!--menu-->
-
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">widgets</i>
-                        <span>Pendaftaran Mahasiswa</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a th:href="@{/registrasi/list}">
-                                <span>Daftar Tagihan</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/registrasi/pembayaran/list}">
-                                <span>Data Pembayaran</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/registrasi/hasil/list}">
-                                <span>Data Hasil Test</span>
-                            </a>
-                        </li>
-
                     </ul>
-                </li>
-
-                <!--////-->
-            </ul>
-        </div>
-
-            <div sec:authorize="hasAuthority('VIEW_AGEN')">
-            <ul class="list">
-                <li class="header">MAIN NAVIGATION</li>
-                <li class="active">
-                    <a th:href="@{/home}">
-                        <i class="material-icons">home</i>
-                        <span>Home</span>
-                    </a>
-                </li>
-                <!--menu-->
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">account_balance_wallet</i>
-                        <span>Pendaftaran</span>
-                    </a>
-                    </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a th:href="@{/agen/pendaftar/form}">
-                                <span>Registrasi</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/agen/pendaftar/listAgen}">
-                                <span>Data Pendaftar</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a th:href="@{/agen/tagihan/listAgen}">
-                        <i class="material-icons">list</i>
-                        <span>Daftar Tagihan</span>
-                    </a>
-                </li>
-                <!--////-->
-            </ul>
-        </div>
-            <div sec:authorize="hasAuthority('VIEW_AKADEMIK')">
-                <ul class="list">
-                    <li class="header">MAIN NAVIGATION</li>
-                    <li class="active">
-                        <a th:href="@{/home}">
-                            <i class="material-icons">home</i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <!--menu-->
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">widgets</i>
-                            <span>Pendaftaran Mahasiswa</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a th:href="@{/registrasi/nim/list}">
-                                    <span>Daftar NIM</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a th:href="@{/registrasi/pembayaran/list}">
-                                    <span>Data Pembayaran</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!--////-->
-                </ul>
-            </div>
-
-
-
-            </ul>
-            
-        </div>
-        <!-- Footer -->
-        <div class="legal">
-            <div class="copyright">
-                &copy; 2017 - 2022 <a href="">STEI Tazkia - Material Design</a>.
+                </nav>
             </div>
         </div>
-        <!-- #Footer -->
-    </aside>
-    <!-- #END# Left Sidebar -->
-</section>
+        <!-- /top navigation -->
 
-<section class="content">
-    <section class="clearfix">
-
-        <div layout:fragment="content">
-
-            <p>Page Content</p>
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <!-- top tiles -->
+            <section class="content-header" layout:fragment="breadcrumb"></section>
+            <!-- Content Header (Page header) -->
+            <!-- Main content -->
+            <section class="content" layout:fragment="content">Di sini content utama</section>
 
         </div>
+        <!-- /page content -->
 
-    </section>
-
-</section>
-
-<!-- Jquery Core Js -->
-<script th:src="@{/js/jquery.min.js}"></script>
-
-<script th:src="@{/js/bootstrap.js}"></script>
-<script th:src="@{/js/jquery.slimscroll.js}"></script>
-<script th:src="@{/js/waves.js}"></script>
-<script th:src="@{/js/admin.js}"></script>
-<script th:src="@{/js/demo.js}"></script>
-
-<script th:src="@{/js/jquery.dataTables.js}"></script>
-<script th:src="@{/js/dataTables.bootstrap.js}"></script>
-<script th:src="@{/js/jquery-datatable.js}"></script>
-
-<!--  Select 2     -->
-<script th:src="@{/js/select2.js}"></script>
-
-<th:block layout:fragment="script"></th:block>
-
-
-<!---->
-<script type='text/javascript'
-        src="https://cdn.jsdelivr.net/select2/3.4.1/select2.min.js"></script>
-<link rel="stylesheet" type="text/css"
-      href="http://cdn.jsdelivr.net/select2/3.4.1/select2.css">
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-
-</body>
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                Copyright &copy; 2018 - SPMB STEI TAZKIA
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
 
 
 
+<script th:src="@{/css/vendors/jquery/dist/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{/css/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+<!-- FastClick -->
+<script th:src="@{/css/vendors/fastclick/lib/fastclick.js}"></script>
+<!-- NProgress -->
+<script th:src="@{/css/vendors/nprogress/nprogress.js}"></script>
+<!-- Chart.js -->
+<script th:src="@{/css/vendors/Chart.js/dist/Chart.min.js}"></script>
+<!-- gauge.js -->
+<script th:src="@{/css/vendors/gauge.js/dist/gauge.min.js}"></script>
+<!-- bootstrap-progressbar -->
+<script th:src="@{/css/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+<!-- iCheck -->
+<script th:src="@{/css/vendors/iCheck/icheck.min.js}"></script>
+<!-- Skycons -->
+<script th:src="@{/css/vendors/skycons/skycons.js}"></script>
+<!-- Flot -->
+<script th:src="@{/css/vendors/Flot/jquery.flot.js}"></script>
+<script th:src="@{/css/vendors/Flot/jquery.flot.pie.js}"></script>
+<script th:src="@{/css/vendors/Flot/jquery.flot.time.js}"></script>
+<script th:src="@{/css/vendors/Flot/jquery.flot.stack.js}"></script>
+<script th:src="@{/css/vendors/Flot/jquery.flot.resize.js}"></script>
+<!-- Flot plugins -->
+<script th:src="@{/css/vendors/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+<script th:src="@{/css/vendors/flot-spline/js/jquery.flot.spline.min.js}"></script>
+<script th:src="@{/css/vendors/flot.curvedlines/curvedLines.js}"></script>
+<!-- DateJS -->
+<script th:src="@{/css/vendors/DateJS/build/date.js}"></script>
+<!-- JQVMap -->
+<script th:src="@{/css/vendors/switchery/dist/switchery.min.js}"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+<script th:src="@{/css/vendors/jqvmap/dist/jquery.vmap.js}"></script>
+<script th:src="@{/css/vendors/jqvmap/dist/maps/jquery.vmap.world.js}"></script>
+<script th:src="@{/css/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js}"></script>
+<!-- bootstrap-daterangepicker -->
+<script th:src="@{/css/vendors/moment/min/moment.min.js}"></script>
+<script th:src="@{/css/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js}"></script>
+<script th:src="@{/css/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
+
+<!-- Custom Theme Scripts -->
+<script th:src="@{/css/build/js/custom.min.js}"></script>
+<script th:src="@{/css/select2/js/select2.min.js}"></script>
+
+<th:block layout:fragment="script">
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
+</th:block>
+
+
 <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>-->
 <script src="https://cdn.rawgit.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+<script th:src="@{/js/bootstrap3-typeahead.js}"></script>
 <script th:src="@{/js/aplikasi.js}"></script>
-
-
-
+<th:block layout:fragment="script"></th:block>
 </body>
 </html>
+
+
+
+
+
+

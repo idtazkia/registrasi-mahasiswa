@@ -4,20 +4,21 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>GeneratePassword Selesai</title>
+    <title>Generate NIM Selesai</title>
 </head>
 <body>
 <section layout:fragment="content" class="clearfix">
-    <section class="clearfix">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="card">
-                        <div class="header" >
-                            <h1>
-                                Generate Nim Berhasil
-                            </h1>
-                        </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title" style="color: black">
+                    <h1>Generate Nim Berhasil | <a th:href="@{/registrasi/pembayaran/list}" class="btn btn-md btn-danger"
+                                                   type="submit">Kembali</a>
+                    </h1>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row clearfix" style="color: black">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="body">
                             <div class="row" th:if="${(detail != null)}">
                                 <div class="col-sm-9">
@@ -73,8 +74,6 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        <a th:href="@{/registrasi/pembayaran/list}" class="btn btn-lg bg-light-green waves-effect"
-                                                type="submit">Kembali</a>
                                     </div>
 
                                 </div>
@@ -82,9 +81,10 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
-    </section>
+    </div>
 </section>
 </body>
 </html>

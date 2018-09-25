@@ -8,72 +8,76 @@
 </head>
 <body>
 <section layout:fragment="content" class="clearfix">
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="row clearfix">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title" style="color: black">
+                    <h2 style="font-style: normal; font-size: 30px;"> Tagihan Biaya Anda</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row clearfix" style="color: black">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="card">
-                            <div class="header" >
-                                <h3>
-                                    Tagihan Biaya Anda
-                                </h3>
-                            </div>
-                            <!--Table-->
-                            <div class="body">
-                                <div class="row">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th>Tanggal Tagihan</th>
-                                                <th>Nomor Tagihan</th>
-                                                <th>Tagihan</th>
-                                                <th>Keterangan</th>
-                                                <th>Nilai</th>
-                                                <th>Status</th>
-                                                <th>History</th>
-                                            </tr>
-                                            </thead>
-                                            <tr th:each="test : ${tagihan}">
-                                                <td th:text="${test.tanggalTagihan}">SMK Wiladatika</td>
-                                                <td th:text="${test.nomorTagihan}">12342341212</td>
-                                                <td th:text="${test.jenisBiaya.nama}"></td>
-                                                <td th:text="${test.Keterangan}">Jln Raya Wangun</td>
-                                                <td th:text="${test.nilai}">0251453224</td>
-                                                <td>
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <div class="row">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Tanggal Tagihan</th>
+                                                            <th>Nomor Tagihan</th>
+                                                            <th>Tagihan</th>
+                                                            <th>Keterangan</th>
+                                                            <th>Nilai</th>
+                                                            <th>Status</th>
+                                                            <th>History</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tr th:each="test : ${tagihan}">
+                                                            <td th:text="${test.tanggalTagihan}">SMK Wiladatika</td>
+                                                            <td th:text="${test.nomorTagihan}">12342341212</td>
+                                                            <td th:text="${test.jenisBiaya.nama}"></td>
+                                                            <td th:text="${test.Keterangan}">Jln Raya Wangun</td>
+                                                            <td th:text="${test.nilai}">0251453224</td>
+                                                            <td>
                                                     <span th:if="${test.lunas}">
                                                         <span  style="color: #2b982b; font-size: 16px;">Lunas</span>
                                                     </span>
-                                                    <span th:if="${!test.lunas}">
+                                                                <span th:if="${!test.lunas}">
                                                         <span style="color: red; font-size: 16px;">Belum Lunas</span>
                                                     </span>
-                                                </td>
-                                                <td>
+                                                            </td>
+                                                            <td>
                                                     <span th:if="${test.lunas}">
-                                                        <a  th:href="@{/biaya/pembayaran/list(id=${test.id})}" class="btn bg-teal btn-block waves-effect">cek</a>
+                                                        <a  th:href="@{/biaya/pembayaran/list(id=${test.id})}" class="btn btn-xs btn-warning waves-effect">cek</a>
                                                     </span>
-                                                </td>
-                                                <input type="text" hidden="" id="id" th:value="${test.Pendaftar.id}">
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <!--<div sd:pagination-summary="">info</div>-->
+                                                            </td>
+                                                            <input type="text" hidden="" id="id" th:value="${test.Pendaftar.id}">
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                      <span style="color: red">*Untuk konfirmasi pembayaran bisa hubungi : 0805457884</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--//table//-->
                                     </div>
                                 </div>
                             </div>
-                            <!--//table//-->
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
-
 </section>
 
 </body>

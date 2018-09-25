@@ -19,134 +19,138 @@
 </th:block>
 
 <section layout:fragment="content" class="clearfix">
-    <section class="clearfix">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <!-- Identitas awal-->
-                    <div class="card">
-                        <div class="header">
-                            <h1>
-                                Input Hasil Test Pendaftar
-                            </h1>
-                        </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title" style="color: black">
+                    <h1>Input Periode</h1>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row clearfix" style="color: black">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <label>Nomor Registrasi</label><br>
+                                                        <b><span style="font-size: 16px;" th:text="${pendaftar.nomorRegistrasi}"></span></b>
 
-                        <div class="body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Nomor Registrasi</label><br>
-                                            <b><span th:text="${pendaftar.nomorRegistrasi}"></span></b>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label>Nama</label>
-                                            <br>
-                                            <b><span name="nama" th:text="${pendaftar.nama}"></span></b>
-                                            <input type="hidden" hidden th:value="${pendaftar.id}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <form method="post"  th:action="@{/registrasi/hasil/form}" th:object="${hasil}">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Nilai</label>
-                                                <input type="number" class="form-control" name="nilai" th:field="*{nilai}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Jenis Test</label>
-                                                <select name="jenisTest" th:field="*{jenisTest}" class="form-control" required autofocus>
-                                                    <option value="">-Pilih Jenis Test-</option>
-                                                    <option value="TPA">TPA</option>
-                                                    <option value="JPA">JPA</option>
-                                                    <option value="SMART_TEST">SMART TEST</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Tanggal Test</label>
-                                                <input type="date" class="form-control" name="tanggalTest" th:field="*{tanggalTest}">
-                                            </div>
-                                            <br>
-
-
-                                            <button type="button" class="btn btn-lg bg-light-green waves-effect" data-toggle="modal" data-target="#diskon">Diskon</button>
-                                            <div class="modal fade" id="diskon" tabindex="-1" role="dialog">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" id="diksonLabel">Diskon Sodara Kandung (UP-50%)</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row clearfix">
-                                                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                                                    <label>NIM : </label>
-                                                                </div>
-                                                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                                                    <div class="form-group">
-                                                                        <div class="form-line">
-                                                                            <input type="text" name="nim" id="nim" class="form-control" placeholder="NIM">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row clearfix">
-                                                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                                                    <label>Nama : </label>
-                                                                </div>
-                                                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                                                    <div class="form-group">
-                                                                        <div class="form-line">
-                                                                            <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Mahasiswa">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn bg-green waves-effect"  data-dismiss="modal">Save</button>
-                                                            <button type="button" class="btn bg-red waves-effect"  data-dismiss="modal" onclick="myFunction()">Batal</button>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="pendaftar"
-                                           th:field="*{pendaftar}"/><br>
-                                    <input type="hidden" name="id"
-                                           th:field="*{id}"/><br>
-                                    <!-- Simpan Data -->
-                                    <div class="col-sm-12" align="right" >
-                                        <div class="form-group">
-                                            <div class="col-xs-12" >
-                                                <button  class="btn btn-lg bg-blue-grey waves-effect" type="">SELESAI</button>
-
-                                                <a th:href="@{/registrasi/list}" class="btn btn-lg bg-red waves-effect">BATAL</a>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <label>Nama</label>
+                                                        <br>
+                                                        <b><span style="font-size: 16px;" name="nama" th:text="${pendaftar.nama}"></span></b>
+                                                        <input type="hidden" hidden th:value="${pendaftar.id}">
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <form method="post"  th:action="@{/registrasi/hasil/form}" th:object="${hasil}">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <label>Nilai</label>
+                                                            <input type="number" class="form-control" name="nilai" th:field="*{nilai}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <label>Jenis Test</label>
+                                                            <select name="jenisTest" th:field="*{jenisTest}" class="form-control" required autofocus>
+                                                                <option value="">-Pilih Jenis Test-</option>
+                                                                <option value="TPA">TPA</option>
+                                                                <option value="JPA">JPA</option>
+                                                                <option value="SMART_TEST">SMART TEST</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <label>Tanggal Test</label>
+                                                            <input type="date" class="form-control" name="tanggalTest" th:field="*{tanggalTest}">
+                                                        </div>
+                                                        <br>
+
+
+                                                        <button type="button" class="btn btn-md btn-primary" data-toggle="modal" data-target="#diskon">Diskon</button>
+                                                        <div class="modal fade" id="diskon" tabindex="-1" role="dialog">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title" id="diksonLabel">Diskon Sodara Kandung (UP-50%)</h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="row clearfix">
+                                                                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                                                                <label>NIM : </label>
+                                                                            </div>
+                                                                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                                                                <div class="form-group">
+                                                                                    <div class="form-line">
+                                                                                        <input type="text" name="nim" id="nim" class="form-control" placeholder="NIM">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row clearfix">
+                                                                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                                                                <label>Nama : </label>
+                                                                            </div>
+                                                                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                                                                <div class="form-group">
+                                                                                    <div class="form-line">
+                                                                                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Mahasiswa">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn-sm btn-info waves-effect"  data-dismiss="modal">Save</button>
+                                                                        <button type="button" class="btn-sm btn-danger waves-effect"  data-dismiss="modal" onclick="myFunction()">Batal</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="pendaftar"
+                                                       th:field="*{pendaftar}"/><br>
+                                                <input type="hidden" name="id"
+                                                       th:field="*{id}"/><br>
+                                                <!-- Simpan Data -->
+                                                <div class="col-sm-12" align="right" >
+                                                    <div class="form-group">
+                                                        <div >
+                                                            <button  class="btn btn-md btn-info" type="">SELESAI</button>
+                                                            <a th:href="@{/registrasi/list}" class="btn btn-danger btn-md">BATAL</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
+                                        <!--//table//-->
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
-    </section>
-
+    </div>
 </section>
 
 </body>

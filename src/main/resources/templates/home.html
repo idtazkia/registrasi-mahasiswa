@@ -1,33 +1,59 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      layout:decorate="~{layout}">>
 <head>
     <meta charset="UTF-8">
-    <title>Data Pendaftaran Mahasiswa</title>
+    <title>Dashboard</title>
 </head>
 <body>
-<section layout:fragment="content" class="clearfix">
-    <section class="clearfix">
-        <form>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <!-- Identitas awal-->
-                        <div class="card">
-                            <div class="header" >
-                                <h1>
-                                    Selamat Datang
-                                </h1>
-
-                            </div>
-
-                        </div>
-                    </div>
+<section layout:fragment="content" class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title">
+                    <h1>Selamat Datang</h1>
+                    <br><a th:href="@{/registrasi/detail/form}"><span style="color: blue"  sec:authorize="hasAuthority('VIEW_PENDAFTAR')">Lengkapi Data Anda.</span></a>
+                    <div class="clearfix"></div>
                 </div>
             </div>
-        </form>
-    </section>
+        </div>
+
+        <div class="row tile_count" sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AKADEMIK')">
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Total Student Active</span>
+                <div class="count">2500</div>
+                <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <span class="count_top"><i class="fa fa-clock-o"></i> Total Lectures Active</span>
+                <div class="count">123</div>
+                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Total Male Students</span>
+                <div class="count green">1500</div>
+                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Total Female Students</span>
+                <div class="count">1000</div>
+                <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Total Collections</span>
+                <div class="count">2,315</div>
+                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                <span class="count_top"><i class="fa fa-user"></i> Total Connections</span>
+                <div class="count">7,325</div>
+                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+            </div>
+        </div>
+
+    </div>
+
 </section>
 
 </body>

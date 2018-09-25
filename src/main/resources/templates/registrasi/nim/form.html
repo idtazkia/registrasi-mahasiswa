@@ -4,7 +4,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Form Input Hasil Test</title>
+    <title>Form Input Detail Mahasiswa</title>
 </head>
 <body>
 <section layout:fragment="content" class="clearfix">
@@ -19,17 +19,16 @@
 <!---//Data Belum Di Isi (Belum Ada Di Database)-->
                         <section class="clearfix">
                             <form action="#" th:action="@{/registrasi/nim/form }" th:object="${detail}" method="post">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                                            <!-- identitas mahasiswa -->
-                                            <div class="card" id="previous">
-                                                <div class="header">
-                                                    <h1>
-                                                        Identitas Mahasiswa <span  th:if="${detail.nim != null}"> | <span style="color: #00b0e4" th:text="*{nim}"></span>  </span>
-                                                    </h1><br>
-                                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="x_panel tile fixed_height_160" style="color: black">
+                                            <div class="x_title" style="color: black">
+                                                <h1>
+                                                    Identitas Mahasiswa <span  th:if="${detail.nim != null}"> | <span style="color: #00b0e4" th:text="*{nim}"></span>  </span>
 
+                                                </h1>
+                                                <div class="clearfix"></div>
+                                            </div>
                                                 <input th:field="*{pendaftar}" name="pendaftar" hidden="" >
                                                 <input th:field="*{detailPendaftar}" name="detailPendaftar" hidden="" >
                                                 <div class="body">
@@ -43,26 +42,24 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group">
                                                                 <div class="form-line">
-                                                                    <label>TTL</label>
+                                                                    <label>Tempat Lahir</label>
                                                                     <input type="text" name="ttl"
                                                                            class="form-control" th:field="*{ttl}"
-                                                                           placeholder="Tempat, Tanggal - Bulan -Tahun"
+                                                                           placeholder="Tempat Lahir"
                                                                            required autofocus/>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-2">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group">
                                                                 <div class="form-line">
-                                                                    <label>Jenis Kelamin</label>
-                                                                    <select name="jeniskelamin" th:field="*{jenisKelamin}"  class="form-control" id="" required autofocus>
-                                                                        <option value="">-Pilih Jenis Kelamin-</option>
-                                                                        <option value="L">Laki-Laki</option>
-                                                                        <option value="P">Perempuan</option>
-                                                                    </select>
+                                                                    <label>Tanggal Lahir</label>
+                                                                    <input type="date" name=""
+                                                                           class="form-control"
+                                                                           required autofocus/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -76,6 +73,18 @@
                                                                         <option value="B">B</option>
                                                                         <option value="AB">AB</option>
                                                                         <option value="O">O</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <label>Jenis Kelamin</label>
+                                                                    <select name="jeniskelamin" th:field="*{jenisKelamin}"  class="form-control" id="" required autofocus>
+                                                                        <option value="">-Pilih Jenis Kelamin-</option>
+                                                                        <option value="L">Laki-Laki</option>
+                                                                        <option value="P">Perempuan</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -116,9 +125,9 @@
                                                             <div class="col-sm-4">
                                                                 <div class="form-group">
                                                                     <div class="form-line">
-                                                                        <label for="kabupatenKota">Kabupaten/Kota</label>
+                                                                        <label for="kokabawal">Kabupaten/Kota</label>
                                                                         <input type="text" class="form-control" th:field="*{kokab}"
-                                                                               id="kabupatenKota" placeholder="Cari Kabupaten/Kota ..."
+                                                                               id="kokabawal" placeholder="Cari Kabupaten/Kota ..."
                                                                                data-provide="typeahead"
                                                                                autocomplete="off" required autofocus>
                                                                     </div>
@@ -229,7 +238,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-3">
+                                                        <div class="col-sm-4">
                                                             <div class="form-group">
                                                                 <div class="form-line">
                                                                     <label>Jalur Pendaftaran</label><br>
@@ -255,33 +264,21 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-1">
-                                                            <div class="form-group">
-                                                                <a href="#next"><input type="button" name="next"
-                                                                                       style="margin-top: 10px;"
-                                                                                       class="btn btn-lg bg-light-blue waves-effect"
-                                                                                       value="Next"></a>
-                                                            </div>
-                                                        </div>
-
-
                                                     </div>
-
-
                                                 </div>
-
                                             </div>
 
 
 
                                             <!-- Identitas Wali -->
-                                            <div class="card" id="next">
-                                                <div class="header">
-                                                    <h1>
-                                                        Identitas Orang Tua/Wali
-                                                    </h1>
-                                                </div>
+                                        <div class="x_panel tile fixed_height_160" style="color: black">
+                                            <div class="x_title">
+                                                <h1>
+                                                    Identitas Orang Tua/Wali
 
+                                                </h1>
+                                                <div class="clearfix"></div>
+                                            </div>
                                                 <div class="body" >
                                                     <div class="row">
                                                         <div class="col-sm-6">
@@ -393,7 +390,7 @@
                                                                 <div class="form-line">
                                                                     <label>Kab./Kota Orangtua</label>
                                                                     <input type="text" class="form-control"
-                                                                           id="kokab" placeholder="Cari Kabupaten/Kota ..."
+                                                                           id="cariKokab" placeholder="Cari Kabupaten/Kota ..."
                                                                            data-provide="typeahead" th:field="*{kokabOrangtua}"
                                                                            autocomplete="off" required autofocus>
                                                                 </div>
@@ -454,29 +451,19 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <a href="#previous">
-                                                                    <input type="button" name="previous"
-                                                                           class="btn btn-lg bg-light-blue waves-effect"
-                                                                           value="Previous">
-                                                                </a>
-                                                            </div>
-                                                        </div>
                                                         <!-- Simpan Data -->
-                                                        <div class="col-sm-6" align="right">
+                                                        <div class="col-sm-12" align="right">
                                                             <div class="form-group">
-                                                                <button class="btn btn-lg bg-light-green waves-effect"
+                                                                <button class="btn btn-md btn-info"
                                                                         type="submit">SELESAI</button>
                                                             </div>
                                                         </div>
-                                                        <span style="color:red;">*Pastikan Setelah Mingisi Data Anda Mendapatkan Email</span>
+                                                        <span style="color:red;">*Pastikan Setelah Mingisi Data Anda Mendapatkan Email</span><br>
                                                         <span style="color:red;">*Pastikan Data Terisi Semua</span>
 
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                     </div>
                                 </div>
                             </form>

@@ -13,146 +13,159 @@
             <form th:action="@{/agen/pendaftar/form}" th:object="${registrasi}" method="post">
                 <input type="hidden" name="id" id="id" th:field="*{id}">
                 <input type="hidden" name="user" id="user" th:field="*{user}">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel tile fixed_height_160">
+                            <div class="x_title" style="color: black">
+                                <h1>Identitas Register</h1>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="row">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+                                </ul>
+                            </div>
+                            <div class="row clearfix" style="color: black">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="row clearfix">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="card">
+                                                    <div class="body">
+                                                      <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <label>Nama</label>
+                                                                    <input type="text" name="nama" th:field="*{nama}"
+                                                                           class="form-control"
+                                                                           placeholder="Nama" required autofocus/>
+                                                                    <input type="hidden" name="nomor" id="nomor" th:field="*{nomorRegistrasi}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <label>No Hp</label>
+                                                                    <input type="number" name="no_hp" th:field="*{noHp}"
+                                                                           class="form-control"
+                                                                           placeholder="08xxx" required autofocus/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <label>Email</label>
+                                                                    <input type="email" name="email" th:field="*{email}"
+                                                                           class="form-control"
+                                                                           placeholder="Email" required autofocus/>
 
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <!-- Identitas awal-->
-                            <div class="card">
-                                <div class="header">
-                                    <h1>
-                                        Identitas Register
-                                    </h1>
-                                </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <label>Negara</label>
+                                                                    <input type="text" name="negara"
+                                                                           placeholder="Negara"
+                                                                           required autofocus
+                                                                           class="form-control" th:field="*{negara}"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <label>Kota Asal Sekolah</label>
+                                                                    <!--<input type="text" hidden="" name="idKabupatenKota" th:field="*{kabupatenKota}">-->
+                                                                    <!--<input type="text" class="form-control"-->
+                                                                    <!--id="kokabawal" placeholder="Cari Kabupaten/Kota ..."-->
+                                                                    <!--data-provide="typeahead" th:field="*{kabupatenKota.nama}"-->
+                                                                    <!--autocomplete="off" required autofocus>-->
 
-                                <div class="body">
-                                    <div class="row">
-                                        <ul>
-                                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
-                                        </ul>
+                                                                    <select class="form-control border-input js-sr"
+                                                                            name="idKabupatenKota" th:field="*{idKabupatenKota}">
+                                                                        <option value=""></option>
+                                                                        <option th:each="a : ${kokab}" th:text="${a.nama}" th:value="${a.id}">asdfasfasf</option>
+
+                                                                    </select>
+
+
+                                                                </div>
+                                                                <span style="color: red">Cari Kabupaten/kota secara otomatis.</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <label>Nama Asal Sekolah</label>
+                                                                    <input type="text" class="form-control" th:field="*{namaAsalSekolah}"
+                                                                           id="sekolah" placeholder="Cari Sekolah ..."
+                                                                           data-provide="typeahead" autocomplete="off" required autofocus>
+                                                                </div>
+                                                                <span style="color: red">Cari asal sekolah secara otomatis.</span>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <input type="hidden"  name="nama_perekomendasi"  th:field="*{namaPerekomendasi}"
+                                                               class="form-control" readonly
+                                                               placeholder="Nama Perekomendasi"/>
+                                                        <input type="hidden"  name="nama_perekomendasi"  th:field="*{pemberiRekomendasi}"
+                                                               class="form-control" readonly
+                                                               placeholder="Nama Perekomendasi"/>
+
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <label>Program Studi Pilihan</label>
+                                                                    <select name="programStudi" th:field="*{programStudi}" class="form-control" required autofocus>
+                                                                        <option value="">-Pilih Program Studi-</option>
+                                                                        <option th:each="ins : ${daftarProdi}"
+                                                                                th:value="${ins.id}"
+                                                                                th:text="${ins.nama}">Ekonomi Syariah</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <label>Konsentrasi</label>
+                                                                    <select name="bank" th:field="*{konsentrasi}" class="form-control" required autofocus>
+                                                                        <option value="">-Pilih Konsentrasi-</option>
+                                                                        <option value="Reguler" >Reguler</option >
+                                                                        <option value="Eksekutif" >Eksekutif</option >
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <button class="btn btn-md btn-info waves-effect" type="submit">SELESAI</button>
+                                                                    <a th:href="@{/agen/pendaftar/listAgen}" class="btn btn-md btn-danger waves-effect" type="submit">BATAL</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <!--//table//-->
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label>Nama</label>
-                                                    <input type="text" name="nama" th:field="*{nama}"
-                                                           class="form-control"
-                                                           placeholder="Nama" required autofocus/>
-                                                    <input type="hidden" name="nomor" id="nomor" th:field="*{nomorRegistrasi}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label>No Hp</label>
-                                                    <input type="number" name="no_hp" th:field="*{noHp}"
-                                                           class="form-control"
-                                                           placeholder="08xxx" required autofocus/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label>Email</label>
-                                                    <input type="email" name="email" th:field="*{email}"
-                                                           class="form-control"
-                                                           placeholder="Email" required autofocus/>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label>Negara</label>
-                                                    <input type="text" name="negara"
-                                                           placeholder="Negara"
-                                                           required autofocus
-                                                           class="form-control" th:field="*{negara}"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label>Kota Asal Sekolah</label>
-                                                    <!--<input type="text" hidden="" name="idKabupatenKota" th:field="*{kabupatenKota}">-->
-                                                    <!--<input type="text" class="form-control"-->
-                                                           <!--id="kokabawal" placeholder="Cari Kabupaten/Kota ..."-->
-                                                           <!--data-provide="typeahead" th:field="*{kabupatenKota.nama}"-->
-                                                           <!--autocomplete="off" required autofocus>-->
-
-                                                    <select class="form-control border-input js-sr"
-                                                            name="idKabupatenKota" th:field="*{idKabupatenKota}">
-                                                        <option value=""></option>
-                                                        <option th:each="a : ${kokab}" th:text="${a.nama}" th:value="${a.id}">asdfasfasf</option>
-
-                                                    </select>
-
-
-                                                </div>
-                                                <span style="color: red">Cari Kabupaten/kota secara otomatis.</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label>Nama Asal Sekolah</label>
-                                                    <input type="text" class="form-control" th:field="*{namaAsalSekolah}"
-                                                           id="sekolah" placeholder="Cari Sekolah ..."
-                                                           data-provide="typeahead" autocomplete="off" required autofocus>
-                                                </div>
-                                                <span style="color: red">Cari asal sekolah secara otomatis.</span>
-                                            </div>
-                                        </div>
-
-                                                    <input type="hidden"  name="nama_perekomendasi"  th:field="*{namaPerekomendasi}"
-                                                           class="form-control" readonly
-                                                           placeholder="Nama Perekomendasi"/>
-                                                <input type="hidden"  name="nama_perekomendasi"  th:field="*{pemberiRekomendasi}"
-                                                           class="form-control" readonly
-                                                           placeholder="Nama Perekomendasi"/>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label>Program Studi Pilihan</label>
-                                                    <select name="programStudi" th:field="*{programStudi}" class="form-control" required autofocus>
-                                                        <option value="">-Pilih Program Studi-</option>
-                                                        <option th:each="ins : ${daftarProdi}"
-                                                                th:value="${ins.id}"
-                                                                th:text="${ins.nama}">Ekonomi Syariah</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label>Konsentrasi</label>
-                                                    <select name="bank" th:field="*{konsentrasi}" class="form-control" required autofocus>
-                                                        <option value="">-Pilih Konsentrasi-</option>
-                                                        <option value="Reguler" >Reguler</option >
-                                                        <option value="Eksekutif" >Eksekutif</option >
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Simpan Data -->
-                                        <div class="col-sm-12" align="right" >
-                                            <div class="form-group">
-                                                <div class="col-xs-12" >
-                                                    <button class="btn btn-lg bg-blue-grey waves-effect" type="submit">DAFTAR</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

@@ -11,336 +11,201 @@
 
     <!--//Data Sudah Di Isi (DiTampilkan)-->
     <section class="clearfix">
-            <div class="container-fluid"  th:each=" v : ${view}">
+       <div th:each=" v : ${view}">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                    <div class="col-md-12 col-sm-12 col-xs-12" >
+                        <div class="x_panel tile fixed_height_160">
                         <!-- identitas mahasiswa -->
-                        <div class="card" id="previous">
-                            <div class="header">
-                                <h1>
-                                    Identitas Mahasiswa
-                                </h1>
-                                <form method="post" th:action="@{/registrasi/detail/notifikasi(p=${v.id})}">
-                                    <input type="text" name="jt" hidden="" th:value="${v.jenisTest}">
-                                    <button class="btn bg-green waves-effec">Kirim Notifikasi</button>
-                                </form>
-                            </div>
-
-                            <div class="body">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Nama</label><br>
-                                                <span name="nama" th:text="${v.pendaftar.nama}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>TTL</label><br>
-                                                <span th:text="${v.ttl}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Jenis Kelamin</label><br>
-                                                <span name="jk" th:text="${v.jenisKelamin}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Golongan Darah</label><br>
-                                                <span  name="goldar" th:text="${v.golonganDarah}"></span>                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>N0. KTP</label><br>
-                                                <span name="noktp" th:text="${v.noKtp}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Alamat Rumah</label><br>
-                                                <span name="alamat" th:text="${v.alamatRumah}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="app">
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label>Provinsi</label><br>
-                                                    <span name="prov" th:text="${v.provinsi}"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label>Kabupaten/Kota</label><br>
-                                                    <span name="kota" th:text="${v.kokab}"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Kode Pos</label><br>
-                                                <span name="kodepos" th:text="${v.kodePos}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>No Hp</label><br>
-                                                <span name="nohp" th:text="${v.noHp}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Email</label><br>
-                                                <span name="email" th:text="${v.email}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Asal Sekolah</label><br>
-                                                <span name="asalSekolah" th:text="${v.asalSekolah}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Jurusan Sekolah</label><br>
-                                                <span name="jurusan_sekolah" th:text="${v.jurusanSekolah}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>NISN</label><br>
-                                                <span name="nisn" th:text="${v.nisn}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Tahun Lulus Sekolah</label><br>
-                                                <span name="tahun_lulus" th:text="${v.tahunLulusSekolah}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Pekerjaan Pribadi</label><br>
-                                                <span name="pekerjaan" th:text="${v.pekerjaanPribadi}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Penghasilan Pribadi</label><br>
-                                                <span name="penghasilan" th:text="${v.penghasilanPribadi}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Status Sipil</label><br>
-                                                <span name="statusSipil" th:text="${v.statusSipil}">
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Jenis Test</label><br>
-                                                <span name="jenisTest" th:text="${v.jenisTest}">
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <div class="form-group">
-                                            <a href="#next"><input type="button" name="next"
-                                                                   style="margin-top: 10px;"
-                                                                   class="btn btn-lg bg-light-blue waves-effect"
-                                                                   value="Next"></a>
-                                        </div>
-                                    </div>
-
-
+                            <div class="card" id="previous">
+                                <div class="x_title" style="color: black">
+                                    <h1>
+                                        Identitas Mahasiswa
+                                    </h1>
+                                        <div class="clearfix"></div>
+                                    <form method="post" th:action="@{/registrasi/detail/notifikasi(p=${v.id})}">
+                                        <input type="text" name="jt" hidden="" th:value="${v.jenisTest}">
+                                        <button class="btn bg-green">Kirim Notifikasi</button>
+                                        <a th:href="@{/registrasi/list}" class="btn btn-md btn-danger">Kembali</a>
+                                    </form>
                                 </div>
+                                <div class="body" style="color: black">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Nama</label><br>
+                                                    <span name="nama" th:text="${v.pendaftar.nama}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Tempat Lahir</label><br>
+                                                    <span th:text="${v.ttl}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Tanggal Lahir</label><br>
+                                                    <span th:text="${v.ttl}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Jenis Kelamin</label><br>
+                                                    <span name="jk" th:if="${v.jenisKelamin == 'L'}">Laki-Laki</span>
+                                                    <span name="jk" th:if="${v.jenisKelamin == 'P'}">Perempuan</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Golongan Darah</label><br>
+                                                    <span  name="goldar" th:text="${v.golonganDarah}"></span>                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>N0. KTP</label><br>
+                                                    <span name="noktp" th:text="${v.noKtp}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Alamat Rumah</label><br>
+                                                    <span name="alamat" th:text="${v.alamatRumah}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="app">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <label>Provinsi</label><br>
+                                                        <span name="prov" th:text="${v.provinsi}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
 
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <label>Kabupaten/Kota</label><br>
+                                                        <span name="kota" th:text="${v.kokab}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Kode Pos</label><br>
+                                                    <span name="kodepos" th:text="${v.kodePos}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>No Hp</label><br>
+                                                    <span name="nohp" th:text="${v.noHp}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Email</label><br>
+                                                    <span name="email" th:text="${v.email}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Asal Sekolah</label><br>
+                                                    <span name="asalSekolah" th:text="${v.asalSekolah}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Jurusan Sekolah</label><br>
+                                                    <span name="jurusan_sekolah" th:text="${v.jurusanSekolah}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>NISN</label><br>
+                                                    <span name="nisn" th:text="${v.nisn}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Tahun Lulus Sekolah</label><br>
+                                                    <span name="tahun_lulus" th:text="${v.tahunLulusSekolah}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            </div>
-
-                        </div>
-
-
-
-                        <!-- Identitas Wali -->
-                        <div class="card" id="next">
-                            <div class="header">
-                                <h1>
-                                    Identitas Orang Tua/Wali
-                                </h1>
-                            </div>
-
-                            <div class="body" >
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Nama Ayah</label><br>
-                                                <span name="nama_ayah" th:text="${v.namaAyah}"></span>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Pekerjaan Pribadi</label><br>
+                                                    <span name="pekerjaan" th:if="${v.pekerjaanPribadi == ''}">-</span>
+                                                    <span name="pekerjaan" th:text="${v.pekerjaanPribadi}"></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Agama Ayah</label><br>
-                                                <span name="agama_ayah" th:text="${v.agamaAyah}"></span>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Penghasilan Pribadi</label><br>
+                                                    <span name="penghasilan" th:if="${v.penghasilanPribadi == ''}">-</span>
+                                                    <span name="penghasilan" th:text="${v.penghasilanPribadi}"></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Pendidikan Ayah</label><br>
-                                                <span name="pendidikan_ayah"  th:text="${v.pendidikanAyah}"></span>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Status Sipil</label><br>
+                                                    <span name="statusSipil" th:if="${v.statusSipil == 'wni'}">Warga Negara Indonesia</span>
+                                                    <span name="statusSipil" th:if="${v.statusSipil} == 'wna'">Warga Negara Asing</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Pekerjaan Ayah</label><br>
-                                                <span name="pekerjaan_ayah" th:text="${v.pekerjaanAyah}"></span>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Jenis Test</label><br>
+                                                    <span name="jenisTest" th:text="${v.jenisTest}">
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Nama Ibu</label><br>
-                                                <span name="nama_ibu" th:text="${v.namaIbu}"></span>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Program Studi</label><br>
+                                                    <span name="prodi" th:text="${v.pendaftar.programStudi.nama}">
+                                                    </span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Agama Ibu</label><br>
-                                                <span name="agama_ibu" th:text="${v.agamaIbu}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Pendidikan Ibu</label><br>
-                                                <span name="pendidikan_ibu" th:text="${v.pendidikanIbu}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Pekerjaan Ibu</label><br>
-                                                <span name="pekerjaan_ibu" th:text="${v.pekerjaanIbu}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Alamat Orangtua</label><br>
-                                                <span name="alamat_orangtua" th:text="${v.alamatOrangtua}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Kab./Kota Orangtua</label><br>
-                                                <span name="kotaortu" th:text="${v.kokabOrangtua}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Telepon/Hp Orangtua</label><br>
-                                                <span name="hp_orangtua" th:text="${v.nohpOrangtua}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Email Orangtua</label><br>
-                                                <span name="email_orangtua" th:text="${v.emailOrangtua}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Penghasilan Orangtua</label><br>
-                                                <span name="penghasilan_orangtua" th:text="${v.penghasilanOrangtua}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Jumlah Tanggungan</label><br>
-                                                <span name="jumlah_tanggungan" th:text="${v.jumlahTanggungan}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Rencana Biaya</label><br>
-                                                <span name="rencana_biaya" th:text="${v.rencanaBiaya}"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <a href="#previous">
-                                                <input type="button" name="previous"
-                                                       class="btn btn-lg bg-light-blue waves-effect"
-                                                       value="Previous">
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -348,7 +213,149 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
+
+                        <!-- Identitas Wali -->
+               <div class="row">
+                   <div class="col-md-12 col-sm-12 col-xs-12" >
+                       <div class="x_panel tile fixed_height_160">
+                           <!-- identitas mahasiswa -->
+                           <div class="card">
+                               <div class="x_title" style="color: black">
+                                   <h1>
+                                       Identitas Orang Tua
+                                   </h1>
+                                   <div class="clearfix"></div>
+                               </div>
+                               <div class="body" style="color: black">
+                                   <div class="row">
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Nama Ayah</label><br>
+                                                   <span name="nama_ayah" th:text="${v.namaAyah}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Agama Ayah</label><br>
+                                                   <span name="agama_ayah" th:text="${v.agamaAyah}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Pendidikan Ayah</label><br>
+                                                   <span name="pendidikan_ayah"  th:text="${v.pendidikanAyah}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Pekerjaan Ayah</label><br>
+                                                   <span name="pekerjaan_ayah" th:text="${v.pekerjaanAyah}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Nama Ibu</label><br>
+                                                   <span name="nama_ibu" th:text="${v.namaIbu}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Agama Ibu</label><br>
+                                                   <span name="agama_ibu" th:text="${v.agamaIbu}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Pendidikan Ibu</label><br>
+                                                   <span name="pendidikan_ibu" th:text="${v.pendidikanIbu}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Pekerjaan Ibu</label><br>
+                                                   <span name="pekerjaan_ibu" th:text="${v.pekerjaanIbu}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-6">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Alamat Orangtua</label><br>
+                                                   <span name="alamat_orangtua" th:text="${v.alamatOrangtua}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Kab./Kota Orangtua</label><br>
+                                                   <span name="kotaortu" th:text="${v.kokabOrangtua}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Telepon/Hp Orangtua</label><br>
+                                                   <span name="hp_orangtua" th:text="${v.nohpOrangtua}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Email Orangtua</label><br>
+                                                   <span name="email_orangtua" th:text="${v.emailOrangtua}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Penghasilan Orangtua</label><br>
+                                                   <span name="penghasilan_orangtua" th:text="${v.penghasilanOrangtua}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Jumlah Tanggungan</label><br>
+                                                   <span name="jumlah_tanggungan" th:text="${v.jumlahTanggungan}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-sm-3">
+                                           <div class="form-group">
+                                               <div class="form-line">
+                                                   <label>Rencana Biaya</label><br>
+                                                   <span name="rencana_biaya" th:text="${v.rencanaBiaya}"></span>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+        </div>
     </section>
 
 </section>

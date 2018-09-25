@@ -8,80 +8,81 @@
 </head>
 <body>
 <section layout:fragment="content" class="clearfix">
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="card">
-                                <div class="header">
-                                    <h3>
-                                        Data Sekolah
-                                    </h3>
-                                        <br>
-                                        <a th:href="@{/sekolah/form}"
-                                           class="btn btn-lg bg-blue-grey waves-effect" type="submit">Tambah</a>
-                                </div>
-                                <!--Table-->
-                                <div class="body">
-                                    <form method="get">
-                                        Nama Sekolah : <br><input type="text" name="nama" th:value="${nama}">
-                                        <input type="submit" value="Cari" class="btn  bg-blue-grey waves-effect">
-                                    </form>
-                                    <br>
-                                    Show <span sd:page-size-selector="javascript"></span> entries
-
-                                    <hr>
-
-
-                                    <div class="row">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Sekolah</th>
-                                                <th>NSPN Sekolah</th>
-                                                <th>Alamat</th>
-                                                <th>Telephone</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="s,row : ${daftarSekolah}">
-                                                <td th:text="${(row.index + 1) + (daftarSekolah.number * daftarSekolah.size)}">#</td>
-                                                <td th:text="${s.nama}">SMK Wiladatika</td>
-                                                <td th:text="${s.nspn}">12342341212</td>
-                                                <td th:text="${s.alamat}">Jln Raya Wangun</td>
-                                                <td th:text="${s.kontak}">0251453224</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div sd:pagination-summary="">info</div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title" style="color: black">
+                    <h1>Data Sekolah</h1>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row clearfix" style="color: black">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <form method="get">
+                                                <h4>Nama Sekolah : <br><input type="text" name="nama" placeholder="Cari Sekolah" th:value="${nama}">
+                                                    <input type="submit" class="btn btn-sm  btn-info" value="Cari"></h4>
+                                            </form>
+                                            <a th:href="@{/sekolah/form}" class="btn btn-md  btn-warning">Tambah</a>
+                                            <br><br>
+                                            Show <span sd:page-size-selector="javascript" ></span> entries
+                                            <hr>
+                                            <div class="row">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Nama Sekolah</th>
+                                                            <th>NSPN Sekolah</th>
+                                                            <th>Alamat</th>
+                                                            <th>Telephone</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="s,row : ${daftarSekolah}">
+                                                            <td th:text="${(row.index + 1) + (daftarSekolah.number * daftarSekolah.size)}">#</td>
+                                                            <td th:text="${s.nama}">SMK Wiladatika</td>
+                                                            <td th:text="${s.nspn}">12342341212</td>
+                                                            <td th:text="${s.alamat}">Jln Raya Wangun</td>
+                                                            <td th:text="${s.kontak}">0251453224</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div sd:pagination-summary="">info</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <nav class="pull-right">
+                                                        <ul class="pagination" sd:pagination="full">
+                                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <nav class="pull-right">
-                                                <ul class="pagination" sd:pagination="full">
-                                                    <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
-                                                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                                                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                                </ul>
-                                            </nav>
-                                        </div>
+                                        <!--//table//-->
                                     </div>
                                 </div>
-                                <!--//table//-->
                             </div>
                         </div>
                     </div>
+                </div>
+
             </div>
         </div>
     </div>
+
 
 </section>
 

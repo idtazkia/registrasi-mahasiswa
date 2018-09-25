@@ -8,89 +8,93 @@
 </head>
 <body>
 <section layout:fragment="content" class="clearfix">
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="row clearfix">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title" style="color: black">
+                    <h1>Data NIM Mahasiswa</h1>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row clearfix" style="color: black">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="header">
-                            <h3>
-                                Data NIM Mahasiswa Baru
-                            </h3>
-                        </div>
-                        <!--Table-->
-                        <div class="body">
-                            <form method="get">
-                                Nama / NIM /No Registrasi : <br><input type="text" name="search" placeholder="Cari Data" th:value="${search}">
-                                <input type="submit" class="btn  bg-blue-grey waves-effect" value="Cari">
-                            </form>
-                            <br>
-                            <form th:action="@{/simak/detail/csv}" method="get" sec:authorize="hasAuthority('VIEW_AKADEMIK')">
-                                <input type="submit" class="btn  bg-blue-grey waves-effect" value="Download Detail Pendaftar Simak CSV">
-                            </form>
-                            <br>
-                            <form th:action="@{/simak/xlsx}" method="get" sec:authorize="hasAuthority('VIEW_AKADEMIK')">
-                                <input type="submit" class="btn  bg-blue-grey waves-effect" value="Download Detail Pendaftar XLSX">
-                            </form>
-                            <form th:action="@{/humas/xlsx}" method="get" sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE')">
-                                <input type="submit" class="btn  bg-blue-grey waves-effect" value="Download Detail Pendaftar XLSX">
-                            </form>
-                            <br>
-                            Show <span sd:page-size-selector="javascript" ></span> entries
-                            <hr>
-                            <div class="row">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-hover">
-                                        <thead>
-                                        <tr align="center">
-                                            <th>No</th>
-                                            <th>Nomor Registrasi</th>
-                                            <th>Nama</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>NIM</th>
-                                            <th>Program Studi</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="p,row : ${daftarDetail}"  th:if="${not #lists.isEmpty(p.nim)}">
-                                            <td th:text="${(row.index + 1)}">#</td>
-                                            <td th:text="${p.pendaftar.nomorRegistrasi}">201801002</td>
-                                            <td th:text="${p.pendaftar.nama}">haffizh</td>
-                                            <td th:if="${p.jenisKelamin == 'L'}">Laki-Laki</td>
-                                            <td th:if="${p.jenisKelamin == 'P'}">Perempuan</td>
-                                            <td th:text="${p.nim}" style="font-weight: bold; font-size: 16px; color: red">haffizh</td>
-                                            <td th:text="${p.pendaftar.programStudi.nama}">haffizh</td>
+                        <div class="card">
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <form method="get">
+                                                <h4>Nama / NIM /No Registrasi : <br><input type="text" name="search" placeholder="Cari Data" th:value="${search}">
+                                                <input type="submit" class="btn  btn-sm btn-info" value="Cari"></h4>
+                                            </form>
+                                            <form th:action="@{/simak/detail/csv}" method="get" sec:authorize="hasAuthority('VIEW_AKADEMIK')">
+                                                <input type="submit" class="btn  btn-sm btn-info" value="Download Detail Pendaftar Simak CSV">
+                                            </form>
+                                            <br>
+                                            <form th:action="@{/simak/xlsx}" method="get" sec:authorize="hasAuthority('VIEW_AKADEMIK')">
+                                                <input type="submit" class="btn  btn-sm btn-info" value="Download Detail Pendaftar XLSX">
+                                            </form>
+                                            <form th:action="@{/humas/xlsx}" method="get" sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE')">
+                                                <input type="submit" class="btn  btn-sm btn-warning" value="Download Detail Pendaftar XLSX">
+                                            </form>
+                                            <br>
+                                            Show <span sd:page-size-selector="javascript" ></span> entries
+                                            <hr>
+                                            <div class="row">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped table-hover">
+                                                        <thead>
+                                                        <tr align="center">
+                                                            <th>No</th>
+                                                            <th>Nomor Registrasi</th>
+                                                            <th>Nama</th>
+                                                            <th>Jenis Kelamin</th>
+                                                            <th>NIM</th>
+                                                            <th>Program Studi</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="p,row : ${daftarDetail}"  th:if="${not #lists.isEmpty(p.nim)}">
+                                                            <td th:text="${(row.index + 1)}">#</td>
+                                                            <td th:text="${p.pendaftar.nomorRegistrasi}">201801002</td>
+                                                            <td th:text="${p.pendaftar.nama}">haffizh</td>
+                                                            <td th:if="${p.jenisKelamin == 'L'}">Laki-Laki</td>
+                                                            <td th:if="${p.jenisKelamin == 'P'}">Perempuan</td>
+                                                            <td th:text="${p.nim}" style="font-weight: bold; font-size: 16px; color: red">haffizh</td>
+                                                            <td th:text="${p.pendaftar.programStudi.nama}">haffizh</td>
 
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div sd:pagination-summary="">info</div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <nav class="pull-right">
-                                        <ul class="pagination" sd:pagination="full">
-                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
-                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                        </ul>
-                                    </nav>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div sd:pagination-summary="">info</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <nav class="pull-right">
+                                                        <ul class="pagination" sd:pagination="full">
+                                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--//table//-->
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!--//table//-->
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
-    </div>
-
 </section>
 
 </body>

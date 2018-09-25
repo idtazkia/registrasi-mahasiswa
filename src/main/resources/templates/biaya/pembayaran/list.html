@@ -8,65 +8,72 @@
 </head>
 <body>
 <section layout:fragment="content" class="clearfix">
-    <section class="clearfix">
-        <form method="post">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
-                        <!-- Identitas awal-->
-                        <div class="card">
-                            <div class="header">
-                                <h1>
-                                    List Pembayaran
-                                </h1>
-                            </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title" style="color: black">
+                    <h1>Bukti Pembayaran |
+                    <a sec:authorize="hasAuthority('VIEW_MASTER')" th:href="@{/registrasi/list}" class="btn btn-md btn-danger waves-effect" type="submit">Kembali</a>
+                    </h1>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row clearfix" style="color: black">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="body">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <div class="table-responsive">
+                                        <table class="table table-responsive">
 
-                            <div class="body">
-                                <div class="row">
-                                    <div class="col-sm-9">
-                                        <div class="table-responsive">
-                                            <table class="table table-responsive">
-
-                                                <div th:each="p : ${pembayaran}">
-                                                    <tr>
-                                                        <td width="20%">No Tagihan</td>
-                                                        <td width="10px">:</td>
-                                                        <td th:text="${p.tagihan.nomorTagihan}"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="20%">Cara Bayar</td>
-                                                        <td width="10px">:</td>
-                                                        <td th:text="${p.caraPembayaran}">Transfer</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="20%">Bank</td>
-                                                        <td width="10px">:</td>
-                                                        <td th:text="${p.bank.namaBank}">Mandiri1</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="20%">Nilai</td>
-                                                        <td width="10px">:</td>
-                                                        <td th:text="${p.nilai}">300.0001</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="20%">Bukti</td>
-                                                        <td width="10px">:</td>
-                                                        <td><img th:src="@{/pembayaran/{imageId}/bukti/(imageId=${p.id})}" th:width="400px" height="400px" alt=""></td>
-                                                    </tr>
-                                                </div>
-                                            </table>
+                                            <div th:each="p : ${pembayaran}">
+                                                <tr>
+                                                    <td width="20%">Nama</td>
+                                                    <td width="10px">:</td>
+                                                    <td th:text="${p.tagihan.pendaftar.nama}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="20%">Jenis Tagihan</td>
+                                                    <td width="10px">:</td>
+                                                    <td th:text="${p.tagihan.jenisBiaya.nama}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="20%">No Tagihan</td>
+                                                    <td width="10px">:</td>
+                                                    <td th:text="${p.tagihan.nomorTagihan}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="20%">Cara Bayar</td>
+                                                    <td width="10px">:</td>
+                                                    <td th:text="${p.caraPembayaran}">Transfer</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="20%">Bank</td>
+                                                    <td width="10px">:</td>
+                                                    <td th:text="${p.bank.namaBank}">Mandiri1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="20%">Nilai</td>
+                                                    <td width="10px">:</td>
+                                                    <td th:text="${p.nilai}">300.0001</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="20%">Bukti</td>
+                                                    <td width="10px">:</td>
+                                                    <td><img th:src="@{/pembayaran/{imageId}/bukti/(imageId=${p.id})}" th:width="400px" height="400px" alt=""></td>
+                                                </tr>
+                                            </div>
+                                        </table>
                                     </div>
 
-                                 </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
-    </section>
 
+            </div>
+        </div>
+    </div>
 </section>
 
 </body>

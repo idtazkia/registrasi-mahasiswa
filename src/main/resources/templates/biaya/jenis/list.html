@@ -8,83 +8,86 @@
 </head>
 <body>
 <section layout:fragment="content" class="clearfix">
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="row clearfix">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title" style="color: black">
+                    <h1>Data Jenis Biaya</h1>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row clearfix" style="color: black">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="card">
-                            <div class="header">
-                                <h3>
-                                    Data Jenis Biaya
-                                </h3>
-                                <br>
-                                <a th:href="@{/biaya/jenis/form}"
-                                   class="btn btn-lg bg-blue-grey waves-effect" type="submit">Tambah</a>
-                            </div>
-                            </div>
-                            <!--Table-->
-                            <div class="body">
-                                <form method="get">
-                                    Nama Grade : <br><input type="text" name="nama" th:value="${nama}">
-                                    <input type="submit" value="Cari" class="btn  bg-blue-grey waves-effect">
-                                </form>
-                                <br>
-                                Show <span sd:page-size-selector="javascript"></span> entries
-
-                                <hr>
-
-
-                                <div class="row">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Jenis Biaya</th>
-                                                    <th colspan="2">&nbsp;</th>
-                                                </tr>
-                                            </thead>
-                                        <tbody>
-                                        <tr th:each="p, row : ${daftarBiaya}">
-                                            <td th:text="${(row.index + 1) + (daftarBiaya.number * daftarBiaya.size)}">#</td>
-                                            <td th:text="${p. nama}">muamalah</td>
-                                            <td width="100px">
-                                                <a href="form"  th:href="@{/biaya/jenis/form(id=${p.id})}"
-                                                   class="btn bg-green waves-effec">Edit
-                                                </a>
-                                            </td>
-                                            <td width="100px">
-                                                <a href="form"  th:href="@{/biaya/jenis/hapus(id=${p.id})}"
-                                                   class="btn bg-red waves-effec">Hapus
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+                                            <form method="get">
+                                                <h4>Nama Biaya : <br><input type="text" name="nama" placeholder="Cari Jenis Biaya" th:value="${nama}">
+                                                    <input type="submit" class="btn btn-sm  btn-info" value="Cari"></h4>
+                                            </form>
+                                            <!--<a th:href="@{/biaya/jenis/form}" class="btn btn-md  btn-warning">Tambah</a>-->
+                                            <!--<br><br>-->
+                                            Show <span sd:page-size-selector="javascript" ></span> entries
+                                            <hr>
+                                            <div class="row">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Jenis Biaya</th>
+                                                            <th colspan="2">&nbsp;</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="p, row : ${daftarBiaya}">
+                                                            <td th:text="${(row.index + 1) + (daftarBiaya.number * daftarBiaya.size)}">#</td>
+                                                            <td th:text="${p. nama}">muamalah</td>
+                                                            <td width="100px">
+                                                                <a href="form"  th:href="@{/biaya/jenis/form(id=${p.id})}"
+                                                                   class="btn bg-green btn-xs waves-effec">Edit
+                                                                </a>
+                                                            </td>
+                                                            <td width="100px">
+                                                                <form method="post" th:action="@{/biaya/jenis/hapus(id=${p.id})}">
+                                                                    <button type="submit" class="btn btn-danger btn-xs"
+                                                                            onclick="return confirm('Are you sure? Once deleted, you will not be able' +
+                                                                            ' to recover this imaginary file!')">
+                                                                        Hapus
+                                                                    </button>
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div sd:pagination-summary="">info</div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <nav class="pull-right">
+                                                        <ul class="pagination" sd:pagination="full">
+                                                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--//table//-->
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div sd:pagination-summary="">info</div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        <nav class="pull-right">
-                                            <ul class="pagination" sd:pagination="full">
-                                                <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
-                                                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
                             </div>
-                            <!--//table//-->
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
