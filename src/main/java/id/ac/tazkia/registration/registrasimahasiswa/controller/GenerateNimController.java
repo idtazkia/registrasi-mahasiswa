@@ -63,7 +63,8 @@ public class GenerateNimController{
         detail.setPendaftar(p.getId());
         detail.setAsalSekolah(p.getNamaAsalSekolah());
         if (d != null) {
-            detail.setTtl(d.getTtl());
+            detail.setTempatLahir(d.getTempatLahir());
+            detail.setTanggalLahir(d.getTanggalLahir());
             detail.setJenisKelamin(d.getJenisKelamin());
             detail.setGolonganDarah(d.getGolonganDarah());
             detail.setNoKtp(d.getNoKtp());
@@ -99,7 +100,7 @@ public class GenerateNimController{
         }
         m.addAttribute("detail",detail);
 
-
+        System.out.println("Tanggal Lahir :"+ d.getTanggalLahir());
 
     }
 
@@ -221,7 +222,9 @@ public class GenerateNimController{
                 response.getWriter().print(",");
                 response.getWriter().print(p.getNisn());
                 response.getWriter().print(",");
-                response.getWriter().print(p.getTtl());
+                response.getWriter().print(p.getTempatLahir());
+                response.getWriter().print(",");
+                response.getWriter().print(p.getTanggalLahir());
                 response.getWriter().print(",");
                 response.getWriter().print(p.getStatusSipil());
                 response.getWriter().print(",");
@@ -258,7 +261,7 @@ public class GenerateNimController{
     public void rekapSimakXlsx(HttpServletResponse response) throws Exception {
 
         String[] columns = {"no","nim","nama","program studi","kode prodi", "jenis kelamin", "agama", "alamat", "asal sekolah"," provinsi", "kokab", "kode pos", "email", "no hp", "no ktp"
-                ,"nisn", "tempat tanggal lahir", "status sipil", "negara", "tahun lulus", "nama ayah",
+                ,"nisn", "tempat lahir","tanggal lahir", "status sipil", "negara", "tahun lulus", "nama ayah",
                         "agama ayah", "pendidikan ayah","nama ibu", "agama ibu", "pendidikan ibu", "email ortu","nohp ortu"};
 
         Iterable<DetailPendaftar> dataPendaftar = detailPendaftarDao.findAll();
@@ -304,18 +307,19 @@ public class GenerateNimController{
                 row.createCell(13).setCellValue(p.getNoHp());
                 row.createCell(14).setCellValue(p.getNoKtp());
                 row.createCell(15).setCellValue(p.getNisn());
-                row.createCell(16).setCellValue(p.getTtl());
-                row.createCell(17).setCellValue(p.getStatusSipil());
-                row.createCell(18).setCellValue(p.getPendaftar().getNegara());
-                row.createCell(19).setCellValue(p.getTahunLulusSekolah());
-                row.createCell(20).setCellValue(p.getNamaAyah());
-                row.createCell(21).setCellValue(p.getAgamaAyah());
-                row.createCell(22).setCellValue(p.getPendidikanAyah());
-                row.createCell(23).setCellValue(p.getNamaIbu());
-                row.createCell(24).setCellValue(p.getAgamaIbu());
-                row.createCell(25).setCellValue(p.getPendidikanIbu());
-                row.createCell(26).setCellValue(p.getEmailOrangtua());
-                row.createCell(27).setCellValue(p.getNohpOrangtua());
+                row.createCell(16).setCellValue(p.getTempatLahir());
+                row.createCell(17).setCellValue(String.valueOf(p.getTanggalLahir()));
+                row.createCell(18).setCellValue(p.getStatusSipil());
+                row.createCell(19).setCellValue(p.getPendaftar().getNegara());
+                row.createCell(20).setCellValue(p.getTahunLulusSekolah());
+                row.createCell(21).setCellValue(p.getNamaAyah());
+                row.createCell(22).setCellValue(p.getAgamaAyah());
+                row.createCell(23).setCellValue(p.getPendidikanAyah());
+                row.createCell(24).setCellValue(p.getNamaIbu());
+                row.createCell(25).setCellValue(p.getAgamaIbu());
+                row.createCell(26).setCellValue(p.getPendidikanIbu());
+                row.createCell(27).setCellValue(p.getEmailOrangtua());
+                row.createCell(28).setCellValue(p.getNohpOrangtua());
             }
         }
 
@@ -334,7 +338,7 @@ public class GenerateNimController{
     public void rekapHumasXlsx(HttpServletResponse response) throws Exception {
 
         String[] columns = {"no","nim","nama","program studi", "jenis kelamin", "agama", "alamat", "asal sekolah"," provinsi", "kokab", "kode pos", "email", "no hp", "no ktp"
-                ,"nisn", "tempat tanggal lahir", "status sipil", "negara", "tahun lulus", "nama ayah",
+                ,"nisn", "tempat lahir","tanggal lahir", "status sipil", "negara", "tahun lulus", "nama ayah",
                 "agama ayah", "pendidikan ayah","nama ibu", "agama ibu", "pendidikan ibu", "email ortu","nohp ortu"};
 
         Iterable<DetailPendaftar> dataPendaftar = detailPendaftarDao.findAll();
@@ -379,18 +383,19 @@ public class GenerateNimController{
                 row.createCell(12).setCellValue(p.getNoHp());
                 row.createCell(13).setCellValue(p.getNoKtp());
                 row.createCell(14).setCellValue(p.getNisn());
-                row.createCell(15).setCellValue(p.getTtl());
-                row.createCell(16).setCellValue(p.getStatusSipil());
-                row.createCell(17).setCellValue(p.getPendaftar().getNegara());
-                row.createCell(18).setCellValue(p.getTahunLulusSekolah());
-                row.createCell(19).setCellValue(p.getNamaAyah());
-                row.createCell(20).setCellValue(p.getAgamaAyah());
-                row.createCell(21).setCellValue(p.getPendidikanAyah());
-                row.createCell(22).setCellValue(p.getNamaIbu());
-                row.createCell(23).setCellValue(p.getAgamaIbu());
-                row.createCell(24).setCellValue(p.getPendidikanIbu());
-                row.createCell(25).setCellValue(p.getEmailOrangtua());
-                row.createCell(26).setCellValue(p.getNohpOrangtua());
+                row.createCell(15).setCellValue(p.getTempatLahir());
+                row.createCell(16).setCellValue(String.valueOf(p.getTanggalLahir()));
+                row.createCell(17).setCellValue(p.getStatusSipil());
+                row.createCell(18).setCellValue(p.getPendaftar().getNegara());
+                row.createCell(19).setCellValue(p.getTahunLulusSekolah());
+                row.createCell(20).setCellValue(p.getNamaAyah());
+                row.createCell(21).setCellValue(p.getAgamaAyah());
+                row.createCell(22).setCellValue(p.getPendidikanAyah());
+                row.createCell(23).setCellValue(p.getNamaIbu());
+                row.createCell(24).setCellValue(p.getAgamaIbu());
+                row.createCell(25).setCellValue(p.getPendidikanIbu());
+                row.createCell(26).setCellValue(p.getEmailOrangtua());
+                row.createCell(27).setCellValue(p.getNohpOrangtua());
             }
         }
 

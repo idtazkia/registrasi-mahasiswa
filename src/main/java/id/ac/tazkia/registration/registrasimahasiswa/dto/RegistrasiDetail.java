@@ -5,6 +5,12 @@ import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisTest;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.ProgramStudi;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 public class RegistrasiDetail {
@@ -13,7 +19,12 @@ public class RegistrasiDetail {
     private String kabupatenKota;
     private String pendaftar;
     private String email;
-    private String ttl;
+    private String tempatLahir;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
+    @Column(columnDefinition = "DATE")
+    private LocalDate tanggalLahir;
     private String jenisKelamin;
     private String golonganDarah;
     private String noKtp;

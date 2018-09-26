@@ -23,7 +23,7 @@ $(document).ready(function(){
     var cariSekolah =  null;
     var cariKokab =  null;
 
-
+    var inputTempatLahir = $("#tempatLahir")
     var inputSekolah = $("#sekolah");
     var inputProvinsi = $("#provinsi");
     var inputKabupatenKota = $("#kabupatenKota");
@@ -45,6 +45,15 @@ $(document).ready(function(){
 
     // resetInput(inputKabupatenKota);
 
+    inputTempatLahir.typeahead({
+        displayText: function(item){ return item.nama;},
+        source: _.debounce(function(cari, process){
+            kokabawal = null;
+            $.get(urlKokabawal, {nama: cari}, function(hasil){
+                process(hasil);
+            }, "json");
+        }, 500)
+    });
 
     inputProvinsi.typeahead({
         displayText: function(item){ return item.nama;},

@@ -40,10 +40,10 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label>Tempat Lahir</label>
-                                                    <input type="text" name="ttl"
-                                                           class="form-control" th:field="*{ttl}"
-                                                           placeholder="Tempat Lahir"
-                                                           required autofocus/>
+                                                    <input type="text" name="tempatLahir"
+                                                           class="form-control" th:field="*{tempatLahir}"
+                                                           id="tempatLahir" placeholder="Cari Kabupaten/Kota ..."
+                                                           data-provide="typeahead">
                                                 </div>
                                             </div>
                                         </div>
@@ -52,8 +52,8 @@
                                                 <div class="form-line">
                                                     <label>Tanggal Lahir</label>
                                                     <input type="date"
+                                                           name="tanggalLahir" th:field="*{tanggalLahir}"
                                                            class="form-control"
-                                                           placeholder="Tempat, Tanggal - Bulan -Tahun"
                                                            required autofocus/>
                                                 </div>
                                             </div>
@@ -277,9 +277,15 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label>Agama Ayah</label>
-                                                    <input type="text" name="agama_ayah"
-                                                           class="form-control" th:field="*{agamaAyah}"
-                                                           placeholder="Agama Ayah" required autofocus/>
+                                                    <select name="agamaAyah" th:field="*{agamaAyah}" class="form-control" required autofocus>
+                                                        <option value="">-Pilih Agama-</option>
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Budha">Budha</option>
+                                                        <option value="Kristen">Kristen</option>
+                                                        <option value="Katholik">Katholik</option>
+                                                        <option value="KongHuCu">Kong Hu Cu</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -324,9 +330,15 @@
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label>Agama Ibu</label>
-                                                    <input type="text" name="agama_ibu"
-                                                           class="form-control" th:field="*{agamaIbu}"
-                                                           placeholder="Agama Ibu" required autofocus/>
+                                                    <select name="agamaIbu" th:field="*{agamaIbu}" class="form-control" required autofocus>
+                                                        <option value="">-Pilih Agama-</option>
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                        <option value="Budha">Budha</option>
+                                                        <option value="Kristen">Kristen</option>
+                                                        <option value="Katholik">Katholik</option>
+                                                        <option value="KongHuCu">Kong Hu Cu</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -489,11 +501,11 @@
                                     <div class="col-sm-2">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label>TTL</label>
-                                                <input type="text" name="ttl"
-                                                       class="form-control" th:field="*{ttl}"
-                                                       placeholder="Tempat, Tanggal - Bulan -Tahun"
-                                                       required autofocus/>
+                                                <label>Tempat Lahir</label>
+                                                <input type="text" name="tempatLahir"
+                                                       class="form-control" th:field="*{tempatLahir}"
+                                                       id="tempatLahir" placeholder="Cari Kabupaten/Kota ..."
+                                                       data-provide="typeahead">
                                             </div>
                                         </div>
                                     </div>
@@ -501,9 +513,8 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Tanggal Lahir</label>
-                                                <input type="date"
-                                                       class="form-control"
-                                                       placeholder="Tempat, Tanggal - Bulan -Tahun"
+                                                <input type="date" name="tanggalLahir"
+                                                       class="form-control" th:field="*{tanggalLahir}"
                                                        required autofocus/>
                                             </div>
                                         </div>
@@ -714,9 +725,15 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Agama Ayah</label>
-                                                <input type="text" name="agama_ayah"
-                                                       class="form-control" th:field="*{agamaAyah}"
-                                                       placeholder="Agama Ayah" required autofocus/>
+                                                <select name="agamaAyah" th:field="*{agamaAyah}" class="form-control" required autofocus>
+                                                    <option value="">-Pilih Agama-</option>
+                                                    <option value="Islam">Islam</option>
+                                                    <option value="Hindu">Hindu</option>
+                                                    <option value="Budha">Budha</option>
+                                                    <option value="Kristen">Kristen</option>
+                                                    <option value="Katholik">Katholik</option>
+                                                    <option value="KongHuCu">Kong Hu Cu</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -761,9 +778,15 @@
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label>Agama Ibu</label>
-                                                <input type="text" name="agama_ibu"
-                                                       class="form-control" th:field="*{agamaIbu}"
-                                                       placeholder="Agama Ibu" required autofocus/>
+                                            <select name="agamaIbu" th:field="*{agamaIbu}" class="form-control" required autofocus>
+                                                <option value="">-Pilih Agama-</option>
+                                                <option value="Islam">Islam</option>
+                                                <option value="Hindu">Hindu</option>
+                                                <option value="Budha">Budha</option>
+                                                <option value="Kristen">Kristen</option>
+                                                <option value="Katholik">Katholik</option>
+                                                <option value="KongHuCu">Kong Hu Cu</option>
+                                            </select>
                                             </div>
                                         </div>
                                     </div>

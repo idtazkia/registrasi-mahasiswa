@@ -4,10 +4,13 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Entity @Data
 public class DetailPendaftar {
@@ -24,7 +27,12 @@ public class DetailPendaftar {
     @Column(nullable = false)
     @NotNull
     @NotEmpty
-    private String ttl;
+    private String tempatLahir;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
+    @Column(columnDefinition = "DATE")
+    private LocalDate tanggalLahir;
 
     @NotNull
     @NotEmpty

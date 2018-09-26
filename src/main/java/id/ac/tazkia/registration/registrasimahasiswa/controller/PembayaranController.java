@@ -7,8 +7,10 @@ import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
+import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
+import id.ac.tazkia.registration.registrasimahasiswa.service.NotifikasiService;
 import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,6 +77,8 @@ public class PembayaranController {
 
     @Autowired
     private JenisBiayaDao jenisBiayaDao;
+    @Autowired
+    private NotifikasiService notifikasiService;
 
     @RequestMapping(value = "/biaya/pembayaran/form", method = RequestMethod.GET)
     public void tampilkanForm(@RequestParam(value = "id", required = true) String id,
@@ -136,7 +140,16 @@ public class PembayaranController {
         tagihan.setLunas(true);
         tagihanDao.save(tagihan);
 
-        registrasiService.aktivasiUser(tagihan.getPendaftar());
+        if (tagihan.getJenisBiaya().getId().equals(AppConstants.JENIS_BIAYA_DAFTAR_ULANG)) {
+            DetailPendaftar dp = detailPendaftarDao.findByPendaftar(tagihan.getPendaftar());
+            if (dp == null) {
+                LOGGER.warn("Tagihan dengan nomor {} tidak memiliki data detail pendaftar", tagihan.getNomorTagihan());
+            }
+            notifikasiService.kirimNotifikasiKeteranganLulus(dp);
+        } else {
+            registrasiService.aktivasiUser(tagihan.getPendaftar());
+        }
+//        registrasiService.aktivasiUser(tagihan.getPendaftar());
 
         LOGGER.debug("Bank : {}", pembayaran.getBank());
 
@@ -221,7 +234,7 @@ public class PembayaranController {
 
             IContext ctx = report.createContext();
             ctx.put("nama", d.getPendaftar().getNama());
-            ctx.put("ttl", d.getTtl());
+            ctx.put("ttl", d.getTempatLahir() + ',' + d.getTanggalLahir());
             ctx.put("asalSekolah", d.getAsalSekolah());
             ctx.put("namaAyah", d.getNamaAyah());
             ctx.put("alamat", d.getAlamatRumah());
