@@ -25,6 +25,7 @@ public class Registrasi {
     private String programStudi;
     private String konsentrasi;
     private User user;
+    private String agama;
 
 
 }

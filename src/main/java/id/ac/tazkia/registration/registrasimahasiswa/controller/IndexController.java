@@ -49,6 +49,11 @@ public class IndexController {
     private Resource bukuEi;
 
     @GetMapping("/")
+    public String formIndex(){
+        return "index";
+    }
+
+    @GetMapping("/hasilTest")
     public String defaultPage(@RequestParam(required = false)String search,String cari, Model m, @Qualifier("tpa")Pageable tpaPage, @Qualifier("smart") Pageable smartPage){
         if(StringUtils.hasText(search)) {
             m.addAttribute("search", search);
@@ -66,7 +71,7 @@ public class IndexController {
         } else {
             m.addAttribute("daftarSmart", hasilTestDao.findByJenisTestIn(smartPage, JenisTest.SMART_TEST));
         }
-        return "index";
+        return "hasilTest";
     }
 
 

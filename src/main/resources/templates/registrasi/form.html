@@ -80,7 +80,25 @@
                                     <a class="page-scroll" th:href="@{/}">Home</a>
                                 </li>
                                 <li>
-                                    <a class="page-scroll"  th:href="@{/registrasi/form}" href="#registrasi">Registrasi</a>
+                                    <a class="page-scroll" th:href="@{/registrasi/form}" href="#registrasi">Registrasi</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#prodi}">Program</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#prosedur}">Prosedur</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#periode}">Periode</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/hasilTest}">Hasil Test</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#biaya}">Biaya</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#contact}">Contact</a>
                                 </li>
                                 <li>
                                     <a class="page-scroll" th:href="@{/login}">login</a>
@@ -159,6 +177,18 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <p>Agama</p>
+                                        <select name="agama" th:field="*{agama}" class="form-control" required autofocus>
+                                            <option value="">-Pilih Agama-</option>
+                                            <option value="Islam">Islam</option>
+                                            <option value="Hindu">Hindu</option>
+                                            <option value="Budha">Budha</option>
+                                            <option value="Kristen">Kristen</option>
+                                            <option value="Katholik">Katholik</option>
+                                            <option value="KongHuCu">Kong Hu Cu</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                         <p>Pemberi Rekomendasi *</p>
                                          <select name="pemberi_rekomendasi" class="form-control"
                                                  th:field="*{pemberiRekomendasi}" id="pemberi_rekomendasi" required autofocus>
@@ -189,8 +219,6 @@
                                                             th:text="${ins.nama}">Ekonomi Syariah</option>
                                          </select>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                         <p>Konsentrasi *</p>
                                         <select name="konsentrasi" th:field="*{konsentrasi}" class="form-control" required autofocus>

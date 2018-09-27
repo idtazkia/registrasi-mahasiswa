@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SPMB STEI Tazkia</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,400i,500,500i,700,800,900" rel="stylesheet"/>
+    <!-- Bootstrap CSS File -->
+    <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <!-- Libraries CSS Files -->
+    <link th:href="@{/lib/nivo-slider/css/nivo-slider.css}" rel="stylesheet"/>
+    <link th:href="@{/lib/owlcarousel/owl.carousel.css}" rel="stylesheet"/>
+    <link th:href="@{/lib/owlcarousel/owl.transitions.css}" rel="stylesheet"/>
+    <link th:href="@{/lib/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link th:href="@{/lib/animate/animate.min.css}" rel="stylesheet"/>
+    <link th:href="@{/lib/venobox/venobox.css}" rel="stylesheet"/>
+
+    <!-- Nivo Slider Theme -->
+    <link th:href="@{/css/index/nivo-slider-theme.css}" rel="stylesheet"/>
+
+    <!-- Main Stylesheet File -->
+    <link th:href="@{/css/index/style.css}" rel="stylesheet"/>
+
+    <!-- Responsive Stylesheet File -->
+    <link th:href="@{/css/index/responsive.css}" rel="stylesheet"/>
+    <link th:href="@{/css/select2.css}" rel="stylesheet"/>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+    </style>
+
+    <!-- =======================================================
+      Theme Name: eBusiness
+      Theme URL: https://bootstrapmade.com/ebusiness-bootstrap-corporate-template/
+      Author: BootstrapMade.com
+      License: https://bootstrapmade.com/license/
+    ======================================================= -->
+</head>
+
+<body data-spy="scroll" data-target="#navbar-example">
+
+<div id="preloader"></div>
+
+<header>
+    <!-- header-area start -->
+    <div id="sticker" class="header-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+
+                    <!-- Navigation -->
+                    <nav class="navbar navbar-default">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <!-- Brand -->
+                            <a class="navbar-brand page-scroll sticky-logo" th:href="@{/}">
+                                <h1><span>STEI</span>Tazkia</h1>
+                                <!-- Uncomment below if you prefer to use an image logo -->
+                                <!-- <img src="img/logo.png" alt="" title=""> -->
+                            </a>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse main-menu bs-example-navbar-collapse-1" id="navbar-example">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="active">
+                                    <a class="page-scroll" th:href="@{/}">Home</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/registrasi/form}" href="#registrasi">Registrasi</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#prodi}">Program</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#prosedur}">Prosedur</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#periode}">Periode</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#periode}">Hasil Test</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#biaya}">Biaya</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#contact}">Contact</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/login}">login</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- navbar-collapse -->
+                    </nav>
+                    <!-- END: Navigation -->
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+
+    <div id="registrasi" class="about-area area-padding"><br><br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="section-headline text-center">
+                        <h2>Hasil Test <a href="#tpa">(TPA-JPA)</a> & <a href="#smart">(SMART TEST)</a></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="single-post-comments">
+                        <div class="comment-respond">
+                            <!--TPA JPA-->
+                            <h3 class="comment-reply-title"></h3>
+                                <div class="row" id="tpa">
+                                    <div class="col-md-12 col-sm-12 col-xs-12" sd:page-object="${daftarHasil}" sd:pagination-qualifier="tpa">
+                                        <div class="pri_table_list active ">
+                                            <h3>Hasil Test TPA & JPA<br/> <span class="fa fa-edit"></span></h3>
+                                                <form method="get">
+                                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" align="left">
+                                                            <span>Cari Nama/Nomor Registrasi :</span>
+                                                            <input type="text" class="form-control" id="search" name="search"
+                                                                   placeholder="Nama/No Registrasi Anda" th:value="${search}" >
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-left: -13%;">
+                                                            <input type="submit" value="Cari" class="btn btn-success btn-xs"><br>
+                                                        </div>
+                                                    <br><br><br><br><div class="row" style="margin-left: 15px;">
+                                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" align="left">
+                                                            Show <span sd:page-size-selector="javascript"></span> entries
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            <br>
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="pri_table_list active" style="overflow-x:auto;">
+                                                <table border="1" class="table table-renponsive">
+                                                    <thead style="font-weight: bold; background-color: #3EC1D5">
+                                                        <th width="4%">No</th>
+                                                        <th>Nomor Registrasi</th>
+                                                        <th>Nama</th>
+                                                        <th>Asal Sekolah</th>
+                                                        <th>Keterangan</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr th:each="p,row : ${daftarHasil}" align="center">
+                                                            <td th:text="${(row.index + 1) + (daftarHasil.number * daftarHasil.size)}">#</td>
+                                                            <td th:text="${p.pendaftar.nomorRegistrasi}"></td>
+                                                            <td th:text="${p.pendaftar.nama}"></td>
+                                                            <td th:text="${p.pendaftar.namaAsalSekolah}"></td>
+                                                            <td>
+                                                                <span style="color: #4fa9e8; font-size: 16px;" th:if="${p.nilai}>29">Lulus(
+                                                                <span th:text="${p.grade.nama}"  style="color:black; font-size: 16px;"></span> )
+                                                                </span>
+                                                                <span th:if="${p.nilai}<29">
+                                                                <span th:text="${p.grade.nama}"  style="color: red; font-size: 16px;"></span>                                        </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div sd:pagination-summary="">info</div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-8">
+                                                        <nav class="pull-right">
+                                                            <ul class="pagination" sd:pagination="full">
+                                                                <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                                                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                                            </ul>
+                                                        </nav>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <h3 class="comment-reply-title" id="smart"></h3>
+                            <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12" sd:page-object="${daftarSmart}" sd:pagination-qualifier="smart">
+                                        <div class="pri_table_list active ">
+                                            <h3>Hasil Test SMART TEST<br/> <span class="fa fa-edit"></span></h3>
+                                            <form method="get">
+                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" align="left">
+                                                    <span>Cari Nama/Sekolah :</span>
+                                                    <input type="text" class="form-control" id="cari" name="cari"
+                                                           placeholder="Nama/Sekolah Anda" th:value="${cari}" >
+                                                </div>
+                                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-left: -13%;">
+                                                    <input type="submit" value="Cari" class="btn btn-success btn-xs"><br>
+                                                </div>
+                                                <br><br><br><br><div class="row" style="margin-left: 15px;">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" align="left">
+                                                    Show <span sd:page-size-selector="javascript"></span> entries
+                                                </div>
+                                            </div>
+                                            </form>
+                                            <br>
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="pri_table_list active" style="overflow-x:auto;">
+                                                    <table border="1" class="table table-renponsive">
+                                                        <thead style="font-weight: bold; background-color: #3EC1D5">
+                                                        <th width="4%">No</th>
+                                                        <th>Nama</th>
+                                                        <th>Asal Sekolah</th>
+                                                        <th>Kota Asal Sekolah</th>
+                                                        <th>Keterangan</th>
+                                                        <th>&nbsp;</th>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="p,row : ${daftarSmart}" align="center">
+                                                            <td th:text="${(row.index + 1) + (daftarSmart.number * daftarSmart.size)}">#</td>
+                                                            <td th:text="${p.pendaftar.nama}"></td>
+                                                            <td th:text="${p.pendaftar.namaAsalSekolah}"></td>
+                                                            <td th:text="${p.pendaftar.kabupatenKota.nama}"></td>
+                                                            <td>
+                                                                <span style="color: #4fa9e8; font-size: 16px;" th:if="${p.nilai}>29">Lulus(
+                                                                   <span th:text="${p.grade.nama}"  style="color:black; font-size: 16px;"></span> )
+                                                                </span>
+                                                                <span th:if="${p.nilai}<29">
+                                                                <span th:text="${p.grade.nama}"  style="color: red; font-size: 16px;"></span>                                        </span>
+                                                            </td>
+                                                            <td>
+                                                                <span th:if="${p.pendaftar.programStudi == null}">
+                                                                <a th:href="@{registrasi/form(id = ${p.pendaftar.id})}" target="_blank" class="btn btn-xs btn-primary text-uppercase js-scroll-trigger">Daftar</a>
+                                                                </span>
+                                                            </td>
+
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div sd:pagination-summary="">info</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-8">
+                                                            <nav class="pull-right">
+                                                                <ul class="pagination" sd:pagination="full">
+                                                                    <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                                                                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                                                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                                                </ul>
+                                                            </nav>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end prosedur-->
+</section>
+<div class="footer-area-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="copyright text-center">
+                    <p>
+                        &copy; Copyright <strong>STEI Tazkia</strong>. All Rights Reserved
+                    </p>
+                </div>
+                <div class="credits">
+                    <!--
+                      All the links in the footer should remain intact.
+                      You can delete the links only if you purchased the pro version.
+                      Licensing information: https://bootstrapmade.com/license/
+                      Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eBusiness
+                    -->
+                    Designed by BootstrapMade
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script th:src="@{/lib/jquery/jquery.min.js}"></script>
+<script th:src="@{/lib/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/lib/owlcarousel/owl.carousel.min.js}"></script>
+<script th:src="@{/lib/venobox/venobox.min.js}"></script>
+<script th:src="@{/lib/knob/jquery.knob.js}"></script>
+<script th:src="@{/lib/wow/wow.min.js}"></script>
+<script th:src="@{/lib/parallax/parallax.js}"></script>
+<script th:src="@{/lib/easing/easing.min.js}"></script>
+<script th:src="@{/lib/nivo-slider/js/jquery.nivo.slider.js}" type="text/javascript"></script>
+<script th:src="@{/lib/appear/jquery.appear.js}"></script>
+<script th:src="@{/lib/isotope/isotope.pkgd.min.js}"></script>
+
+<script th:src="@{/js/index/main.js}"></script>
+
+<script th:src="@{/js/select2.min.js}"></script>
+
+<script src="https://cdn.rawgit.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+<script th:src="@{/js/bootstrap3-typeahead.js}"></script>
+<script th:src="@{/js/aplikasi.js}"></script>
+
+<th:block layout:fragment="script">
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
+</th:block>
+</html>

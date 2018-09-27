@@ -68,4 +68,7 @@ public class Pendaftar {
     @OneToOne @JoinColumn(name = "id_user")
     private User user;
 
+    @Column(nullable = false)
+    private String agama;
+
 }
