@@ -13,4 +13,16 @@ public interface NilaiBiayaDao extends PagingAndSortingRepository <NilaiBiaya, S
     Page<NilaiBiaya> findByJenisBiayaNamaContainingIgnoreCaseOrderByJenisBiayaNama(String nama, Pageable page);
 
     Page<NilaiBiaya> findByJenisBiayaAndProgramStudiAndGradeAndPeriode(JenisBiaya daftarUlang, ProgramStudi programStudi, Grade grade, List<Periode> daftarPeriode, Pageable page);
+
+    Page<NilaiBiaya> findByProgramStudiAndJenisBiayaAndPeriode(ProgramStudi prodi, JenisBiaya jenisBiaya, Periode periode, Pageable page);
+
+    Page<NilaiBiaya> findByJenisBiayaAndPeriode(JenisBiaya jenisBiaya, Periode periode, Pageable page);
+
+    Page<NilaiBiaya> findByPeriodeAndProgramStudi(Periode periode, ProgramStudi prodi, Pageable page);
+
+    Page<NilaiBiaya> findByProgramStudi(ProgramStudi prodi, Pageable page);
+
+    Page<NilaiBiaya> findByPeriode(Periode periode, Pageable page);
+
+    Page<NilaiBiaya> findByJenisBiaya(JenisBiaya jenisBiaya, Pageable page);
 }

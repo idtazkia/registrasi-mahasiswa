@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Input Nilai Biaya</title>
+</head>
+<body>
+<section layout:fragment="content" class="clearfix">
+    <section class="clearfix">
+        <form th:action="@{/biaya/nilai/form}" th:object="${nilai}" method="post">
+            <input type="hidden" name="id" th:field="*{id}">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel tile fixed_height_160">
+                        <div class="x_title" style="color: black">
+                            <h1>Input Nilai Biaya</h1>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="row clearfix" style="color: black">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="card">
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="card">
+                                                <div class="body">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <label>Program Studi</label>
+                                                                <select name="programStudi"
+                                                                        class="js-example-basic-single form-control" th:field="*{programStudi}" required autofocus>
+                                                                    <option value="">-Pilih Program Studi-</option>
+                                                                    <option th:each="ins : ${daftarProdi}"
+                                                                            th:value="${ins.id}"
+                                                                            th:text="${ins.nama}">Ekonomi Syariah</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <label>Jenis Biaya</label>
+                                                                <select name="JenisBiaya"
+                                                                        class="js-example-basic-single form-control" th:field="*{jenisBiaya}" required autofocus>
+                                                                    <option value="">-Pilih Jenis Biaya-</option>
+                                                                    <option th:each="ins : ${daftarJenis}"
+                                                                            th:value="${ins.id}"
+                                                                            th:text="${ins.nama}">Ekonomi Syariah</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <label>Grade</label>
+                                                                <select name="grade"
+                                                                        class="js-example-basic-single form-control" th:field="*{grade}" required autofocus>
+                                                                    <option value="">-Pilih Grade-</option>
+                                                                    <option th:each="ins : ${daftarGrade}"
+                                                                            th:value="${ins.id}"
+                                                                            th:text="${ins.nama}">Ekonomi Syariah</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <label>Periode</label>
+                                                                <select name="periode"
+                                                                        class="js-example-basic-single form-control"  th:field="*{periode}"required autofocus>
+                                                                    <option value="">-Pilih Periode-</option>
+                                                                    <option th:each="ins : ${daftarPeriode}"
+                                                                            th:value="${ins.id}"
+                                                                            th:text="${ins.nama}">Ekonomi Syariah</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <label>Nilai Tagihan</label>
+                                                                <input type="number" name="nilai" th:field="*{nilai}"
+                                                                       class="form-control"
+                                                                       placeholder="Nilai Tagihan"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <button th:if="*{id == null}" class="btn btn-md btn-info waves-effect" type="submit">SELESAI</button>
+                                                                <button th:if="*{id != null}" class="btn btn-md btn-info waves-effect" type="submit">Perbarui</button>
+                                                                <a th:href="@{/biaya/nilai/list}" class="btn btn-md btn-danger waves-effect" type="submit">BATAL</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <!--//table//-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+</section>
+
+</body>
+</html>

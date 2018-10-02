@@ -23,11 +23,63 @@
                                     <div class="card">
                                         <div class="body">
                                             <form method="get">
-                                                <h4>Nama Biaya : <br><input type="text" name="nama" placeholder="Cari Jenis Biaya" th:value="${nama}">
-                                                    <input type="submit" class="btn btn-sm  btn-info" value="Cari"></h4>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <label>Program Studi</label>
+                                                                <select name="prodi" class="form-control">
+                                                                    <option selected th:if="${prodi} != null" th:each="data: ${prodi}"
+                                                                            th:value="${data.id}" th:text="${data.nama}"></option>
+                                                                    <option value=""></option>
+                                                                    <option th:each="jenis : ${daftarProdi}"
+                                                                            th:text="${jenis.nama}" th:value="${jenis.id}"></option>
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <label>Jenis Biaya</label>
+                                                                <select name="jenisBiaya" class="form-control">
+                                                                    <option selected th:if="${jenisBiaya} != null" th:each="data: ${jenisBiaya}"
+                                                                            th:value="${data.id}" th:text="${data.nama}"></option>
+                                                                    <option value=""></option>
+                                                                    <option th:each="jenis : ${daftarJenis}"
+                                                                            th:text="${jenis.nama}" th:value="${jenis.id}"></option>
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <div class="form-line">
+                                                                <label>Periode</label>
+                                                                <select name="periode" class="form-control">
+                                                                    <option selected th:if="${periode} != null" th:each="data: ${periode}"
+                                                                            th:value="${data.id}" th:text="${data.nama}"></option>
+                                                                    <option value=""></option>
+                                                                    <option th:each="jenis : ${daftarPeriode}"
+                                                                            th:text="${jenis.nama}" th:value="${jenis.id}"></option>
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3" style="margin-top: 7px;">
+                                                        <div class="form-group">
+                                                            <label></label><br>
+                                                            <input type="submit" value="Cari" class="btn  btn-info btn-sm waves-effect">
+                                                            <a th:href="@{/biaya/nilai/list}" class="btn  btn-danger btn-sm waves-effect">Reset</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </form>
-                                            <!--<a th:href="@{/biaya/jenis/form}" class="btn btn-md  btn-warning">Tambah</a>-->
-                                            <!--<br><br>-->
+                                            <a th:href="@{/biaya/nilai/form}" class="btn btn-md  btn-warning">Tambah</a>
+                                            <br><br>
                                             Show <span sd:page-size-selector="javascript" ></span> entries
                                             <hr>
                                             <div class="row">
@@ -41,6 +93,7 @@
                                                             <th>Periode</th>
                                                             <th>Program Studi</th>
                                                             <th>Nilai Biaya</th>
+                                                            <th></th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -51,6 +104,11 @@
                                                             <td th:text="${p. periode.nama}">10-10-2017</td>
                                                             <td th:text="${p. programStudi.nama}">10-10-2017</td>
                                                             <td th:text="${p. nilai}">10-10-2017</td>
+                                                            <td width="100px">
+                                                                <a href="form"  th:href="@{/biaya/nilai/form(id=${p.id})}"
+                                                                   class="btn bg-green btn-xs waves-effec">Edit
+                                                                </a>
+                                                            </td>
 
                                                         </tr>
                                                         </tbody>
