@@ -17,4 +17,6 @@ public interface DetailPendaftarDao extends PagingAndSortingRepository<DetailPen
 
 
     Page<DetailPendaftar> findByNimNotNull(Pageable page);
+
+    Iterable<DetailPendaftar> countDetailPendaftarByPendaftarNotNull();
 }

@@ -22,33 +22,33 @@
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                     <div class="icon"><i class="fa fa-users"></i></div>
-                    <div class="count">-</div>
-                    <h3>Pendaftar</h3>
-                    <p>Lorem ipsum psdea itgum rixt.</p>
+                    <div class="count" th:text="${cPendaftar}">-</div>
+                    <a th:href="@{/registrasi/list}"><h3>Pendaftar</h3></a>
+                    <p>Total Pendaftar</p>
                 </div>
             </div>
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                     <div class="icon"><i class="fa fa-pencil-square-o"></i></div>
-                    <div class="count">-</div>
-                    <h3>Detail Pendaftar</h3>
-                    <p>Lorem ipsum psdea itgum rixt.</p>
+                    <div class="count" th:text="${cDetail}">-</div>
+                    <a th:href="@{/registrasi/list}"><h3>Detail Pendaftar</h3></a>
+                    <p>Total yang sudah mengisi data detail.</p>
                 </div>
             </div>
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                     <div class="icon"><i class="fa fa-retweet"></i></div>
-                    <div class="count">-</div>
-                    <h3>Daftar Ulang</h3>
-                    <p>Lorem ipsum psdea itgum rixt.</p>
+                    <div class="count" th:text="${cDaftar}">-</div>
+                    <a th:href="@{/registrasi/pembayaran/list}"><h3>Daftar Ulang</h3></a>
+                    <p>Total yang sudah daftar ulang</p>
                 </div>
             </div>
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                     <div class="icon"><i class="fa fa-check-square-o"></i></div>
-                    <div class="count">-</div>
-                    <h3>Hasil Test</h3>
-                    <p>Lorem ipsum psdea itgum rixt.</p>
+                    <div class="count" th:text="${cHasil}">-</div>
+                    <a th:href="@{/registrasi/hasil/list}"><h3>Hasil Test</h3></a>
+                    <p>Total hasil test (JPA, TPA & Smart Test)</p>
                 </div>
             </div>
         </div>

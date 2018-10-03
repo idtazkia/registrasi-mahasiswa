@@ -26,5 +26,8 @@ public interface HasilTestDao extends PagingAndSortingRepository<HasilTest, Stri
 //    Page<HasilTest>  findByJenisTestInOrPendaftarNamaContainingOrPendaftarNamaAsalSekolahContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(List<JenisTest>daftarJenisTest, String nama, String sekolah, Pageable smartPage);
 
     Page<HasilTest> findByJenisTestIn(Pageable tpaPage, JenisTest... jenisTests);
+
+    Iterable<HasilTest> countHasilTestByPendaftarNotNull();
+
 }
 
