@@ -1,47 +1,69 @@
 ﻿<!DOCTYPE html>
-<html>
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>404 | Bootstrap Based Admin Template - Material Design</title>
-    <!-- Favicon-->
-    <link rel="icon" href="../../favicon.ico" type="image/x-icon">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <title>SPMB STEI TAZKIA</title>
 
-    <!-- Bootstrap Core Css -->
-    <link href="../../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/css/vendors/bootstrap/dist/css/bootstrap.min.css}" />
+    <!-- Font Awesome -->
+    <link th:href="@{/css/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+    <!-- NProgress -->
+    <link th:href="@{/css/vendors/nprogress/nprogress.css}" rel="stylesheet" />
+    <!-- Animate.css -->
+    <link th:href="@{/css/vendors/animate.css/animate.min.css}" rel="stylesheet" />
+    <!-- Custom Theme Style -->
+    <link th:href="@{/css/build/css/custom.min.css}" rel="stylesheet" />
 
-    <!-- Waves Effect Css -->
-    <link href="../../plugins/node-waves/waves.css" rel="stylesheet" />
 
-    <!-- Custom Css -->
-    <link href="../../css/style.css" rel="stylesheet">
+
 </head>
 
-<body class="four-zero-four">
-<div class="four-zero-four-container">
-    <div class="error-code">404</div>
-    <div class="error-message">
-        <p>
-            This page doesn't exist <br>
-            It seems the code you entered is invalid / expired.<br>
-            <small>please check the spelling in your code.</small>
-        </p>
+<body class="login" style="background-color: #52bb9b">
+<div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
+
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <img style="width: 60%;" th:src="@{images/lg.png}" />
+                <form id="forgot_password" method="POST">
+                    <h1><font color="white">404</font></h1>
+                    <div style="color: white">
+                        <p>
+                            This page doesn't exist <br>
+                            It seems the code you entered is invalid / expired.<br>
+                            <small>please check the spelling in your code.</small>
+                        </p>
+                    </div>
+                    <br>
+                    <div>
+                        <center><a class="btn btn-md btn-primary"  th:href="@{/login}"><font color="white">Sign In?</font></a></center>
+                    </div>
+
+
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+
+                        <div class="clearfix"></div>
+                        <br />
+
+                        <div>
+                            <p><font color="#f8f8ff">©2018 All Rights Reserved. SPMB STEI TAZKIA</font></p>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
     </div>
 </div>
-
-<!-- Jquery Core Js -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-
-<!-- Bootstrap Core Js -->
-<script src="../../plugins/bootstrap/js/bootstrap.js"></script>
-
-<!-- Waves Effect Plugin Js -->
-<script src="../../plugins/node-waves/waves.js"></script>
+</div>
 </body>
-
 </html>

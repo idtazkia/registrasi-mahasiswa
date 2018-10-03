@@ -1,78 +1,73 @@
 ﻿<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Sign In | Penerimaan Siswa Baru - STEI Tazkia</title>
-    <!-- Favicon-->
-    <link rel="icon" href="https://tazkia.ac.id/images/logo-tazkia-2.png">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <title>SPMB STEI TAZKIA</title>
 
-    <!-- Bootstrap Core Css -->
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/css/vendors/bootstrap/dist/css/bootstrap.min.css}" />
+    <!-- Font Awesome -->
+    <link th:href="@{/css/vendors/font-awesome/css/font-awesome.min.css}" rel="stylesheet" />
+    <!-- NProgress -->
+    <link th:href="@{/css/vendors/nprogress/nprogress.css}" rel="stylesheet" />
+    <!-- Animate.css -->
+    <link th:href="@{/css/vendors/animate.css/animate.min.css}" rel="stylesheet" />
+    <!-- Custom Theme Style -->
+    <link th:href="@{/css/build/css/custom.min.css}" rel="stylesheet" />
 
-    <!-- Waves Effect Css -->
-    <link th:href="@{/css/waves.css}" rel="stylesheet" />
 
-    <!-- Animation Css -->
-    <link th:href="@{/css/animate.css}" rel="stylesheet" />
 
-    <!-- Custom Css -->
-    <link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 
-<body class="login-page">
-<div class="login-box">
-    <div class="logo">
-        <a href="javascript:void(0);">Login<b>PMB</b></a>
-        <small>Penerimaan Siswa Baru - STEI Tazkia</small>
-    </div>
-    <div class="card">
-        <div class="body">
-            <form id="forgot_password" method="POST">
-                <div class="msg">
-                    Enter your Username that you used to register. We'll send you an email with your username and a
-                    link to reset your password.
-                </div>
-                <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
-                    <div class="form-line">
+<body class="login" style="background-color: #52bb9b">
+<div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
+
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <img style="width: 60%;" th:src="@{images/lg.png}" />
+                <form id="forgot_password" method="POST">
+                    <h1><font color="white">Reset Password</font></h1>
+                    <div style="color: white">
+                        Enter your Username that you used to register. We'll send you an email with your username and a
+                        link to reset your password.
+                    </div>
+                    <br>
+                    <div>
                         <input type="text" class="form-control" name="user" placeholder="Username" required autofocus>
                     </div>
-                </div>
+                    <div style="float: right;">
+                        <button type="submit" class="btn btn-md btn-primary">Selesai</button>
+                    </div>
+                    <div style="float: left;">
+                        <a class="reset_pass" th:href="@{/login}"><font color="white">Sign In?</font></a>
+                    </div>
 
-                <button class="btn btn-block btn-lg bg-teal waves-effect" type="submit">RESET MY PASSWORD</button>
 
-                <div class="row m-t-20 m-b--5 align-center">
-                    <a th:href="@{/login}">Sign In!</a>
-                </div>
-            </form>
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+
+                        <div class="clearfix"></div>
+                        <br />
+
+                        <div>
+                            <p><font color="#f8f8ff">©2018 All Rights Reserved. SPMB STEI TAZKIA</font></p>
+                        </div>
+                </form>
+                    </div>
+            </section>
         </div>
+
     </div>
 </div>
-
-<!-- Jquery Core Js -->
-<script th:src="@{/js/jquery.min.js}"></script>
-
-<!-- Bootstrap Core Js -->
-<script th:src="@{/js/bootstrap.js}"></script>
-
-<!-- Waves Effect Plugin Js -->
-<script th:src="@{/js/waves.js}"></script>
-
-<!-- Validation Plugin Js -->
-
-<!-- Custom Js -->
-<script th:src="@{/js/admin.js}"></script>
-
-<script th:src="@{/js/sign-in.js}"></script>
-
 </body>
-
 </html>
+
