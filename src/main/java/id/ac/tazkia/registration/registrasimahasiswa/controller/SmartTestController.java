@@ -134,6 +134,7 @@ public class SmartTestController {
                 hasilTest.setPendaftar(p);
                 hasilTest.setJenisTest(JenisTest.SMART_TEST);
                 hasilTest.setTanggalTest(tanggalTest);
+                hasilTest.setKeterangan("Smart Test");
 
                 try {
                     hasilTest.setNilai(new BigDecimal(data[3]));
