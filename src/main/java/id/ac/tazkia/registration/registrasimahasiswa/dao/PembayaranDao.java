@@ -32,6 +32,6 @@ public interface PembayaranDao extends PagingAndSortingRepository<Pembayaran, St
 
     Page<Pembayaran> findByTagihanJenisBiaya(JenisBiaya jenisBiaya, Pageable page);
 
-    Iterable<Pembayaran> countPembayaranByTagihanJenisBiayaId(String jb);
+    Long countPembayaranByTagihanJenisBiayaId(String jb);
 }
 
