@@ -23,7 +23,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel tile fixed_height_160">
                 <div class="x_title" style="color: black">
-                    <h1>Input Periode</h1>
+                    <h1>Input Periode > <span style=" color: black" th:text="${pendaftar.nomorRegistrasi}"></span></h1>
                     <div class="clearfix"></div>
                 </div>
                 <div class="row clearfix" style="color: black">
@@ -36,8 +36,8 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <div class="form-line">
-                                                        <label>Nomor Registrasi</label><br>
-                                                        <b><span style="font-size: 16px;" th:text="${pendaftar.nomorRegistrasi}"></span></b>
+                                                        <label>Nama</label><br>
+                                                        <b><span style="font-size: 16px;" name="nama" th:text="${pendaftar.nama}"></span></b>
 
                                                     </div>
                                                 </div>
@@ -45,9 +45,9 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <div class="form-line">
-                                                        <label>Nama</label>
+                                                        <label>Program Studi</label>
                                                         <br>
-                                                        <b><span style="font-size: 16px;" name="nama" th:text="${pendaftar.nama}"></span></b>
+                                                        <b><span style="font-size: 16px;" name="prodi" th:text="${pendaftar.programStudi.nama}"></span></b>
                                                         <input type="hidden" hidden th:value="${pendaftar.id}">
                                                     </div>
                                                 </div>
@@ -122,6 +122,14 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <label>Keterangan</label>
+                                                            <input type="text" th:field="*{keterangan}" name="keterangan" class="form-control" placeholder="Keterangan">
                                                         </div>
                                                     </div>
                                                 </div>

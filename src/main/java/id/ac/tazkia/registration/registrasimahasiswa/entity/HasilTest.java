@@ -35,5 +35,8 @@ public class HasilTest{
     @NotNull
     @Column(columnDefinition = "DATE")
     private Date tanggalTest;
+
+    @NotNull
+    private String keterangan;
     
 }

@@ -28,4 +28,6 @@ public class HasilTestDto {
 
     private String nama;
 
+    private String keterangan;
+
 }
