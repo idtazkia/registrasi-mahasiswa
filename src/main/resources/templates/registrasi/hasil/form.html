@@ -83,7 +83,7 @@
                                                         <br>
 
 
-                                                        <button type="button" class="btn btn-md btn-primary" data-toggle="modal" data-target="#diskon">Diskon</button>
+                                                        <button type="button" class="btn btn-md btn-primary" data-toggle="modal" data-target="#diskon">Diskon Mahasiswa</button>
                                                         <div class="modal fade" id="diskon" tabindex="-1" role="dialog">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
@@ -125,7 +125,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <div class="form-line">
                                                             <label>Keterangan</label>
@@ -133,6 +133,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                        <div class="form-line">
+                                                            <label>&nbsp;</label><br>
+                                                             <a th:href="@{/biaya/nilai/list}" class="btn btn-md btn-warning"> Nilai biaya</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <input type="hidden" name="pendaftar"
                                                        th:field="*{pendaftar}"/><br>
                                                 <input type="hidden" name="id"

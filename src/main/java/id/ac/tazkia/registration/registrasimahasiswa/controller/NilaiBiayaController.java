@@ -2,15 +2,19 @@ package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
 import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 @Controller
 public class NilaiBiayaController {
@@ -19,6 +23,10 @@ public class NilaiBiayaController {
     @Autowired private GradeDao gradeDao;
     @Autowired private ProgramStudiDao programStudiDao;
     @Autowired private PeriodeDao periodeDao;
+    @Autowired private UserDao userDao;
+
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(NilaiBiayaController.class);
 
     @GetMapping("/biaya/nilai/list")
     public void daftarNilaiBiaya(@RequestParam(required = false)JenisBiaya jenisBiaya,
@@ -75,27 +83,51 @@ public class NilaiBiayaController {
 
 
     @GetMapping("/biaya/nilai/form")
-    public void formNilaiBiaya(@RequestParam(value = "id", required = false) String id,
-                               Model m){
-        //defaultnya, isi dengan object baru
-        m.addAttribute("nilai", new NilaiBiaya());
+    public String form(Model model, Authentication currentUser, @RequestParam(required = false)String id){
 
-        if (id != null && !id.isEmpty()){
-            NilaiBiaya nb= nilaiBiayaDao.findOne(id);
-            if (nb != null){
-                m.addAttribute("nilai", nb);
+        model.addAttribute("nilai", new NilaiBiaya());
+        LOGGER.debug("Authentication class : {}", currentUser.getClass().getName());
+        if (currentUser == null) {
+            LOGGER.warn("Current user is null");
+        }
+        String username = ((UserDetails) currentUser.getPrincipal()).getUsername();
+        User u = userDao.findByUsername(username);
+        LOGGER.debug("User ID : {}", u.getId());
+        if (u == null) {
+            LOGGER.warn("Username {} not found in database ", username);
+        }
+        if (id != null && !id.isEmpty()) {
+            NilaiBiaya nilaiBiaya = nilaiBiayaDao.findOne(id);
+            if (nilaiBiaya != null) {
+                nilaiBiaya.setUserEdit(u);
+                nilaiBiaya.setTanggalEdit(LocalDateTime.now());
+                model.addAttribute("nilai", nilaiBiaya);
             }
         }
+        return "biaya/nilai/form";
     }
 
 
     @RequestMapping(value = "/biaya/nilai/form", method = RequestMethod.POST)
-    public String prosesForm(@Valid NilaiBiaya nilaiBiaya, BindingResult errors){
-        if(errors.hasErrors()){
-            return "/biaya/nilai/form";
+    public String prosesNilai(@Valid NilaiBiaya nilaiBiaya,
+                              BindingResult error,@RequestParam(required = false) NilaiBiaya id,
+                              Authentication currentUser){
+        LOGGER.debug("Authentication class : {}", currentUser.getClass().getName());
+        if (currentUser == null) {
+            LOGGER.warn("Current user is null");
+        }
+        String username = ((UserDetails) currentUser.getPrincipal()).getUsername();
+        User u = userDao.findByUsername(username);
+        LOGGER.debug("User ID : {}", u.getId());
+        if (u == null) {
+            LOGGER.warn("Username {} not found in database ", username);
+        }
+        if (id != null){
+            nilaiBiaya.setTanggalEdit(LocalDateTime.now());
+            nilaiBiaya.setUserEdit(u);
         }
         nilaiBiayaDao.save(nilaiBiaya);
-        return "redirect:list";
+        return "redirect:/biaya/nilai/list";
     }
 
 }
