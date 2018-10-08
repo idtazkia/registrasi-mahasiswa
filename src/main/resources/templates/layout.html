@@ -10,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" th:href="@{/images/logo.png}" type="image/ico" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <title>SIMAK | STEI TAZKIA</title>
 
     <!-- Bootstrap -->
@@ -143,18 +145,17 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="production/images/img.jpg" alt="">John Doe
+                                <img src="production/images/img.jpg" alt="">Akun Anda
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;"> Profile</a></li>
+                                <li>&nbsp;</li>
                                 <li>
-                                    <a href="javascript:;">
-                                        <span class="badge bg-red pull-right">50%</span>
+                                    <a th:href="@{/registrasi/reset/reset}">
                                         <span>Settings</span>
                                     </a>
                                 </li>
-                                <li><a href="javascript:;">Help</a></li>
+                                <li>&nbsp;</li>
                                 <li>
                                     <form name="f" th:action="@{/logout}" method="post">
                                         <center><button class="btn btn-md btn-danger fa fa-sign-out center">Logout</button></center>

@@ -52,6 +52,17 @@
                 </div>
             </div>
         </div>
+
+        <div th:if="${(user != null) && (password != null)}">
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-lock"></i></div>
+                    <p>Password Telah di rubah</p>
+                    <div class="count" th:text="${password}"></div>
+                    <h3>Password baru</h3>
+                </div>
+            </div>
+        </div>
     </div>
 
 </section>
