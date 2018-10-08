@@ -122,7 +122,7 @@ public class RegistrasiDetailController {
 
             Pendaftar pe = h.getPendaftar();
             notifikasiService.kirimNotifikasiHasilTest(h);
-            tagihanService.createTagihanDaftarUlang(pe, h, h.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+//            tagihanService.createTagihanDaftarUlang(pe, h, h.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
         } else {
 // kirim kartu hanya pada waktu isi data pertama kali

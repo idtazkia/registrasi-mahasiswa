@@ -101,17 +101,17 @@ public class HasilTestController {
         notifikasiService.kirimNotifikasiHasilTest(h);
 
         logger.debug("NIM : "+ hasilTestDto.getNim());
-        if (!hasilTestDto.getNim().isEmpty() && hasilTestDto.getNama() != null) {
-            keluarga.setNim(hasilTestDto.getNim());
-            keluarga.setNama(hasilTestDto.getNama());
-            keluarga.setHubungan(AppConstants.HUBUNGAN_KEL);
-            keluarga.setPendaftar(h.getPendaftar());
-            keluargaDao.save(keluarga);
-            tagihanService.createTagihanDUdiskonUp(p, h, hasilTest.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
-        }else{
-            tagihanService.createTagihanDaftarUlang(p, h, hasilTest.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        }
+//        if (!hasilTestDto.getNim().isEmpty() && hasilTestDto.getNama() != null) {
+//            keluarga.setNim(hasilTestDto.getNim());
+//            keluarga.setNama(hasilTestDto.getNama());
+//            keluarga.setHubungan(AppConstants.HUBUNGAN_KEL);
+//            keluarga.setPendaftar(h.getPendaftar());
+//            keluargaDao.save(keluarga);
+//            tagihanService.createTagihanDUdiskonUp(p, h, hasilTest.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+//
+//        }else{
+//            tagihanService.createTagihanDaftarUlang(p, h, hasilTest.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+//        }
 
 //        if(hasilTestDto.getNim().isEmpty() && hasilTestDto.getNim() == null && !StringUtils.hasText(hasilTestDto.getNim())) {
 //            tagihanService.createTagihanDaftarUlang(p, h, hasilTest.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
