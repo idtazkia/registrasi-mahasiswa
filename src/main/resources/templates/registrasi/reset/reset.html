@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Ubah Password</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+</head>
+<body>
+<section layout:fragment="content" class="clearfix">
+    <section class="clearfix">
+        <!--<form id="login-form" method="post" th:action="@{/confirm}" th:object="${confirm}">-->
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel tile fixed_height_160">
+                        <div class="x_title" style="color: black">
+                            <h1>Ubah Password</h1>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="row clearfix" style="color: black">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="card">
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="card">
+                                                <div class="body">
+                                                    <form th:action="@{/registrasi/reset/reset}" method="post" th:object="${user}">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Password</label>
+                                                                <input type="password" name="password1" id="pass1"
+                                                                       class="form-control"
+                                                                       placeholder="Password">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Password</label>
+                                                                <input type="password" name="password"
+                                                                       class="form-control" id="pass2"
+                                                                       onkeyup="checkPass(); return false;"
+                                                                       placeholder="Password">
+                                                                <span id="confirmMessage" class="confirmMessage"></span>
+                                                            </div>
+                                                        </div>
+                                                        <input type="text" hidden th:field="*{id}">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <button class="btn btn-md btn-info waves-effect" type="submit">SELESAI</button>
+                                                                    <a th:href="@{/grade/list}" class="btn btn-md btn-danger waves-effect" type="submit">BATAL</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <!--//table//-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+</section>
+
+</body>
+
+</html>
+<script>
+    function checkPass()
+    {
+        //Store the password field objects into variables ...
+        var pass1 = document.getElementById('pass1');
+        var pass2 = document.getElementById('pass2');
+        //Store the Confimation Message Object ...
+        var message = document.getElementById('confirmMessage');
+        //Set the colors we will be using ...
+        var goodColor = "#66cc66";
+        var badColor = "#ff6666";
+        //Compare the values in the password field
+        //and the confirmation field
+        if(pass1.value == pass2.value){
+            //The passwords match.
+            //Set the color to the good color and inform
+            //the user that they have entered the correct password
+            pass2.style.backgroundColor = goodColor;
+            message.style.color = goodColor;
+            message.innerHTML = "Passwords Match!"
+        }else{
+            //The passwords do not match.
+            //Set the color to the bad color and
+            //notify the user.
+            pass2.style.backgroundColor = badColor;
+            message.style.color = badColor;
+            message.innerHTML = "Passwords Do Not Match!"
+        }
+    }
+</script>

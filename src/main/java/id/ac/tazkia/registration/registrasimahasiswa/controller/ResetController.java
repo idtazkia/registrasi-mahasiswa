@@ -12,10 +12,13 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -121,6 +124,50 @@ public class ResetController {
 
         userPasswordDao.save(up);
         return "redirect:login";
+
+
+    }
+
+
+
+    @GetMapping("/registrasi/reset/reset")
+    public String ubahPassword(Model model, Authentication currentUser) {
+        LOGGER.debug("Authentication class : {}", currentUser.getClass().getName());
+
+        if (currentUser == null) {
+            LOGGER.warn("Current user is null");
+        }
+
+        String username = ((UserDetails) currentUser.getPrincipal()).getUsername();
+        User u = userDao.findByUsername(username);
+        LOGGER.debug("User ID : {}", u.getId());
+        if (u == null) {
+            LOGGER.warn("Username {} not found in database ", username);
+        }
+
+        model.addAttribute("user", u);
+
+        return "registrasi/reset/reset";
+    }
+
+    @PostMapping("/registrasi/reset/reset")
+    public String ubahPassword(@RequestParam User id,
+                                 @RequestParam String password,  RedirectAttributes redirectAttributes){
+
+        UserPassword up = userPasswordDao.findByUser(id);
+        if(up == null){
+            LOGGER.info("User tidak ditemukan :" + up);
+            up = new UserPassword();
+            up.setUser(id);
+        }
+        up.setPassword(passwordEncoder.encode(password));
+
+        redirectAttributes.addFlashAttribute("user", up);
+        redirectAttributes.addFlashAttribute("password", password);
+
+        System.out.println(password);
+        userPasswordDao.save(up);
+        return "redirect:/home";
 
 
     }
