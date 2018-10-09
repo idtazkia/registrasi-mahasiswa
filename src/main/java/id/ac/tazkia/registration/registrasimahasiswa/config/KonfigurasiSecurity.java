@@ -99,7 +99,8 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/brosur/bmi")
                 .antMatchers("/brosur/ei")
                 .antMatchers("/buku/ei")
-                .antMatchers("/lib/**") ;
+                .antMatchers("/lib/**")
+                .antMatchers("/registrasi/smart/list**") ;
 
     }
 

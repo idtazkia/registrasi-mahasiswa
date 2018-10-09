@@ -10,12 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -29,6 +32,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -170,5 +174,17 @@ public class SmartTestController {
     public void hasilFormUpload(){}
 
 
+    @GetMapping("/registrasi/smart/list")
+    public String defaultPage(@RequestParam(required = false)String search, String cari, Model m, Pageable smartPage){
+
+        if(StringUtils.hasText(cari)) {
+            m.addAttribute("cari", cari);
+            List<JenisTest> smartTest = Arrays.asList(JenisTest.SMART_TEST);
+            m.addAttribute("daftarSmart", hasilTestDao.cariByJenisTestSmartTestDanPendaftar(smartTest, "%"+cari.toLowerCase()+"%", smartPage));
+        } else {
+            m.addAttribute("daftarSmart", hasilTestDao.findByJenisTestIn(smartPage, JenisTest.SMART_TEST));
+        }
+        return "registrasi/smart/list";
+    }
 }
 
