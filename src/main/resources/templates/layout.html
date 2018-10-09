@@ -54,8 +54,11 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2 sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AKADEMIK')">Admin</h2>
-                        <h2 sec:authorize="hasAuthority('VIEW_PENDAFTAR')">Pendaftar</h2>
+                        <h2 sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AKADEMIK')"
+                        sec:authentication="name">
+                        </h2>
+                        <h2 sec:authorize="hasAuthority('VIEW_PENDAFTAR')" sec:authentication="name">
+                        Pendaftar</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
