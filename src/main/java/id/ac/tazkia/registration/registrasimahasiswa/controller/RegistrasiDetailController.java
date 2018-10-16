@@ -296,7 +296,7 @@ public class RegistrasiDetailController {
                 System.out.println(p.getJenisTest());
                 Pendaftar pe = h.getPendaftar();
                 notifikasiService.kirimNotifikasiHasilTest(h);
-                tagihanService.createTagihanDaftarUlang(pe, h, h.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+//                tagihanService.createTagihanDaftarUlang(pe, h, h.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             }else {
                 if (p.getJenisTest().equals(JenisTest.JPA)) {
                     System.out.println(p.getJenisTest());
