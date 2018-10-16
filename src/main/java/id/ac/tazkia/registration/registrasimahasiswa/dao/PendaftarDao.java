@@ -26,4 +26,9 @@ public interface PendaftarDao extends PagingAndSortingRepository<Pendaftar, Stri
 
     Long countPendaftarByProgramStudiNotNull();
 
+    Pendaftar findByNamaContainingAndEmailContaining(String nama, String email);
+
+    @Query("select p from Pendaftar p where (lower(p.nama) like :nama) and (lower(p.email) like :email)")
+    Pendaftar cariByNamaDanEmail(@Param("nama") String nama, @Param("email") String email);
+
 }

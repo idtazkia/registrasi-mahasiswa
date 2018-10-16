@@ -32,6 +32,7 @@ public class RegistrasiService {
     @Autowired private UserPasswordDao userPasswordDao;
     @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private GradeDao gradeDao;
+    @Autowired private TagihanDao tagihanDao;
 
     public Pendaftar prosesPendaftaran(Registrasi registrasi, ProgramStudi ps, KabupatenKota kk){
         Pendaftar p = new Pendaftar();
@@ -42,16 +43,32 @@ public class RegistrasiService {
 
         System.out.println("id  : "+registrasi.getId());
 
-        if (!StringUtils.hasText(registrasi.getId())) {
+//CekSudahAda/Belum
+        Pendaftar pendaftar = pendaftarDao.cariByNamaDanEmail("%"+registrasi.getNama().toLowerCase()+"%",
+                "%"+registrasi.getEmail().toLowerCase()+"%");
+        if (pendaftar != null && pendaftar.getProgramStudi() != null) {
+
+                LOGGER.debug("Pendaftar Sudah Ada :"+ pendaftar);
+                notifikasiService.kirimNotifikasiRegistrasi(pendaftar);
+                LOGGER.debug("Kirim Notifikasi ulang");
+//
+        }else if (!StringUtils.hasText(registrasi.getId())) {
+            LOGGER.debug("Pendaftar Belum ada");
             p.setNomorRegistrasi(generateNomorRegistrasi());
-        } else {
+            createUser(p);
+            pendaftarDao.save(p);
+            tagihanService.prosesTagihanPendaftaran(p);
+            notifikasiService.kirimNotifikasiRegistrasi(p);
+        }
+        else {
+            LOGGER.debug("Terdaftar di Smart Test");
             p.setNomorRegistrasi(registrasi.getNomorRegistrasi());
+            createUser(p);
+            pendaftarDao.save(p);
+            tagihanService.prosesTagihanPendaftaran(p);
+            notifikasiService.kirimNotifikasiRegistrasi(p);
         }
 
-        createUser(p);
-        pendaftarDao.save(p);
-        tagihanService.prosesTagihanPendaftaran(p);
-        notifikasiService.kirimNotifikasiRegistrasi(p);
 
         return p;
     }
