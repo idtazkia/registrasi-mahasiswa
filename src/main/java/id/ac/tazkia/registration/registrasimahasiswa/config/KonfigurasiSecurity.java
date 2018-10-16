@@ -1,6 +1,7 @@
 package id.ac.tazkia.registration.registrasimahasiswa.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,6 +30,9 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
             + "inner join s_role_permission rp on rp.id_role = r.id "
             + "inner join s_permission p on rp.id_permission = p.id "
             + "where u.username = ?";
+
+    @Value("${bcrypt.strength}")
+    private Integer bcryptStrength;
 
     @Autowired
     private DataSource ds;
@@ -106,7 +110,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder(17);
+        return new BCryptPasswordEncoder(bcryptStrength);
     }
 
 }
