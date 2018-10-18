@@ -18,17 +18,28 @@
     <!-- Animate.css -->
     <link th:href="@{/css/vendors/animate.css/animate.min.css}" rel="stylesheet" />
     <!-- Custom Theme Style -->
-    <link th:href="@{/css/build/css/custom.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/build/css/custom.css}" rel="stylesheet" />
 
+    <style>
+        .bg {
+            /* The image used */
+            background-image: url("https://tazkia.ac.id/wp-content/uploads/2018/09/SLIDER5-2.jpg");
+            /*background-image: url("/images/back.jpg");*/
+            /* Full height */
+            opacity: 0.8;
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 
 
 </head>
 
-<body class="login" style="background-color: #52bb9b">
-<div>
-    <a class="hiddenanchor" id="signup"></a>
-    <a class="hiddenanchor" id="signin"></a>
-
+<body>
     <div class="login_wrapper">
         <div class="animate form login_form">
             <section class="login_content">
@@ -63,7 +74,7 @@
             </section>
         </div>
     </div>
-</div>
-</div>
 </body>
+<div class="bg">
+</div>
 </html>
