@@ -30,4 +30,6 @@ public class HasilTestDto {
 
     private String keterangan;
 
+    private String periode;
+
 }
