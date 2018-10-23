@@ -1,15 +1,8 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
-import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.GradeDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.HasilTestDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.KeluargaDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.HasilTestDto;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Grade;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.HasilTest;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Keluarga;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import id.ac.tazkia.registration.registrasimahasiswa.service.NotifikasiService;
 import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
 import id.ac.tazkia.registration.registrasimahasiswa.service.TagihanService;
@@ -26,9 +19,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class HasilTestController {
@@ -49,6 +43,8 @@ public class HasilTestController {
     private NotifikasiService notifikasiService;
     @Autowired
     private KeluargaDao keluargaDao;
+    @Autowired
+    private PeriodeDao periodeDao;
 
     @ModelAttribute("daftarGrade")
     public Iterable<Grade> daftarGrade(){return gradeDao.findAll(); }
@@ -126,12 +122,36 @@ public class HasilTestController {
 
     @GetMapping("registrasi/hasil/list")
     public String listHasilTest(@RequestParam(required = false)String search, Model m, Pageable page){
-        if(StringUtils.hasText(search)) {
-            m.addAttribute("search", search);
-            m.addAttribute("daftarHasil", hasilTestDao.findByPendaftarNomorRegistrasiContainingOrPendaftarNamaContainingIgnoreCaseOrGradeNamaContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(search,search, search, page));
-        } else {
-            m.addAttribute("daftarHasil", hasilTestDao.findAll(page));
+//Cari Periode
+        Iterable<HasilTest> hasilTest = hasilTestDao.findAll();
+        List<HasilTestDto> hasilTestDtos = new ArrayList<>();
+
+        for (HasilTest hasilTest1 : hasilTest) {
+            List<Periode> periode = periodeDao.cariPeriodeUntukTanggal(hasilTest1.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            for (Periode periode1 : periode) {
+                HasilTestDto hasilTestDto = new HasilTestDto();
+                hasilTestDto.setPeriode(periode1.getNama());
+                hasilTestDto.setId(hasilTest1.getId());
+                hasilTestDto.setPendaftar(hasilTest1.getPendaftar());
+                hasilTestDto.setJenisTest(hasilTest1.getJenisTest());
+                hasilTestDtos.add(hasilTestDto);
+                logger.debug(hasilTestDto.getId() + " " + hasilTestDto.getPeriode());
+            }
         }
+        m.addAttribute("dto",hasilTestDtos);
+//
+       if(StringUtils.hasText(search)) {
+           m.addAttribute("search", search);
+           m.addAttribute("daftarHasil", hasilTestDao.findByPendaftarNomorRegistrasiContainingOrPendaftarNamaContainingIgnoreCaseOrGradeNamaContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(search,search, search, page));
+       } else {
+           m.addAttribute("daftarHasil", hasilTestDao.findAll(page));
+       }
+
+
+
+
+
+
         return "registrasi/hasil/list";
     }
 

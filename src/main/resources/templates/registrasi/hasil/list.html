@@ -42,6 +42,7 @@
                                                             <th>Nama</th>
                                                             <th>Prodi Pilihan</th>
                                                             <th>Grade</th>
+                                                            <th>Periode</th>
                                                             <th>Jenis Test</th>
                                                         </tr>
                                                         </thead>
@@ -53,11 +54,16 @@
                                                             <td th:if="${p.pendaftar.programStudi != null}" th:text="${p.pendaftar.programStudi.nama}"></td>
                                                             <td th:if="${p.pendaftar.programStudi == null}"></td>
                                                             <td>
-                                        <span style="color: #4edfff; font-size: 16px;" th:if="${p.nilai}>30">Lulus(
-                                           <span th:text="${p.grade.nama}"  style="color:black; font-size: 16px;"></span> )
-                                        </span>
-                                                                <span th:if="${p.nilai}<30">
-                                           <span th:text="${p.grade.nama}"  style="color: red; font-size: 16px;"></span>                                        </span>
+                                                                <span style="color: #4edfff; font-size: 16px;" th:if="${p.nilai}>30">Lulus(
+                                                                    <span th:text="${p.grade.nama}"  style="color:black; font-size: 16px;"></span> )
+                                                                </span>
+                                                                    <span th:if="${p.nilai}<30">
+                                                                <span th:text="${p.grade.nama}"  style="color: red; font-size: 16px;"></span>                                        </span>
+                                                            </td>
+                                                            <td>
+                                                                <span th:each="d : ${dto}" >
+                                                                    <span th:if="${d.pendaftar.id == p.pendaftar.id}" th:text="${d.periode}"></span>
+                                                                </span>
                                                             </td>
                                                             <td th:text="${p.jenisTest}"></td>
 
