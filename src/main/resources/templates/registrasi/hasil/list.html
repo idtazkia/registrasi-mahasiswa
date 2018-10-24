@@ -44,6 +44,7 @@
                                                             <th>Grade</th>
                                                             <th>Periode</th>
                                                             <th>Jenis Test</th>
+                                                            <th></th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -62,11 +63,13 @@
                                                             </td>
                                                             <td>
                                                                 <span th:each="d : ${dto}" >
-                                                                    <span th:if="${d.pendaftar.id == p.pendaftar.id}" th:text="${d.periode}"></span>
+                                                                    <span th:if="${d.pendaftar.id == p.pendaftar.id}" th:text="${d.periode.nama}"></span>
                                                                 </span>
                                                             </td>
                                                             <td th:text="${p.jenisTest}"></td>
-
+                                                            <td>
+                                                                <a th:if="${p.pendaftar.programStudi != null}" th:href="@{/biaya/tagihan/form(id= ${p.pendaftar.id})}"  class="btn btn-xs btn-success">Kirim Tagihan</a>
+                                                            </td>
 
                                                         </tr>
                                                         </tbody>

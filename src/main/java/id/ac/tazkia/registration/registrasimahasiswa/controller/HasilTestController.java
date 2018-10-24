@@ -130,7 +130,7 @@ public class HasilTestController {
             List<Periode> periode = periodeDao.cariPeriodeUntukTanggal(hasilTest1.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             for (Periode periode1 : periode) {
                 HasilTestDto hasilTestDto = new HasilTestDto();
-                hasilTestDto.setPeriode(periode1.getNama());
+                hasilTestDto.setPeriode(periode1);
                 hasilTestDto.setId(hasilTest1.getId());
                 hasilTestDto.setPendaftar(hasilTest1.getPendaftar());
                 hasilTestDto.setJenisTest(hasilTest1.getJenisTest());

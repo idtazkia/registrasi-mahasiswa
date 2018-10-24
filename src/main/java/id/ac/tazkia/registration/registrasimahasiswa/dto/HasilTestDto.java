@@ -1,8 +1,6 @@
 package id.ac.tazkia.registration.registrasimahasiswa.dto;
 
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Grade;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisTest;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,6 +28,10 @@ public class HasilTestDto {
 
     private String keterangan;
 
-    private String periode;
+    private Periode periode;
+
+    private Grade grade;
+
+    private NilaiBiaya nilaiBiaya;
 
 }
