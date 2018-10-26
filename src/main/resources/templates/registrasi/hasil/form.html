@@ -23,7 +23,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel tile fixed_height_160">
                 <div class="x_title" style="color: black">
-                    <h1>Input Periode > <span style=" color: black" th:text="${pendaftar.nomorRegistrasi}"></span></h1>
+                    <h1>Input Hasil Test > <span style=" color: black" th:text="${pendaftar.nomorRegistrasi}"></span></h1>
                     <div class="clearfix"></div>
                 </div>
                 <div class="row clearfix" style="color: black">
@@ -83,7 +83,7 @@
                                                         <br>
 
 
-                                                        <button type="button" class="btn btn-md btn-primary" data-toggle="modal" data-target="#diskon">Diskon Mahasiswa</button>
+                                                        <!--<button type="button" class="btn btn-md btn-primary" data-toggle="modal" data-target="#diskon">Diskon Mahasiswa</button>-->
                                                         <div class="modal fade" id="diskon" tabindex="-1" role="dialog">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
@@ -125,22 +125,22 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <label>Keterangan</label>
-                                                            <input type="text" th:field="*{keterangan}" name="keterangan" class="form-control" placeholder="Keterangan">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <div class="form-group">
-                                                        <div class="form-line">
-                                                            <label>&nbsp;</label><br>
-                                                             <a th:href="@{/biaya/nilai/list}" class="btn btn-md btn-warning"> Nilai biaya</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <!--&lt;!&ndash;<div class="col-sm-4">&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;<div class="form-line">&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;<label>Keterangan</label>&ndash;&gt;-->
+                                                            <!--&lt;!&ndash;<input type="text" th:field="*{keterangan}" name="keterangan" class="form-control" placeholder="Keterangan">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                <!--<div class="col-sm-2">-->
+                                                    <!--<div class="form-group">-->
+                                                        <!--<div class="form-line">-->
+                                                            <!--<label>&nbsp;</label><br>-->
+                                                             <!--<a th:href="@{/biaya/nilai/list}" class="btn btn-md btn-warning"> Nilai biaya</a>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
 
                                                 <input type="hidden" name="pendaftar"
                                                        th:field="*{pendaftar}"/><br>
