@@ -1,13 +1,10 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
-import id.ac.tazkia.registration.registrasimahasiswa.dao.JenisBiayaDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.TagihanDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisBiaya;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Tagihan;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
+import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
+import id.ac.tazkia.registration.registrasimahasiswa.dto.HasilTestDto;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
+import id.ac.tazkia.registration.registrasimahasiswa.service.TagihanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +20,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.time.ZoneId;
 import java.util.List;
 
 
@@ -39,6 +39,18 @@ public class TagihanController {
     private TagihanDao tagihanDao;
     @Autowired
     private JenisBiayaDao jb;
+    @Autowired
+    private HasilTestDao hasilTestDao;
+    @Autowired
+    private PeriodeDao periodeDao;
+    @Autowired
+    private TagihanService tagihanService;
+    @Autowired
+    private NilaiBiayaDao nilaiBiayaDao;
+    @Autowired
+    private ProgramStudiDao programStudiDao;
+    @Autowired
+    private GradeDao gradeDao;
 
     @ModelAttribute("daftarjenisBiaya")
     public Iterable<JenisBiaya> daftarjenisBiaya(){
@@ -77,32 +89,58 @@ public class TagihanController {
     public void listTagihan() {
     }
 
-//    @RequestMapping("/biaya/tagihan/form")
-//    public void formTagihan() {
-//    }
-
     @RequestMapping(value = "/biaya/tagihan/form", method = RequestMethod.GET)
-    public String tampilkanForm(@RequestParam(value = "id", required = false) String id,
-                                Model m){
-        //defaultnya, isi dengan object baru
-        m.addAttribute("tagihan", new Pendaftar());
+    public void tampilkanForm(@RequestParam(value = "id", required = true) String id,
+                              @RequestParam(required = false) String error,Pageable page,
+                              Model m){
 
-        if (id != null && !id.isEmpty()){
-            Pendaftar p= pendaftarDao.findOne(id);
-            if (p != null){
-                m.addAttribute("tagihan", p);
+        Pendaftar p = pendaftarDao.findOne(id);
+        m.addAttribute("pendaftar", p);
+
+        HasilTest d = hasilTestDao.findByPendaftar(p);
+        List<Periode> periode = periodeDao.cariPeriodeUntukTanggal(d.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            HasilTestDto hasilTestDto = new HasilTestDto();
+        for (Periode periode1 : periode) {
+            hasilTestDto.setPeriode(periode1);
+            hasilTestDto.setId(d.getId());
+            hasilTestDto.setPendaftar(d.getPendaftar());
+            hasilTestDto.setJenisTest(d.getJenisTest());
+            hasilTestDto.setGrade(d.getGrade());
+            logger.debug(hasilTestDto.getId() + " " + hasilTestDto.getPeriode());
+
+            JenisBiaya jenisBiaya = jb.findOne(AppConstants.JENIS_BIAYA_DAFTAR_ULANG);
+            ProgramStudi programStudi = programStudiDao.findOne(hasilTestDto.getPendaftar().getProgramStudi().getId());
+            Periode pr = periodeDao.findOne(hasilTestDto.getPeriode().getId());
+            Grade gd = gradeDao.findOne(hasilTestDto.getGrade().getId());
+            List<NilaiBiaya> nilaiBiaya = nilaiBiayaDao.findByProgramStudiAndJenisBiayaAndPeriodeAndGrade(programStudi,jenisBiaya,pr, gd);
+            for (NilaiBiaya nilaiBiaya1 : nilaiBiaya) {
+                hasilTestDto.setNilaiBiaya(nilaiBiaya1);
+                System.out.println("Nilai Biaya :"+ nilaiBiaya);
+            }
+            if (d != null){
+                m.addAttribute("hasil", hasilTestDto);
             }
         }
-        return "/biaya/tagihan/form";
+        logger.debug("Nomor Registrasi :"+ p.getNomorRegistrasi());
+
+        JenisBiaya jenisBiaya = jb.findOne(AppConstants.JENIS_BIAYA_DAFTAR_ULANG);
+        ProgramStudi programStudi = programStudiDao.findOne(hasilTestDto.getPendaftar().getProgramStudi().getId());
+        m.addAttribute("daftarNilai", nilaiBiayaDao.findByJenisBiayaAndProgramStudi(jenisBiaya,programStudi, page));
+
     }
 
+
     @RequestMapping(value = "/biaya/tagihan/form", method = RequestMethod.POST)
-    public String prosesForm(@Valid Tagihan t, BindingResult errors){
-        if(errors.hasErrors()){
-            return "/biaya/tagihan/form";
-        }
-        tagihanDao.save(t);
-        return "redirect:list";
+    public String prosesForm(@Valid HasilTestDto hasilTestDto,
+                             BindingResult errors){
+
+        HasilTest hasilTest = hasilTestDao.findByPendaftar(hasilTestDto.getPendaftar());
+        hasilTest.setKeterangan(hasilTestDto.getKeterangan());
+        hasilTestDao.save(hasilTest);
+
+        tagihanService.createTagihanDaftarUlang(hasilTest.getPendaftar(),hasilTestDto.getNilai());
+
+        return "redirect:/registrasi/hasil/list";
     }
 
 

@@ -124,19 +124,19 @@ public class TagihanService {
     }
 
 
-    public void createTagihanDaftarUlang(Pendaftar p, HasilTest h,@RequestParam (required = false)@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate tanggalTest){
+    public void createTagihanDaftarUlang(Pendaftar p,BigDecimal nilai){
 
         TagihanRequest tagihanRequest = TagihanRequest.builder()
                 .kodeBiaya(p.getProgramStudi().getKodeBiaya())
                 .jenisTagihan(idTagihanDaftarUlang)
-                .nilaiTagihan(hitungBiayaDaftarUlang(p, h, tanggalTest))
+                .nilaiTagihan(nilai)
                 .debitur(p.getNomorRegistrasi())
                 .keterangan("Daftar Ulang Mahasiswa Baru STEI Tazkia a.n "+p.getNama())
                 .tanggalJatuhTempo(Date.from(LocalDate.now().plusYears(1).atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
 
         kafkaSender.requestCreateTagihan(tagihanRequest);
-        System.out.println("Nilai Daftar Ulang : "+ hitungBiayaDaftarUlang(p,h,tanggalTest));
+//        System.out.println("Nilai Daftar Ulang : "+ hitungBiayaDaftarUlang(p,h,tanggalTest));
 
     }
 

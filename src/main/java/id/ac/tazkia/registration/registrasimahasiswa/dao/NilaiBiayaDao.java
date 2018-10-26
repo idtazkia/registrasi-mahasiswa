@@ -25,4 +25,6 @@ public interface NilaiBiayaDao extends PagingAndSortingRepository <NilaiBiaya, S
     Page<NilaiBiaya> findByPeriode(Periode periode, Pageable page);
 
     Page<NilaiBiaya> findByJenisBiaya(JenisBiaya jenisBiaya, Pageable page);
+
+    List<NilaiBiaya> findByProgramStudiAndJenisBiayaAndPeriodeAndGrade(ProgramStudi programStudi, JenisBiaya jenisBiaya, Periode pr, Grade gr);
 }

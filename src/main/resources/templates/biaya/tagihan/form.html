@@ -4,80 +4,101 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Form Input Grade</title>
+    <title>Form Input Tagihan</title>
 </head>
 <body>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        function copyTextValue(bf) {
+            var text1 = bf.checked ? document.getElementById("nilai1").value : '';
+            document.getElementById("nilai").value = text1;
+        }
+    </script>
+</th:block>
+
 <section layout:fragment="content" class="clearfix">
     <section class="clearfix">
-        <form method="post">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <!-- Identitas awal-->
-                        <div class="card">
-                            <div class="header">
-                                <h1>
-                                    Input Tagihan Baru
-                                </h1>
-                            </div>
-
-                            <div class="body">
-                                <div class="row">
-                                    <div class="col-sm-6">
+        <form method="post" th:action="@{/biaya/tagihan/form}" th:object="${hasil}">
+            <input type="hidden" name="pendaftar" th:field="*{pendaftar}">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel tile fixed_height_160">
+                        <div class="x_title" style="color: black">
+                            <h2 style="font-style: normal; font-size: 30px;" th:text="${'Tagihan DU : '+ pendaftar.nomorRegistrasi + ' > ' + pendaftar.nama}"></h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="row clearfix" style="color: black">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Program Studi</label>
+                                                    <span type="text" th:text="*{pendaftar.programStudi.nama}" name="programStudi"
+                                                          class="form-control" ></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Grade</label>
+                                                    <span type="text" th:text="*{grade.nama}" name="programStudi"
+                                                          class="form-control" ></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Priode</label>
+                                                    <span type="text" th:text="*{periode.nama}" name="programStudi"
+                                                          class="form-control" ></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Jenis Test</label>
+                                                    <span type="text" th:text="*{jenisTest}" name="programStudi"
+                                                          class="form-control" ></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label>Nilai | <a href="" style="color: #00CC33"  data-toggle="modal" data-target="#real">Daftar Nilai</a></label>
+                                                    <input type="text" name="nilai" id="nilai" placeholder="Nilai" class="form-control" required />
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="hidden" name="nilai1" id="nilai1"  th:value="*{nilaiBiaya.nilai}"/>
+                                                        <input type="checkbox" name="check1" onchange="copyTextValue(this);"/>Tagihan Sesuai Ketentuan : <span th:text="*{nilaiBiaya.nilai}"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div><div class="col-sm-6">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label>No Pendaftar</label>
-                                                <input type="text" name="noPendaftar"
-                                                       class="form-control" required  placeholder="Nomor Pendaftar" disabled readonly/>
+                                                <label>Keterangan</label>
+                                                <input type="text"  name="keterangan" placeholder="Keterangan" class="form-control" required />
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Nama</label>
-                                                <input type="text" name="nama" class="form-control" placeholder="Nama" disabled  required readonly />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Jenis Biaya</label>
-                                                <select name="jenisBiaya" class="form-control" id="pemberi_rekomendasi"required>
-                                                    <option>-Pilih Jenis Biaya-</option>
-                                                    <option value="registrasi">Registrasi</option>
-                                                    <option value="daftarUlang">Daftar Ulang</option>
-                                                    <option value="ukt2Tahun">UKT 2 Tahun</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Nilai</label>
-                                                <input type="text" name="nilai" placeholder="Nilai" class="form-control" required />
-                                            </div>
-                                        </div>
-                                    </div><div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label>Rekening</label>
-                                                <input type="text" name="rekening" placeholder="Rekening" class="form-control" required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Simpan Data -->
-                                    <div class="col-sm-12" align="right" >
-                                        <div class="form-group">
-                                            <div class="col-xs-12" >
-                                                <button class="btn btn-lg bg-blue-grey waves-effect" type="submit">SIMPAN</button>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <button class="btn btn-md btn-info waves-effect" type="submit">SELESAI</button>
+                                                    <a th:href="@{/registrasi/hasil/list}" class="btn btn-md btn-danger waves-effect" type="submit">BATAL</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -85,8 +106,49 @@
             </div>
         </form>
     </section>
-
-</section>
-
+    <!--DaftarNilaiBiaya-->
+    <section class="clearfix">
+        <div class="modal fade" id="real" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="diksonLabel">Daftar Nilai Biaya</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Jenis Biaya</th>
+                                            <th>Grade</th>
+                                            <th>Periode</th>
+                                            <th>Program Studi</th>
+                                            <th>Nilai Biaya</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="p, row : ${daftarNilai}">
+                                            <td th:text="${(row.index + 1) + (daftarNilai.number * daftarNilai.size)}">#</td>
+                                            <td th:text="${p. jenisBiaya.nama}">muamalah</td>
+                                            <td th:text="${p. Grade.nama}">10-08-2017</td>
+                                            <td th:text="${p. periode.nama}">10-10-2017</td>
+                                            <td th:text="${p. programStudi.nama}">10-10-2017</td>
+                                            <td th:text="${p. nilai}">10-10-2017</td>                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-sm btn-info waves-effect"  data-dismiss="modal">Kembali</button>
+                   </div>
+                </div>
+            </div>
+        </div>    </section>
+    </section>
 </body>
 </html>
