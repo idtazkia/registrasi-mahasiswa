@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Upload Berkas</title>
+</head>
+<body>
+<section layout:fragment="content" class="clearfix">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title" style="color: black">
+                    <h1>Upload Berkas</h1>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row clearfix" style="color: black">
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_content">
+                                    <br />
+                                    <form method="post" th:action="@{/registrasi/berkas/form}" th:object="${berkas}"
+                                          data-parsley-validate class="form-horizontal form-label-right" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                No Registrasi <span class="required">:</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" id="no_regist" readonly th:value="${pendaftar.nomorRegistrasi}" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nama">
+                                                Nama <span class="required">:</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" id="nama" name="nama" readonly th:value="${pendaftar.nama}" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="j_berkas">
+                                           Jenis Berkas <span class="required">:</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <select name="jenisBerkas" required id="j_berkas"class="form-control col-md-7 col-xs-12">
+                                                    <option value="">-Pilih Berkas-</option>
+                                                    <option value="IJAZAH">Ijazah Terakhir</option>
+                                                    <option value="SKL">SKL (Surat Keterangan Lulus)</option>
+                                                    <option value="KTP">KTP (Kartu Tanda Penduduk)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                File <span class="required">:</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" name="fileBerkas" required="required" type="file">
+                                                <span style="color: red">*Format file harus berupa jpeg/jpg dan pdf </span>
+                                                <br><span style="color: red">*Max 10000KB/10MB </span>
+
+                                            </div>
+                                        </div>
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                <a th:href="@{/registrasi/berkas/list}" class="btn btn-primary" type="button">Batal</a>
+                                                <button type="submit" class="btn btn-success">Selesai</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

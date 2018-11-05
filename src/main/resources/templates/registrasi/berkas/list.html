@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>List Upload Berkas</title>
+</head>
+<body>
+<section layout:fragment="content" class="clearfix">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_160">
+                <div class="x_title" style="color: black">
+                    <h1>Upload Berkas</h1>
+                    <a th:href="@{/registrasi/berkas/form}" target="_blank">
+                        <button type="submit" class="btn btn-sm btn-success">
+                            <i class="fa fa-cloud-upload"></i>
+                            <small>Upload Berkas&nbsp;</small>
+                        </button>
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row clearfix" style="color: black">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="row clearfix">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card">
+                                        <div class="body">
+
+                                            <hr>
+                                            <div class="row">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped table-hover">
+                                                        <thead>
+                                                        <tr align="center">
+                                                            <th>No</th>
+                                                            <th>Berkas</th>
+                                                            <th>Lihat</th>
+                                                            <th>Hapus</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr th:each="br, row : ${daftarBerkas}">
+                                                                <td th:text="${(row.index + 1) + (daftarBerkas.number * daftarBerkas.size)}">1.</td>
+                                                                <td th:text="${br.jenisBerkas}">SKL (Surat Keterangan Lulus)</td>
+                                                                <td>
+                                                                    <a th:href="@{/berkas/{berkas}/bukti/(berkas=${br.id})}">
+
+                                                                    <button type="submit" class="btn btn-sm btn-success">
+                                                                            <i class="fa fa-file-image-o"></i>
+                                                                            <small>Lihat Berkas&nbsp;</small>
+                                                                        </button>
+                                                                    </a>                                                               </td>
+                                                                <td>
+                                                                    <form method="post" th:action="@{/registrasi/berkas/hapus/(id=${br.id})}">
+                                                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                                                onclick="return confirm('Are you sure want tho delete this?')">
+                                                                            <i class="fa fa-trash-o"></i>
+                                                                            <small>Hapus Berkas&nbsp;</small>
+                                                                        </button>
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--//table//-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

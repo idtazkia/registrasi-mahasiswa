@@ -113,6 +113,7 @@
 
                             <li sec:authorize="hasAuthority('VIEW_PENDAFTAR')"><a th:href="@{/registrasi/detail/form}"><i class="fa fa-book"></i>Edit Data</a></li>
                             <li sec:authorize="hasAuthority('VIEW_PENDAFTAR')"><a th:href="@{/registrasi/tagihan/list}"><i class="fa fa-money"></i>Tagihan</a></li>
+                            <li sec:authorize="hasAuthority('VIEW_PENDAFTAR')"><a th:href="@{/registrasi/berkas/list}"><i class="fa fa-folder-open"></i>Upload Berkas</a></li>
                         </ul>
                     </div>
                 </div>
