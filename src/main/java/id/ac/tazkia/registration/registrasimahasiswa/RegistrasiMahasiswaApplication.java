@@ -1,5 +1,6 @@
 package id.ac.tazkia.registration.registrasimahasiswa;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -21,6 +22,10 @@ public class RegistrasiMahasiswaApplication {
 		SpringApplication.run(RegistrasiMahasiswaApplication.class, args);
 	}
 
+	@Bean
+	public LayoutDialect layoutDialect() {
+		return new LayoutDialect();
+	}
 	@Bean
 	public SpringDataDialect springDataDialect() {
 		return new SpringDataDialect();
