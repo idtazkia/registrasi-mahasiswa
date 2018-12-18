@@ -38,7 +38,7 @@
                                                             <th>No</th>
                                                             <th>Graded</th>
                                                             <th>Nilai Minimum</th>
-                                                            <th colspan="2">&nbsp;</th>
+                                                            <th colspan="1">&nbsp;</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -51,15 +51,15 @@
                                                                    class="btn bg-green btn-xs waves-effec">Edit
                                                                 </a>
                                                             </td>
-                                                            <td width="100px">
-                                                                <form method="post" th:action="@{/grade/hapus(id=${p.id})}">
-                                                                    <button type="submit" class="btn btn-danger btn-xs"
-                                                                            onclick="return confirm('Are you sure? Once deleted, you will not be able' +
-                                                                            ' to recover this imaginary file!')">
-                                                                        Hapus
-                                                                    </button>
-                                                                </form>
-                                                            </td>
+                                                            <!--<td width="100px">-->
+                                                                <!--<form method="post" th:action="@{/grade/hapus(id=${p.id})}">-->
+                                                                    <!--<button type="submit" class="btn btn-danger btn-xs"-->
+                                                                            <!--onclick="return confirm('Are you sure? Once deleted, you will not be able' +-->
+                                                                            <!--' to recover this imaginary file!')">-->
+                                                                        <!--Hapus-->
+                                                                    <!--</button>-->
+                                                                <!--</form>-->
+                                                            <!--</td>-->
                                                         </tr>
                                                         </tbody>
                                                     </table>
