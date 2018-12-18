@@ -37,26 +37,26 @@
                                                         <tr>
                                                             <th>No</th>
                                                             <th>Nama Program Studi</th>
-                                                            <th colspan="2" ></th>
+                                                            <!--<th colspan="2" ></th>-->
                                                         </tr>
                                                         </thead>
                                                         <tbody>
                                                         <tr th:each="p, row : ${daftarProgram}">
                                                             <td th:text="${(row.index + 1) + (daftarProgram.number * daftarProgram.size)}">#</td>
                                                             <td th:text="${p. nama}">muamalah</td>
-                                                            <td width="100px">
-                                                                <a href="form"  th:href="@{/programstudi/form(id=${p.id})}"
-                                                                   class="btn btn-xs bg-green waves-effec" >Edit</a>
-                                                            </td>
-                                                            <td width="100px">
-                                                                <form method="post" th:action="@{/programstudi/hapus(id=${p.id})}">
-                                                                    <button type="submit" class="btn btn-danger btn-xs"
-                                                                            onclick="return confirm('Are you sure? Once deleted, you will not be able' +
-                                                                            ' to recover this imaginary file!')">
-                                                                        Hapus
-                                                                    </button>
-                                                                </form>
-                                                            </td>
+                                                            <!--<td width="100px">-->
+                                                                <!--<a href="form"  th:href="@{/programstudi/form(id=${p.id})}"-->
+                                                                   <!--class="btn btn-xs bg-green waves-effec" >Edit</a>-->
+                                                            <!--</td>-->
+                                                            <!--<td width="100px">-->
+                                                                <!--<form method="post" th:action="@{/programstudi/hapus(id=${p.id})}">-->
+                                                                    <!--<button type="submit" class="btn btn-danger btn-xs"-->
+                                                                            <!--onclick="return confirm('Are you sure? Once deleted, you will not be able' +-->
+                                                                            <!--' to recover this imaginary file!')">-->
+                                                                        <!--Hapus-->
+                                                                    <!--</button>-->
+                                                                <!--</form>-->
+                                                            <!--</td>-->
                                                         </tr>
                                                         </tbody>
                                                     </table>
