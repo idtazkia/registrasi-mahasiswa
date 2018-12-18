@@ -37,7 +37,7 @@ public class KafkaListenerService {
     @Autowired private AgenDao agenDao;
     @Autowired private TagihanAgenDao tagihanAgenDao;
 
-    @KafkaListener(topics = "${kafka.topic.debitur.response}", group = "${spring.kafka.consumer.group-id}")
+    @KafkaListener(topics = "${kafka.topic.debitur.response}", groupId = "${spring.kafka.consumer.group-id}")
     public void handleDebiturResponse(String message) {
         try {
             LOGGER.debug("Terima message : {}", message);
@@ -66,7 +66,7 @@ public class KafkaListenerService {
         }
     }
 
-    @KafkaListener(topics = "${kafka.topic.tagihan.response}", group = "${spring.kafka.consumer.group-id}")
+    @KafkaListener(topics = "${kafka.topic.tagihan.response}", groupId = "${spring.kafka.consumer.group-id}")
     public void handleTagihanResponse(String message) {
         try {
             LOGGER.debug("Terima message : {}", message);
@@ -89,7 +89,7 @@ public class KafkaListenerService {
         }
     }
 
-    @KafkaListener(topics = "${kafka.topic.tagihan.payment}", group = "${spring.kafka.consumer.group-id}")
+    @KafkaListener(topics = "${kafka.topic.tagihan.payment}", groupId = "${spring.kafka.consumer.group-id}")
     public void handlePayment(String message) {
         try {
             LOGGER.debug("Terima message : {}", message);

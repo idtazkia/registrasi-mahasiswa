@@ -13,6 +13,6 @@ public class TagihanConverter implements Converter<String, Tagihan> {
 
     @Override
     public Tagihan convert(String idTagihan) {
-        return tagihanDao.findOne(idTagihan);
+        return tagihanDao.findById(idTagihan).get();
     }
 }

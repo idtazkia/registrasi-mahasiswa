@@ -92,7 +92,7 @@ public class RegistrasiService {
     }
 
     private void createUser(Pendaftar p) {
-        Role rolePendaftar = roleDao.findOne(AppConstants.ID_ROLE_PENDAFTAR);
+        Role rolePendaftar = roleDao.findById(AppConstants.ID_ROLE_PENDAFTAR).get();
 
         User user = new User();
         user.setUsername(p.getNomorRegistrasi());
