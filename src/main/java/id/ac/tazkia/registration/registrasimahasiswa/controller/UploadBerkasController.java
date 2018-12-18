@@ -191,7 +191,7 @@ public class UploadBerkasController {
     }
 
     @RequestMapping("/registrasi/berkas/hapus")
-    public  String hapus(@RequestParam("id") String id ){
+    public  String hapus(@RequestParam("id") Berkas id ){
         berkasDao.delete(id);
         return "redirect:/registrasi/berkas/list";
     }

@@ -59,7 +59,7 @@ public class HasilTestController {
         m.addAttribute("hasil", h);
         m.addAttribute("error", error);
 
-        Pendaftar p = pendaftarDao.findOne(id);
+        Pendaftar p = pendaftarDao.findById(id).get();
         m.addAttribute("pendaftar", p);
         if (p != null){
             h.setPendaftar(p);

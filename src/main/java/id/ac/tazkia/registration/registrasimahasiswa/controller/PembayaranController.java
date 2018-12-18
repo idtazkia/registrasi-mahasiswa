@@ -89,7 +89,7 @@ public class PembayaranController {
         m.addAttribute("bayar", p);
         m.addAttribute("error", error);
 
-        Tagihan t = tagihanDao.findOne(id);
+        Tagihan t = tagihanDao.findById(id).get();
         if (t != null) {
             p.setNilai(t.getNilai());
             p.setTagihan(t);
@@ -161,7 +161,7 @@ public class PembayaranController {
     public void list(@RequestParam(value = "id", required = false) String idTagihan, Model m, Pageable page) {
         if (StringUtils.hasText(idTagihan)) {
             m.addAttribute("nama", idTagihan);
-            Tagihan t = tagihanDao.findOne(idTagihan);
+            Tagihan t = tagihanDao.findById(idTagihan).get();
             m.addAttribute("pembayaran", pembayaranDao.findByTagihan(t));
         } else {
             m.addAttribute("pembayaran", pembayaranDao.findAll(page));

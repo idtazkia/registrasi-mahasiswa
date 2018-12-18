@@ -53,7 +53,7 @@ public class AgenController {
         m.addAttribute("agen", new Agen());
 
         if (id != null && !id.isEmpty()) {
-            Agen p = agenDao.findOne(id);
+            Agen p = agenDao.findById(id).get();
             if (p != null) {
                 m.addAttribute("agen", p);
             }

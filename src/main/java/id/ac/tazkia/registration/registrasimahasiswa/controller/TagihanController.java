@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -70,7 +71,7 @@ public class TagihanController {
     @GetMapping("/api/pendaftar/{pendaftar}/tagihan")
     @ResponseBody
     public List<Tagihan> findByPendaftar(@PathVariable String pendaftar) {
-        return tagihanDao.findByPendaftarOrderByTanggalTagihan(pendaftarDao.findOne(pendaftar));
+        return tagihanDao.findByPendaftarOrderByTanggalTagihan(pendaftarDao.findById(pendaftar).get());
     }
 
     @RequestMapping("/tagihan/list")
@@ -94,12 +95,15 @@ public class TagihanController {
                               @RequestParam(required = false) String error,Pageable page,
                               Model m){
 
-        Pendaftar p = pendaftarDao.findOne(id);
+        Pendaftar p = pendaftarDao.findById(id).get();
         m.addAttribute("pendaftar", p);
 
         HasilTest d = hasilTestDao.findByPendaftar(p);
         List<Periode> periode = periodeDao.cariPeriodeUntukTanggal(d.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             HasilTestDto hasilTestDto = new HasilTestDto();
+
+            logger.debug("Jumlah data : {}", periode.size());
+
         for (Periode periode1 : periode) {
             hasilTestDto.setPeriode(periode1);
             hasilTestDto.setId(d.getId());
@@ -108,10 +112,10 @@ public class TagihanController {
             hasilTestDto.setGrade(d.getGrade());
             logger.debug(hasilTestDto.getId() + " " + hasilTestDto.getPeriode());
 
-            JenisBiaya jenisBiaya = jb.findOne(AppConstants.JENIS_BIAYA_DAFTAR_ULANG);
-            ProgramStudi programStudi = programStudiDao.findOne(hasilTestDto.getPendaftar().getProgramStudi().getId());
-            Periode pr = periodeDao.findOne(hasilTestDto.getPeriode().getId());
-            Grade gd = gradeDao.findOne(hasilTestDto.getGrade().getId());
+            JenisBiaya jenisBiaya = jb.findById(AppConstants.JENIS_BIAYA_DAFTAR_ULANG).get();
+            ProgramStudi programStudi = programStudiDao.findById(hasilTestDto.getPendaftar().getProgramStudi().getId()).get();
+            Periode pr = periodeDao.findById(hasilTestDto.getPeriode().getId()).get();
+            Grade gd = gradeDao.findById(hasilTestDto.getGrade().getId()).get();
             List<NilaiBiaya> nilaiBiaya = nilaiBiayaDao.findByProgramStudiAndJenisBiayaAndPeriodeAndGrade(programStudi,jenisBiaya,pr, gd);
             for (NilaiBiaya nilaiBiaya1 : nilaiBiaya) {
                 hasilTestDto.setNilaiBiaya(nilaiBiaya1);
@@ -123,8 +127,8 @@ public class TagihanController {
         }
         logger.debug("Nomor Registrasi :"+ p.getNomorRegistrasi());
 
-        JenisBiaya jenisBiaya = jb.findOne(AppConstants.JENIS_BIAYA_DAFTAR_ULANG);
-        ProgramStudi programStudi = programStudiDao.findOne(hasilTestDto.getPendaftar().getProgramStudi().getId());
+        JenisBiaya jenisBiaya = jb.findById(AppConstants.JENIS_BIAYA_DAFTAR_ULANG).get();
+        ProgramStudi programStudi = programStudiDao.findById(p.getProgramStudi().getId()).get();
         m.addAttribute("daftarNilai", nilaiBiayaDao.findByJenisBiayaAndProgramStudi(jenisBiaya,programStudi, page));
 
     }

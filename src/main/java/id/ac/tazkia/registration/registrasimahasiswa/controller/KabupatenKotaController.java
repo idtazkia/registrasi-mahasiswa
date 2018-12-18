@@ -20,7 +20,7 @@ public class KabupatenKotaController {
 
     @GetMapping({"/api/provinsi/{provinsi}/kabupaten", "/api/{provinsi}/kota"})
     public List<KabupatenKota> findByProvinsiAndName(@PathVariable String provinsi, @RequestParam String nama){
-        return kabupatenKotaDao.findByProvinsiAndNamaContainingIgnoreCaseOrderByNama(provinsiDao.findOne(provinsi), nama);
+        return kabupatenKotaDao.findByProvinsiAndNamaContainingIgnoreCaseOrderByNama(provinsiDao.findById(provinsi).get(), nama);
     }
 
     @GetMapping("/api/kokabawal")

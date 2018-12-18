@@ -49,7 +49,7 @@ public class SekolahController {
         m.addAttribute("sekolah", new Sekolah());
 
         if (id != null && !id.isEmpty()){
-            Sekolah p= sd.findOne(id);
+            Sekolah p= sd.findById(id).get();
             if (p != null){
                 m.addAttribute("sekolah", p);
             }

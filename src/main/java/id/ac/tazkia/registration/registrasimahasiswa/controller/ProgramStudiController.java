@@ -22,7 +22,7 @@ public class ProgramStudiController {
 
     //Hapus Data
     @RequestMapping("/programstudi/hapus")
-    public  String hapus(@RequestParam("id") String id ){
+    public  String hapus(@RequestParam("id") ProgramStudi id ){
         sd.delete(id);
         return "redirect:list";
     }
@@ -50,7 +50,7 @@ public class ProgramStudiController {
         m.addAttribute("prodi", new ProgramStudi());
 
         if (id != null && !id.isEmpty()){
-            ProgramStudi p= sd.findOne(id);
+            ProgramStudi p= sd.findById(id).get();
             if (p != null){
                 m.addAttribute("prodi", p);
             }

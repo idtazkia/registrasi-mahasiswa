@@ -97,7 +97,7 @@ public class NilaiBiayaController {
             LOGGER.warn("Username {} not found in database ", username);
         }
         if (id != null && !id.isEmpty()) {
-            NilaiBiaya nilaiBiaya = nilaiBiayaDao.findOne(id);
+            NilaiBiaya nilaiBiaya = nilaiBiayaDao.findById(id).get();
             if (nilaiBiaya != null) {
                 nilaiBiaya.setUserEdit(u);
                 nilaiBiaya.setTanggalEdit(LocalDateTime.now());

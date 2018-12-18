@@ -31,7 +31,7 @@ public class JenisBiayaController {
 
 //Hapus Data
     @RequestMapping("/biaya/jenis/hapus")
-    public  String hapus(@RequestParam("id") String id ){
+    public  String hapus(@RequestParam("id") JenisBiaya id ){
         jb.delete(id);
         return "redirect:list";
     }
@@ -45,7 +45,7 @@ public class JenisBiayaController {
         m.addAttribute("jenis", new JenisBiaya());
 
         if (id != null && !id.isEmpty()){
-            JenisBiaya p= jb.findOne(id);
+            JenisBiaya p= jb.findById(id).get();
             if (p != null){
                 m.addAttribute("jenis", p);
             }

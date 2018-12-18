@@ -31,7 +31,7 @@ public class PeriodeController {
 /////
 //Hapus Data
         @RequestMapping("/periode/hapus")
-        public  String hapus(@RequestParam("id") String id ){
+        public  String hapus(@RequestParam("id") Periode id ){
             pd.delete(id);
             return "redirect:list";
         }
@@ -45,7 +45,7 @@ public class PeriodeController {
             m.addAttribute("periode", new Periode());
 
             if (id != null && !id.isEmpty()){
-                Periode p= pd.findOne(id);
+                Periode p= pd.findById(id).get();
                 if (p != null){
                     m.addAttribute("periode", p);
                 }

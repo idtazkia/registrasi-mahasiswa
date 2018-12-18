@@ -149,7 +149,7 @@ public class RegistrasiDetailController {
     public void  viewDetail(@RequestParam(value = "id",required = false)String idPendaftar, Model m, Pageable page){
         if(StringUtils.hasText(idPendaftar)) {
             m.addAttribute("pendaftar", idPendaftar);
-            Pendaftar p = pendaftarDao.findOne(idPendaftar);
+            Pendaftar p = pendaftarDao.findById(idPendaftar).get();
             m.addAttribute("view", detailPendaftarDao.findByPendaftar(p));
         } else {
             m.addAttribute("view", detailPendaftarDao.findAll(page));

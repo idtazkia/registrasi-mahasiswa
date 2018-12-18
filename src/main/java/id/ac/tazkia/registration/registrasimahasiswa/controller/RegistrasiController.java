@@ -63,7 +63,7 @@ public class RegistrasiController {
         m.addAttribute("registrasi", new Pendaftar());
 
         if (id != null && !id.isEmpty()){
-            Pendaftar p= pendaftarDao.findOne(id);
+            Pendaftar p= pendaftarDao.findById(id).get();
             if (p != null){
                 m.addAttribute("registrasi", p);
             }
@@ -75,13 +75,13 @@ public class RegistrasiController {
     @PostMapping(value = "/registrasi/form")
     public String prosesForm(@ModelAttribute @Valid Registrasi registrasi, BindingResult errors, SessionStatus status){
         // load kabupaten kota
-        KabupatenKota kk = kabupatenKotaDao.findOne(registrasi.getIdKabupatenKota());
+        KabupatenKota kk = kabupatenKotaDao.findById(registrasi.getIdKabupatenKota()).get();
         if(kk == null){
             errors.reject("idKabupatenKota", "Data kabupaten tidak ada dalam database");
         }
 
         // load program studi
-        ProgramStudi prodi = programStudiDao.findOne(registrasi.getProgramStudi());
+        ProgramStudi prodi = programStudiDao.findById(registrasi.getProgramStudi()).get();
         if(prodi == null){
             errors.reject("programStudiPilihan", "Program studi tidak ada dalam database");
         }

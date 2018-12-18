@@ -77,7 +77,7 @@ public class RegistrasiAgenController {
         model.addAttribute("registrasi",new Registrasi());
 
         if (id != null && !id.isEmpty()){
-            Pendaftar pendaftar= pendaftarDao.findOne(id);
+            Pendaftar pendaftar= pendaftarDao.findById(id).get();
             if (pendaftar != null){
                 Registrasi registrasi = new Registrasi();
                 BeanUtils.copyProperties(pendaftar,registrasi);
@@ -116,13 +116,13 @@ public class RegistrasiAgenController {
 
 
         // load kabupaten kota
-        KabupatenKota kk = kabupatenKotaDao.findOne(registrasi.getIdKabupatenKota());
+        KabupatenKota kk = kabupatenKotaDao.findById(registrasi.getIdKabupatenKota()).get();
         if(kk == null){
             errors.reject("idKabupatenKota", "Data kabupaten tidak ada dalam database");
         }
 
         // load program studi
-        ProgramStudi prodi = programStudiDao.findOne(registrasi.getProgramStudi());
+        ProgramStudi prodi = programStudiDao.findById(registrasi.getProgramStudi()).get();
         if(prodi == null){
             errors.reject("programStudiPilihan", "Program studi tidak ada dalam database");
         }
@@ -136,7 +136,7 @@ public class RegistrasiAgenController {
 
         agenService.prosesDaftar(registrasi, prodi, kk);
 
-        Pendaftar pe = pendaftarDao.findOne(registrasi.getId());
+        Pendaftar pe = pendaftarDao.findById(registrasi.getId()).get();
         if (pe == null) {
             Pendaftar pendaftar = pendaftarDao.findByNomorRegistrasi(registrasi.getNomorRegistrasi());
             PendaftarAgen pa = new PendaftarAgen();

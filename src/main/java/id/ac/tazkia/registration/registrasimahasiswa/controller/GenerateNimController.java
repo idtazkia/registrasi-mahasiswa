@@ -52,7 +52,7 @@ public class GenerateNimController{
     public void tampilkanForm(@RequestParam(value = "id", required = true) String id,
                               Model m){
         //defaultnya, isi dengan object baru
-        Pendaftar p = pendaftarDao.findOne(id);
+        Pendaftar p = pendaftarDao.findById(id).get();
         DetailPendaftar d = detailPendaftarDao.findByPendaftar(p);
 
         RegistrasiDetail detail = new RegistrasiDetail();
@@ -100,7 +100,6 @@ public class GenerateNimController{
         }
         m.addAttribute("detail",detail);
 
-        System.out.println("Tanggal Lahir :"+ d.getTanggalLahir());
 
     }
 
@@ -110,7 +109,7 @@ public class GenerateNimController{
                              RedirectAttributes redirectAttributes){
 
 
-            Pendaftar p = pendaftarDao.findOne(registrasiDetail.getPendaftar());
+            Pendaftar p = pendaftarDao.findById(registrasiDetail.getPendaftar()).get();
 
 
             System.out.println("Nama :"+ p.getNama());
@@ -125,7 +124,16 @@ public class GenerateNimController{
             p.setNamaPerekomendasi(p.getNamaPerekomendasi());
             p.setUser(p.getUser());
             p.setKonsentrasi(p.getKonsentrasi());
-            pendaftarDao.save(p);
+        System.out.println("prodi" + p.getProgramStudi());
+        DetailPendaftar dep = detailPendaftarDao.findByPendaftar(p);
+        System.out.println("prodi 2" + dep.getPendaftar().getProgramStudi());
+
+        if (p.getProgramStudi() != registrasiDetail.getProgramStudi()) {
+            dep.setNim("");
+            System.out.println("SET NIM : " + dep.getNim());
+            detailPendaftarDao.save(dep);
+        }
+        pendaftarDao.save(p);
 
         DetailPendaftar detailPendaftar = new DetailPendaftar();
 //simpan

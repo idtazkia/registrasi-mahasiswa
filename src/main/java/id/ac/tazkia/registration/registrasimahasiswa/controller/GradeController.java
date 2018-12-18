@@ -32,7 +32,7 @@ public class GradeController {
 //
 //Hapus Data
 @RequestMapping("/grade/hapus")
-    public  String hapus(@RequestParam("id") String id ){
+    public  String hapus(@RequestParam("id") Grade id ){
         go.delete(id);
         return "redirect:list";
     }
@@ -45,7 +45,7 @@ public class GradeController {
         m.addAttribute("grade", new Grade());
 
         if (id != null && !id.isEmpty()){
-            Grade p= go.findOne(id);
+            Grade p= go.findById(id).get();
             if (p != null){
                 m.addAttribute("grade", p);
             }
