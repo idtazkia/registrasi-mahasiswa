@@ -277,4 +277,35 @@ public class NotifikasiService {
             LOGGER.warn(err.getMessage(), err);
         }
     }
+
+    @Async
+    public void kirimNotifikasiHasilTestS2(HasilTest h){
+        String hasil = "Lulus";
+            Pendaftar p = h.getPendaftar();
+            NotifikasiRegistrasi notif = NotifikasiRegistrasi.builder()
+                    .konfigurasi(getKonfigurasiNotifikasiHasilTest)
+                    .email(p.getEmail())
+                    .data(DataNotifikasiPengumuman.builder()
+                            .nama(p.getNama())
+                            .nomor(p.getNomorRegistrasi())
+                            .email(p.getEmail())
+                            .grade(hasil)
+                            .sekolah(p.getNamaAsalSekolah())
+                            .prodi(p.getProgramStudi().getNama())
+                            .namaKontak1("Irma")
+                            .nomorKontak1("08159551299")
+                            .namaKontak2("Furqon")
+                            .nomorKontak2("08561360444")
+                            .namaKontak3("Panitia Penerimaan Mahasiswa Baru")
+                            .nomorKontak3("humas@tazkia.ac.id")
+                            .build())
+                    .build();
+
+            try {
+                kafkaTemplate.send(topicNotifikasi, objectMapper.writeValueAsString(notif));
+            } catch (Exception err) {
+                LOGGER.warn(err.getMessage(), err);
+            }
+
+    }
 }

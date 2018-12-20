@@ -192,4 +192,64 @@ public class HasilTestController {
 
         response.getWriter().flush();
     }
+
+
+    //tampikan form hasil test pasca
+    @RequestMapping(value = "/registrasi/hasil/S2/form", method = RequestMethod.GET)
+    public void tampilkanFormS2(@RequestParam(value = "id", required = true) String id,
+                              @RequestParam(required = false) String error,
+                              Model m){
+        //defaultnya, isi dengan object baru
+        HasilTestDto h = new HasilTestDto();
+        m.addAttribute("hasil", h);
+        m.addAttribute("error", error);
+
+        Pendaftar p = pendaftarDao.findById(id).get();
+        m.addAttribute("pendaftar", p);
+        if (p != null){
+            h.setPendaftar(p);
+        }
+
+        HasilTest d = hasilTestDao.findByPendaftar(p);
+        logger.debug("Nomor Registrasi :"+ p.getNomorRegistrasi());
+        if (d != null){
+            m.addAttribute("hasil", d);
+        }
+    }
+////
+
+    //simpan
+    @RequestMapping(value = "/registrasi/hasil/S2/form", method = RequestMethod.POST)
+    public String prosesFormS2(@Valid HasilTestDto hasilTestDto,  String nilai, BindingResult errors){
+        if(errors.hasErrors()){
+            return "/registrasi/hasil/S2/form";
+        }
+
+        Grade hasil = registrasiService.hitungGrade(new BigDecimal(nilai));
+        logger.debug("ID GRADE :"+ hasil.getId());
+
+        HasilTest hasilTest = new HasilTest();
+
+        BeanUtils.copyProperties(hasilTestDto, hasilTest);
+        hasilTest.setTanggalTest(hasilTestDto.getTanggalTest());
+        hasilTest.setGrade(hasil);
+
+        hasilTestDao.save(hasilTest);
+        HasilTest h = hasilTestDao.findByPendaftar(hasilTest.getPendaftar());
+        Pendaftar p = h.getPendaftar();
+
+
+        if (hasil.getId() == "003"){
+            System.out.println("tidak lulus");
+        }
+
+        if (hasil.getId() != "003"){
+            notifikasiService.kirimNotifikasiHasilTestS2(h);
+        }
+
+        logger.debug("NIM : "+ hasilTestDto.getNim());
+        return "redirect:/registrasi/list";
+    }
+
+////
 }
