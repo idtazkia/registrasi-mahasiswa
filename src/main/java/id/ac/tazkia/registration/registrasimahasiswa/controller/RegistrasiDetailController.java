@@ -7,10 +7,7 @@ import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.DetailPendaftarDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.HasilTestDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.RegistrasiDetail;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import id.ac.tazkia.registration.registrasimahasiswa.service.NotifikasiService;
@@ -51,6 +48,9 @@ public class RegistrasiDetailController {
     @Autowired private UserDao userDao;
     @Autowired private HasilTestDao hasilTestDao;
     @Autowired private TagihanService tagihanService;
+    @Autowired private PendidikanDao pendidikanDao;
+    @Autowired private PenghasilanDao penghasilanDao;
+    @Autowired private PekerjaanDao pekerjaanDao;
 
     @Autowired
     private DetailPendaftarDao detailPendaftarDao;
@@ -59,6 +59,15 @@ public class RegistrasiDetailController {
 
     @Value("classpath:kartu-ujian-tpa.odt")
     private Resource templateKartuUjian;
+
+    @ModelAttribute("pendidikanOrtu")
+    public Iterable<Pendidikan> pendidikanOrtu(){return pendidikanDao.findAll();}
+
+    @ModelAttribute("pekerjaanOrtu")
+    public Iterable<Pekerjaan> pekerjaanOrtu(){return pekerjaanDao.findAll();}
+
+    @ModelAttribute("penghasilanOrtu")
+    public Iterable<Penghasilan> penghasilanOrtu(){return penghasilanDao.findAll();}
 
     @GetMapping("/registrasi/detail/sukses")
     public void sukses(){
@@ -257,17 +266,17 @@ public class RegistrasiDetailController {
             response.getWriter().print(",");
             response.getWriter().print(p.getNamaAyah());
             response.getWriter().print(",");
-            response.getWriter().print(p.getPekerjaanAyah());
+            response.getWriter().print(p.getPekerjaanAyah().getNama());
             response.getWriter().print(",");
             response.getWriter().print(p.getNamaIbu());
             response.getWriter().print(",");
-            response.getWriter().print(p.getPekerjaanIbu());
+            response.getWriter().print(p.getPekerjaanIbu().getNama());
             response.getWriter().print(",");
             response.getWriter().print(p.getNohpOrangtua());
             response.getWriter().print(",");
             response.getWriter().print(p.getEmailOrangtua());
             response.getWriter().print(",");
-            response.getWriter().print(p.getPenghasilanOrangtua());
+            response.getWriter().print(p.getPenghasilanOrangtua().getNama());
             response.getWriter().print(",");
             response.getWriter().print(p.getJumlahTanggungan());
             response.getWriter().print(",");
