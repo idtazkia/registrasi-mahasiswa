@@ -103,12 +103,12 @@ public class DetailPendaftar {
     private String agamaAyah;
 
     @NotNull
-    @NotEmpty
-    private String pendidikanAyah;
+    @ManyToOne @JoinColumn(name = "pendidikan_ayah")
+    private Pendidikan pendidikanAyah;
 
     @NotNull
-    @NotEmpty
-    private String pekerjaanAyah;
+    @ManyToOne @JoinColumn(name = "pekerjaan_ayah")
+    private Pekerjaan pekerjaanAyah;
 
     @NotNull
     @NotEmpty
@@ -119,12 +119,12 @@ public class DetailPendaftar {
     private String agamaIbu;
 
     @NotNull
-    @NotEmpty
-    private String pendidikanIbu;
+    @ManyToOne @JoinColumn(name = "pendidikan_ibu")
+    private Pendidikan pendidikanIbu;
 
     @NotNull
-    @NotEmpty
-    private String pekerjaanIbu;
+    @ManyToOne @JoinColumn(name = "pekerjaan_ibu")
+    private Pekerjaan pekerjaanIbu;
 
     @NotNull
     @NotEmpty
@@ -141,8 +141,8 @@ public class DetailPendaftar {
     private String emailOrangtua;
 
     @NotNull
-    @NotEmpty
-    private String penghasilanOrangtua;
+    @ManyToOne @JoinColumn(name = "penghasilan_orangtua")
+    private Penghasilan penghasilanOrangtua;
 
     @NotNull
     @NotEmpty
