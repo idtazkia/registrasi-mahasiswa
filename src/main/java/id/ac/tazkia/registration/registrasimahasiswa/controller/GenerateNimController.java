@@ -1,13 +1,8 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
-import id.ac.tazkia.registration.registrasimahasiswa.dao.DetailPendaftarDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.KabupatenKotaDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
-import id.ac.tazkia.registration.registrasimahasiswa.dao.ProgramStudiDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.RegistrasiDetail;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.ProgramStudi;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -41,6 +36,19 @@ public class GenerateNimController{
     private RegistrasiService registrasiService;
     @Autowired
     KabupatenKotaDao kabupatenKotaDao;
+    @Autowired private PendidikanDao pendidikanDao;
+    @Autowired private PenghasilanDao penghasilanDao;
+    @Autowired private PekerjaanDao pekerjaanDao;
+
+
+    @ModelAttribute("pendidikanOrtu")
+    public Iterable<Pendidikan> pendidikanOrtu(){return pendidikanDao.findAll();}
+
+    @ModelAttribute("pekerjaanOrtu")
+    public Iterable<Pekerjaan> pekerjaanOrtu(){return pekerjaanDao.findAll();}
+
+    @ModelAttribute("penghasilanOrtu")
+    public Iterable<Penghasilan> penghasilanOrtu(){return penghasilanDao.findAll();}
 
     @ModelAttribute("daftarProdi")
     public Iterable<ProgramStudi> daftarProdi(){
@@ -82,17 +90,17 @@ public class GenerateNimController{
             detail.setStatusSipil(d.getStatusSipil());
             detail.setNamaAyah(d.getNamaAyah());
             detail.setAgamaAyah(d.getAgamaAyah());
-            detail.setPendidikanAyah(d.getPendidikanAyah());
-            detail.setPekerjaanAyah(d.getPekerjaanAyah());
+            detail.setPendidikanAyah(d.getPendidikanAyah().getId());
+            detail.setPekerjaanAyah(d.getPekerjaanAyah().getId());
             detail.setNamaIbu(d.getNamaIbu());
             detail.setAgamaIbu(d.getAgamaIbu());
-            detail.setPendidikanIbu(d.getPendidikanIbu());
-            detail.setPekerjaanIbu(d.getPekerjaanIbu());
+            detail.setPendidikanIbu(d.getPendidikanIbu().getId());
+            detail.setPekerjaanIbu(d.getPekerjaanIbu().getId());
             detail.setAlamatOrangtua(d.getAlamatOrangtua());
             detail.setKokabOrangtua(d.getKokabOrangtua());
             detail.setNohpOrangtua(d.getNohpOrangtua());
             detail.setEmailOrangtua(d.getEmailOrangtua());
-            detail.setPenghasilanOrangtua(d.getPenghasilanOrangtua());
+            detail.setPenghasilanOrangtua(d.getPenghasilanOrangtua().getId());
             detail.setJumlahTanggungan(d.getJumlahTanggungan());
             detail.setRencanaBiaya(d.getRencanaBiaya());
             detail.setJenisTest(d.getJenisTest());
@@ -270,7 +278,8 @@ public class GenerateNimController{
 
         String[] columns = {"no","nim","nama","program studi","kode prodi", "jenis kelamin", "agama", "alamat", "asal sekolah"," provinsi", "kokab", "kode pos", "email", "no hp", "no ktp"
                 ,"nisn", "tempat lahir","tanggal lahir", "status sipil", "negara", "tahun lulus", "nama ayah",
-                        "agama ayah", "pendidikan ayah","nama ibu", "agama ibu", "pendidikan ibu", "email ortu","nohp ortu"};
+                        "agama ayah", "Id pendidikan ayah","pendidikan ayah","nama ibu", "agama ibu",
+                "Id pendidikan ibu","pendidikan ibu", "email ortu","nohp ortu"};
 
         Iterable<DetailPendaftar> dataPendaftar = detailPendaftarDao.findAll();
 
@@ -322,12 +331,14 @@ public class GenerateNimController{
                 row.createCell(20).setCellValue(p.getTahunLulusSekolah());
                 row.createCell(21).setCellValue(p.getNamaAyah());
                 row.createCell(22).setCellValue(p.getAgamaAyah());
-                row.createCell(23).setCellValue(p.getPendidikanAyah());
-                row.createCell(24).setCellValue(p.getNamaIbu());
-                row.createCell(25).setCellValue(p.getAgamaIbu());
-                row.createCell(26).setCellValue(p.getPendidikanIbu());
-                row.createCell(27).setCellValue(p.getEmailOrangtua());
-                row.createCell(28).setCellValue(p.getNohpOrangtua());
+                row.createCell(23).setCellValue(p.getPendidikanAyah().getId());
+                row.createCell(24).setCellValue(p.getPendidikanAyah().getNama());
+                row.createCell(25).setCellValue(p.getNamaIbu());
+                row.createCell(26).setCellValue(p.getAgamaIbu());
+                row.createCell(27).setCellValue(p.getPendidikanIbu().getId());
+                row.createCell(28).setCellValue(p.getPendidikanIbu().getNama());
+                row.createCell(29).setCellValue(p.getEmailOrangtua());
+                row.createCell(30).setCellValue(p.getNohpOrangtua());
             }
         }
 
@@ -347,7 +358,8 @@ public class GenerateNimController{
 
         String[] columns = {"no","nim","nama","program studi", "jenis kelamin", "agama", "alamat", "asal sekolah"," provinsi", "kokab", "kode pos", "email", "no hp", "no ktp"
                 ,"nisn", "tempat lahir","tanggal lahir", "status sipil", "negara", "tahun lulus", "nama ayah",
-                "agama ayah", "pendidikan ayah","nama ibu", "agama ibu", "pendidikan ibu", "email ortu","nohp ortu"};
+                "agama ayah","Id pendidikan ayah" ,"pendidikan ayah","nama ibu", "agama ibu",
+                "Id pendidikan ibu","pendidikan ibu", "email ortu","nohp ortu"};
 
         Iterable<DetailPendaftar> dataPendaftar = detailPendaftarDao.findAll();
 
@@ -398,12 +410,14 @@ public class GenerateNimController{
                 row.createCell(19).setCellValue(p.getTahunLulusSekolah());
                 row.createCell(20).setCellValue(p.getNamaAyah());
                 row.createCell(21).setCellValue(p.getAgamaAyah());
-                row.createCell(22).setCellValue(p.getPendidikanAyah());
-                row.createCell(23).setCellValue(p.getNamaIbu());
-                row.createCell(24).setCellValue(p.getAgamaIbu());
-                row.createCell(25).setCellValue(p.getPendidikanIbu());
-                row.createCell(26).setCellValue(p.getEmailOrangtua());
-                row.createCell(27).setCellValue(p.getNohpOrangtua());
+                row.createCell(22).setCellValue(p.getPendidikanAyah().getId());
+                row.createCell(23).setCellValue(p.getPendidikanAyah().getNama());
+                row.createCell(24).setCellValue(p.getNamaIbu());
+                row.createCell(25).setCellValue(p.getAgamaIbu());
+                row.createCell(26).setCellValue(p.getPendidikanIbu().getId());
+                row.createCell(27).setCellValue(p.getPendidikanIbu().getNama());
+                row.createCell(28).setCellValue(p.getEmailOrangtua());
+                row.createCell(29).setCellValue(p.getNohpOrangtua());
             }
         }
 
