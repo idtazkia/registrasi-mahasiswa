@@ -1564,7 +1564,7 @@ div#preloader {
 
 .single-blog .ready-btn:hover {
   border: 1px solid #3EC1D5;
-  color: #fff;
+  color: #3EC1D5;
 }
 
 /*------------------------------
@@ -1995,9 +1995,9 @@ div#preloader {
 }
 
 .ready-btn {
-  border: 1px solid #fff;
+  border: 1px solid #3EC1D5;
   border-radius: 30px;
-  color: #fff;
+  color: #3EC1D5;
   cursor: pointer;
   display: inline-block;
   font-size: 17px;
@@ -2011,8 +2011,8 @@ div#preloader {
 }
 
 .ready-btn:hover {
-  color: #fff;
-  background: #3EC1D5;
+  color: #3EC1D5;
+  background: #FFF;
   border: 1px solid #3EC1D5;
   text-decoration: none;
 }
