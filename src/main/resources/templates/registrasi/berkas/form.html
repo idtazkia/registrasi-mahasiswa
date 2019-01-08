@@ -22,7 +22,7 @@
                             <div class="x_panel">
                                 <div class="x_content">
                                     <br />
-                                    <form method="post" th:action="@{/registrasi/berkas/form}" th:object="${berkas}"
+                                    <form method="post" th:action="@{/registrasi/berkas/form}" th:object="${berkasDto}"
                                           data-parsley-validate class="form-horizontal form-label-right" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12">
@@ -30,6 +30,7 @@
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input type="text" id="no_regist" readonly th:value="${pendaftar.nomorRegistrasi}" class="form-control col-md-7 col-xs-12">
+                                                <input type="hidden" id="id" readonly th:value="${pendaftar.id}" name="pendaftar" class="form-control col-md-7 col-xs-12">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -41,24 +42,53 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="j_berkas">
-                                           Jenis Berkas <span class="required">:</span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="j_Berkas1">
+                                           Jenis Berkas 1 <span class="required">:</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <select name="jenisBerkas" required id="j_berkas"class="form-control col-md-7 col-xs-12">
-                                                    <option value="">-Pilih Berkas-</option>
-                                                    <option value="IJAZAH">Ijazah Terakhir</option>
-                                                    <option value="SKL">SKL (Surat Keterangan Lulus)</option>
-                                                    <option value="KTP">KTP (Kartu Tanda Penduduk)</option>
-                                                </select>
+                                                <input type="text" id="j_Berkas1" name="jenisBerkas1" readonly value="IJAZAH" class="form-control col-md-7 col-xs-12">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12">
-                                                File <span class="required">:</span>
+                                                File Ijazah <span class="required">:</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input class="form-control col-md-7 col-xs-12" name="fileBerkas" required="required" type="file">
+                                                <input class="form-control col-md-7 col-xs-12" name="fileBerkas1"  type="file">
+                                                <br><span style="color: red">*Jika belum memiliki Ijazah diwajibkan SKL terlebih dahulu.</span>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="j_Berkas2">
+                                                Jenis Berkas 2 <span class="required">:</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" id="j_Berkas2" name="jenisBerkas2" readonly required="required" value="SKL" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                File SKL <span class="required">:</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" name="fileBerkas2"  type="file">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="j_Berkas3">
+                                                Jenis Berkas3 <span class="required">:</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" id="j_Berkas3" name="jenisBerkas3" readonly value="KTP" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                File KTP <span class="required">:</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" name="fileBerkas3"  type="file">
                                                 <span style="color: red">*Format file harus berupa jpeg/jpg dan pdf </span>
                                                 <br><span style="color: red">*Max 10000KB/10MB </span>
 

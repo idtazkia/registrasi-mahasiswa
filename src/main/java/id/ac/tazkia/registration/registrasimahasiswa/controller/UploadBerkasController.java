@@ -3,13 +3,16 @@ package id.ac.tazkia.registration.registrasimahasiswa.controller;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.BerkasDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dto.BerkasDto;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Berkas;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisBerkas;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,9 +27,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
@@ -70,9 +76,9 @@ public class UploadBerkasController {
     }
 
     @GetMapping("/registrasi/berkas/form")
-    public void tagihanPendaftar(Model model, Authentication currentUser){
+    public void berkasForm(Model model, Authentication currentUser){
 
-        Berkas berkas = new Berkas();
+        BerkasDto berkas = new BerkasDto();
         model.addAttribute("berkas", berkas);
 
         logger.debug("Authentication class : {}",currentUser.getClass().getName());
@@ -102,8 +108,9 @@ public class UploadBerkasController {
     }
 
     @PostMapping("/registrasi/berkas/form")
-    public String  prosesUploadBerkas(@ModelAttribute @Valid Berkas berkas, BindingResult errors,
-                                 MultipartFile fileBerkas,Model model, Authentication currentUser) throws Exception{
+    public String  prosesUploadBerkas(@ModelAttribute @Valid BerkasDto berkasDto, BindingResult errors,
+                                 MultipartFile fileBerkas1,MultipartFile fileBerkas2,MultipartFile fileBerkas3
+            ,Model model,JenisBerkas jenisBerkas, Authentication currentUser) throws Exception{
         logger.debug("Authentication class : {}",currentUser.getClass().getName());
 
         if(currentUser == null){
@@ -128,44 +135,69 @@ public class UploadBerkasController {
             logger.debug("Error upload bukti pembayaran : {}", errors.toString());
         }
 
+// persiapan lokasi upload
+
+
         String idPeserta = pendaftar.getId();
-
-        String namaFile = fileBerkas.getName();
-        String jenisFile = fileBerkas.getContentType();
-        String namaAsli = fileBerkas.getOriginalFilename();
-        Long ukuran = fileBerkas.getSize();
-
-        logger.debug("Nama File : {}", namaFile);
-        logger.debug("Jenis File : {}", jenisFile);
-        logger.debug("Nama Asli File : {}", namaAsli);
-        logger.debug("Ukuran File : {}", ukuran);
-
-//        memisahkan extensi
-        String extension = "";
-
-        int i = namaAsli.lastIndexOf('.');
-        int p = Math.max(namaAsli.lastIndexOf('/'), namaAsli.lastIndexOf('\\'));
-
-        if (i > p) {
-            extension = namaAsli.substring(i + 1);
-        }
-
-        String idFile = UUID.randomUUID().toString();
         String lokasiUpload = uploadFolder + File.separator + idPeserta;
         logger.debug("Lokasi upload : {}", lokasiUpload);
         new File(lokasiUpload).mkdirs();
-        File tujuan = new File(lokasiUpload + File.separator + idFile + "." + extension);
-        berkas.setFileBerkas(idFile + "." + extension);
-        fileBerkas.transferTo(tujuan);
-        logger.debug("File sudah dicopy ke : {}", tujuan.getAbsolutePath());
 
-        berkas.setPendaftar(pendaftar);
-        berkasDao.save(berkas);
+// Proses upload berkas.
+        simpanBerkas(fileBerkas1, pendaftar, berkasDto, lokasiUpload, berkasDto.getJenisBerkas1());
+        simpanBerkas(fileBerkas2, pendaftar, berkasDto, lokasiUpload, berkasDto.getJenisBerkas2());
+        simpanBerkas(fileBerkas3, pendaftar, berkasDto, lokasiUpload, berkasDto.getJenisBerkas3());
+
 
         return "redirect:/registrasi/berkas/list";
     }
 
-    @GetMapping("/berkas/{berkas}/bukti/")
+// Fungsi Upload Berkas
+    private void simpanBerkas(MultipartFile berkasFile, Pendaftar pendaftar, BerkasDto berkasDto, String lokasiUpload, JenisBerkas jenisBerkas){
+        try {
+            if (berkasFile == null || berkasFile.isEmpty()) {
+                logger.info("File berkas kosong, tidak diproses");
+                return;
+            }
+
+            Berkas berkas = new Berkas();
+            berkas.setPendaftar(pendaftar);
+            berkas.setJenisBerkas(berkasDto.getJenisBerkas1());
+
+            String namaFile = berkasFile.getName();
+            String jenisFile = berkasFile.getContentType();
+            String namaAsli = berkasFile.getOriginalFilename();
+            Long ukuran = berkasFile.getSize();
+
+            logger.debug("Nama File : {}", namaFile);
+            logger.debug("Jenis File : {}", jenisFile);
+            logger.debug("Nama Asli File : {}", namaAsli);
+            logger.debug("Ukuran File : {}", ukuran);
+
+            //memisahkan extensi
+            String extension = "";
+
+            int i = namaAsli.lastIndexOf('.');
+            int p = Math.max(namaAsli.lastIndexOf('/'), namaAsli.lastIndexOf('\\'));
+
+            if (i > p) {
+                extension = namaAsli.substring(i + 1);
+            }
+
+            String idFile = UUID.randomUUID().toString();
+            berkas.setFileBerkas(idFile + "." + extension);
+            File tujuan = new File(lokasiUpload + File.separator + berkas.getFileBerkas());
+            berkasFile.transferTo(tujuan);
+            logger.debug("File sudah dicopy ke : {}", tujuan.getAbsolutePath());
+            berkas.setJenisBerkas(jenisBerkas);
+            berkasDao.save(berkas);
+        } catch (Exception er) {
+            logger.error(er.getMessage(), er);
+        }
+
+    }
+
+    @GetMapping("/berkas/{berkas}/berkas/")
     public ResponseEntity<byte[]> tampilkanBerkas(@PathVariable Berkas berkas) throws Exception {
         String lokasiFile = uploadFolder + File.separator + berkas.getPendaftar().getId()
                 + File.separator + berkas.getFileBerkas();

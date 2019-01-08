@@ -46,7 +46,7 @@
                                                                 <td th:text="${(row.index + 1) + (daftarBerkas.number * daftarBerkas.size)}">1.</td>
                                                                 <td th:text="${br.jenisBerkas}">SKL (Surat Keterangan Lulus)</td>
                                                                 <td>
-                                                                    <a th:href="@{/berkas/{berkas}/bukti/(berkas=${br.id})}">
+                                                                    <a target="_blank" th:href="@{/berkas/{berkas}/berkas/(berkas=${br.id})}">
 
                                                                     <button type="submit" class="btn btn-sm btn-success">
                                                                             <i class="fa fa-file-image-o"></i>
