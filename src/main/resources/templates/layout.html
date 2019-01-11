@@ -74,20 +74,20 @@
 
                             <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AKADEMIK')"><a><i class="fa fa-book"></i>Pendaftaran<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li sec:authorize="hasAuthority('VIEW_MASTER')"><a th:href="@{/registrasi/list}">Pendaftar</a></li>
+                                    <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AKADEMIK')"><a th:href="@{/registrasi/list}">Pendaftar</a></li>
                                     <li sec:authorize="hasAuthority('VIEW_MASTER')"><a th:href="@{/registrasi/smart/form}">Upload Smart Test</a></li>
-                                    <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE')"><a th:href="@{/registrasi/hasil/list}">Hasil Test Pendaftar</a></li>
-                                    <li sec:authorize="hasAuthority('VIEW_MASTER')"><a th:href="@{/registrasi/nim/list}">NIM Pendafatar</a></li>
+                                    <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AKADEMIK')"><a th:href="@{/registrasi/hasil/list}">Hasil Test Pendaftar</a></li>
+                                    <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AKADEMIK')"><a th:href="@{/registrasi/nim/list}">NIM Pendafatar</a></li>
                                     <li sec:authorize="hasAuthority('VIEW_AGEN')"><a th:href="@{/agen/pendaftar/form}">Registrasi Pendaftar</a></li>
                                     <li sec:authorize="hasAuthority('VIEW_AGEN')"><a th:href="@{/agen/pendaftar/listAgen}">Data Pendaftar</a></li>
 
                                 </ul>
                             </li>
 
-                            <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AGEN')"><a><i class="fa fa-money"></i>Keuangan<span class="fa fa-chevron-down"></span></a>
+                            <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AGEN','VIEW_AKADEMIK')"><a><i class="fa fa-money"></i>Keuangan<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li sec:authorize="hasAuthority('VIEW_FINANCE')"><a th:href="@{/registrasi/list}">Tagihan Pendaftar</a></li>
-                                    <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE')"><a th:href="@{/registrasi/pembayaran/list}">Pembayaran Pendaftar</a></li>
+                                    <li sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AKADEMIK')"><a th:href="@{/registrasi/pembayaran/list}">Pembayaran Pendaftar</a></li>
                                     <li sec:authorize="hasAuthority('VIEW_AGEN')"><a th:href="@{/agen/tagihan/listAgen}">Tagihan</a></li>
 
                                 </ul>

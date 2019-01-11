@@ -25,6 +25,7 @@
                                     <form method="post" th:action="@{/registrasi/detail/notifikasi(p=${v.id})}">
                                         <input type="text" name="jt" hidden="" th:value="${v.jenisTest}">
                                         <button class="btn bg-green">Kirim Notifikasi</button>
+                                        <a th:href="@{/registrasi/berkas/view(pendaftar=${v.pendaftar.id})}" class="btn btn-md btn-info">Berkas</a>
                                         <a th:href="@{/registrasi/list}" class="btn btn-md btn-danger">Kembali</a>
                                     </form>
                                 </div>

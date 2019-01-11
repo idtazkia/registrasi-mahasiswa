@@ -12,8 +12,11 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel tile fixed_height_160">
                 <div class="x_title" style="color: black">
-                    <h1>Upload Berkas</h1>
-                    <a th:href="@{/registrasi/berkas/form}" target="_blank">
+                    <h1 style="font-style: normal; font-size: 30px;" th:text="${'Berkas Pendaftar : '+ pendaftar.nama + ' > ' + pendaftar.nomorRegistrasi}">
+
+                    </h1>
+
+                    <a th:href="@{/registrasi/berkas/formAkademik?pendaftar=}+${pendaftar.id}" target="_blank">
                         <button type="submit" class="btn btn-sm btn-success">
                             <i class="fa fa-cloud-upload"></i>
                             <small>Upload Berkas&nbsp;</small>
@@ -47,10 +50,10 @@
                                                                 <td th:text="${br.jenisBerkas}">SKL (Surat Keterangan Lulus)</td>
                                                                 <td>
                                                                     <a target="_blank" th:href="@{/berkas/{berkas}/berkas/(berkas=${br.id})}">
-                                                                    <button type="submit" class="btn btn-sm btn-success">
-                                                                            <i class="fa fa-file-image-o"></i>
-                                                                            <small>Lihat Berkas&nbsp;</small>
-                                                                        </button>
+                                                                        <button type="submit" class="btn btn-sm btn-success">
+                                                                                <i class="fa fa-file-image-o"></i>
+                                                                                <small>Lihat Berkas&nbsp;</small>
+                                                                            </button>
                                                                     </a>
                                                                     <a th:href="@{/registrasi/berkas/update(berkas=${br.id})}">
                                                                         <button type="submit" class="btn btn-sm btn-warning">
