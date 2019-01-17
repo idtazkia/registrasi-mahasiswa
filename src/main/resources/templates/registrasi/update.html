@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Update Pendaftar</title>
+</head>
+<body>
+
+<section layout:fragment="content" class="clearfix">
+    <section class="clearfix">
+        <form th:action="@{/registrasi/update}" th:object="${pendaftar}" method="post">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel tile fixed_height_160">
+                        <div class="x_title" style="color: black">
+                            <h1>Update Pendaftar</h1>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="row clearfix" style="color: black">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="card">
+                                    <div class="row clearfix">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="card">
+                                                <div class="body">
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <input type="hidden" name="id" th:field="*{id}">
+                                                                    <input type="hidden" name="nomorRegisrtasi" th:field="*{nomorRegistrasi}">
+                                                                    <input type="hidden"  name="idKabupatenKota" th:field="*{kabupatenKota}">
+
+                                                                    <label>Nama</label>
+                                                                    <input type="text" name="nama" th:field="*{nama}"
+                                                                           class="form-control"
+                                                                           placeholder="Nama" required autofocus/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <label>No Telepon</label>
+                                                                    <input type="text" name="noHp" th:field="*{noHp}"
+                                                                           class="form-control" required autofocus/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <label>Email</label>
+                                                                    <input type="text" name="email" th:field="*{email}"
+                                                                           class="form-control" required autofocus/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group">
+                                                                <div class="form-line">
+                                                                    <label>Negara</label>
+                                                                    <input type="text" name="negara" th:field="*{negara}"
+                                                                           class="form-control" required autofocus/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label>Agama</label>
+                                                            <select name="agama" th:field="*{agama}" class="form-control" required autofocus>
+                                                                <option value="">-Pilih Agama-</option>
+                                                                <option value="Islam">Islam</option>
+                                                                <option value="Hindu">Hindu</option>
+                                                                <option value="Budha">Budha</option>
+                                                                <option value="Kristen">Kristen</option>
+                                                                <option value="Katholik">Katholik</option>
+                                                                <option value="KongHuCu">Kong Hu Cu</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label>Nama Asal Sekolah *</label>
+                                                            <input type="text" class="form-control"
+                                                                   id="sekolah" placeholder="Cari Sekolah ..." th:field="*{namaAsalSekolah}"
+                                                                   data-provide="typeahead" autocomplete="off" required autofocus>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+
+                                                        <div class="col-sm-4">
+                                                            <label>Pemberi Rekomendasi *</label>
+                                                            <select name="pemberi_rekomendasi" th:field="*{pemberiRekomendasi}" class="form-control"
+                                                                     id="pemberi_rekomendasi" required autofocus>
+                                                                <option value="">-Pilih Pemberi Rekomendasi-</option>
+                                                                <option value="agen">Agen</option>
+                                                                <option value="dosen">Dosen</option>
+                                                                <option value="mahasiswa">Mahasiswa</option>
+                                                                <option value="medsos">Media Sosial</option>
+                                                                <option value="surat_kabar">Surat Kabar</option>
+                                                                <option value="staff">Staff</option>
+                                                                <option value="website">Website</option>
+                                                                <option value="lainnya">Lainnya</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label>Nama Perekomendasi *</label>
+                                                            <input type="text"  th:field="*{namaPerekomendasi}" name="nama_perekomendasi"
+                                                                   class="form-control"
+                                                                   placeholder="Nama Perekomendasi"/>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label>Program Studi Pilihan *</label>
+                                                            <select name="programStudi" th:field="*{programStudi}"
+                                                                    class="js-example-basic-single form-control" required autofocus>
+                                                                <option value="">-Pilih Program Studi-</option>
+                                                                <option th:each="ins : ${daftarProdi}"
+                                                                        th:value="${ins.id}"
+                                                                        th:text="${ins.nama}">Ekonomi Syariah</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                            <label>Konsentrasi *</label>
+                                                            <select name="konsentrasi" th:field="*{konsentrasi}" class="form-control" required autofocus>
+                                                                <option value="">-Pilih Konsentrasi-</option>
+                                                                <option value="Reguler" >Reguler(S1 & S2)</option >
+                                                                <option value="Eksekutif" >Eksekutif(S2)</option >
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12" align="right" >
+                                                        <div class="form-group">
+                                                            <div >
+                                                                <button  class="btn btn-md btn-info" type="">SELESAI</button>
+                                                                <a th:href="@{/registrasi/list}" class="btn btn-danger btn-md">BATAL</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--//table//-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+</section>
+
+</body>
+</html></html>

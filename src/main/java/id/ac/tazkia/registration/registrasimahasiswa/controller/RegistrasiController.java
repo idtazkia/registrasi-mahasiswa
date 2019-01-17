@@ -151,5 +151,32 @@ public class RegistrasiController {
         m.addAttribute("detail", d);
 
     }
+
+    @RequestMapping(value = "/registrasi/update", method = RequestMethod.GET)
+    public String updateForm(@RequestParam(value = "id", required = false) String id,
+                                Model m){
+        //defaultnya, isi dengan object baru
+        m.addAttribute("pendaftar", new Pendaftar());
+
+        if (id != null && !id.isEmpty()){
+            Pendaftar p= pendaftarDao.findById(id).get();
+            if (p != null){
+                m.addAttribute("pendaftar", p);
+                KabupatenKota kabupatenKota = kabupatenKotaDao.findById(p.getKabupatenKota().getId()).get();
+                m.addAttribute("kokab", kabupatenKota);
+            }
+
+        }
+        return "registrasi/update";
+    }
+
+    @RequestMapping(value = "/registrasi/update", method = RequestMethod.POST)
+    public String prosesForm(@Valid Pendaftar p, BindingResult errors){
+        if(errors.hasErrors()){
+            return "registrasi/update";
+        }
+        pendaftarDao.save(p);
+        return "redirect:list";
+    }
 }
 
