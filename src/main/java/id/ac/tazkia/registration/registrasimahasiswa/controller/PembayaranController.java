@@ -79,6 +79,8 @@ public class PembayaranController {
     private JenisBiayaDao jenisBiayaDao;
     @Autowired
     private NotifikasiService notifikasiService;
+    @Autowired
+    private HasilTestDao hasilTestDao;
 
     @RequestMapping(value = "/biaya/pembayaran/form", method = RequestMethod.GET)
     public void tampilkanForm(@RequestParam(value = "id", required = true) String id,
@@ -198,16 +200,20 @@ public class PembayaranController {
     public void daftarPembayaran(@RequestParam(required = false) String pendaftar,@RequestParam(required = false) JenisBiaya jenisBiaya, Model m, Pageable page) {
         if (pendaftar != null && jenisBiaya != null) {
             m.addAttribute("pendaftar", pendaftar);
+            m.addAttribute("hasilTest", hasilTestDao.findAll());
             m.addAttribute("jenisBiaya", jenisBiaya);
             m.addAttribute("daftarPembayaran", pembayaranDao.findByTagihanJenisBiayaAndTagihanPendaftarNamaContainingIgnoreCase(jenisBiaya,pendaftar, page));
         }else if (jenisBiaya != null && pendaftar == null){
             m.addAttribute("jenisBiaya",jenisBiaya);
+            m.addAttribute("hasilTest", hasilTestDao.findAll());
             m.addAttribute("daftarPembayaran", pembayaranDao.findByTagihanJenisBiaya(jenisBiaya, page));
         }
         else if (pendaftar != null && jenisBiaya == null) {
             m.addAttribute("pendaftar", pendaftar);
+            m.addAttribute("hasilTest", hasilTestDao.findAll());
             m.addAttribute("daftarPembayaran", pembayaranDao.findByTagihanPendaftarNamaContainingIgnoreCase(pendaftar, page));
         }else{
+            m.addAttribute("hasilTest", hasilTestDao.findAll());
             m.addAttribute("daftarPembayaran", pembayaranDao.findAll(page));
         }
     }
