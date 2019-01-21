@@ -160,7 +160,7 @@
                                         <td th:text="${p. bank.namaBank }">10-08-2017</td>
                                         <td th:text="${p. nilai }">10-08-2017</td>
                                         <span th:each="h : ${hasilTest}">
-                                            <td th:if="${p.tagihan.pendaftar.id == h.pendaftar.id}">
+                                            <td th:if="${p.tagihan.pendaftar.id == h.pendaftar.id and p.tagihan.jenisBiaya.id == '002'}">
                                                 <span th:text="${h.keterangan}"></span>
                                             </td>
                                         </span>
