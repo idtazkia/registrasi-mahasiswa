@@ -308,11 +308,12 @@ public class PembayaranController {
                 +".csv";
         response.setHeader("Content-Disposition", "attachment;filename="+filename);
         response.setContentType("text/csv");
-        response.getWriter().println("No,Nomor Registrasi,Nama,Bank,Nominal,Tanggal Transfer,Waktu Transfer");
+        response.getWriter().println("No,Nomor Registrasi,Nama,Bank,Nominal,Tanggal Transfer,Waktu Transfer,Keterangan");
 
 
         Iterable<Pembayaran> dataPembayaran = pembayaranDao
                 .findByTagihanJenisBiayaAndWaktuPembayaranBetweenOrderByWaktuPembayaran(jenis,mulai.atStartOfDay(), sampai.plusDays(1).atStartOfDay());
+        Iterable<HasilTest> hasilTest = hasilTestDao.findAll();
 
         Integer baris = 0;
         BigDecimal total = BigDecimal.ZERO;
@@ -332,6 +333,12 @@ public class PembayaranController {
             response.getWriter().print(p.getWaktuPembayaran().format(DateTimeFormatter.ISO_LOCAL_DATE));
             response.getWriter().print(",");
             response.getWriter().print(p.getWaktuPembayaran().format(DateTimeFormatter.ISO_LOCAL_TIME));
+            response.getWriter().print(",");
+            for (HasilTest hasilTest1 : hasilTest){
+                if (hasilTest1.getPendaftar().getId() == p.getTagihan().getPendaftar().getId()) {
+                    response.getWriter().print(hasilTest1.getKeterangan());
+                }
+            }
             response.getWriter().println();
         }
 
