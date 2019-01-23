@@ -9,8 +9,28 @@
 <body>
 <section layout:fragment="content" class="clearfix">
     <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel tile fixed_height_160">
+
+        <div class="col-md-12 col-sm-12 col-xs-12" th:if="${pembayaran == null}">
+            <div class="x_panel tile fixed_height_160" >
+                <div class="clearfix">
+                    <h1>Dilakukan Setelah Pembayaran Daftar Ulang</h1>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul style="color: blue"><li>Untuk informasi bisa hubungi : </li>
+                                <ul>
+                                    <li>08561360444 (Keuangan STEI TAZKIA)</li>
+                                    <li> 08159551299 (Humas STEI TAZKIA)</li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12" th:if="${pembayaran != null}">
+            <div class="x_panel tile fixed_height_160" >
                 <div class="x_title" style="color: black">
                     <h1>Upload Berkas</h1>
                     <a th:href="@{/registrasi/berkas/form}" target="_blank">

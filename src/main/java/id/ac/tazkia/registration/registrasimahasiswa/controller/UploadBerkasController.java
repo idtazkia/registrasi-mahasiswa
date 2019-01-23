@@ -1,13 +1,11 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
 import id.ac.tazkia.registration.registrasimahasiswa.dao.BerkasDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.PembayaranDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.BerkasDto;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Berkas;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisBerkas;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +41,8 @@ public class UploadBerkasController {
     private String uploadFolder;
     @Autowired
     private BerkasDao berkasDao;
+    @Autowired
+    private PembayaranDao pembayaranDao;
 
     @GetMapping("/registrasi/berkas/list")
     public void ListUploadBerkas(ModelMap model, Authentication currentUser, Pageable page){
@@ -69,6 +69,9 @@ public class UploadBerkasController {
         }
 
         model.addAttribute("daftarBerkas",berkasDao.findByPendaftarOrderByJenisBerkas(p, page));
+
+        Pembayaran pembayaran = pembayaranDao.findByTagihanPendaftarIdAndTagihanJenisBiayaId(p.getId(), "002");
+        model.addAttribute("pembayaran",pembayaran );
     }
 
     @GetMapping("/registrasi/berkas/form")
