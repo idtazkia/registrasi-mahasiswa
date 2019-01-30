@@ -148,7 +148,6 @@
                                         <th>Keterangan Diskon</th>
                                         <th></th>
                                         <th></th>
-                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -163,14 +162,15 @@
                                             <td th:if="${p.tagihan.pendaftar.id == h.pendaftar.id and p.tagihan.jenisBiaya.id == '002'}">
                                                 <span th:text="${h.keterangan}"></span>
                                             </td>
+                                             <td th:if="${p.tagihan.pendaftar.id == h.pendaftar.id and p.tagihan.jenisBiaya.id == '001'}">
+                                                <span>-</span>
+                                            </td>
                                         </span>
 
                                         <td>
                                                 <span th:if="${p.tagihan.jenisBiaya.id == '001'}">
                                                     <a th:href="@{/registrasi/reset/form(pendaftar = ${p. tagihan.pendaftar.id})}" class="btn btn-xs btn-info waves-effec">Reset Password</a>
                                                 </span>
-                                        </td>
-                                        <td>
                                                 <span th:if="${p.tagihan.jenisBiaya.id == '002'}">
                                                     <a th:href="@{/registrasi/nim/form(id = ${p. tagihan.pendaftar.id})}" class="btn btn-xs btn-warning waves-effec">Cek Data</a>
                                                 </span>
