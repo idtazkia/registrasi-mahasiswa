@@ -46,9 +46,17 @@
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                     <div class="icon"><i class="fa fa-check-square-o"></i></div>
+                    <div class="count" th:text="${cHasilSmart}">-</div>
+                    <a th:href="@{/registrasi/hasil/list}"><h3>Smart Test</h3></a>
+                    <p>Total hasil test (Smart Test) belum daftar</p>
+                </div>
+            </div>
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-check-square-o"></i></div>
                     <div class="count" th:text="${cHasil}">-</div>
                     <a th:href="@{/registrasi/hasil/list}"><h3>Hasil Test</h3></a>
-                    <p>Total hasil test (JPA, TPA & Smart Test)</p>
+                    <p>Total hasil test (JPA, TPA & Smart Test) Terdaftar</p>
                 </div>
             </div>
         </div>

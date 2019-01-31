@@ -27,7 +27,8 @@ public interface HasilTestDao extends PagingAndSortingRepository<HasilTest, Stri
 
     Page<HasilTest> findByJenisTestIn(Pageable tpaPage, JenisTest... jenisTests);
 
-    Long  countHasilTestByPendaftarNotNull();
+    Long  countHasilTestByPendaftarProgramStudiNotNull();
+    Long  countHasilTestByPendaftarProgramStudiIsNull();
 
 }
 
