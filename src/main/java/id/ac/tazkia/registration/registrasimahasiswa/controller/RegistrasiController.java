@@ -2,10 +2,7 @@ package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
 import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.Registrasi;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.KabupatenKota;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.ProgramStudi;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,12 +40,12 @@ public class RegistrasiController {
         if(StringUtils.hasText(search)) {
             m.addAttribute("search", search);
             m.addAttribute("daftarPendaftaran", pendaftarDao
-                    .findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseAndProgramStudiNotNullOrderByNomorRegistrasi(search,search,page));
+                    .findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseAndProgramStudiNotNullAndStatusTrueOrderByNomorRegistrasi(search,search,page));
             m.addAttribute("asa", detailPendaftarDao.findAll());
             m.addAttribute("reset", tagihanDao.findAll());
 
         } else {
-            m.addAttribute("daftarPendaftaran", pendaftarDao.findByProgramStudiNotNull(page));
+            m.addAttribute("daftarPendaftaran", pendaftarDao.findByProgramStudiNotNullAndStatusTrue(page));
             m.addAttribute("asa", detailPendaftarDao.findAll());
             m.addAttribute("resendPassword", tagihanDao.findAll());
 
@@ -176,6 +173,13 @@ public class RegistrasiController {
             return "registrasi/update";
         }
         pendaftarDao.save(p);
+        return "redirect:list";
+    }
+
+    @RequestMapping("/registrasi/hapus")
+    public  String hapus(@RequestParam("id") Pendaftar pendaftar ){
+        pendaftar.setStatus(false);
+        pendaftarDao.save(pendaftar);
         return "redirect:list";
     }
 }

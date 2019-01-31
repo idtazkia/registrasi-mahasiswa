@@ -40,7 +40,9 @@
                                                     <table class="table table-bordered table-striped table-hover">
                                                         <thead>
                                                         <tr>
-                                                            <th colspan="2">No</th>
+                                                            <th>No</th>
+                                                            <th></th>
+                                                            <th></th>
                                                             <th>No. Pendaftaran</th>
                                                             <th>Nama</th>
                                                             <th>Email</th>
@@ -55,6 +57,11 @@
                                                             <td th:text="${(row.index + 1) + (daftarPendaftaran.number * daftarPendaftaran.size)}">#</td>
                                                             <td>
                                                                 <a th:href="@{/registrasi/update(id = ${s.id})}"  class="fa fa-edit">Edit</a>
+                                                            </td>
+                                                            <td>
+                                                                <a th:href="@{/registrasi/hapus(id = ${s.id})}"  class="fa fa-trash"
+                                                                   onclick="return confirm('Are you sure?')"
+                                                                >Hapus</a>
                                                             </td>
                                                             <td th:text="${s.nomorRegistrasi}">1234567890</td>
                                                             <td th:text="${s.nama}">SMK Wiladatika</td>
