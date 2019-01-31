@@ -70,4 +70,7 @@ public class Pendaftar {
     @Column(nullable = false)
     private String agama;
 
+    @NotNull
+    private Boolean status = Boolean.TRUE;
+
 }
