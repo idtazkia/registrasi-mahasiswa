@@ -23,7 +23,7 @@ public class HomeController {
 
     @GetMapping("/home")
     public void home(Model model){
-        model.addAttribute("cPendaftar", pendaftarDao.countPendaftarByProgramStudiNotNull());
+        model.addAttribute("cPendaftar", pendaftarDao.countPendaftarByProgramStudiNotNullAndStatusTrue());
         model.addAttribute("cDetail", detailPendaftarDao.countDetailPendaftarByPendaftarNotNull());
         model.addAttribute("cDaftar", pembayaranDao.countPembayaranByTagihanJenisBiayaId("002"));
         model.addAttribute("cHasil", hasilTestDao.countHasilTestByPendaftarNotNull());

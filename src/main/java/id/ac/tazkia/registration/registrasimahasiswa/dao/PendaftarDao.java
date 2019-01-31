@@ -24,7 +24,7 @@ public interface PendaftarDao extends PagingAndSortingRepository<Pendaftar, Stri
 
     Page<Pendaftar> findByProgramStudiNotNullAndStatusTrue(Pageable page);
 
-    Long countPendaftarByProgramStudiNotNull();
+    Long countPendaftarByProgramStudiNotNullAndStatusTrue();
 
     Pendaftar findByNamaContainingAndEmailContaining(String nama, String email);
 
