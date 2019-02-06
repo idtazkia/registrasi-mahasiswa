@@ -243,11 +243,11 @@ public class RegistrasiController {
         }
     }
 
-    @RequestMapping("/registrasi/restore")
+    @RequestMapping("/registrasi/restorePendaftar")
     public  String restore(@RequestParam("id") Pendaftar pendaftar ){
         pendaftar.setStatus(true);
         pendaftarDao.save(pendaftar);
-        return "redirect:list";
+        return "redirect:/registrasi/restore";
     }
 }
 

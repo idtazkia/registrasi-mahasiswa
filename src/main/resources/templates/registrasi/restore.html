@@ -65,7 +65,7 @@
                                                         <tr th:each="s, row : ${daftarPendaftaran}">
                                                             <td th:text="${(row.index + 1) + (daftarPendaftaran.number * daftarPendaftaran.size)}">#</td>
                                                             <td>
-                                                                <a th:href="@{/registrasi/restore(id = ${s.id})}"  class="fa fa-recycle"
+                                                                <a th:href="@{/registrasi/restorePendaftar(id = ${s.id})}"  class="fa fa-recycle"
                                                                    onclick="return confirm('Are you sure?')"
                                                                 >Restore</a>
                                                             </td>
