@@ -7,6 +7,7 @@ import id.ac.tazkia.registration.registrasimahasiswa.service.RegistrasiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -179,6 +180,72 @@ public class RegistrasiController {
     @RequestMapping("/registrasi/hapus")
     public  String hapus(@RequestParam("id") Pendaftar pendaftar ){
         pendaftar.setStatus(false);
+        pendaftarDao.save(pendaftar);
+        return "redirect:list";
+    }
+
+    @GetMapping("/registrasi/csv/nonAktif")
+    public void rekapPendaftarCsvNonAktif(HttpServletResponse response) throws Exception {
+
+        response.setHeader("Content-Disposition", "attachment;filename=Pendaftar.csv");
+        response.setContentType("text/csv");
+        response.getWriter().println("No,Nomor Registrasi,Nama,Kota/Kab Sekolah,Asal Sekolah,No Hp,Email,Program Studi,Pemberi Rekomendasi,Nama Perekomendasi");
+
+        Iterable<Pendaftar> dataPendaftar = pendaftarDao.findByProgramStudiNotNullAndStatusFalse();
+
+        Integer baris = 0;
+        BigDecimal total = BigDecimal.ZERO;
+        for (Pendaftar p : dataPendaftar) {
+            baris++;
+            response.getWriter().print(baris);
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNomorRegistrasi());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNama());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getKabupatenKota().getNama());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNamaAsalSekolah());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNoHp());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getEmail());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getProgramStudi().getNama());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getPemberiRekomendasi());
+            response.getWriter().print(",");
+            response.getWriter().print(p.getNamaPerekomendasi());
+            response.getWriter().println();
+        }
+
+        response.getWriter().flush();
+    }
+
+
+    @GetMapping("/registrasi/restore")
+    public void restorependaftar(@RequestParam(required = false)String search, Model m,
+                                  @PageableDefault(size = 10, sort = "nomorRegistrasi", direction = Sort.Direction.DESC) Pageable page){
+
+
+        if(StringUtils.hasText(search)) {
+            m.addAttribute("search", search);
+            m.addAttribute("daftarPendaftaran", pendaftarDao
+                    .findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseAndProgramStudiNotNullAndStatusFalseOrderByNomorRegistrasi(search,search,page));
+            m.addAttribute("asa", detailPendaftarDao.findAll());
+            m.addAttribute("reset", tagihanDao.findAll());
+
+        } else {
+            m.addAttribute("daftarPendaftaran", pendaftarDao.findByProgramStudiNotNullAndStatusFalse(page));
+            m.addAttribute("asa", detailPendaftarDao.findAll());
+            m.addAttribute("resendPassword", tagihanDao.findAll());
+
+        }
+    }
+
+    @RequestMapping("/registrasi/restore")
+    public  String restore(@RequestParam("id") Pendaftar pendaftar ){
+        pendaftar.setStatus(true);
         pendaftarDao.save(pendaftar);
         return "redirect:list";
     }

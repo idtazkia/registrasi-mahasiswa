@@ -31,4 +31,10 @@ public interface PendaftarDao extends PagingAndSortingRepository<Pendaftar, Stri
     @Query("select p from Pendaftar p where (lower(p.nama) like :nama) and (lower(p.email) like :email)")
     Pendaftar cariByNamaDanEmail(@Param("nama") String nama, @Param("email") String email);
 
+    Page<Pendaftar> findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseAndProgramStudiNotNullAndStatusFalseOrderByNomorRegistrasi(String nomor, String nama, Pageable page);
+    Page<Pendaftar> findByProgramStudiNotNullAndStatusFalse(Pageable page);
+
+    List<Pendaftar> findByProgramStudiNotNullAndStatusFalse();
+
+
 }
