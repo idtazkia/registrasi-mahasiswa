@@ -41,7 +41,7 @@ public class RegistrasiController {
         if(StringUtils.hasText(search)) {
             m.addAttribute("search", search);
             m.addAttribute("daftarPendaftaran", pendaftarDao
-                    .findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseAndProgramStudiNotNullAndStatusTrueOrderByNomorRegistrasi(search,search,page));
+                    .findByNomorRegistrasiContainingAndProgramStudiNotNullAndStatusTrueOrNamaContainingIgnoreCaseAndProgramStudiNotNullAndStatusTrueOrderByNomorRegistrasi(search,search,page));
             m.addAttribute("asa", detailPendaftarDao.findAll());
             m.addAttribute("reset", tagihanDao.findAll());
 
@@ -231,7 +231,7 @@ public class RegistrasiController {
         if(StringUtils.hasText(search)) {
             m.addAttribute("search", search);
             m.addAttribute("daftarPendaftaran", pendaftarDao
-                    .findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseAndProgramStudiNotNullAndStatusFalseOrderByNomorRegistrasi(search,search,page));
+                    .findByNomorRegistrasiContainingAndProgramStudiNotNullAndStatusFalseOrNamaContainingIgnoreCaseAndProgramStudiNotNullAndStatusFalseOrderByNomorRegistrasi(search,search,page));
             m.addAttribute("asa", detailPendaftarDao.findAll());
             m.addAttribute("reset", tagihanDao.findAll());
 

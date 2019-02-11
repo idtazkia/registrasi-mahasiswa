@@ -12,7 +12,7 @@ import org.springframework.security.access.method.P;
 import java.util.List;
 
 public interface PendaftarDao extends PagingAndSortingRepository<Pendaftar, String> {
-    Page<Pendaftar> findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseAndProgramStudiNotNullAndStatusTrueOrderByNomorRegistrasi(String nomor, String nama, Pageable page);
+    Page<Pendaftar> findByNomorRegistrasiContainingAndProgramStudiNotNullAndStatusTrueOrNamaContainingIgnoreCaseAndProgramStudiNotNullAndStatusTrueOrderByNomorRegistrasi(String nomor, String nama, Pageable page);
     Pendaftar findByUser(User u);
     Pendaftar findByNomorRegistrasi(String nomor);
 
@@ -31,7 +31,7 @@ public interface PendaftarDao extends PagingAndSortingRepository<Pendaftar, Stri
     @Query("select p from Pendaftar p where (lower(p.nama) like :nama) and (lower(p.email) like :email)")
     Pendaftar cariByNamaDanEmail(@Param("nama") String nama, @Param("email") String email);
 
-    Page<Pendaftar> findByNomorRegistrasiContainingOrNamaContainingIgnoreCaseAndProgramStudiNotNullAndStatusFalseOrderByNomorRegistrasi(String nomor, String nama, Pageable page);
+    Page<Pendaftar> findByNomorRegistrasiContainingAndProgramStudiNotNullAndStatusFalseOrNamaContainingIgnoreCaseAndProgramStudiNotNullAndStatusFalseOrderByNomorRegistrasi(String nomor, String nama, Pageable page);
     Page<Pendaftar> findByProgramStudiNotNullAndStatusFalse(Pageable page);
 
     List<Pendaftar> findByProgramStudiNotNullAndStatusFalse();
