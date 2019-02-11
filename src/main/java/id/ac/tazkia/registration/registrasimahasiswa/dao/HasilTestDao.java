@@ -14,7 +14,7 @@ import java.util.List;
 public interface HasilTestDao extends PagingAndSortingRepository<HasilTest, String > {
     HasilTest findByPendaftar(Pendaftar p);
 
-    Page<HasilTest> findByPendaftarNomorRegistrasiContainingOrPendaftarNamaContainingIgnoreCaseOrGradeNamaContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(String nomor, String nama, String grade, Pageable page);
+    Page<HasilTest> findAllByPendaftarProgramStudiNotNullAndPendaftarNamaContainingIgnoreCaseOrPendaftarNomorRegistrasiContainingAndPendaftarProgramStudiNotNull(String nomor,String grade,Pageable page);
 
     @Query("select h from HasilTest h where h.jenisTest in :jenis and (h.pendaftar.nomorRegistrasi like :pendaftar or lower(h.pendaftar.nama) like :pendaftar) order by h.pendaftar.nomorRegistrasi")
     Page<HasilTest> cariByJenisTestTpaJPaDanPendaftar(@Param("jenis") List<JenisTest> jenis, @Param("pendaftar") String pendaftar, Pageable page);
@@ -29,6 +29,12 @@ public interface HasilTestDao extends PagingAndSortingRepository<HasilTest, Stri
 
     Long  countHasilTestByPendaftarProgramStudiNotNull();
     Long  countHasilTestByPendaftarProgramStudiIsNull();
+
+    Page<HasilTest> findAllByPendaftarProgramStudiNotNull(Pageable page);
+
+    Page<HasilTest> findAllByPendaftarProgramStudiNullAndPendaftarNamaContainingIgnoreCaseOrPendaftarNomorRegistrasiContainingAndPendaftarProgramStudiNull(String nomor,String grade,Pageable page);
+
+    Page<HasilTest> findAllByPendaftarProgramStudiNull(Pageable page);
 
 }
 

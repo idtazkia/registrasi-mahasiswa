@@ -142,16 +142,10 @@ public class HasilTestController {
 //
        if(StringUtils.hasText(search)) {
            m.addAttribute("search", search);
-           m.addAttribute("daftarHasil", hasilTestDao.findByPendaftarNomorRegistrasiContainingOrPendaftarNamaContainingIgnoreCaseOrGradeNamaContainingIgnoreCaseOrderByPendaftarNomorRegistrasi(search,search, search, page));
+           m.addAttribute("daftarHasil", hasilTestDao.findAllByPendaftarProgramStudiNotNullAndPendaftarNamaContainingIgnoreCaseOrPendaftarNomorRegistrasiContainingAndPendaftarProgramStudiNotNull(search,search, page));
        } else {
-           m.addAttribute("daftarHasil", hasilTestDao.findAll(page));
+           m.addAttribute("daftarHasil", hasilTestDao.findAllByPendaftarProgramStudiNotNull(page));
        }
-
-
-
-
-
-
         return "registrasi/hasil/list";
     }
 
@@ -252,4 +246,33 @@ public class HasilTestController {
     }
 
 ////
+
+    @GetMapping("registrasi/hasil/smart")
+    public String listHasilTestSmart(@RequestParam(required = false)String search, Model m, Pageable page){
+//Cari Periode
+        Iterable<HasilTest> hasilTest = hasilTestDao.findAll();
+        List<HasilTestDto> hasilTestDtos = new ArrayList<>();
+
+        for (HasilTest hasilTest1 : hasilTest) {
+            List<Periode> periode = periodeDao.cariPeriodeUntukTanggal(hasilTest1.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            for (Periode periode1 : periode) {
+                HasilTestDto hasilTestDto = new HasilTestDto();
+                hasilTestDto.setPeriode(periode1);
+                hasilTestDto.setId(hasilTest1.getId());
+                hasilTestDto.setPendaftar(hasilTest1.getPendaftar());
+                hasilTestDto.setJenisTest(hasilTest1.getJenisTest());
+                hasilTestDtos.add(hasilTestDto);
+                logger.debug(hasilTestDto.getId() + " " + hasilTestDto.getPeriode());
+            }
+        }
+        m.addAttribute("dto",hasilTestDtos);
+//
+        if(StringUtils.hasText(search)) {
+            m.addAttribute("search", search);
+            m.addAttribute("daftarHasil", hasilTestDao.findAllByPendaftarProgramStudiNullAndPendaftarNamaContainingIgnoreCaseOrPendaftarNomorRegistrasiContainingAndPendaftarProgramStudiNull(search,search, page));
+        } else {
+            m.addAttribute("daftarHasil", hasilTestDao.findAllByPendaftarProgramStudiNull(page));
+        }
+        return "registrasi/hasil/smart";
+    }
 }
