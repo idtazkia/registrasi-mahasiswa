@@ -26,7 +26,7 @@ public class HomeController {
         model.addAttribute("cPendaftar", pendaftarDao.countPendaftarByProgramStudiNotNullAndStatusTrue());
         model.addAttribute("cDetail", detailPendaftarDao.countDetailPendaftarByPendaftarNotNull());
         model.addAttribute("cDaftar", pembayaranDao.countPembayaranByTagihanJenisBiayaId("002"));
-        model.addAttribute("cHasil", hasilTestDao.countHasilTestByPendaftarProgramStudiNotNull());
-        model.addAttribute("cHasilSmart", hasilTestDao.countHasilTestByPendaftarProgramStudiIsNull());
+        model.addAttribute("cHasil", hasilTestDao.countHasilTestByPendaftarProgramStudiNotNullAndPendaftarStatusTrue());
+        model.addAttribute("cHasilSmart", hasilTestDao.countHasilTestByPendaftarProgramStudiIsNullAndPendaftarStatusTrue());
     }
 }
