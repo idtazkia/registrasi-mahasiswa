@@ -13,10 +13,33 @@
             <div class="x_panel tile fixed_height_160">
                 <div class="x_title">
                     <h1>Selamat Datang</h1>
-                    <br><a th:href="@{/registrasi/detail/form}"><span style="color: blue"  sec:authorize="hasAuthority('VIEW_PENDAFTAR')">Lengkapi Data Anda.</span></a>
                     <div class="clearfix"></div>
                 </div>
             </div>
+        </div>
+        <div sec:authorize="hasAuthority('VIEW_PENDAFTAR')">
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a th:href="@{/registrasi/detail/form}">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-user"></i></div>
+                        <div class="count" sec:authorize="hasAuthority('VIEW_PENDAFTAR')" sec:authentication="name">-</div>
+                        <h3>Form Detail</h3>
+                        <p>Lengkapi data Anda.</p>
+                    </div>
+                </a>
+            </div>
+            <p th:if="${pembayaran != null}">
+                <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <a th:href="@{/formNimko}">
+                        <div class="tile-stats">
+                            <div class="icon"><i class="fa fa-download"></i></div>
+                            <div class="count">Form Nirm</div>
+                            <h3>Unduh Form</h3>
+                            <p>Setelah diunduh & diisi kirim ke email <b>spmb@tazkia.ac.id</b></p>
+                        </div>
+                    </a>
+                </div>
+            </p>
         </div>
         <div sec:authorize="hasAnyAuthority('VIEW_MASTER','VIEW_FINANCE','VIEW_AKADEMIK')">
             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
