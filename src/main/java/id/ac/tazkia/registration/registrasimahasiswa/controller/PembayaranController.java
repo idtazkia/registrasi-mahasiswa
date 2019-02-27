@@ -72,6 +72,9 @@ public class PembayaranController {
     @Value("classpath:keterangan-lulus.odt")
     private Resource templateSuratKeterangan;
 
+    @Value("classpath:ketentuan.odt")
+    private Resource templateSuratKetentuan;
+
     @Autowired
     private DetailPendaftarDao detailPendaftarDao;
 
@@ -258,6 +261,42 @@ public class PembayaranController {
             ctx.put("tanggalSekarang", tanggalSekarang);
 
             response.setHeader("Content-Disposition", "attachment;filename=Surat-Keterangan.pdf");
+            OutputStream out = response.getOutputStream();
+            report.convert(ctx, options, out);
+            out.flush();
+        } catch (Exception err) {
+            LOGGER.error(err.getMessage(), err);
+        }
+    }
+
+    //
+
+    //Surat keterangan
+
+    @GetMapping("/suratKetentuan")
+    public void ketentuan(HttpServletResponse response) {
+        try {
+            // 0. Setup converter
+            Options options = Options.getFrom(DocumentKind.ODT).to(ConverterTypeTo.PDF);
+
+            // 1. Load template dari file
+            InputStream in = templateSuratKetentuan.getInputStream();
+
+            // 2. Inisialisasi template engine, menentukan sintaks penulisan variabel
+            IXDocReport report = XDocReportRegistry.getRegistry().
+                    loadReport(in, TemplateEngineKind.Freemarker);
+
+            // 3. Context object, untuk mengisi variabel
+            IContext ctx = report.createContext();
+            Locale indonesia = new Locale("id", "id");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", indonesia);
+
+            LocalDate tanggal =
+                    LocalDate.now(ZoneId.systemDefault());
+            String tanggalSekarang = tanggal.format(formatter);
+            ctx.put("tanggalSekarang", tanggalSekarang);
+
+            response.setHeader("Content-Disposition", "attachment;filename=Surat-ketentuan.pdf");
             OutputStream out = response.getOutputStream();
             report.convert(ctx, options, out);
             out.flush();

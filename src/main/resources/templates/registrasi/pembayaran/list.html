@@ -158,11 +158,15 @@
                                         <td th:text="${p. tagihan.jenisBiaya.nama }">10-08-2017</td>
                                         <td th:text="${p. bank.namaBank }">10-08-2017</td>
                                         <td th:text="${p. nilai }">10-08-2017</td>
+
                                         <span th:each="h : ${hasilTest}">
-                                            <td th:if="${p.tagihan.pendaftar.id == h.pendaftar.id and p.tagihan.jenisBiaya.id == '002'}">
+                                            <td th:if="${p.tagihan.pendaftar.id == h.pendaftar.id and p.tagihan.jenisBiaya.id == '002' and h.keterangan != null}">
                                                 <span th:text="${h.keterangan}"></span>
                                             </td>
                                              <td th:if="${p.tagihan.pendaftar.id == h.pendaftar.id and p.tagihan.jenisBiaya.id == '001'}">
+                                                <span>-</span>
+                                            </td>
+                                            <td th:if="${p.tagihan.pendaftar.id == h.pendaftar.id and p.tagihan.jenisBiaya.id == '002' and h.keterangan == null}">
                                                 <span>-</span>
                                             </td>
                                         </span>
