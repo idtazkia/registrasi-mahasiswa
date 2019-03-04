@@ -1,0 +1,1 @@
+INSERT into program_studi VALUES ('010','Manajemen Keuangan Mikro Syariah (D3)','PMKMS-001','05')
