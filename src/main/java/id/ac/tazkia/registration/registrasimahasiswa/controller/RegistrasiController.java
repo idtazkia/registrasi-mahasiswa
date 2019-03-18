@@ -252,7 +252,6 @@ public class RegistrasiController {
 
 
 //Link Iklan Registrasi
-//tampikan form
     @RequestMapping(value = "/registrasi/formfb", method = RequestMethod.GET)
     public String FormFb(@RequestParam(value = "id", required = false) String id,
                          Model m){
@@ -288,6 +287,46 @@ public class RegistrasiController {
 
         registrasi.setPemberiRekomendasi("Media Sosial");
         registrasi.setNamaPerekomendasi("Fecebook");
+        registrasiService.prosesPendaftaran(registrasi, prodi, kk);
+
+        return "redirect:/selesai";
+    }
+
+    @RequestMapping(value = "/registrasi/formig", method = RequestMethod.GET)
+    public String FormIg(@RequestParam(value = "id", required = false) String id,
+                         Model m){
+        //defaultnya, isi dengan object baru
+        m.addAttribute("registrasi", new Pendaftar());
+
+        if (id != null && !id.isEmpty()){
+            Pendaftar p= pendaftarDao.findById(id).get();
+            if (p != null){
+                m.addAttribute("registrasi", p);
+            }
+        }
+        return "registrasi/formig";
+    }
+
+    @PostMapping(value = "/registrasi/formig")
+    public String prosesFormIg(@ModelAttribute @Valid Registrasi registrasi, BindingResult errors, SessionStatus status){
+        // load kabupaten kota
+        KabupatenKota kk = kabupatenKotaDao.findById(registrasi.getIdKabupatenKota()).get();
+        if(kk == null){
+            errors.reject("idKabupatenKota", "Data kabupaten tidak ada dalam database");
+        }
+
+        // load program studi
+        ProgramStudi prodi = programStudiDao.findById(registrasi.getProgramStudi()).get();
+        if(prodi == null){
+            errors.reject("programStudiPilihan", "Program studi tidak ada dalam database");
+        }
+
+        if(errors.hasErrors()){
+            return "registrasi/formig";
+        }
+
+        registrasi.setPemberiRekomendasi("Media Sosial");
+        registrasi.setNamaPerekomendasi("Instagram");
         registrasiService.prosesPendaftaran(registrasi, prodi, kk);
 
         return "redirect:/selesai";
