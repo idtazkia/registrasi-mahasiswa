@@ -332,6 +332,46 @@ public class RegistrasiController {
         return "redirect:/selesai";
     }
 
+    @RequestMapping(value = "/registrasi/formgg", method = RequestMethod.GET)
+    public String FormGg(@RequestParam(value = "id", required = false) String id,
+                         Model m){
+        //defaultnya, isi dengan object baru
+        m.addAttribute("registrasi", new Pendaftar());
+
+        if (id != null && !id.isEmpty()){
+            Pendaftar p= pendaftarDao.findById(id).get();
+            if (p != null){
+                m.addAttribute("registrasi", p);
+            }
+        }
+        return "registrasi/formgg";
+    }
+
+    @PostMapping(value = "/registrasi/formgg")
+    public String prosesFormGg(@ModelAttribute @Valid Registrasi registrasi, BindingResult errors, SessionStatus status){
+        // load kabupaten kota
+        KabupatenKota kk = kabupatenKotaDao.findById(registrasi.getIdKabupatenKota()).get();
+        if(kk == null){
+            errors.reject("idKabupatenKota", "Data kabupaten tidak ada dalam database");
+        }
+
+        // load program studi
+        ProgramStudi prodi = programStudiDao.findById(registrasi.getProgramStudi()).get();
+        if(prodi == null){
+            errors.reject("programStudiPilihan", "Program studi tidak ada dalam database");
+        }
+
+        if(errors.hasErrors()){
+            return "registrasi/formgg";
+        }
+
+        registrasi.setPemberiRekomendasi("Media Sosial");
+        registrasi.setNamaPerekomendasi("Google");
+        registrasiService.prosesPendaftaran(registrasi, prodi, kk);
+
+        return "redirect:/selesai";
+    }
+
 //
 }
 
