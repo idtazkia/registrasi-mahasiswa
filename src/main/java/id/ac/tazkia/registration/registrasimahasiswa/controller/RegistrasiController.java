@@ -285,7 +285,7 @@ public class RegistrasiController {
             return "registrasi/formfb";
         }
 
-        registrasi.setPemberiRekomendasi("Media Sosial");
+        registrasi.setPemberiRekomendasi("medsos");
         registrasi.setNamaPerekomendasi("Fecebook");
         registrasiService.prosesPendaftaran(registrasi, prodi, kk);
 
@@ -325,7 +325,7 @@ public class RegistrasiController {
             return "registrasi/formig";
         }
 
-        registrasi.setPemberiRekomendasi("Media Sosial");
+        registrasi.setPemberiRekomendasi("medsos");
         registrasi.setNamaPerekomendasi("Instagram");
         registrasiService.prosesPendaftaran(registrasi, prodi, kk);
 
@@ -365,7 +365,7 @@ public class RegistrasiController {
             return "registrasi/formgg";
         }
 
-        registrasi.setPemberiRekomendasi("Media Sosial");
+        registrasi.setPemberiRekomendasi("medsos");
         registrasi.setNamaPerekomendasi("Google");
         registrasiService.prosesPendaftaran(registrasi, prodi, kk);
 
