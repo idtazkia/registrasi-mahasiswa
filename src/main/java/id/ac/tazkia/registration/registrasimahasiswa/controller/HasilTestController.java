@@ -142,9 +142,9 @@ public class HasilTestController {
 //
        if(StringUtils.hasText(search)) {
            m.addAttribute("search", search);
-           m.addAttribute("daftarHasil", hasilTestDao.findAllByPendaftarProgramStudiNotNullAndPendaftarNamaContainingIgnoreCaseOrPendaftarNomorRegistrasiContainingAndPendaftarProgramStudiNotNull(search,search, page));
+           m.addAttribute("daftarHasil", hasilTestDao.findAllByPendaftarStatusTrueAndPendaftarProgramStudiNotNullAndPendaftarNamaContainingIgnoreCaseOrPendaftarNomorRegistrasiContainingAndPendaftarProgramStudiNotNull(search,search, page));
        } else {
-           m.addAttribute("daftarHasil", hasilTestDao.findAllByPendaftarProgramStudiNotNull(page));
+           m.addAttribute("daftarHasil", hasilTestDao.findAllByPendaftarProgramStudiNotNullAndPendaftarStatusTrue(page));
        }
         return "registrasi/hasil/list";
     }
