@@ -83,6 +83,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers("/registrasi/form")
+                .antMatchers("/registrasi/formfb")
                 .antMatchers("/selesai")
                 .antMatchers("/favicon.ico")
                 .antMatchers("/api/kokabawal*")
