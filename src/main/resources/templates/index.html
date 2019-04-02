@@ -409,28 +409,67 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="section-headline text-center">
-                        <h2>Periode</h2>
+                        <h2>JADWAL TES MASUK MAHASISWA BARU</h2>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form id="contactForm" name="sentMessage" novalidate>
+                        <form id="contactForm" name="sentMessage">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table align="center" class="table table-renponsive">
-                                        <tr style="font-size: 16px; font-weight: bold;" bgcolor="#3ec1d5">
-                                            <th>No</th>
-                                            <th>Periode</th>
-                                            <th>Tanggal Mulai</th>
-                                            <th>Tanggal Selesai</th>
+                                    <table align="center" class="table table-responsive table-bordered">
+                                        <tr style="background-color: skyblue">
+                                            <th>Jenjang</th>
+                                            <th>Periode PMB</th>
+                                            <th>Pendaftaran</th>
+                                            <th>TEST – TPA / (JPA)</th>
+                                            <th>Pengumuman</th>
+                                            <th>Daftar Ulang</th>
                                         </tr>
-                                        <tr th:each="s,row : ${daftarPeriode}">
-                                            <td th:text="${(row.index + 1)}">#</td>
-                                            <td th:text="${s.nama}"></td>
-                                            <td th:text="${s.tanggalMulai}"></td>
-                                            <td th:text="${s.tanggalSelesai}"></td>
+                                        <tr>
+                                            <td>S1</td>
+                                            <td>Gelombang I</td>
+                                            <td>1 Oktober – 30 April 2019</td>
+                                            <td>11 Nov, 9 Des 2018
+                                                <br>13 Jan, 10 Feb, 10 Mar,14 Apr 2019</td>
+                                            <td>19 Nov, 17 Des 2018
+                                                <br>21 Jan, 18 Feb, 18 Mar 22 Apr 2019</td>
+                                            <td>Max – 30 April 2019</td>
+                                        </tr>
+                                        <tr>
+                                            <td>S1</td>
+                                            <td>Gelombang II</td>
+                                            <td>1 Mei – 31 Juli 2019</td>
+                                            <td>12 Mei, 9 Jun, 14 Jul 2019</td>
+                                            <td>20 Mei, 17 Jun, 22 Jul 2019</td>
+                                            <td>Max – 31 Juli 2019</td>
+                                        </tr>
+                                        <tr>
+                                            <td>S1</td>
+                                            <td>Gelombang III</td>
+                                            <td>1 Agust -15 Sep 2019</td>
+                                            <td>10 Agus, 10 Sep 2019</td>
+                                            <td>19 Agus, 10 Sep 2019</td>
+                                            <td>Max – 15 Sep 2019</td>
+                                        </tr>
+                                        <tr>
+                                            <td>S2</td>
+                                            <td>2018/2019 Ang. XIV</td>
+                                            <td>Nov 2018 – Januari 2019</td>
+                                            <td>11, 9 Des 2018, 13 Jan 2019</td>
+                                            <td>30 Jan 2019</td>
+                                            <td>Des 2018-Januari 2019</td>
+                                        </tr>
+                                        <tr>
+                                            <td>S2</td>
+                                            <td>2018/2019 Ang. XV</td>
+                                            <td>Feb – Agust 2019</td>
+                                            <td>10 Feb, 10 Mar, 14 Apr, 12 Mei
+                                                <br>9 Jun, 14 Jul, 10 Agus 2019</td>
+                                            <td>30 Agus 2019</td>
+                                            <td>Feb-Agust 2019</td>
                                         </tr>
                                     </table>
                                 </div>
