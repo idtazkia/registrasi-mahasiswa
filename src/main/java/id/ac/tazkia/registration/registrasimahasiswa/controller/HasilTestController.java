@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -45,6 +47,8 @@ public class HasilTestController {
     private KeluargaDao keluargaDao;
     @Autowired
     private PeriodeDao periodeDao;
+    @Autowired
+    private UserDao userDao;
 
     @ModelAttribute("daftarGrade")
     public Iterable<Grade> daftarGrade(){return gradeDao.findAll(); }
@@ -75,7 +79,20 @@ public class HasilTestController {
 
     //simpan
     @RequestMapping(value = "registrasi/hasil/form", method = RequestMethod.POST)
-    public String prosesForm(@Valid HasilTestDto hasilTestDto,  String nilai, BindingResult errors){
+    public String prosesForm(@Valid HasilTestDto hasilTestDto,  String nilai, BindingResult errors, Authentication currentUser){
+        logger.debug("Authentication class : {}",currentUser.getClass().getName());
+
+        if(currentUser == null){
+            logger.warn("Current user is null");
+        }
+
+        String username = ((UserDetails)currentUser.getPrincipal()).getUsername();
+        User u = userDao.findByUsername(username);
+        logger.debug("User ID : {}", u.getId());
+        if(u == null){
+            logger.warn("Username {} not found in database ", username);
+        }
+
         if(errors.hasErrors()){
             return "/registrasi/hasil/form";
         }
@@ -89,6 +106,7 @@ public class HasilTestController {
         BeanUtils.copyProperties(hasilTestDto, hasilTest);
         hasilTest.setTanggalTest(hasilTestDto.getTanggalTest());
         hasilTest.setGrade(hasil);
+        hasilTest.setUser(u);
 
         hasilTestDao.save(hasilTest);
         HasilTest h = hasilTestDao.findByPendaftar(hasilTest.getPendaftar());
@@ -214,7 +232,19 @@ public class HasilTestController {
 
     //simpan
     @RequestMapping(value = "/registrasi/hasil/S2/form", method = RequestMethod.POST)
-    public String prosesFormS2(@Valid HasilTestDto hasilTestDto,  String nilai, BindingResult errors){
+    public String prosesFormS2(@Valid HasilTestDto hasilTestDto,  String nilai, BindingResult errors, Authentication currentUser){
+        logger.debug("Authentication class : {}",currentUser.getClass().getName());
+
+        if(currentUser == null){
+            logger.warn("Current user is null");
+        }
+
+        String username = ((UserDetails)currentUser.getPrincipal()).getUsername();
+        User u = userDao.findByUsername(username);
+        logger.debug("User ID : {}", u.getId());
+        if(u == null){
+            logger.warn("Username {} not found in database ", username);
+        }
         if(errors.hasErrors()){
             return "/registrasi/hasil/S2/form";
         }
@@ -227,6 +257,7 @@ public class HasilTestController {
         BeanUtils.copyProperties(hasilTestDto, hasilTest);
         hasilTest.setTanggalTest(hasilTestDto.getTanggalTest());
         hasilTest.setGrade(hasil);
+        hasilTest.setUser(u);
 
         hasilTestDao.save(hasilTest);
         HasilTest h = hasilTestDao.findByPendaftar(hasilTest.getPendaftar());

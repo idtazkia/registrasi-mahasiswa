@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity @Data
@@ -37,5 +38,13 @@ public class HasilTest{
     private Date tanggalTest;
 
     private String keterangan;
-    
+
+    @ManyToOne @JoinColumn (name="user_insert")
+    private User user;
+
+    @NotNull
+    private LocalDateTime tanggal_insert = LocalDateTime.now();
+
+
+
 }

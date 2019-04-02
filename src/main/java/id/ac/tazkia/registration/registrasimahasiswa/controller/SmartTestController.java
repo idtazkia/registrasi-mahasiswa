@@ -2,6 +2,7 @@ package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
 import id.ac.tazkia.registration.registrasimahasiswa.dao.HasilTestDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.PendaftarDao;
+import id.ac.tazkia.registration.registrasimahasiswa.dao.UserDao;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.Registrasi;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.UploadError;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -49,6 +52,8 @@ public class SmartTestController {
     private PendaftarDao pendaftarDao;
     @Autowired
     private HasilTestDao hasilTestDao;
+    @Autowired
+    private UserDao userDao;
 
 
     @GetMapping("/contoh/smartTest")
@@ -65,10 +70,23 @@ public class SmartTestController {
     }
 
     @PostMapping("/registrasi/smart/form")
-    public String processFormUpload(@RequestParam Sekolah idSekolah, KabupatenKota kabupatenKota,                  @DateTimeFormat(pattern = "yyyy-MM-dd") Date tanggalTest,
+    public String processFormUpload(@RequestParam Sekolah idSekolah, KabupatenKota kabupatenKota, @DateTimeFormat(pattern = "yyyy-MM-dd") Date tanggalTest,
                                     @RequestParam(required = false) Boolean pakaiHeader,
                                     MultipartFile fileSmartTest,
-                                    RedirectAttributes redirectAttrs) {
+                                    RedirectAttributes redirectAttrs, Authentication currentUser){
+        LOGGER.debug("Authentication class : {}",currentUser.getClass().getName());
+
+        if(currentUser == null){
+            LOGGER.warn("Current user is null");
+        }
+
+        String username = ((UserDetails)currentUser.getPrincipal()).getUsername();
+        User u = userDao.findByUsername(username);
+        LOGGER.debug("User ID : {}", u.getId());
+        if(u == null){
+            LOGGER.warn("Username {} not found in database ", username);
+        }
+
         LOGGER.debug("Asal Sekolah : {}",idSekolah);
         LOGGER.debug("Kabupaten Kota Sekolah : {}",kabupatenKota);
         LOGGER.debug("Tanggal Test : {}",tanggalTest);
@@ -138,6 +156,7 @@ public class SmartTestController {
                 hasilTest.setPendaftar(p);
                 hasilTest.setJenisTest(JenisTest.SMART_TEST);
                 hasilTest.setTanggalTest(tanggalTest);
+                hasilTest.setUser(u);
                 hasilTest.setKeterangan("Smart Test");
 
                 try {
