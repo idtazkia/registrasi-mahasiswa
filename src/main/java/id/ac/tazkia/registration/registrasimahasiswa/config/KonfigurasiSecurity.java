@@ -111,6 +111,8 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/brosur/ai")
                 .antMatchers("/brosur/bmi")
                 .antMatchers("/brosur/ei")
+                .antMatchers("/brosur/stei")
+                .antMatchers("/brosur/d3")
                 .antMatchers("/buku/ei")
                 .antMatchers("/lib/**")
                 .antMatchers("/registrasi/smart/list**") ;
