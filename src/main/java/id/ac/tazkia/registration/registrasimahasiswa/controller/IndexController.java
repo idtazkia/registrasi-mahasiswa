@@ -47,6 +47,9 @@ public class IndexController {
 
     @Value("classpath:sample/D3.pdf")
     private Resource d3;
+
+    @Value("classpath:sample/s2.pdf")
+    private Resource s2;
     @Value("classpath:sample/steiTazkia.pdf")
     private Resource steiTazkia;
 
@@ -134,6 +137,14 @@ public class IndexController {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=STEI_TAZKIA.pdf");
         FileCopyUtils.copy(steiTazkia.getInputStream(), response.getOutputStream());
+        response.getOutputStream().flush();
+    }
+
+    @GetMapping("/brosur/s2")
+    public void downloadBrosurPasca(HttpServletResponse response) throws Exception {
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=Pascasarja_S2.pdf");
+        FileCopyUtils.copy(s2.getInputStream(), response.getOutputStream());
         response.getOutputStream().flush();
     }
 
