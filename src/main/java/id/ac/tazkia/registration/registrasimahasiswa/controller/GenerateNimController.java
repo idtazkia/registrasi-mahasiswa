@@ -148,7 +148,7 @@ public class GenerateNimController{
         logger.debug("NIM AWAL : " + registrasiDetail.getNim());
 
         if (!StringUtils.hasText(registrasiDetail.getNim())) {
-            String formatNim = "18" + "1" + p.getProgramStudi().getKodeSimak();
+            String formatNim = "19" + "1" + p.getProgramStudi().getKodeSimak();
             registrasiDetail.setNim(registrasiService.generateNim(formatNim));
             System.out.println("Nim :" + registrasiDetail.getNim());
         } else {
