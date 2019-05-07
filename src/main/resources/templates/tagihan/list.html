@@ -51,7 +51,10 @@
                                                                 </span>
                                                                  <span th:if="${!test.lunas}">
                                                                 <a th:href="@{/biaya/pembayaran/form(id=${test.id})}" class="btn  btn-primary btn-xs">Upload Bukti</a>
-                                                                <a  th:href="@{/biaya/pembayaran/hapus(id=${test.id})}" class="btn  btn-danger btn-xs"> Hapus</a>
+                                                                <a  th:href="@{/biaya/pembayaran/hapus(id=${test.id})}" type="submit" class="btn btn-danger btn-xs"
+                                                                         onclick="return confirm('Are you sure? Once deleted, you will not be able' +
+                                                                         ' to recover this imaginary file!')">
+                                                                    Hapus</a>
                                                                 </span>
                                                             </td>
                                                             <input type="text" hidden="" id="id" th:value="${test.Pendaftar.id}">

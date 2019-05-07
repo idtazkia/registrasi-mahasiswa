@@ -174,6 +174,12 @@ public class PembayaranController {
 
     }
 
+    @RequestMapping("/biaya/pembayaran/hapus")
+    public  String hapus(@RequestParam("id") Tagihan id ){
+        tagihanDao.delete(id);
+        return "redirect:/tagihan/list?pendaftar="+ id.getPendaftar().getId();
+    }
+
 
     @GetMapping("/pembayaran/{pembayaran}/bukti/")
     public ResponseEntity<byte[]> tampilkanBuktiPembayaran(@PathVariable Pembayaran pembayaran) throws Exception {
