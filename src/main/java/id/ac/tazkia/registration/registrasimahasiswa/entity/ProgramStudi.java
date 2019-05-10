@@ -1,6 +1,7 @@
 package id.ac.tazkia.registration.registrasimahasiswa.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -10,10 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-@Entity @Data
+@Entity @Data @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ProgramStudi {
 
 
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(generator = "uuid" )
     @GenericGenerator(name = "uuid", strategy = "uuid2")
