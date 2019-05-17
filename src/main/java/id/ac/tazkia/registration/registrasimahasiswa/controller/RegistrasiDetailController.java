@@ -34,6 +34,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
@@ -56,6 +57,8 @@ public class RegistrasiDetailController {
     private DetailPendaftarDao detailPendaftarDao;
     @Autowired
     private NotifikasiService notifikasiService;
+    @Autowired
+    private ProgramStudiDao programStudiDao;
 
     @Value("classpath:kartu-ujian-tpa.odt")
     private Resource templateKartuUjian;
@@ -120,33 +123,47 @@ public class RegistrasiDetailController {
     }
 
     @PostMapping(value = "/registrasi/detail/form")
-    public String prosesForm(@ModelAttribute @Valid DetailPendaftar p, BindingResult errors){
+    public String prosesForm(@RequestParam(value = "pendaftar") String pendaftar, @ModelAttribute @Valid DetailPendaftar dp, BindingResult errors){
         if(errors.hasErrors()){
             logger.debug("Error Validasi Form : {}", errors.toString());
             return "/registrasi/detail/form";
         }
 
-        HasilTest h = hasilTestDao.findByPendaftar(p.getPendaftar());
-        if (h != null && p.getId() == null) {
-
-            Pendaftar pe = h.getPendaftar();
+        Pendaftar pen = pendaftarDao.findById(pendaftar).get();
+        logger.debug("Pendaftarnya = " + pen.getNomorRegistrasi());
+        HasilTest h = hasilTestDao.findByPendaftar(dp.getPendaftar());
+//setProgramStudi(S2)
+        ProgramStudi pr07 = programStudiDao.findById("007").get();
+        ProgramStudi pr09 = programStudiDao.findById("009").get();
+        ProgramStudi pr08 = programStudiDao.findById("008").get();
+        Boolean pen1 = pen.getProgramStudi().equals(pr07);
+        Boolean pen2 = pen.getProgramStudi().equals(pr08);
+        Boolean pen3 = pen.getProgramStudi().equals(pr09);
+        Boolean cekPodi = pen1 == true || pen2 == true || pen3 == true;
+//
+//Cek Jenis Test
+        Boolean tpa = JenisTest.TPA.equals(dp.getJenisTest());
+        Boolean jpa = JenisTest.JPA.equals(dp.getJenisTest());
+        Boolean jenisTest = JenisTest.TPA.equals(dp.getJenisTest()) || JenisTest.JPA.equals(dp.getJenisTest());
+//
+        if (dp.getId() == null && cekPodi.equals(Boolean.TRUE) && jenisTest.equals(Boolean.TRUE)) {
+            logger.debug("ProgramStudi Pasca  : "+ dp.getPendaftar().getProgramStudi().getNama());
+            notifikasiService.kirimNotifikasiKartuUjianPasca(dp);
+        } else if (h != null && dp.getId() == null && cekPodi.equals(Boolean.FALSE)) {
+            logger.debug("Kirim notifikasi hasil test");
             notifikasiService.kirimNotifikasiHasilTest(h);
-//            tagihanService.createTagihanDaftarUlang(pe, h, h.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
-        } else {
-// kirim kartu hanya pada waktu isi data pertama kali
-// kalau update data tidak perlu kirim kartu lagi
-            if (p.getId() == null && JenisTest.TPA.equals(p.getJenisTest())) {
-                notifikasiService.kirimNotifikasiKartuUjian(p);
-            }
-            else if (p.getId() == null && JenisTest.JPA.equals(p.getJenisTest())) {
-                notifikasiService.kirimNotifikasiJpa(p);
-            }
+            //tagihanService.createTagihanDaftarUlang(pe, h, h.getTanggalTest().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        } else if (dp.getId() == null && tpa.equals(Boolean.TRUE) && cekPodi.equals(Boolean.FALSE)) {
+            logger.debug("kirim kartu ujian TPA");
+            notifikasiService.kirimNotifikasiKartuUjian(dp);
+        } else if (dp.getId() == null && jpa.equals(Boolean.TRUE) && cekPodi.equals(Boolean.FALSE)) {
+            logger.debug("kirim perintah JPA");
+            notifikasiService.kirimNotifikasiJpa(dp);
         }
 
 
 //simpan
-        detailPendaftarDao.save(p);
+        detailPendaftarDao.save(dp);
         return "redirect:/registrasi/detail/sukses";
 
     }

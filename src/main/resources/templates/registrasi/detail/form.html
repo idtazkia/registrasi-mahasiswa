@@ -163,7 +163,7 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label>Asal Sekolah</label>
+                                                    <label>Asal Sekolah/Universitas</label>
                                                     <input type="text" class="form-control"
                                                            id="sekolah" placeholder="Cari Sekolah ..." th:field="*{asalSekolah}"
                                                           data-provide="typeahead" autocomplete="off" required readonly/>
@@ -173,7 +173,7 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label>Jurusan Sekolah</label>
+                                                    <label>Jurusan</label>
                                                     <input type="text" name="jurusan_sekolah"
                                                            class="form-control" th:field="*{jurusanSekolah}"
                                                            placeholder="Jurusan Sekolah" required autofocus/>
@@ -496,7 +496,7 @@
                                         </div>
                                     </div>
                                     <input type="hidden" name="id" th:value="${detail.id}">
-                                    <input type="hidden" name="pendaftar.id" th:value="${detail.pendaftar.id}">
+                                    <input type="hidden" name="pendaftar" th:value="${detail.pendaftar.id}">
                                     <input type="hidden" name="jenisTest" th:value="${detail.jenisTest}">
 
                                     <div class="col-sm-2">
@@ -625,7 +625,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label>Asal Sekolah</label>
+                                                <label>Asal Sekolah/Universitas</label>
                                                 <input type="text" class="form-control"
                                                        id="sekolah" placeholder="Cari Sekolah ..." th:field="*{asalSekolah}"
                                                        data-provide="typeahead" autocomplete="off" required readonly/>
@@ -635,7 +635,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label>Jurusan Sekolah</label>
+                                                <label>Jurusan</label>
                                                 <input type="text" name="jurusan_sekolah"
                                                        class="form-control" th:field="*{jurusanSekolah}"
                                                        placeholder="Jurusan Sekolah" required autofocus/>

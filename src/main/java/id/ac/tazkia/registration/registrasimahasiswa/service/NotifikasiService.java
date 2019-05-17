@@ -23,6 +23,8 @@ public class NotifikasiService {
     @Value("${notifikasi.registrasi.konfigurasi.pendaftaran}") private String konfigurasiNotifikasiPendaftaran;
     @Value("${notifikasi.registrasi.konfigurasi.reset-password}") private String konfigurasiNotifikasiResetPassword;
     @Value("${notifikasi.registrasi.konfigurasi.kartu-ujian}") private String getKonfigurasiNotifikasiKartuUjian;
+    @Value("${notifikasi.registrasi.konfigurasi.kartu-ujian-pasca}") private String getKonfigurasiNotifikasiKartuUjianPasca;
+
     @Value("${notifikasi.registrasi.konfigurasi.grade}") private String getKonfigurasiNotifikasiHasilTest;
     @Value("${notifikasi.registrasi.konfigurasi.keterangan-lulus}") private String getKonfigurasiNotifikasiKeteranganLulus;
     @Value("${notifikasi.registrasi.konfigurasi.kartu-jpa}") private String getKonfigurasiNotifikasiKartuJpa;
@@ -115,6 +117,37 @@ public class NotifikasiService {
                         .nomorKontak1("08159551299")
                         .namaKontak2("Furqon")
                         .nomorKontak2("08561360444")
+                        .namaKontak3("Panitia Penerimaan Mahasiswa Baru")
+                        .nomorKontak3("humas@tazkia.ac.id")
+                        .build())
+                .build();
+
+        try {
+            kafkaTemplate.send(topicNotifikasi, objectMapper.writeValueAsString(notif));
+        } catch (Exception err) {
+            LOGGER.warn(err.getMessage(), err);
+        }
+    }
+
+
+    @Async
+    public void kirimNotifikasiKartuUjianPasca(DetailPendaftar p){
+        NotifikasiRegistrasi notif = NotifikasiRegistrasi.builder()
+                .konfigurasi(getKonfigurasiNotifikasiKartuUjianPasca)
+                .email(p.getEmail())
+                .mobile(p.getNoHp())
+                .data(DataNotifikasiKartuUjianPasca.builder()
+                        .idPendaftar(p.getPendaftar().getId())
+                        .nama(p.getPendaftar().getNama())
+                        .nomor(p.getPendaftar().getNomorRegistrasi())
+                        .noHp(p.getNoHp())
+                        .email(p.getEmail())
+                        .sekolah(p.getPendaftar().getNamaAsalSekolah())
+                        .prodi(p.getPendaftar().getProgramStudi().getNama())
+                        .namaKontak1("Irma")
+                        .nomorKontak1("08159551299")
+                        .namaKontak2("Sadam")
+                        .nomorKontak2("085211464969")
                         .namaKontak3("Panitia Penerimaan Mahasiswa Baru")
                         .nomorKontak3("humas@tazkia.ac.id")
                         .build())
