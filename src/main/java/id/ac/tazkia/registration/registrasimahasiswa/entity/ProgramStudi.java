@@ -11,11 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-@Entity @Data @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity @Data
+//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ProgramStudi {
 
 
-    @EqualsAndHashCode.Include
+//    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(generator = "uuid" )
     @GenericGenerator(name = "uuid", strategy = "uuid2")
