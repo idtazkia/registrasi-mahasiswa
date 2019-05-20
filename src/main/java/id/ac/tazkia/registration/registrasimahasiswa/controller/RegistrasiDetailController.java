@@ -63,6 +63,9 @@ public class RegistrasiDetailController {
     @Value("classpath:kartu-ujian-tpa.odt")
     private Resource templateKartuUjian;
 
+     @Value("classpath:kartu-ujian-pasca.odt")
+    private Resource templateKartuUjianPasca;
+
     @ModelAttribute("pendidikanOrtu")
     public Iterable<Pendidikan> pendidikanOrtu(){return pendidikanDao.findAll();}
 
@@ -225,6 +228,39 @@ public class RegistrasiDetailController {
             ctx.put("berlaku", tanggalBerlaku);
 
             response.setHeader("Content-Disposition", "attachment;filename=kartu-ujian.pdf");
+            OutputStream out = response.getOutputStream();
+            report.convert(ctx, options, out);
+            out.flush();
+        } catch (Exception err){
+            logger.error(err.getMessage(), err);
+        }
+    }
+
+    @GetMapping("/kartuPasca")
+    public void kartuUjianPasca(@RequestParam(name = "id") Pendaftar pendaftar,
+                           HttpServletResponse response){
+        try {
+            // 0. Setup converter
+            Options options = Options.getFrom(DocumentKind.ODT).to(ConverterTypeTo.PDF);
+
+            // 1. Load template dari file
+            InputStream in = templateKartuUjianPasca.getInputStream();
+
+            // 2. Inisialisasi template engine, menentukan sintaks penulisan variabel
+            IXDocReport report = XDocReportRegistry.getRegistry().
+                    loadReport(in, TemplateEngineKind.Freemarker);
+
+            // 3. Context object, untuk mengisi variabel
+
+            IContext ctx = report.createContext();
+            ctx.put("nomor", pendaftar.getNomorRegistrasi());
+            ctx.put("nama", pendaftar.getNama());
+            ctx.put("prodi", pendaftar.getProgramStudi().getNama());
+            ctx.put("program", "Reguler");
+            ctx.put("hp", "08159551299");
+            ctx.put("sekarang", LocalDate.now());
+
+            response.setHeader("Content-Disposition", "attachment;filename=kartu_ujian_pasca.pdf");
             OutputStream out = response.getOutputStream();
             report.convert(ctx, options, out);
             out.flush();
