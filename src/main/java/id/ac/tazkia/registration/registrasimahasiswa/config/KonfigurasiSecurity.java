@@ -102,6 +102,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/kartu")
                 .antMatchers("/kartuPasca")
                 .antMatchers("/suratKeterangan")
+                .antMatchers("/suratKeteranganS2")
                 .antMatchers("/formNimko")
                 .antMatchers("/404")
                 .antMatchers("/reset-sukses")

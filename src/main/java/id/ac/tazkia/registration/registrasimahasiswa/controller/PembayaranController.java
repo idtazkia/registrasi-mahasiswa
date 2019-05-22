@@ -72,6 +72,9 @@ public class PembayaranController {
     @Value("classpath:keterangan-lulus.odt")
     private Resource templateSuratKeterangan;
 
+    @Value("classpath:keterangan-lulusPasca.odt")
+    private Resource templateSuratKeteranganPasca;
+
     @Value("classpath:ketentuan.odt")
     private Resource templateSuratKetentuan;
 
@@ -276,7 +279,50 @@ public class PembayaranController {
     }
 
     //
+    @GetMapping("/suratKeteranganS2")
+    public void suratKeteranganPasca(@RequestParam(name = "id") Pendaftar pendaftar,
+                                HttpServletResponse response) {
+        try {
+            // 0. Setup converter
+            Options options = Options.getFrom(DocumentKind.ODT).to(ConverterTypeTo.PDF);
 
+            // 1. Load template dari file
+            InputStream in = templateSuratKeteranganPasca.getInputStream();
+
+            // 2. Inisialisasi template engine, menentukan sintaks penulisan variabel
+            IXDocReport report = XDocReportRegistry.getRegistry().
+                    loadReport(in, TemplateEngineKind.Freemarker);
+
+            // 3. Context object, untuk mengisi variabel
+            DetailPendaftar d = detailPendaftarDao.findByPendaftar(pendaftar);
+
+            IContext ctx = report.createContext();
+            ctx.put("nama", d.getPendaftar().getNama());
+            ctx.put("ttl", d.getTempatLahir() + ',' + d.getTanggalLahir());
+            ctx.put("asalSekolah", d.getAsalSekolah());
+            ctx.put("namaAyah", d.getNamaAyah());
+            ctx.put("alamat", d.getAlamatRumah());
+            ctx.put("programStudi", d.getPendaftar().getProgramStudi().getNama());
+
+            Locale indonesia = new Locale("id", "id");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy", indonesia);
+
+            LocalDate tanggal =
+                    LocalDate.now(ZoneId.systemDefault());
+
+
+            String tanggalSekarang = tanggal.format(formatter);
+
+            ctx.put("tanggalSekarang", tanggalSekarang);
+
+            response.setHeader("Content-Disposition", "attachment;filename=Surat-Keterangan.pdf");
+            OutputStream out = response.getOutputStream();
+            report.convert(ctx, options, out);
+            out.flush();
+        } catch (Exception err) {
+            LOGGER.error(err.getMessage(), err);
+        }
+    }
     //Surat keterangan
 
     @GetMapping("/suratKetentuan")
