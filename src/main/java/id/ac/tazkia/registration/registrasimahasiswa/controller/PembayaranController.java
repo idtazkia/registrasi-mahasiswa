@@ -63,6 +63,8 @@ public class PembayaranController {
     private String uploadFolder;
     @Autowired
     private RegistrasiService registrasiService;
+    @Autowired
+    private ProgramStudiDao programStudiDao;
 
     @ModelAttribute("daftarBank")
     public Iterable<Bank> daftarBank() {
@@ -148,12 +150,28 @@ public class PembayaranController {
         tagihan.setLunas(true);
         tagihanDao.save(tagihan);
 
+//Cek Prodi
+        ProgramStudi pr07 = programStudiDao.findById("007").get();
+        ProgramStudi pr09 = programStudiDao.findById("009").get();
+        ProgramStudi pr08 = programStudiDao.findById("008").get();
+        Boolean pen1 = tagihan.getPendaftar().getProgramStudi().equals(pr07);
+        Boolean pen2 = tagihan.getPendaftar().getProgramStudi().equals(pr08);
+        Boolean pen3 = tagihan.getPendaftar().getProgramStudi().equals(pr09);
+        Boolean cekPodi = pen1 == true || pen2 == true || pen3 == true;
         if (tagihan.getJenisBiaya().getId().equals(AppConstants.JENIS_BIAYA_DAFTAR_ULANG)) {
             DetailPendaftar dp = detailPendaftarDao.findByPendaftar(tagihan.getPendaftar());
             if (dp == null) {
                 LOGGER.warn("Tagihan dengan nomor {} tidak memiliki data detail pendaftar", tagihan.getNomorTagihan());
             }
-            notifikasiService.kirimNotifikasiKeteranganLulus(dp);
+//suketPasca
+            if (cekPodi == true) {
+                LOGGER.debug("Program Studi Pasca :" + tagihan.getPendaftar().getProgramStudi().getNama());
+                notifikasiService.kirimNotifikasiKeteranganLulusPasca(dp);
+            }else{
+//suketS1
+                LOGGER.debug("Program Studi S1  :" + tagihan.getPendaftar().getProgramStudi().getNama());
+                notifikasiService.kirimNotifikasiKeteranganLulus(dp);
+            }
         } else {
             registrasiService.aktivasiUser(tagihan.getPendaftar());
         }

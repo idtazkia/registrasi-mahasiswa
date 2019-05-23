@@ -27,6 +27,7 @@ public class NotifikasiService {
 
     @Value("${notifikasi.registrasi.konfigurasi.grade}") private String getKonfigurasiNotifikasiHasilTest;
     @Value("${notifikasi.registrasi.konfigurasi.keterangan-lulus}") private String getKonfigurasiNotifikasiKeteranganLulus;
+    @Value("${notifikasi.registrasi.konfigurasi.keterangan-lulus-pasca}") private String getKonfigurasiNotifikasiKeteranganLulusPasca;
     @Value("${notifikasi.registrasi.konfigurasi.kartu-jpa}") private String getKonfigurasiNotifikasiKartuJpa;
     @Value("${notifikasi.registrasi.konfigurasi.reset-password-agen}") private String getKonfigurasiNotifikasiResetPasswordAgen;
     @Value("${notifikasi.registrasi.konfigurasi.it-reset-password}") private String getKonfigurasiNotifikasiReset;
@@ -202,6 +203,32 @@ public class NotifikasiService {
                         .email(p.getEmail())
                         .namaKontak1("Irma")
                         .nomorKontak1("08159551299")
+                        .namaKontak2("Furqon")
+                        .nomorKontak2("08561360444")
+                        .namaKontak3("Panitia Penerimaan Mahasiswa Baru")
+                        .nomorKontak3("humas@tazkia.ac.id")
+                        .build())
+                .build();
+
+        try {
+            kafkaTemplate.send(topicNotifikasi, objectMapper.writeValueAsString(notif));
+        } catch (Exception err) {
+            LOGGER.warn(err.getMessage(), err);
+        }
+    }
+
+
+    @Async
+    public void kirimNotifikasiKeteranganLulusPasca(DetailPendaftar dp){
+        Pendaftar p = dp.getPendaftar();
+        NotifikasiRegistrasi notif = NotifikasiRegistrasi.builder()
+                .konfigurasi(getKonfigurasiNotifikasiKeteranganLulusPasca)
+                .email(p.getEmail())
+                .data(DataNotifikasiKeteranganLulusPascasarjana.builder()
+                        .id(p.getId())
+                        .nama(p.getNama())
+                        .nomor(p.getNomorRegistrasi())
+                        .email(p.getEmail())
                         .namaKontak2("Furqon")
                         .nomorKontak2("08561360444")
                         .namaKontak3("Panitia Penerimaan Mahasiswa Baru")
