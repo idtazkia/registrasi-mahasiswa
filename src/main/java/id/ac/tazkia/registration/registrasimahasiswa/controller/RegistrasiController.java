@@ -372,6 +372,47 @@ public class RegistrasiController {
         return "redirect:/selesai";
     }
 
+
+
+    @RequestMapping(value = "/registrasi/mustami", method = RequestMethod.GET)
+    public String FormMustami(@RequestParam(value = "id", required = false) String id,
+                         Model m){
+        //defaultnya, isi dengan object baru
+        m.addAttribute("registrasi", new Pendaftar());
+
+        if (id != null && !id.isEmpty()){
+            Pendaftar p= pendaftarDao.findById(id).get();
+            if (p != null){
+                m.addAttribute("registrasi", p);
+            }
+        }
+        return "registrasi/mustami";
+    }
+
+    @PostMapping(value = "/registrasi/mustami")
+    public String prosesFormMustami(@ModelAttribute @Valid Registrasi registrasi, BindingResult errors, SessionStatus status){
+        // load kabupaten kota
+        KabupatenKota kk = kabupatenKotaDao.findById(registrasi.getIdKabupatenKota()).get();
+        if(kk == null){
+            errors.reject("idKabupatenKota", "Data kabupaten tidak ada dalam database");
+        }
+
+        // load program studi
+        ProgramStudi prodi = programStudiDao.findById(registrasi.getProgramStudi()).get();
+        if(prodi == null){
+            errors.reject("programStudiPilihan", "Program studi tidak ada dalam database");
+        }
+
+        if(errors.hasErrors()){
+            return "registrasi/mustami";
+        }
+
+        registrasi.setPemberiRekomendasi("lainnya");
+        registrasi.setNamaPerekomendasi("Mustami' / Air Santri");
+        registrasiService.prosesPendaftaran(registrasi, prodi, kk);
+
+        return "redirect:/selesai";
+    }
 //
 }
 

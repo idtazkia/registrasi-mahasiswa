@@ -86,6 +86,7 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registrasi/formfb")
                 .antMatchers("/registrasi/formig")
                 .antMatchers("/registrasi/formgg")
+                .antMatchers("/registrasi/mustami")
                 .antMatchers("/selesai")
                 .antMatchers("/favicon.ico")
                 .antMatchers("/api/kokabawal*")
