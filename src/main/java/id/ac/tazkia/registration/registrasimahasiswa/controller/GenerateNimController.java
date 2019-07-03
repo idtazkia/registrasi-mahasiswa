@@ -90,21 +90,22 @@ public class GenerateNimController{
             detail.setStatusSipil(d.getStatusSipil());
             detail.setNamaAyah(d.getNamaAyah());
             detail.setAgamaAyah(d.getAgamaAyah());
-            detail.setPendidikanAyah(d.getPendidikanAyah().getId());
-            detail.setPekerjaanAyah(d.getPekerjaanAyah().getId());
+            detail.setPendidikanAyah(d.getPendidikanAyah());
+            detail.setPekerjaanAyah(d.getPekerjaanAyah());
             detail.setNamaIbu(d.getNamaIbu());
             detail.setAgamaIbu(d.getAgamaIbu());
-            detail.setPendidikanIbu(d.getPendidikanIbu().getId());
-            detail.setPekerjaanIbu(d.getPekerjaanIbu().getId());
+            detail.setPendidikanIbu(d.getPendidikanIbu());
+            detail.setPekerjaanIbu(d.getPekerjaanIbu());
             detail.setAlamatOrangtua(d.getAlamatOrangtua());
             detail.setKokabOrangtua(d.getKokabOrangtua());
             detail.setNohpOrangtua(d.getNohpOrangtua());
             detail.setEmailOrangtua(d.getEmailOrangtua());
-            detail.setPenghasilanOrangtua(d.getPenghasilanOrangtua().getId());
+            detail.setPenghasilanOrangtua(d.getPenghasilanOrangtua());
             detail.setJumlahTanggungan(d.getJumlahTanggungan());
             detail.setRencanaBiaya(d.getRencanaBiaya());
             detail.setJenisTest(d.getJenisTest());
             detail.setNim(d.getNim());
+            detail.setProdiLama(d.getPendaftar().getProgramStudi());
         }
         m.addAttribute("detail",detail);
 
@@ -113,7 +114,8 @@ public class GenerateNimController{
 
 
     @PostMapping (value = "/registrasi/nim/form")
-    public String prosesForm(@ModelAttribute @Valid RegistrasiDetail registrasiDetail, @RequestParam(required = false) Pendaftar pendaftar, BindingResult errors,
+    public String prosesForm(@ModelAttribute @Valid RegistrasiDetail registrasiDetail,
+                             @RequestParam(required = false) ProgramStudi prodiLama, BindingResult errors,
                              RedirectAttributes redirectAttributes){
 
 
@@ -134,13 +136,18 @@ public class GenerateNimController{
             p.setKonsentrasi(p.getKonsentrasi());
         System.out.println("prodi" + p.getProgramStudi());
         DetailPendaftar dep = detailPendaftarDao.findByPendaftar(p);
-        System.out.println("prodi 2" + dep.getPendaftar().getProgramStudi());
+        System.out.println("prodi lama :" + prodiLama);
+        System.out.println("prodi Baru :" + p.getProgramStudi());
 
-        if (p.getProgramStudi() != registrasiDetail.getProgramStudi()) {
-            dep.setNim("");
-            System.out.println("SET NIM : " + dep.getNim());
-            detailPendaftarDao.save(dep);
+        if (prodiLama != null) {
+            if (prodiLama.getId() != p.getProgramStudi().getId()) {
+                registrasiDetail.setNim(null);
+                dep.setNim(registrasiDetail.getNim());
+                System.out.println("SET NIM : " + registrasiDetail.getNim());
+                detailPendaftarDao.save(dep);
+            }
         }
+
         pendaftarDao.save(p);
 
         DetailPendaftar detailPendaftar = new DetailPendaftar();
@@ -160,6 +167,12 @@ public class GenerateNimController{
             BeanUtils.copyProperties(registrasiDetail,dp);
             dp.setPendaftar(p);
             dp.setJenisTest(registrasiDetail.getJenisTest());
+            dp.setPendidikanAyah(registrasiDetail.getPendidikanAyah());
+            dp.setPekerjaanAyah(registrasiDetail.getPekerjaanAyah());
+            dp.setPendidikanIbu(registrasiDetail.getPendidikanIbu());
+            dp.setPekerjaanIbu(registrasiDetail.getPekerjaanIbu());
+            dp.setPenghasilanOrangtua(registrasiDetail.getPenghasilanOrangtua());
+
             detailPendaftarDao.save(dp);
             redirectAttributes.addFlashAttribute("detail", dp);
 
@@ -168,6 +181,11 @@ public class GenerateNimController{
             BeanUtils.copyProperties(registrasiDetail, detailPendaftar);
             detailPendaftar.setPendaftar(p);
             detailPendaftar.setJenisTest(registrasiDetail.getJenisTest());
+            detailPendaftar.setPendidikanAyah(registrasiDetail.getPendidikanAyah());
+            detailPendaftar.setPekerjaanAyah(registrasiDetail.getPekerjaanAyah());
+            detailPendaftar.setPendidikanIbu(registrasiDetail.getPendidikanIbu());
+            detailPendaftar.setPekerjaanIbu(registrasiDetail.getPekerjaanIbu());
+            detailPendaftar.setPenghasilanOrangtua(registrasiDetail.getPenghasilanOrangtua());
 
             detailPendaftarDao.save(detailPendaftar);
 

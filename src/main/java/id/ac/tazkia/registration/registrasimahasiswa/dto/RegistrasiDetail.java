@@ -1,9 +1,6 @@
 package id.ac.tazkia.registration.registrasimahasiswa.dto;
 
-import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.JenisTest;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.ProgramStudi;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.User;
+import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -41,17 +38,17 @@ public class RegistrasiDetail {
     private String statusSipil;
     private String namaAyah;
     private String agamaAyah;
-    private String pendidikanAyah;
-    private String pekerjaanAyah;
+    private Pendidikan pendidikanAyah;
+    private Pekerjaan pekerjaanAyah;
     private String namaIbu;
     private String agamaIbu;
-    private String pendidikanIbu;
-    private String pekerjaanIbu;
+    private Pendidikan pendidikanIbu;
+    private Pekerjaan pekerjaanIbu;
     private String alamatOrangtua;
     private String kokabOrangtua;
     private String nohpOrangtua;
     private String emailOrangtua;
-    private String penghasilanOrangtua;
+    private Penghasilan penghasilanOrangtua;
     private String jumlahTanggungan;
     private String rencanaBiaya;
     private JenisTest jenisTest;
@@ -61,5 +58,7 @@ public class RegistrasiDetail {
     private String nomorRegistrasi;
     private String negara;
     private String namaAsalSekolah;
+    private ProgramStudi prodiLama;
+
 
 }

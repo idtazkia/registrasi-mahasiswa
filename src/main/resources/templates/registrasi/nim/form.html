@@ -251,7 +251,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4">
+                                                        <div class="col-sm-3">&nbsp;</div>
+                                                        <div class="col-sm-6" style="background-color: deepskyblue">
                                                             <div class="form-group">
                                                                 <div class="form-line">
                                                                     <label>Program Studi Pilihan</label><br>
@@ -263,7 +264,9 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                            <input type="text" name="prodiLama" th:field="*{prodiLama}">
                                                         </div>
+                                                        <div class="col-sm-3">&nbsp;</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -311,7 +314,7 @@
                                                             <div class="form-group">
                                                                 <div class="form-line">
                                                                     <label>Pendidikan Ayah</label>
-                                                                    <select name="pendidikan_ayah" th:field="*{pendidikanAyah}" class="form-control js-example-placeholder-single" required autofocus>
+                                                                    <select name="pendidikanAyah" th:field="*{pendidikanAyah}" class="form-control js-example-placeholder-single" required autofocus>
                                                                         <option value="">-Pilih Pindidikan Ayah-</option>
                                                                         <option th:each="ins : ${pendidikanOrtu}"
                                                                                 th:value="${ins.id}"
@@ -324,7 +327,7 @@
                                                             <div class="form-group">
                                                                 <div class="form-line">
                                                                     <label>Pekerjaan Ayah</label>
-                                                                     <select name="pekerjaan_ayah" th:field="*{pekerjaanAyah}" class="form-control js-example-placeholder-single" required autofocus>
+                                                                     <select name="pekerjaanAyah" th:field="*{pekerjaanAyah}" class="form-control js-example-placeholder-single" required autofocus>
                                                                             <option value="">-Pilih Pekerjaan Ayah-</option>
                                                                             <option th:each="ins : ${pekerjaanOrtu}"
                                                                                         th:value="${ins.id}"
@@ -363,7 +366,7 @@
                                                             <div class="form-group">
                                                                 <div class="form-line">
                                                                     <label>Pendidikan Ibu</label>
-                                                                    <select name="pendidikan_Ibu" th:field="*{pendidikanIbu}" class="form-control js-example-placeholder-single" required autofocus>
+                                                                    <select name="pendidikanIbu" th:field="*{pendidikanIbu}" class="form-control js-example-placeholder-single" required autofocus>
                                                                         <option value="">-Pilih Pindidikan Ibu-</option>
                                                                         <option th:each="ins : ${pendidikanOrtu}"
                                                                                 th:value="${ins.id}"
@@ -376,7 +379,7 @@
                                                             <div class="form-group">
                                                                 <div class="form-line">
                                                                     <label>Pekerjaan Ibu</label>
-                                                                    <select name="pekerjaan_ibu" th:field="*{pekerjaanIbu}" class="form-control js-example-placeholder-single" required autofocus>
+                                                                    <select name="pekerjaanIbu" th:field="*{pekerjaanIbu}" class="form-control js-example-placeholder-single" required autofocus>
                                                                         <option value="">-Pilih Pekerjaan Ibu-</option>
                                                                         <option th:each="ins : ${pekerjaanOrtu}"
                                                                                 th:value="${ins.id}"
@@ -430,7 +433,7 @@
                                                             <div class="form-group">
                                                                 <div class="form-line">
                                                                     <label>Penghasilan Orangtua</label>
-                                                                    <select name="penghasilan_orangtua" th:field="*{penghasilanOrangtua}" class="form-control js-example-placeholder-single" required autofocus>
+                                                                    <select name="penghasilanOrangtua" th:field="*{penghasilanOrangtua}" class="form-control js-example-placeholder-single" required autofocus>
                                                                         <option value="">-Pilih Penghasilan-</option>
                                                                         <option th:each="ins : ${penghasilanOrtu}"
                                                                                 th:value="${ins.id}"
