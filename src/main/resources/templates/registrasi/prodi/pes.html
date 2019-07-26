@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SPMB STEI Tazkia</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,400i,500,500i,700,800,900" rel="stylesheet"/>
+    <!-- Bootstrap CSS File -->
+    <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <!-- Libraries CSS Files -->
+    <link th:href="@{/lib/nivo-slider/css/nivo-slider.css}" rel="stylesheet"/>
+    <link th:href="@{/lib/owlcarousel/owl.carousel.css}" rel="stylesheet"/>
+    <link th:href="@{/lib/owlcarousel/owl.transitions.css}" rel="stylesheet"/>
+    <link th:href="@{/lib/font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link th:href="@{/lib/animate/animate.min.css}" rel="stylesheet"/>
+    <link th:href="@{/lib/venobox/venobox.css}" rel="stylesheet"/>
+
+    <!-- Nivo Slider Theme -->
+    <link th:href="@{/css/index/nivo-slider-theme.css}" rel="stylesheet"/>
+
+    <!-- Main Stylesheet File -->
+    <link th:href="@{/css/index/style.css}" rel="stylesheet"/>
+
+    <!-- Responsive Stylesheet File -->
+    <link th:href="@{/css/index/responsive.css}" rel="stylesheet"/>
+    <link th:href="@{/css/select2.css}" rel="stylesheet"/>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <!-- =======================================================
+      Theme Name: eBusiness
+      Theme URL: https://bootstrapmade.com/ebusiness-bootstrap-corporate-template/
+      Author: BootstrapMade.com
+      License: https://bootstrapmade.com/license/
+    ======================================================= -->
+</head>
+
+<body data-spy="scroll" data-target="#navbar-example">
+
+<div id="preloader"></div>
+
+<header>
+    <!-- header-area start -->
+    <div id="sticker" class="header-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+
+                    <!-- Navigation -->
+                    <nav class="navbar navbar-default">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <!-- Brand -->
+                            <a class="navbar-brand page-scroll sticky-logo" th:href="@{/}">
+                                <h1><span>STEI</span>Tazkia</h1>
+                                <!-- Uncomment below if you prefer to use an image logo -->
+                                <!-- <img src="img/logo.png" alt="" title=""> -->
+                            </a>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse main-menu bs-example-navbar-collapse-1" id="navbar-example">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a class="page-scroll" th:href="@{/}">Home</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#prodi}">Program</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#prosedur}">Prosedur</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#periode}">Periode</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/hasilTest}">Hasil Test</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/registrasi/smart/list}">Smart Test</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#biaya}">Biaya</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/#contact}">Contact</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" th:href="@{/login}">login</a>
+                                </li>
+                                <li style="background-color: #3ec1d5;"  class="active">
+                                    <a class="page-scroll" th:href="@{/registrasi/form}" href="#registrasi">Registrasi</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- navbar-collapse -->
+                    </nav>
+                    <!-- END: Navigation -->
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+
+    <div id="registrasi" class="about-area area-padding"><br><br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="section-headline text-center">
+                        <h2>Form Pendaftaran</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="single-post-comments">
+                        <div class="comment-respond">
+                            <h3 class="comment-reply-title"></h3>
+
+                            <form th:action="@{/registrasi/prodi/pes}" th:object="${registrasi}" method="post">
+                                <input type="hidden" name="id" id="id" th:field="*{id}">
+                                <input type="hidden" name="nomor" id="nomor" th:field="*{nomorRegistrasi}">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <p>Nama *</p>
+                                        <input type="text" name="nama" th:field="*{nama}"
+                                                       class="form-control"
+                                                       placeholder="Nama" required autofocus/>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <p>No Telepon *</p>
+                                        <input type="number" name="no_hp" th:field="*{noHp}"
+                                                       class="form-control"
+                                                       placeholder="No Telepon" required autofocus/>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <p>Email *</p>
+                                        <input type="email" name="email" th:field="*{email}"
+                                                       class="form-control"
+                                                       placeholder="Email" required autofocus/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <p>Negara *</p>
+                                        <input type="text" name="negara"
+                                                        placeholder="Negara"
+                                                        required autofocus
+                                                        class="form-control" th:field="*{negara}"/>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <p>Kota Asal Sekolah/Universitas *</p>
+                                        <input type="text" hidden="" name="idKabupatenKota">
+                                        <input type="text" id="kokabawal" placeholder="Cari Kabupaten/Kota ..."
+                                                       data-provide="typeahead"
+                                                       autocomplete="off" required autofocus>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <p>Nama Asal Sekolah/Universitas *</p>
+                                        <input type="text" class="form-control" th:field="*{namaAsalSekolah}"
+                                                       id="sekolah" placeholder="Cari Sekolah/Universitas ..."
+                                                       data-provide="typeahead" autocomplete="off" required autofocus>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <p>Agama</p>
+                                        <select name="agama" th:field="*{agama}" class="form-control" required autofocus>
+                                            <option value="">-Pilih Agama-</option>
+                                            <option value="Islam">Islam</option>
+                                            <option value="Hindu">Hindu</option>
+                                            <option value="Budha">Budha</option>
+                                            <option value="Kristen">Kristen</option>
+                                            <option value="Katholik">Katholik</option>
+                                            <option value="KongHuCu">Kong Hu Cu</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <p>Pemberi Rekomendasi *</p>
+                                         <select name="pemberi_rekomendasi" class="form-control"
+                                                 th:field="*{pemberiRekomendasi}" id="pemberi_rekomendasi" required autofocus>
+                                                    <option value="">-Pilih Pemberi Rekomendasi-</option>
+                                                    <option value="agen">Agen</option>
+                                                    <option value="dosen">Dosen</option>
+                                                    <option value="mahasiswa">Mahasiswa</option>
+                                                    <option value="medsos">Media Sosial</option>
+                                                    <option value="surat_kabar">Surat Kabar</option>
+                                                    <option value="staff">Staff</option>
+                                                    <option value="website">Website</option>
+                                                    <option value="lainnya">Lainnya</option>
+                                                </select>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <p>Nama Perekomendasi *</p>
+                                        <input type="text" name="nama_perekomendasi"  th:field="*{namaPerekomendasi}"
+                                                       class="form-control"
+                                                       placeholder="Nama Perekomendasi"/>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <p>Program Studi Pilihan *</p>
+                                         <select name="programStudi" th:field="*{programStudi}"
+                                                 class="js-example-basic-single form-control" required autofocus>
+                                                    <option value="006">Pendidikan Ekonomi Syariah (S1)</option>
+                                                    <!--<option th:each="ins : ${daftarProdi}"-->
+                                                            <!--th:value="${ins.id}"-->
+                                                            <!--th:text="${ins.nama}">Ekonomi Syariah</option>-->
+                                         </select>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <p>Konsentrasi *</p>
+                                        <select name="konsentrasi" th:field="*{konsentrasi}" class="form-control" required autofocus>
+                                            <option value="">-Pilih Konsentrasi-</option>
+                                            <option value="Reguler">Reguler(S1 & S2)</option >
+                                            <option value="Eksekutif" >Eksekutif(S2)</option >
+                                            <option value="Karyawan" >karyawan(D3)</option >
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 comment-form-comment">
+                                        <input type="submit" value="Registrasi" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end prosedur-->
+</section>
+<div class="footer-area-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="copyright text-center">
+                    <p>
+                        &copy; Copyright <strong>STEI Tazkia</strong>. All Rights Reserved
+                    </p>
+                </div>
+                <div class="credits">
+                    <!--
+                      All the links in the footer should remain intact.
+                      You can delete the links only if you purchased the pro version.
+                      Licensing information: https://bootstrapmade.com/license/
+                      Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eBusiness
+                    -->
+                    Designed by BootstrapMade
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script th:src="@{/lib/jquery/jquery.min.js}"></script>
+<script th:src="@{/lib/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/lib/owlcarousel/owl.carousel.min.js}"></script>
+<script th:src="@{/lib/venobox/venobox.min.js}"></script>
+<script th:src="@{/lib/knob/jquery.knob.js}"></script>
+<script th:src="@{/lib/wow/wow.min.js}"></script>
+<script th:src="@{/lib/parallax/parallax.js}"></script>
+<script th:src="@{/lib/easing/easing.min.js}"></script>
+<script th:src="@{/lib/nivo-slider/js/jquery.nivo.slider.js}" type="text/javascript"></script>
+<script th:src="@{/lib/appear/jquery.appear.js}"></script>
+<script th:src="@{/lib/isotope/isotope.pkgd.min.js}"></script>
+
+<script th:src="@{/js/index/main.js}"></script>
+
+<script th:src="@{/js/select2.min.js}"></script>
+
+<script src="https://cdn.rawgit.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+<script th:src="@{/js/bootstrap3-typeahead.js}"></script>
+<script th:src="@{/js/aplikasi.js}"></script>
+
+<th:block layout:fragment="script">
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
+</th:block>
+</html>

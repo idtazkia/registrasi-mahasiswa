@@ -416,5 +416,201 @@ public class RegistrasiController {
         return "redirect:/selesai";
     }
 //
+//contorller perprodi
+//es
+    @RequestMapping(value = "/registrasi/prodi/es", method = RequestMethod.GET)
+    public String FormEs(@RequestParam(value = "id", required = false) String id,
+                              Model m){
+        //defaultnya, isi dengan object baru
+        m.addAttribute("registrasi", new Pendaftar());
+
+        if (id != null && !id.isEmpty()){
+            Pendaftar p= pendaftarDao.findById(id).get();
+            if (p != null){
+                m.addAttribute("registrasi", p);
+            }
+        }
+        return "registrasi/prodi/es";
+    }
+
+    @PostMapping(value = "/registrasi/prodi/es")
+    public String prosesFormEs(@ModelAttribute @Valid Registrasi registrasi, BindingResult errors, SessionStatus status){
+        // load kabupaten kota
+        KabupatenKota kk = kabupatenKotaDao.findById(registrasi.getIdKabupatenKota()).get();
+        if(kk == null){
+            errors.reject("idKabupatenKota", "Data kabupaten tidak ada dalam database");
+        }
+
+        // load program studi
+        ProgramStudi prodi = programStudiDao.findById(registrasi.getProgramStudi()).get();
+        if(prodi == null){
+            errors.reject("programStudiPilihan", "Program studi tidak ada dalam database");
+        }
+
+        if(errors.hasErrors()){
+            return "registrasi/prodi/es";
+        }
+
+        registrasiService.prosesPendaftaran(registrasi, prodi, kk);
+
+        return "redirect:/selesai";
+    }
+
+//as
+    @RequestMapping(value = "/registrasi/prodi/as", method = RequestMethod.GET)
+    public String FormAs(@RequestParam(value = "id", required = false) String id,
+                         Model m){
+        //defaultnya, isi dengan object baru
+        m.addAttribute("registrasi", new Pendaftar());
+
+        if (id != null && !id.isEmpty()){
+            Pendaftar p= pendaftarDao.findById(id).get();
+            if (p != null){
+                m.addAttribute("registrasi", p);
+            }
+        }
+        return "registrasi/prodi/as";
+    }
+
+    @PostMapping(value = "/registrasi/prodi/as")
+    public String prosesFormAs(@ModelAttribute @Valid Registrasi registrasi, BindingResult errors, SessionStatus status){
+        // load kabupaten kota
+        KabupatenKota kk = kabupatenKotaDao.findById(registrasi.getIdKabupatenKota()).get();
+        if(kk == null){
+            errors.reject("idKabupatenKota", "Data kabupaten tidak ada dalam database");
+        }
+
+        // load program studi
+        ProgramStudi prodi = programStudiDao.findById(registrasi.getProgramStudi()).get();
+        if(prodi == null){
+            errors.reject("programStudiPilihan", "Program studi tidak ada dalam database");
+        }
+
+        if(errors.hasErrors()){
+            return "registrasi/prodi/as";
+        }
+
+        registrasiService.prosesPendaftaran(registrasi, prodi, kk);
+
+        return "redirect:/selesai";
+    }
+
+//hes
+    @RequestMapping(value = "/registrasi/prodi/hes", method = RequestMethod.GET)
+    public String FormHes(@RequestParam(value = "id", required = false) String id,
+                         Model m){
+        //defaultnya, isi dengan object baru
+        m.addAttribute("registrasi", new Pendaftar());
+
+        if (id != null && !id.isEmpty()){
+            Pendaftar p= pendaftarDao.findById(id).get();
+            if (p != null){
+                m.addAttribute("registrasi", p);
+            }
+        }
+        return "registrasi/prodi/hes";
+    }
+
+    @PostMapping(value = "/registrasi/prodi/hes")
+    public String prosesFormHes(@ModelAttribute @Valid Registrasi registrasi, BindingResult errors, SessionStatus status){
+        // load kabupaten kota
+        KabupatenKota kk = kabupatenKotaDao.findById(registrasi.getIdKabupatenKota()).get();
+        if(kk == null){
+            errors.reject("idKabupatenKota", "Data kabupaten tidak ada dalam database");
+        }
+
+        // load program studi
+        ProgramStudi prodi = programStudiDao.findById(registrasi.getProgramStudi()).get();
+        if(prodi == null){
+            errors.reject("programStudiPilihan", "Program studi tidak ada dalam database");
+        }
+
+        if(errors.hasErrors()){
+            return "registrasi/prodi/hes";
+        }
+
+        registrasiService.prosesPendaftaran(registrasi, prodi, kk);
+
+        return "redirect:/selesai";
+    }
+
+//mbs
+    @RequestMapping(value = "/registrasi/prodi/mbs", method = RequestMethod.GET)
+    public String FormMbs(@RequestParam(value = "id", required = false) String id,
+                         Model m){
+        //defaultnya, isi dengan object baru
+        m.addAttribute("registrasi", new Pendaftar());
+
+        if (id != null && !id.isEmpty()){
+            Pendaftar p= pendaftarDao.findById(id).get();
+            if (p != null){
+                m.addAttribute("registrasi", p);
+            }
+        }
+        return "registrasi/prodi/mbs";
+    }
+
+    @PostMapping(value = "/registrasi/prodi/mbs")
+    public String prosesFormMbs(@ModelAttribute @Valid Registrasi registrasi, BindingResult errors, SessionStatus status){
+        // load kabupaten kota
+        KabupatenKota kk = kabupatenKotaDao.findById(registrasi.getIdKabupatenKota()).get();
+        if(kk == null){
+            errors.reject("idKabupatenKota", "Data kabupaten tidak ada dalam database");
+        }
+
+        // load program studi
+        ProgramStudi prodi = programStudiDao.findById(registrasi.getProgramStudi()).get();
+        if(prodi == null){
+            errors.reject("programStudiPilihan", "Program studi tidak ada dalam database");
+        }
+
+        if(errors.hasErrors()){
+            return "registrasi/prodi/mbs";
+        }
+
+        registrasiService.prosesPendaftaran(registrasi, prodi, kk);
+
+        return "redirect:/selesai";
+    }
+
+    //mbs
+    @RequestMapping(value = "/registrasi/prodi/pes", method = RequestMethod.GET)
+    public String FormPes(@RequestParam(value = "id", required = false) String id,
+                          Model m){
+        //defaultnya, isi dengan object baru
+        m.addAttribute("registrasi", new Pendaftar());
+
+        if (id != null && !id.isEmpty()){
+            Pendaftar p= pendaftarDao.findById(id).get();
+            if (p != null){
+                m.addAttribute("registrasi", p);
+            }
+        }
+        return "registrasi/prodi/pes";
+    }
+
+    @PostMapping(value = "/registrasi/prodi/pes")
+    public String prosesFormPes(@ModelAttribute @Valid Registrasi registrasi, BindingResult errors, SessionStatus status){
+        // load kabupaten kota
+        KabupatenKota kk = kabupatenKotaDao.findById(registrasi.getIdKabupatenKota()).get();
+        if(kk == null){
+            errors.reject("idKabupatenKota", "Data kabupaten tidak ada dalam database");
+        }
+
+        // load program studi
+        ProgramStudi prodi = programStudiDao.findById(registrasi.getProgramStudi()).get();
+        if(prodi == null){
+            errors.reject("programStudiPilihan", "Program studi tidak ada dalam database");
+        }
+
+        if(errors.hasErrors()){
+            return "registrasi/prodi/pes";
+        }
+
+        registrasiService.prosesPendaftaran(registrasi, prodi, kk);
+
+        return "redirect:/selesai";
+    }
+
 }
 
