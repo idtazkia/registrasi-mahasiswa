@@ -221,8 +221,11 @@ public class RegistrasiDetailController {
 
             LocalDate berlaku = mingguKeduaBulanDepan.plusWeeks(2);
 
-            String tanggalUjian = mingguKeduaBulanDepan.format(formatter);
-            String tanggalBerlaku = berlaku.format(formatter);
+//            String tanggalUjian = mingguKeduaBulanDepan.format(formatter);
+            String tanggalUjian = "Minggu, 25\n" +
+                    "Agustus 2019";
+//            String tanggalBerlaku = berlaku.format(formatter);
+            String tanggalBerlaku = "08 September 2019";
 
             ctx.put("tanggalUjian", tanggalUjian);
             ctx.put("berlaku", tanggalBerlaku);
