@@ -37,5 +37,5 @@ deploy-to-production:
   only:
     - /-RELEASE$/
   script:
-  - scp target/*.jar root@$SSH_HOSTNAME:/home/registrasi/
-  - ssh root@$SSH_HOSTNAME /home/registrasi/deploy-registrasi.sh $CI_PROJECT_NAME-$CI_COMMIT_TAG.jar
+  - scp target/*.jar root@$SSH_HOSTNAME:/var/lib/registrasi-mahasiswa/
+  - ssh root@$SSH_HOSTNAME /var/lib/registrasi-mahasiswa/deploy.sh $CI_PROJECT_NAME-$CI_COMMIT_TAG.jar
