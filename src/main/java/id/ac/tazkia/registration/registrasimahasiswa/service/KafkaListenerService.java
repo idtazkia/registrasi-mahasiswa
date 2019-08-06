@@ -81,8 +81,13 @@ public class KafkaListenerService {
     @KafkaListener(topics = "${kafka.topic.tagihan.response}", groupId = "${spring.kafka.consumer.group-id}")
     public void handleTagihanResponse(String message) {
         try {
-            LOGGER.debug("Terima message : {}", message);
             TagihanResponse response = objectMapper.readValue(message, TagihanResponse.class);
+            if (!JENIS_TAGIHAN_SPMB.contains(response.getJenisTagihan())) {
+                LOGGER.debug("Bukan Tagihan SPMB");
+                return;
+            }
+            LOGGER.debug("Terima message : {}", message);
+
             if (!response.getSukses()) {
                 LOGGER.warn("Create tagihan gagal : {}", response.getDebitur());
                 return;
