@@ -65,6 +65,9 @@ public class RegistrasiController {
             if (p != null){
                 m.addAttribute("registrasi", p);
             }
+            if (p == null){
+                LOGGER.debug("Pendaftar Tidak Ditemukan");
+            }
         }
         return "registrasi/form";
     }
