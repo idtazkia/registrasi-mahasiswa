@@ -15,12 +15,17 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service @Transactional
 public class KafkaListenerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaListenerService.class);
+    private static final List<String> JENIS_TAGIHAN_SPMB = new ArrayList<>();
 
     @Value("${tagihan.id.registrasi}") private String idTagihanRegistrasi;
     @Value("${tagihan.id.daftarUlang}") private String idTagihanDaftarUlang;
@@ -37,6 +42,12 @@ public class KafkaListenerService {
     @Autowired private AgenDao agenDao;
     @Autowired private TagihanAgenDao tagihanAgenDao;
     @Autowired private ProgramStudiDao programStudiDao;
+
+    @PostConstruct
+    public void inisialisasi(){
+        JENIS_TAGIHAN_SPMB.add(idTagihanRegistrasi);
+        JENIS_TAGIHAN_SPMB.add(idTagihanDaftarUlang);
+    }
 
     @KafkaListener(topics = "${kafka.topic.debitur.response}", groupId = "${spring.kafka.consumer.group-id}")
     public void handleDebiturResponse(String message) {
@@ -93,25 +104,29 @@ public class KafkaListenerService {
     @KafkaListener(topics = "${kafka.topic.tagihan.payment}", groupId = "${spring.kafka.consumer.group-id}")
     public void handlePayment(String message) {
         try {
-            LOGGER.debug("Terima message : {}", message);
             PembayaranTagihan pt = objectMapper.readValue(message, PembayaranTagihan.class);
+            if (!JENIS_TAGIHAN_SPMB.contains(pt.getJenisTagihan())) {
+                LOGGER.debug("Bukan Tagihan SPMB");
+                return;
+            }
+            LOGGER.debug("Terima message : {}", message);
 
-                Tagihan tagihan = tagihanDao.findByNomorTagihan(pt.getNomorTagihan());
+            Tagihan tagihan = tagihanDao.findByNomorTagihan(pt.getNomorTagihan());
 
-                TagihanAgen tagihanAgen = tagihanAgenDao.findByNomorTagihan(pt.getNomorTagihan());
+            TagihanAgen tagihanAgen = tagihanAgenDao.findByNomorTagihan(pt.getNomorTagihan());
 
-                if (tagihan == null) {
-                    LOGGER.warn("Tagihan Pendaftar tidak ditemukan");
+            if (tagihan == null) {
+                LOGGER.warn("Tagihan Pendaftar tidak ditemukan");
 
-                    //Cek di Tagihan Agen
-                    if (tagihanAgen == null){
-                        LOGGER.warn("Tagihan Agen dengan nomor {} tidak ditemukan", pt.getNomorTagihan());
-                    }
-
-                    tagihanService.prosesPembayaranAgen(tagihanAgen, pt);
-                    return;
-
+                //Cek di Tagihan Agen
+                if (tagihanAgen == null){
+                    LOGGER.warn("Tagihan Agen dengan nomor {} tidak ditemukan", pt.getNomorTagihan());
                 }
+
+                tagihanService.prosesPembayaranAgen(tagihanAgen, pt);
+                return;
+
+            }
 //Cek Prodi
             ProgramStudi pr07 = programStudiDao.findById("007").get();
             ProgramStudi pr09 = programStudiDao.findById("009").get();
