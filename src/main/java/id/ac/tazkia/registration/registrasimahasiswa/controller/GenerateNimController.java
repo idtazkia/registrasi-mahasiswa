@@ -1,5 +1,6 @@
 package id.ac.tazkia.registration.registrasimahasiswa.controller;
 
+import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.RegistrasiDetail;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
@@ -143,6 +144,7 @@ public class GenerateNimController{
             if (prodiLama.getId() != p.getProgramStudi().getId()) {
                 registrasiDetail.setNim(null);
                 dep.setNim(registrasiDetail.getNim());
+                dep.setStatus("N");
                 System.out.println("SET NIM : " + registrasiDetail.getNim());
                 detailPendaftarDao.save(dep);
             }
@@ -172,7 +174,7 @@ public class GenerateNimController{
             dp.setPendidikanIbu(registrasiDetail.getPendidikanIbu());
             dp.setPekerjaanIbu(registrasiDetail.getPekerjaanIbu());
             dp.setPenghasilanOrangtua(registrasiDetail.getPenghasilanOrangtua());
-
+            dp.setStatus("N");
             detailPendaftarDao.save(dp);
             redirectAttributes.addFlashAttribute("detail", dp);
 
@@ -186,7 +188,7 @@ public class GenerateNimController{
             detailPendaftar.setPendidikanIbu(registrasiDetail.getPendidikanIbu());
             detailPendaftar.setPekerjaanIbu(registrasiDetail.getPekerjaanIbu());
             detailPendaftar.setPenghasilanOrangtua(registrasiDetail.getPenghasilanOrangtua());
-
+            detailPendaftar.setStatus("N");
             detailPendaftarDao.save(detailPendaftar);
 
             redirectAttributes.addFlashAttribute("detail", detailPendaftar);

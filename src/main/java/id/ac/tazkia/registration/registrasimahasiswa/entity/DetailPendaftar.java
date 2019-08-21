@@ -1,5 +1,6 @@
 package id.ac.tazkia.registration.registrasimahasiswa.entity;
 
+import id.ac.tazkia.registration.registrasimahasiswa.constants.AppConstants;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
@@ -156,4 +157,6 @@ public class DetailPendaftar {
     private JenisTest jenisTest;
 
     private String nim;
+
+    private String status;
 }
