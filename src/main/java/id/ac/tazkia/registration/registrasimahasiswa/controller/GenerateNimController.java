@@ -144,7 +144,7 @@ public class GenerateNimController{
             if (prodiLama.getId() != p.getProgramStudi().getId()) {
                 registrasiDetail.setNim(null);
                 dep.setNim(registrasiDetail.getNim());
-                dep.setStatus("N");
+                dep.setStatus(StatusTagihan.N);
                 System.out.println("SET NIM : " + registrasiDetail.getNim());
                 detailPendaftarDao.save(dep);
             }
@@ -174,7 +174,7 @@ public class GenerateNimController{
             dp.setPendidikanIbu(registrasiDetail.getPendidikanIbu());
             dp.setPekerjaanIbu(registrasiDetail.getPekerjaanIbu());
             dp.setPenghasilanOrangtua(registrasiDetail.getPenghasilanOrangtua());
-            dp.setStatus("N");
+            dp.setStatus(StatusTagihan.N);
             detailPendaftarDao.save(dp);
             redirectAttributes.addFlashAttribute("detail", dp);
 
@@ -188,7 +188,7 @@ public class GenerateNimController{
             detailPendaftar.setPendidikanIbu(registrasiDetail.getPendidikanIbu());
             detailPendaftar.setPekerjaanIbu(registrasiDetail.getPekerjaanIbu());
             detailPendaftar.setPenghasilanOrangtua(registrasiDetail.getPenghasilanOrangtua());
-            detailPendaftar.setStatus("N");
+            detailPendaftar.setStatus(StatusTagihan.N);
             detailPendaftarDao.save(detailPendaftar);
 
             redirectAttributes.addFlashAttribute("detail", detailPendaftar);

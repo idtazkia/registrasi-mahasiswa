@@ -158,5 +158,6 @@ public class DetailPendaftar {
 
     private String nim;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusTagihan status;
 }
