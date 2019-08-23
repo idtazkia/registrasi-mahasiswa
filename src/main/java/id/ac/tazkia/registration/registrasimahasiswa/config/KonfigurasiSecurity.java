@@ -96,6 +96,8 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/favicon.ico")
                 .antMatchers("/api/kokabawal*")
                 .antMatchers("/api/sekolah*")
+                .antMatchers("/api/nim*")
+                .antMatchers("/api/update/nim")
                 .antMatchers("/info")
                 .antMatchers("/js/**")
                 .antMatchers("/img/*")

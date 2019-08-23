@@ -8,15 +8,18 @@ import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import id.ac.tazkia.registration.registrasimahasiswa.dao.*;
+import id.ac.tazkia.registration.registrasimahasiswa.dto.NimDto;
 import id.ac.tazkia.registration.registrasimahasiswa.dto.RegistrasiDetail;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import id.ac.tazkia.registration.registrasimahasiswa.service.NotifikasiService;
 import id.ac.tazkia.registration.registrasimahasiswa.service.TagihanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,6 +41,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -65,6 +70,45 @@ public class RegistrasiDetailController {
 
      @Value("classpath:kartu-ujian-pasca.odt")
     private Resource templateKartuUjianPasca;
+
+    @GetMapping("/api/nim")
+    @ResponseBody
+    public Iterable<NimDto> findByNimDanStatus(){
+       Iterable<DetailPendaftar> detailPendaftars  =  detailPendaftarDao.findByNimNotNullAndStatus(StatusTagihan.N);
+       List<NimDto> nimDtos = new ArrayList<>();
+
+        BeanUtils.copyProperties(nimDtos, detailPendaftars);
+
+        for (DetailPendaftar detailPendaftar : detailPendaftars) {
+            NimDto nimDto = new NimDto();
+            nimDto.setNama(detailPendaftar.getPendaftar().getNama());
+            nimDto.setNim(detailPendaftar.getNim());
+            nimDto.setStatus(detailPendaftar.getStatus());
+            nimDtos.add(nimDto);
+        }
+        return nimDtos;
+    }
+
+    @GetMapping("/api/update/nim")
+    @ResponseBody
+    public Iterable<NimDto> updateNim(@RequestParam(required = false) String nim, Pageable page){
+        List<DetailPendaftar> detailPendaftars =  detailPendaftarDao.findByNimAndStatus(nim, StatusTagihan.N);
+        List<NimDto> nimDtos = new ArrayList<>();
+        BeanUtils.copyProperties(nimDtos, detailPendaftars);
+
+
+        for (DetailPendaftar detailPendaftar : detailPendaftars) {
+            detailPendaftar.setStatus(StatusTagihan.Y);
+            detailPendaftarDao.save(detailPendaftar);
+            NimDto nimDto = new NimDto();
+            nimDto.setNama(detailPendaftar.getPendaftar().getNama());
+            nimDto.setNim(detailPendaftar.getNim());
+            nimDto.setStatus(detailPendaftar.getStatus());
+            nimDtos.add(nimDto);
+        }
+        return nimDtos;
+
+    }
 
     @ModelAttribute("pendidikanOrtu")
     public Iterable<Pendidikan> pendidikanOrtu(){return pendidikanDao.findAll();}

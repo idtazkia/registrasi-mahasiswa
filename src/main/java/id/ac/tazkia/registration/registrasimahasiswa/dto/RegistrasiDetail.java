@@ -59,6 +59,7 @@ public class RegistrasiDetail {
     private String negara;
     private String namaAsalSekolah;
     private ProgramStudi prodiLama;
+    private ProgramStudi status;
 
 
 }
