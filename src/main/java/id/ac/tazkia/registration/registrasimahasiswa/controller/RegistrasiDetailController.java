@@ -73,8 +73,8 @@ public class RegistrasiDetailController {
 
     @GetMapping("/api/nim")
     @ResponseBody
-    public Iterable<NimDto> findByNimDanStatus(){
-       Iterable<DetailPendaftar> detailPendaftars  =  detailPendaftarDao.findByNimNotNullAndStatus(StatusTagihan.N);
+    public Iterable<NimDto> findByNimDanStatus(@RequestParam(required = false) StatusTagihan status){
+       Iterable<DetailPendaftar> detailPendaftars  =  detailPendaftarDao.findByNimNotNullAndStatus(status);
        List<NimDto> nimDtos = new ArrayList<>();
 
         BeanUtils.copyProperties(nimDtos, detailPendaftars);
@@ -83,6 +83,7 @@ public class RegistrasiDetailController {
             NimDto nimDto = new NimDto();
             nimDto.setNama(detailPendaftar.getPendaftar().getNama());
             nimDto.setNim(detailPendaftar.getNim());
+            nimDto.setJenisKelamin(detailPendaftar.getJenisKelamin());
             nimDto.setStatus(detailPendaftar.getStatus());
             nimDtos.add(nimDto);
         }
@@ -103,6 +104,7 @@ public class RegistrasiDetailController {
             NimDto nimDto = new NimDto();
             nimDto.setNama(detailPendaftar.getPendaftar().getNama());
             nimDto.setNim(detailPendaftar.getNim());
+            nimDto.setJenisKelamin(detailPendaftar.getJenisKelamin());
             nimDto.setStatus(detailPendaftar.getStatus());
             nimDtos.add(nimDto);
         }

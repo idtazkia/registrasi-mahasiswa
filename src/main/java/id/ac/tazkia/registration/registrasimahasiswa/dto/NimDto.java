@@ -8,5 +8,6 @@ public class NimDto {
 
     private String nama;
     private String nim;
+    private String jenisKelamin;
     private StatusTagihan status;
 }
