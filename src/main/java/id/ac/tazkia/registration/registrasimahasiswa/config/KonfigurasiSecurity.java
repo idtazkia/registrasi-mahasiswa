@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -71,6 +72,8 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registrasi/smart/form").hasAuthority("VIEW_MASTER")
                 .antMatchers("/tagihan/list").hasAuthority("VIEW_FINANCE")
                 .antMatchers("/biaya/pembayaran/form").hasAuthority("VIEW_FINANCE")
+                .antMatchers("/api/nim*").hasAuthority("VIEW_API")
+                .antMatchers("/api/update/nim*").hasAuthority("VIEW_API")
                 .anyRequest().authenticated()
                 .and().logout().permitAll()
                 .and().formLogin().defaultSuccessUrl("/home")
@@ -96,8 +99,6 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/favicon.ico")
                 .antMatchers("/api/kokabawal*")
                 .antMatchers("/api/sekolah*")
-                .antMatchers("/api/nim*")
-                .antMatchers("/api/update/nim")
                 .antMatchers("/info")
                 .antMatchers("/js/**")
                 .antMatchers("/img/*")
@@ -135,5 +136,18 @@ public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(bcryptStrength);
     }
 
+
+    @Configuration
+    @Order(1)
+    public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .antMatcher("/api/**")
+                    .authorizeRequests()
+                    .anyRequest().hasAnyAuthority("VIEW_API")
+                    .and()
+                    .httpBasic();
+        }
+    }
 }
 

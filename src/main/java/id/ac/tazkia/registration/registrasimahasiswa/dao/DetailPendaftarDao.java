@@ -2,7 +2,6 @@ package id.ac.tazkia.registration.registrasimahasiswa.dao;
 
 import id.ac.tazkia.registration.registrasimahasiswa.dto.NimDto;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.DetailPendaftar;
-import id.ac.tazkia.registration.registrasimahasiswa.entity.Pembayaran;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.Pendaftar;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.StatusTagihan;
 import org.springframework.data.domain.Page;
@@ -24,6 +23,9 @@ public interface DetailPendaftarDao extends PagingAndSortingRepository<DetailPen
 
     Long countDetailPendaftarByPendaftarNotNull();
 
-    Iterable<DetailPendaftar> findByNimNotNullAndStatus(StatusTagihan status);
+
+    @Query("select new id.ac.tazkia.registration.registrasimahasiswa.dto.NimDto(d.pendaftar.nama, d.nim, d.jenisKelamin, d.status) from DetailPendaftar d where d.nim is not null and d.status = :status")
+    Iterable<NimDto> cariNimDtoByStatus(@Param("status") StatusTagihan status);
+
     List<DetailPendaftar> findByNimAndStatus(String nim, StatusTagihan status);
 }

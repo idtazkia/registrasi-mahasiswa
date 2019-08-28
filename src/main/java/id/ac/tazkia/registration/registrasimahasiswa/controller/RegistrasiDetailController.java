@@ -19,13 +19,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +35,6 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
@@ -74,20 +71,8 @@ public class RegistrasiDetailController {
     @GetMapping("/api/nim")
     @ResponseBody
     public Iterable<NimDto> findByNimDanStatus(@RequestParam(required = false) StatusTagihan status){
-       Iterable<DetailPendaftar> detailPendaftars  =  detailPendaftarDao.findByNimNotNullAndStatus(status);
-       List<NimDto> nimDtos = new ArrayList<>();
+        return detailPendaftarDao.cariNimDtoByStatus(status);
 
-        BeanUtils.copyProperties(nimDtos, detailPendaftars);
-
-        for (DetailPendaftar detailPendaftar : detailPendaftars) {
-            NimDto nimDto = new NimDto();
-            nimDto.setNama(detailPendaftar.getPendaftar().getNama());
-            nimDto.setNim(detailPendaftar.getNim());
-            nimDto.setJenisKelamin(detailPendaftar.getJenisKelamin());
-            nimDto.setStatus(detailPendaftar.getStatus());
-            nimDtos.add(nimDto);
-        }
-        return nimDtos;
     }
 
     @GetMapping("/api/update/nim")
