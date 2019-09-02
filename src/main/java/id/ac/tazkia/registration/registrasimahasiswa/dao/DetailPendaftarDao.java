@@ -24,7 +24,7 @@ public interface DetailPendaftarDao extends PagingAndSortingRepository<DetailPen
     Long countDetailPendaftarByPendaftarNotNull();
 
 
-    @Query("select new id.ac.tazkia.registration.registrasimahasiswa.dto.NimDto(d.pendaftar.nama, d.nim, d.jenisKelamin, d.status) from DetailPendaftar d where d.nim is not null and d.status = :status")
+    @Query("select new id.ac.tazkia.registration.registrasimahasiswa.dto.NimDto(d.pendaftar.nama, d.nim, d.jenisKelamin, d.status, 0) from DetailPendaftar d where d.nim is not null and d.status = :status")
     Iterable<NimDto> cariNimDtoByStatus(@Param("status") StatusTagihan status);
 
     List<DetailPendaftar> findByNimAndStatus(String nim, StatusTagihan status);

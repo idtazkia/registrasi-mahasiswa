@@ -12,4 +12,5 @@ public class NimDto {
     private String nim;
     private String jenisKelamin;
     private StatusTagihan status;
+    private Integer jumlah;
 }

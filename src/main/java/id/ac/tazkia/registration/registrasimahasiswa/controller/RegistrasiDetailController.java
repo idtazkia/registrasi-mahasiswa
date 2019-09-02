@@ -13,6 +13,7 @@ import id.ac.tazkia.registration.registrasimahasiswa.dto.RegistrasiDetail;
 import id.ac.tazkia.registration.registrasimahasiswa.entity.*;
 import id.ac.tazkia.registration.registrasimahasiswa.service.NotifikasiService;
 import id.ac.tazkia.registration.registrasimahasiswa.service.TagihanService;
+import org.apache.commons.collections4.IterableUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -71,7 +72,20 @@ public class RegistrasiDetailController {
     @GetMapping("/api/nim")
     @ResponseBody
     public Iterable<NimDto> findByNimDanStatus(@RequestParam(required = false) StatusTagihan status){
-        return detailPendaftarDao.cariNimDtoByStatus(status);
+        List<NimDto> nimDtos = new ArrayList<>();
+        Iterable<NimDto> detailPendaftar = detailPendaftarDao.cariNimDtoByStatus(status);
+
+        Integer jumlah =  IterableUtils.size(detailPendaftar);
+
+        for (NimDto nimDto : detailPendaftar){
+            BeanUtils.copyProperties(nimDto,nimDto);
+            nimDto.setJumlah(jumlah);
+            nimDtos.add(nimDto);
+
+        }
+
+
+        return detailPendaftar;
 
     }
 
