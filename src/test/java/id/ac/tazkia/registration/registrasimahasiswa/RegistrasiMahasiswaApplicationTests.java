@@ -15,8 +15,8 @@ public class RegistrasiMahasiswaApplicationTests {
 
 	@Test
 	public void encodePassword() {
-		System.out.println("123 : ["+passwordEncoder.encode("123")+"]");
-		System.out.println("1234 : ["+passwordEncoder.encode("123")+"]");
+		System.out.println("akad123 : ["+passwordEncoder.encode("akad123")+"]");
+//		System.out.println("1234 : ["+passwordEncoder.encode("123")+"]");
 	}
 
 }
